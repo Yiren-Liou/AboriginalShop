@@ -30,4 +30,5 @@ app.use(VueLoading);
 app.component('Form', Form);
 app.component('Field', Field);
 app.component('ErrorMessage', ErrorMessage);
+app.component('Loading', VueLoading);
 app.mount('#app');
