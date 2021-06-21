@@ -39,11 +39,9 @@
     </div>
   </div>
   <Loading :active="isLoading">
-    <div class="loadingio-spinner-dual-ball-0idtpn0k7ada">
-      <div class="ldio-28eceuefbru">
-        <div></div><div></div><div></div>
-      </div>
-     </div>
+    <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
+    <div></div><div></div><div></div>
+    </div></div>
   </Loading>
 
 </template>
