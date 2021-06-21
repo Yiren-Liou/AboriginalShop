@@ -254,8 +254,9 @@ $spacers: (
   2: $spacer / 2,  // 8
   3: $spacer,      // 16
   4: $spacer * 1.5,  // 24
-  5: $spacer * 3,  // 48
-  6: $spacer *10,  // 80
+  5: $spacer * 2,  // 32  // 5: $spacer * 3,  
+  6: $spacer * 3,  // 48
+  7: $spacer * 10,  // 80
 ) !default;
 
 $negative-spacers: if($enable-negative-margins, negativify-map($spacers), null) !default;
@@ -286,11 +287,11 @@ $body-text-align:           null !default;
 //
 // Style anchor elements.
 
-$link-color:                              $primary !default;
-$link-decoration:                         underline !default;
+$link-color:                              $dark; // $primary !default;
+$link-decoration:                         none; // underline !default;
 $link-shade-percentage:                   20% !default;
 $link-hover-color:                        shift-color($link-color, $link-shade-percentage) !default;
-$link-hover-decoration:                   null !default;
+$link-hover-decoration:                   underline; // null !default;
 
 $stretched-link-pseudo-element:           after !default;
 $stretched-link-z-index:                  1 !default;

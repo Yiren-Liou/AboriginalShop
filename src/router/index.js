@@ -1,27 +1,44 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import Home from '../views/Home.vue';
 
 const routes = [
   {
+    // path: '/login',
     path: '/',
-    name: 'Home',
-    component: Home,
-  },
-  {
-    path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue'),
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    path: '/admin',
+    name: 'admin',
+    component: () => import('../views/admin/Layout.vue'),
+    children: [
+      {
+        path: 'products',
+        name: 'AdminProducts',
+        component: () => import('../views/admin/AdminProducts.vue'),
+      },
+      {
+        path: 'orders',
+        name: 'AdminOrders',
+        component: () => import('../views/admin/AdminOrders.vue'),
+      },
+      {
+        path: 'coupon',
+        name: 'AdminCoupon',
+        component: () => import('../views/admin/AdminCoupon.vue'),
+      },
+    ],
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: () => import('../views/NotFound.vue'),
   },
 ];
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+  linkActiveClass: 'active',
 });
 
 export default router;

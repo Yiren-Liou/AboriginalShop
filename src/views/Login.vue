@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-5 g-0">
-        <div class="bg-center bg-cover img-fluid vh100" style="background-image: url(https://images.unsplash.com/photo-1590779033100-9f60a05a013d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80)"></div>
+        <div class="bg-center bg-cover img-fluid vh100" style="background-image: url(https://images.unsplash.com/photo-1604186838347-9faaf0b83be8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80)"></div>
       </div>
       <div class="col">
         <div class="d-flex justify-content-center align-items-center vh100">
@@ -69,7 +69,7 @@ export default {
             document.cookie = `hexToken=${token}; expires=${new Date(expired)}; path=/`;
             this.isLoading = false;
             this.$swal({ text: res.data.message, icon: 'success' });
-            // this.$router.push('./Home.vue');
+            this.$router.push('/admin/products');
           } else {
             this.isLoading = false;
             this.$swal({ text: res.data.message, icon: 'error' });
