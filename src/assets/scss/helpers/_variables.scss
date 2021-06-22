@@ -290,7 +290,7 @@ $body-text-align:           null !default;
 $link-color:                              $dark; // $primary !default;
 $link-decoration:                         none; // underline !default;
 $link-shade-percentage:                   20% !default;
-$link-hover-color:                        shift-color($link-color, $link-shade-percentage) !default;
+$link-hover-color:                        $red; // shift-color($link-color, $link-shade-percentage) !default;
 $link-hover-decoration:                   underline; // null !default;
 
 $stretched-link-pseudo-element:           after !default;

@@ -69,7 +69,7 @@ export default {
             document.cookie = `hexToken=${token}; expires=${new Date(expired)}; path=/`;
             this.isLoading = false;
             this.$swal({ text: res.data.message, icon: 'success' });
-            this.$router.push('/admin/products');
+            this.$router.push({ name: 'AdminProducts' });
           } else {
             this.isLoading = false;
             this.$swal({ text: res.data.message, icon: 'error' });

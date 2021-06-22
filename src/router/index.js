@@ -10,12 +10,18 @@ const routes = [
   {
     path: '/admin',
     name: 'admin',
+    redirect: '/admin/products',
     component: () => import('../views/admin/Layout.vue'),
     children: [
       {
         path: 'products',
         name: 'AdminProducts',
         component: () => import('../views/admin/AdminProducts.vue'),
+      },
+      {
+        path: 'products/addProduct',
+        name: 'addProduct',
+        component: () => import('../views/admin/products/AddProducts.vue'),
       },
       {
         path: 'orders',

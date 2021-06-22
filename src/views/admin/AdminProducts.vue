@@ -1,18 +1,14 @@
 <template>
   <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mb-3">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item">
-        <p class="mb-0">商品</p>
-      </li>
-      <li class="breadcrumb-item active" aria-current="page">
-        <router-link to='/admin/products'>全部商品</router-link>
-      </li>
+      <li class="breadcrumb-item">商品</li>
+      <li class="breadcrumb-item active">全部商品</li>
     </ol>
   </nav>
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <button class="btn btn-primary d-flex align-items-center">
-      <span class="material-icons me-2">add</span>新增商品
-    </button>
+    <router-link to="/admin/products/addProduct" class="btn btn-primary d-flex align-items-center">
+        <span class="material-icons me-2">add</span>新增商品
+    </router-link>
     <div class="d-flex">
       <Search class="me-2"></Search>
       <Filter></Filter>
@@ -111,9 +107,11 @@ export default {
             this.productData = res.data.products;
             this.tempData.data = { imagesUrl: [] };
             this.pagination = res.data.pagination;
+            this.isLoading = false;
           } else {
             console.log(res.data.message);
             this.$swal({ text: res.data.message, icon: 'error' });
+            this.isLoading = false;
           }
         })
         .catch((err) => {
@@ -186,7 +184,7 @@ export default {
     },
   },
   mounted() {
-    console.log(this);
+    this.isLoading = true;
     this.getProducts();
   },
 };
