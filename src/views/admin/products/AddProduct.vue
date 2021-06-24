@@ -81,13 +81,13 @@
   </div>
   <h2 class="fontSizeM text-center border-bottom pb-2 mb-3">商品圖片</h2>
   <div class="row mb-6">
-    <div class="col-md-4">
+    <!-- <div class="col-md-4">
        <div class="mb-3">
         <label for="productMainImg" class="form-label">商品首圖<sup>*</sup></label>
         <input type="file" class="form-control" id="productMainImg">
         <div class="img-fluid"></div>
       </div>
-    </div>
+    </div> -->
     <SubContentImg></SubContentImg>
   </div>
   <h2 class="fontSizeM text-center border-bottom pb-2 mb-3">推薦商品</h2>
