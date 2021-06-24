@@ -49,7 +49,7 @@
           <router-link to="/admin/products" class="material-icons btn">remove_red_eye</router-link>
         </td>
         <td class="text-center">
-          <router-link to="/admin/products" @click="getProduct('edit', item)"
+          <router-link :to="`products/${item.id}`" @click="getProduct(item)"
                       class="material-icons btn">edit
           </router-link>
         </td>
@@ -118,27 +118,15 @@ export default {
           console.dir(err);
         });
     },
-    getProduct(status, e) {
+    getProduct(e) {
       this.tempData.data = {
         imagesUrl: [],
       };
-      switch (status) {
-        case 'edit':
-          this.tempData.data = JSON.parse(JSON.stringify(e));
-          if (this.tempData.data.imagesUrl === undefined) {
-            this.tempData.data.imagesUrl = [];
-          }
-          this.updateStatusText = '編輯';
-          this.$refs.productModal.product = this.tempData.data;
-          this.$refs.productModal.openModal();
-          break;
-        case 'add':
-          this.updateStatusText = '新增';
-          this.$refs.productModal.openModal();
-          break;
-        default:
-          break;
+      this.tempData.data = JSON.parse(JSON.stringify(e));
+      if (this.tempData.data.imagesUrl === undefined) {
+        this.tempData.data.imagesUrl = [];
       }
+      // this.emitter.emit('emit-product', this.tempData.data);
     },
     updateData(status, tempData) {
       this.isLoading = true;
