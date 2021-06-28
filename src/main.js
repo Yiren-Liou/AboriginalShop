@@ -1,4 +1,5 @@
 import { createApp } from 'vue';
+import 'bootstrap';
 import {
   Field, Form, ErrorMessage, defineRule, configure,
 } from 'vee-validate';
@@ -9,6 +10,7 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueSweetalert2 from 'vue-sweetalert2';
 import VueLoading from 'vue-loading-overlay';
+import toCurrency from './methods/toCurrency';
 import App from './App.vue';
 import router from './router';
 
@@ -23,6 +25,7 @@ configure({
 setLocale('zh_TW');
 
 const app = createApp(App);
+app.config.globalProperties.$toCurrency = toCurrency;
 app.use(router);
 app.use(VueAxios, axios);
 app.use(VueSweetalert2);

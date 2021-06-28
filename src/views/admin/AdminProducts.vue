@@ -39,8 +39,8 @@
         </td>
         <td>{{ item.title }}</td>
         <td>{{ item.category }}</td>
-        <td class="text-center">NT {{ item.origin_price.toLocaleString() }}</td>
-        <td class="text-center">NT {{ item.price.toLocaleString() }}</td>
+        <td class="text-center">NT {{ $toCurrency(item.origin_price) }}</td>
+        <td class="text-center">NT {{ $toCurrency(item.price )}}</td>
         <td class="text-center">
           <p v-if="item.is_enabled" class="fw-bold text-warning mb-0">已上架</p>
           <p v-else class="mb-0">未上架</p>
@@ -109,7 +109,6 @@ export default {
             this.pagination = res.data.pagination;
             this.isLoading = false;
           } else {
-            console.log(res.data.message);
             this.$swal({ text: res.data.message, icon: 'error' });
             this.isLoading = false;
           }
@@ -126,7 +125,6 @@ export default {
       if (this.tempData.data.imagesUrl === undefined) {
         this.tempData.data.imagesUrl = [];
       }
-      // this.emitter.emit('emit-product', this.tempData.data);
     },
     updateData(status, tempData) {
       this.isLoading = true;

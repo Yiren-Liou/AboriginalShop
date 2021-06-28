@@ -11,10 +11,10 @@
 }
 
 .fontSizeM{
-  font-size: $font-size-sm;
+  font-size: $font-size-base * 2;
 }
 .fontSizeL{
-  font-size: $font-size-lg;
+  font-size: $font-size-base * 3;
 }
 
 .text-strike{
