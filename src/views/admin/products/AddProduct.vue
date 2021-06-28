@@ -126,7 +126,7 @@
     </div>
     <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
       <div class="row">
-        <ImagesInput></ImagesInput>
+        <ImagesInput @emit-images="getImages"></ImagesInput>
       </div>
     </div>
     <div class="tab-pane fade" id="recommend" role="tabpanel" aria-labelledby="recommend-tab">
@@ -243,6 +243,9 @@ export default {
     getRecommend(list) {
       this.product.recommendList = list;
       console.log(this.product.recommendList);
+    },
+    getImages(img) {
+      this.product.imagesUrl = img;
     },
   },
 };
