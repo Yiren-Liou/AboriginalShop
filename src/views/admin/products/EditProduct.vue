@@ -175,7 +175,7 @@
   </div>
   <div v-else class="d-flex justify-content-end">
     <div class="d-flex">
-      <button @click="this.$router.push(`/admin/products/${productInfo.id}`)"
+      <button @click="cancelEdit()"
               class="btn btn-primary d-flex align-items-center me-3">
         <span class="material-icons me-2">close</span>取消
       </button>
@@ -206,6 +206,10 @@ export default {
     CategorySelect,
   },
   methods: {
+    cancelEdit() {
+      this.productInfo = {};
+      this.$router.push('/admin/products');
+    },
     getProduct() {
       const { id } = this.$route.params;
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/product/${id}`;

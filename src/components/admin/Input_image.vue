@@ -24,7 +24,7 @@
     </div>
   </div>
   <div class="col-md-4 mx-auto d-flex justify-content-center mt-3">
-    <button type="button" class="btn btn-primary" @click="emitImages()">確認上傳</button>
+    <button type="button" class="btn btn-primary" @click="emitImages()">上傳</button>
   </div>
   <Loading :active="isLoading">
     <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
@@ -45,9 +45,9 @@ export default {
   methods: {
     emitImages() {
       // 驗證
-      const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
-      this.$http.defaults.headers.common.Authorization = token;
-      // api
+      // const token =
+      // document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+      // this.$http.defaults.headers.common.Authorization = token;
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/upload`;
       const temp = document.querySelectorAll('.imgInput');
       temp.forEach((item) => {
@@ -74,6 +74,14 @@ export default {
           .catch((err) => {
             console.dir(err);
           });
+      });
+    },
+    check() {
+      const temp = document.querySelectorAll('.imgInput');
+      temp.forEach((item) => {
+        if (item.value === '') {
+          item.classList.add('border-danger', 'shadow');
+        }
       });
     },
   },

@@ -31,7 +31,7 @@
               :value=item>{{ item }}
       </option>
     </select>
-    <select v-else id="subCategory" class="form-select" v-model="subIndex">
+    <select v-else id="subCategory" class="form-select" v-model="subIndex" @change="emitCategory()">
       <option value="" disabled>請選擇一個次分類</option>
       <option v-for="(item) in sub" :key=item
               :value=item>{{ item }}
@@ -58,6 +58,7 @@ export default {
     };
   },
   props: ['isEdit', 'editMain', 'editSub'],
+  emits: ['emit-category'],
   watch: {
     editMain() {
       this.tempMain = this.editMain;
@@ -89,9 +90,9 @@ export default {
       this.subIndex = '';
     },
     emitCategory() {
-      const mainCategoryValue = document.querySelector('#mainCategory');
-      const subCategoryValue = document.querySelector('#subCategory');
-      this.$emit(mainCategoryValue, subCategoryValue);
+      const mainCategoryValue = document.querySelector('#mainCategory').value;
+      const subCategoryValue = document.querySelector('#subCategory').value;
+      this.$emit('emit-category', mainCategoryValue, subCategoryValue);
     },
   },
   created() {

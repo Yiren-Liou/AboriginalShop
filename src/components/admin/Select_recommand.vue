@@ -13,8 +13,11 @@
       </select>
     </div>
   </div>
-  <button type="button" class="btn btn-warning"
-          @click="emitRecommendList()">確定</button>
+  <div class="col-md-4 mx-auto d-flex justify-content-center mt-3">
+    <button type="button" class="btn btn-primary" @click="emitRecommendList()">
+      儲存
+    </button>
+  </div>
 </template>
 
 <script>
