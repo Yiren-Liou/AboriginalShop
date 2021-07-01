@@ -165,7 +165,7 @@
     </div>
     <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
       <div class="row">
-        <ImagesInput @emit-images="getImages"></ImagesInput>
+        <ImagesInput @emit-images="getImages" :add="isAdd"></ImagesInput>
       </div>
     </div>
     <div class="tab-pane fade" id="recommend" role="tabpanel" aria-labelledby="recommend-tab">

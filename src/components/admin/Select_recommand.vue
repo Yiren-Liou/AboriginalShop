@@ -13,7 +13,7 @@
       </select>
     </div>
   </div>
-  <div class="col-md-4 mx-auto d-flex justify-content-center mt-3">
+  <div v-if="readonly" class="col-md-4 mx-auto d-flex justify-content-center mt-3">
     <button type="button" class="btn btn-primary" @click="emitRecommendList()">
       儲存
     </button>
@@ -28,6 +28,7 @@ export default {
       recommendList: [],
     };
   },
+  props: ['readonly'],
   emits: ['emit-recommend'],
   methods: {
     getProducts() {

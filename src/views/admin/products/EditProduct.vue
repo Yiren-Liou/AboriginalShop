@@ -9,19 +9,19 @@
         {{ productInfo.title }}
       </li>
       <li v-else class="breadcrumb-item active">{{ productInfo.title }}</li>
-      <li v-if="readonly == 'edit'" class="breadcrumb-item active">編輯</li>
+      <li v-if="!readonly" class="breadcrumb-item active">編輯</li>
     </ol>
   </nav>
   <div v-if="readonly" class="d-flex justify-content-end mb-3">
-    <button class="btn btn-primary btn-sm d-flex align-items-center me-3" @click="returnToProducts">
-      返回
-    </button>
+    <router-link to='/admin/products'
+                  class="btn btn-primary btn-sm d-flex align-items-center me-3">返回
+    </router-link>
     <button class="btn btn-primary btn-sm d-flex align-items-center" @click="edit()">
       編輯
     </button>
   </div>
     <div v-else class="d-flex justify-content-end mb-3">
-    <button class="btn btn-primary btn-sm d-flex align-items-center me-3" @click="returnToProducts">
+    <button class="btn btn-primary btn-sm d-flex align-items-center me-3" @click="cancelEdit">
       取消
     </button>
     <button class="btn btn-primary btn-sm d-flex align-items-center" @click="read()">
@@ -136,7 +136,7 @@
               </IsEnabledSelect>
             </div>
           </div>
-          <div class="col-md-4 mx-auto d-flex justify-content-center mt-3">
+          <div v-if="!readonly" class="col-md-4 mx-auto d-flex justify-content-center mt-3">
             <button type="submit" class="btn btn-primary">
               儲存
             </button>
@@ -185,7 +185,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 mx-auto d-flex justify-content-center mt-3">
+        <div v-if="!readonly" class="col-md-4 mx-auto d-flex justify-content-center mt-3">
           <button type="submit" class="btn btn-primary">
             儲存
           </button>
@@ -194,7 +194,10 @@
     </div>
     <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
       <div class="row">
-        <!-- <ImagesInput></ImagesInput> -->
+        <ImagesInput :product-images='productInfo.imagesUrl'
+                     :readonly="readonly"
+                     @emit-images="getImages">
+        </ImagesInput>
       </div>
     </div>
     <div class="tab-pane fade" id="recommend" role="tabpanel" aria-labelledby="recommend-tab">
@@ -213,9 +216,8 @@
 <script>
 import CategorySelect from '@/components/admin/Select_productCategory.vue';
 import IsEnabledSelect from '@/components/admin/Select_isEnabled.vue';
-// import ImagesInput from '@/components/admin/Input_image.vue';
+import ImagesInput from '@/components/admin/Input_image.vue';
 // import Recommended from '@/components/admin/Select_recommand.vue';
-// import emitter from '@/methods/emitter';
 
 export default {
   data() {
@@ -229,13 +231,14 @@ export default {
   components: {
     CategorySelect,
     IsEnabledSelect,
-    // ImagesInput,
+    ImagesInput,
     // Recommended,
   },
   methods: {
     cancelEdit() {
-      this.productInfo = {};
-      this.$router.push('/admin/products');
+      this.isLoading = true;
+      this.readonly = true;
+      this.getProduct();
     },
     getProduct() {
       const { id } = this.$route.params;
@@ -284,11 +287,6 @@ export default {
   mounted() {
     this.isLoading = true;
     this.getProduct();
-    // this.$emitter.on('push-is-edit', (status) => {
-    //   this.readonly = status;
-    //   console.log(this.readonly);
-    //   console.log(typeof (this.readonly));
-    // });
   },
 };
 </script>
