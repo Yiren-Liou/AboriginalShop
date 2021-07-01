@@ -6,7 +6,8 @@
     </ol>
   </nav>
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <router-link to="/admin/products/addProduct" class="btn btn-primary d-flex align-items-center">
+    <router-link to="/admin/products/addProduct"
+                  class="btn btn-primary d-flex align-items-center">
         <span class="material-icons me-2">add</span>新增商品
     </router-link>
     <div class="d-flex">
@@ -46,11 +47,13 @@
           <p v-else class="mb-0">未上架</p>
         </td>
         <td>
-          <router-link to="/admin/products" class="material-icons btn">remove_red_eye</router-link>
+          <router-link :to="`products/${item.id}`" class="material-icons btn"
+                       @click="pushIsEdit(true)">remove_red_eye
+          </router-link>
         </td>
         <td class="text-center">
-          <router-link :to="`products/${item.id}`" @click="getProduct(item)"
-                      class="material-icons btn">edit
+          <router-link :to="`products/${item.id}`" class="material-icons btn"
+                        @click="pushIsEdit(false)">edit
           </router-link>
         </td>
         <td class="text-center">
@@ -75,6 +78,7 @@ import Pagination from '@/components/Pagination.vue';
 import Search from '@/components/Search.vue';
 import Filter from '@/components/admin/Filter.vue';
 import FeatureBtns from '@/components/admin/FeatureBtns.vue';
+// import emitter from '@/methods/emitter';
 
 export default {
   data() {
@@ -127,7 +131,7 @@ export default {
         this.tempData.data.imagesUrl = [];
       }
     },
-    updateData(status, tempData) {
+    showProduct(status, tempData) {
       this.isLoading = true;
       let apiUrl = '';
       let apiMethod = '';
@@ -168,6 +172,9 @@ export default {
         }).catch((err) => {
           console.dir(err);
         });
+    },
+    pushIsEdit(status) {
+      this.$emitter.emit('push-is-edit', status);
     },
   },
   mounted() {

@@ -1,40 +1,38 @@
 <template>
   <div class="col-md-6 mb-3">
     <label for="mainCategory" class="form-label">分類<sup>*</sup></label>
-    <select v-if='isEdit == "readonly"' id="mainCategory" class="form-select" disabled>
-      <option :value="editMain">{{ editMain }}</option>
-    </select>
-    <select v-else-if='isEdit == "edit"' id="mainCategory" class="form-select"
-            v-model="tempMain" @change="changeIndex">
-      <option value="" disabled>請選擇一個分類</option>
-      <option v-for="(item) in mainCategory" :key=item :value=item>
-        {{ item === editMain? editMain : item }}
-      </option>
-    </select>
-    <select v-else id="mainCategory" class="form-select"
+      <select v-if="add" id="mainCategory" class="form-select"
             v-model="mainIndex" @change="resetSubIndex">
       <option value="" disabled>請選擇一個分類</option>
       <option v-for="(item) in mainCategory"
       :key=item :value=item> {{ item }} </option>
     </select>
+    <select v-else id="mainCategory" class="form-select"
+            :disabled="isReadonly"
+            v-model="tempMain" @change="resetSubIndex">
+      <option value="" disabled>請選擇一個分類</option>
+      <option v-for="(item) in mainCategory" :key='item'
+              :value='item' :selected="item === 'tempMain'">
+              {{ item }}
+      </option>
+    </select>
   </div>
   <div class="col-md-6 mb-3">
     <label for="subCategory" class="form-label">次分類<sup>*</sup></label>
-    <select v-if='isEdit == "readonly"' id="subCategory" class="form-select" disabled>
-      <option value="" disabled>請選擇一個次分類</option>
-      <option :value='editSub'>{{ editSub }}</option>
-    </select>
-    <select v-else-if='isEdit == "edit"' id="subCategory" class="form-select"
-            v-model="tempSub">
+    <select v-if="add" id="subCategory" class="form-select"
+            v-model="subIndex" @change="emitCategory()">
       <option value="" disabled>請選擇一個次分類</option>
       <option v-for="(item) in sub" :key=item
               :value=item>{{ item }}
       </option>
     </select>
-    <select v-else id="subCategory" class="form-select" v-model="subIndex" @change="emitCategory()">
+    <select v-else :disabled="isReadonly"
+            id="subCategory" class="form-select"
+            v-model="tempSub" @change="emitCategory()">
       <option value="" disabled>請選擇一個次分類</option>
-      <option v-for="(item) in sub" :key=item
-              :value=item>{{ item }}
+      <option v-for="(item) in sub" :key='item'
+              :value='item' :selected="item === 'tempSub'">
+              {{ item }}
       </option>
     </select>
   </div>
@@ -53,11 +51,10 @@ export default {
         沖泡飲品: ['茶葉', '咖啡'],
         手工編織: ['圍巾', '置物籃'],
       },
-      editMainTemp: '',
-      editSubTemp: '',
+      isReadonly: '',
     };
   },
-  props: ['isEdit', 'editMain', 'editSub'],
+  props: ['readonly', 'editMain', 'editSub', 'add'],
   emits: ['emit-category'],
   watch: {
     editMain() {
@@ -66,28 +63,27 @@ export default {
     editSub() {
       this.tempSub = this.editSub;
     },
+    readonly() {
+      this.isReadonly = this.readonly;
+    },
   },
   computed: {
     mainCategory() {
       return Object.keys(this.category);
     },
     sub() {
-      return this.category[this.mainIndex];
+      if (this.add) {
+        return this.category[this.mainIndex];
+      }
+      return this.category[this.tempMain];
     },
   },
   methods: {
-    changeIndex() {
-      Object.keys(this.category).forEach((item, i) => {
-        if (item === this.editMain) {
-          console.log(item, i);
-          this.mainIndex = i;
-        }
-      });
-      console.log(this.mainIndex);
-      this.resetSubIndex();
-    },
     resetSubIndex() {
-      this.subIndex = '';
+      if (this.add) {
+        this.subIndex = '';
+      }
+      this.tempSub = '';
     },
     emitCategory() {
       const mainCategoryValue = document.querySelector('#mainCategory').value;

@@ -46,6 +46,7 @@ export default {
         });
     },
     getRecommendList() {
+      this.recommendList = [];
       const recommendSelect = document.querySelectorAll('.recommendSelect');
       recommendSelect.forEach((item) => {
         const recommendItem = {

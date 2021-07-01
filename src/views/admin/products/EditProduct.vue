@@ -2,186 +2,200 @@
   <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mb-3">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">商品</li>
-      <li class="breadcrumb-item">全部商品</li>
-      <li v-if="isEdit == 'edit'" class="breadcrumb-item">
+      <li class="breadcrumb-item">
+        <router-link to='/admin/products'>全部商品</router-link>
+      </li>
+      <li v-if="readonly == 'edit'" class="breadcrumb-item">
         {{ productInfo.title }}
       </li>
       <li v-else class="breadcrumb-item active">{{ productInfo.title }}</li>
-      <li v-if="isEdit == 'edit'" class="breadcrumb-item active">編輯</li>
+      <li v-if="readonly == 'edit'" class="breadcrumb-item active">編輯</li>
     </ol>
   </nav>
-  <h2 class="fontSizeM text-center border-bottom pb-2 mb-3">商品資訊</h2>
-  <div class="row mb-6">
-    <div class="col-md-6">
-      <div class="mb-3">
-        <label for="productTitle" class="form-label">商品名稱<sup>*</sup></label>
-        <input type="text" class="form-control" id="productTitle" v-model='productInfo.title'>
-      </div>
-      <div class="mb-3">
-        <label for="productDescription" class="form-label">商品描述<sup>*</sup></label>
-        <textarea class="form-control" id="productDescription"
-                  v-model='productInfo.description' style="height: 210px">
-        </textarea>
-      </div>
+  <div v-if="readonly" class="d-flex justify-content-end mb-3">
+    <button class="btn btn-primary btn-sm d-flex align-items-center me-3" @click="returnToProducts">
+      返回
+    </button>
+    <button class="btn btn-primary btn-sm d-flex align-items-center" @click="edit()">
+      編輯
+    </button>
+  </div>
+    <div v-else class="d-flex justify-content-end mb-3">
+    <button class="btn btn-primary btn-sm d-flex align-items-center me-3" @click="returnToProducts">
+      取消
+    </button>
+    <button class="btn btn-primary btn-sm d-flex align-items-center" @click="read()">
+      確定
+    </button>
+  </div>
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="info-tab" type="button" role="tab"
+                data-bs-toggle="tab" data-bs-target="#info"
+                aria-controls="info" aria-selected="true">
+                商品資訊
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="content-tab" type="button" role="tab"
+              data-bs-toggle="tab" data-bs-target="#content"
+              aria-controls="content" aria-selected="false">
+              商品內容
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="images-tab" type="button" role="tab"
+              data-bs-toggle="tab" data-bs-target="#images"
+              aria-controls="images" aria-selected="false">
+              商品圖片
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="recommend-tab" type="button" role="tab"
+              data-bs-toggle="tab" data-bs-target="#recommend"
+              aria-controls="recommend" aria-selected="false">
+              推薦商品
+      </button>
+    </li>
+  </ul>
+  <div class="tab-content border-bottom p-4" id="myTabContent">
+    <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
+      <Form v-slot="{ errors }">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="productTitle" class="form-label">商品名稱<sup>*</sup></label>
+              <Field type="text" class="form-control disabled" id="productTitle"
+                    placeholder="請輸入商品標題" v-model="productInfo.title"
+                    name="商品名稱" rules="required"
+                    :class="{ 'is-invalid': errors['商品名稱'] }"
+                    :disabled="readonly">
+              </Field>
+              <error-message name="商品名稱" class="invalid-feedback"></error-message>
+            </div>
+            <div class="mb-3">
+              <label for="productDescription" class="form-label">商品描述<sup>*</sup></label>
+              <Field type="text" class="form-control" id="productDescription"
+                    placeholder="請輸入商品描述" v-model="productInfo.description"
+                    name="商品描述" rules="required" as="textarea"
+                    :class="{ 'is-invalid': errors['商品描述'] }"
+                    style="height: 210px"
+                    :disabled="readonly">
+              </Field>
+              <error-message name="商品描述" class="invalid-feedback"></error-message>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <CategorySelect :readonly="readonly"
+                              :edit-main="productInfo.category"
+                              :edit-sub="productInfo.subCategory"
+                              @emit-category='getCategory'></CategorySelect>
+              <div class="col-md-6 mb-3">
+                <label for="productOriPrice" class="form-label">原價<sup>*</sup></label>
+                <Field type="number" class="form-control" id="productOriPrice"
+                      placeholder="請輸入商品原價" v-model.number="productInfo.origin_price"
+                      name="商品原價" rules="min_value:1|required"
+                      :class="{ 'is-invalid': errors['商品原價'] }"
+                      :disabled="readonly">
+                </Field>
+                <error-message name="商品原價" class="invalid-feedback"></error-message>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="productPrice" class="form-label">售價<sup>*</sup></label>
+                <Field type="number" class="form-control" id="productPrice"
+                      placeholder="請輸入商品售價" v-model.number="productInfo.price"
+                      name="商品售價" rules="min_value:1|required"
+                      :class="{ 'is-invalid': errors['商品售價'] }"
+                      :disabled="readonly">
+                </Field>
+                <error-message name="商品售價" class="invalid-feedback"></error-message>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="productUnit" class="form-label">單位<sup>*</sup></label>
+                <Field type="text" class="form-control" id="productUnit"
+                      placeholder="請輸入商品單位" v-model="productInfo.unit"
+                      name="商品單位" rules="required"
+                      :class="{ 'is-invalid': errors['商品單位'] }"
+                      :disabled="readonly">
+                </Field>
+                <error-message name="商品單位" class="invalid-feedback"></error-message>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="coupon" class="form-label">適用折價券</label>
+                <select id="coupon" class="form-select"
+                        v-model="productInfo.coupons" :disabled="readonly">
+                  <option value="" disabled>請選擇一個折價券</option>
+                </select>
+              </div>
+              <!-- <IsEnabledSelect></IsEnabledSelect> -->
+            </div>
+          </div>
+          <div class="col-md-4 mx-auto d-flex justify-content-center mt-3">
+            <button type="submit" class="btn btn-primary">
+              儲存
+            </button>
+          </div>
+        </div>
+      </Form>
     </div>
-    <div class="col-md-6">
+    <div class="tab-pane fade" id="content" role="tabpanel" aria-labelledby="profile-tab">
+      <Form v-slot="{ errors }">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="productMainContent" class="form-label">
+                主要內容<span>( 搭配說明圖片1.2 )</span><sup>*</sup>
+              </label>
+              <Field type="text" class="form-control" id="productMainContent"
+                    placeholder="請輸入主要內容" v-model="productInfo.main_content"
+                    name="主要內容" rules="required" as="textarea"
+                    :class="{ 'is-invalid': errors['主要內容'] }"
+                     style="height: 172px"
+                     :disabled="readonly">
+              </Field>
+              <error-message name="主要內容" class="invalid-feedback"></error-message>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="productSubContent" class="form-label">
+                說明內容<span>( 搭配說明圖片3.4.5 )</span><sup>*</sup>
+              </label>
+              <Field type="text" class="form-control" id="productSubContent"
+                    placeholder="請輸入說明內容" v-model="productInfo.sub_content"
+                    name="說明內容" rules="required" as="textarea"
+                    :class="{ 'is-invalid': errors['說明內容'] }"
+                    :disabled="readonly">
+              </Field>
+              <error-message name="說明內容" class="invalid-feedback"></error-message>
+            </div>
+            <div class="mb-3">
+              <label for="productPrecautions" class="form-label">注意事項</label>
+              <textarea v-model="productInfo.precautions" class="form-control"
+                        id="productPrecautions"
+                        placeholder="請輸入注意事項"
+                        :disabled="readonly">
+              </textarea>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mx-auto d-flex justify-content-center mt-3">
+          <button type="submit" class="btn btn-primary">
+            儲存
+          </button>
+        </div>
+      </Form>
+    </div>
+    <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
       <div class="row">
-        <CategorySelect :isEdit='isEdit'
-                        :editMain='productInfo.category'
-                        :editSub='productInfo.subCategory'>
-        </CategorySelect>
-        <div class="col-md-6 mb-3">
-          <label for="productOriPrice" class="form-label">原價<sup>*</sup></label>
-          <input  v-model.number='productInfo.origin_price'
-                  type="number" class="form-control" id="productOriPrice">
-        </div>
-        <div class="col-md-6 mb-3">
-          <label for="productPrice" class="form-label">售價<sup>*</sup></label>
-          <input v-model.number='productInfo.price'
-                 type="number" class="form-control" id="productPrice">
-        </div>
-        <div class="col-md-6 mb-3">
-          <label for="productUnit" class="form-label">單位<sup>*</sup></label>
-          <input v-model='productInfo.unit'
-                 type="text" class="form-control" id="productUnit">
-        </div>
-        <div class="col-md-6 mb-3">
-          <label for="coupon" class="form-label">適用折價券</label>
-          <select id="coupon" class="form-select">
-            <option value="" selected>請選擇一個折價券</option>
-            <!-- <option v-for="(item, i) in subCategory" :key=item
-                    :value=i>{{ item }}
-            </option> -->
-          </select>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label for="productSellTime" class="form-label">上架時間</label>
-          <input type="date" class="form-control" id="productSellTime" placeholder="請輸入商品單位">
-        </div>
+        <!-- <ImagesInput></ImagesInput> -->
       </div>
     </div>
-  </div>
-  <h2 class="fontSizeM text-center border-bottom pb-2 mb-3">商品內容</h2>
-  <div class="row mb-6">
-    <div class="col">
-      <div class="mb-3">
-        <label for="productMainContent" class="form-label">
-          主要內容
-          <span>( 搭配說明圖片1.2 )</span>
-          <sup>*</sup>
-        </label>
-        <textarea class="form-control" id="productMainContent"
-                  placeholder="請輸入主要內容" style="height: 172px">
-        </textarea>
+    <div class="tab-pane fade" id="recommend" role="tabpanel" aria-labelledby="recommend-tab">
+      <div class="row">
+        <!-- <Recommended></Recommended> -->
       </div>
-    </div>
-    <div class="col">
-      <div class="mb-3">
-        <label for="productSubContent" class="form-label">
-          說明內容
-          <span>( 搭配說明圖片3.4.5 )</span>
-          <sup>*</sup>
-        </label>
-        <textarea class="form-control" id="productSubContent"
-                  placeholder="請輸入說明內容">
-        </textarea>
-      </div>
-      <div class="mb-3">
-        <label for="productPrecautions" class="form-label">注意事項</label>
-        <textarea class="form-control" id="productPrecautions"
-                  placeholder="請輸入注意事項">
-        </textarea>
-      </div>
-    </div>
-  </div>
-  <h2 class="fontSizeM text-center border-bottom pb-2 mb-3">商品圖片</h2>
-  <div class="row mb-6">
-    <div class="col-md-4">
-       <div class="mb-3">
-        <label for="productMainImg" class="form-label">商品首圖<sup>*</sup></label>
-        <input v-if="isEdit === 'edit'" type="file" class="form-control mb-3" id="productMainImg">
-        <div class="img-fluid editImg bg-cover bg-center"
-             :style="{ backgroundImage: 'url(' + productInfo.imageUrl + ')' }">
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4" v-for="(item, i) in productInfo.imagesUrl" :key=item>
-      <div class="mb-3">
-        <label for="productImg1" class="form-label">說明圖片{{ i + 1 }}<sup>*</sup></label>
-        <input v-if="isEdit === 'edit'" type="file" class="form-control mb-3" id="productImg1">
-        <div class="img-fluid editImg bg-cover bg-center"
-              :style="{ backgroundImage: 'url(' + item + ')' }">
-        </div>
-      </div>
-    </div>
-  </div>
-  <h2 class="fontSizeM text-center border-bottom pb-2 mb-3">推薦商品</h2>
-  <div class="row mb-6">
-    <div class="col-md-4">
-       <div class="mb-3">
-        <label for="recommendImg1" class="form-label">推薦商品1<sup>*</sup></label>
-        <select id="recommendImg1" class="form-select">
-          <option value="" selected>請選擇一個推薦商品</option>
-          <!-- <option v-for="(item, i) in subCategory" :key=item
-                  :value=i>{{ item }}
-          </option> -->
-        </select>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="mb-3">
-        <label for="recommendImg2" class="form-label">推薦商品2<sup>*</sup></label>
-        <select id="recommendImg2" class="form-select">
-          <option value="" selected>請選擇一個推薦商品</option>
-          <!-- <option v-for="(item, i) in subCategory" :key=item
-                  :value=i>{{ item }}
-          </option> -->
-        </select>
-        <div class="img-fluid"></div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="mb-3">
-        <label for="recommendImg3" class="form-label">推薦商品3<sup>*</sup></label>
-        <select id="recommendImg3" class="form-select">
-          <option value="" selected>請選擇一個推薦商品</option>
-          <!-- <option v-for="(item, i) in subCategory" :key=item
-                  :value=i>{{ item }}
-          </option> -->
-        </select>
-        <div class="img-fluid"></div>
-      </div>
-    </div>
-    <div v-if="isEdit == 'edit'" class="col-md-4 d-flex align-items-center">
-      <button class="btn btn-primary d-flex align-items-center me-2">
-        <span class="material-icons">add</span>
-        新增推薦商品
-      </button>
-      <strong class="me-2 text-danger">最多推薦 6 項商品喔!</strong>
-    </div>
-  </div>
-  <div v-if="isEdit == 'readonly'" class="d-flex justify-content-between">
-    <router-link class="btn btn-primary d-flex align-items-center me-3" to='/admin/products'>
-      <span class="material-icons me-2">redo</span>返回商品列表
-    </router-link>
-    <div class="d-flex">
-      <button class="btn btn-primary d-flex align-items-center me-3">
-        <span class="material-icons me-2">delete</span>刪除
-      </button>
-      <button class="btn btn-primary d-flex align-items-center" @click="edit">
-        <span class="material-icons me-2">edit</span>編輯
-      </button>
-    </div>
-  </div>
-  <div v-else class="d-flex justify-content-end">
-    <div class="d-flex">
-      <button @click="cancelEdit()"
-              class="btn btn-primary d-flex align-items-center me-3">
-        <span class="material-icons me-2">close</span>取消
-      </button>
-      <button class="btn btn-primary d-flex align-items-center" @click="edit">
-        <span class="material-icons me-2">check</span>確定修改
-      </button>
     </div>
   </div>
   <Loading :active="isLoading">
@@ -193,17 +207,25 @@
 
 <script>
 import CategorySelect from '@/components/admin/Select_productCategory.vue';
+// import IsEnabledSelect from '@/components/admin/Select_isEnabled.vue';
+// import ImagesInput from '@/components/admin/Input_image.vue';
+// import Recommended from '@/components/admin/Select_recommand.vue';
+// import emitter from '@/methods/emitter';
 
 export default {
   data() {
     return {
       productInfo: {},
-      isEdit: 'readonly',
+      updateProduct: {},
+      readonly: true,
       isLoading: false,
     };
   },
   components: {
     CategorySelect,
+    // IsEnabledSelect,
+    // ImagesInput,
+    // Recommended,
   },
   methods: {
     cancelEdit() {
@@ -217,6 +239,7 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.productInfo = res.data.product;
+            console.log(this.productInfo);
             this.isLoading = false;
           } else {
             this.isLoading = false;
@@ -227,28 +250,40 @@ export default {
           console.dir(err);
         });
     },
-    readonly() {
-      document.querySelectorAll('.form-control').forEach((item) => {
-        item.setAttribute('disabled', true);
-      });
-      document.querySelectorAll('.form-select').forEach((item) => {
-        item.setAttribute('disabled', true);
-      });
+    read() {
+      this.readonly = true;
+      console.log(this.readonly);
     },
     edit() {
-      this.isEdit = 'edit';
-      document.querySelectorAll('.form-control').forEach((item) => {
-        item.setAttribute('disabled', false);
-      });
-      document.querySelectorAll('.form-select').forEach((item) => {
-        item.setAttribute('disabled', false);
-      });
+      this.readonly = false;
+    },
+    update() {
+      this.read();
+    },
+    getCategory(mainCategoryValue, subCategoryValue) {
+      this.newProduct.category = mainCategoryValue;
+      this.newProduct.subCategory = subCategoryValue;
+    },
+    getIsEnabled(isSell, sellTime) {
+      this.newProduct.is_enabled = isSell;
+      this.newProduct.sell_time = sellTime;
+    },
+    getImages(img) {
+      this.newProduct.imagesUrl = img;
+      this.newProduct.imagesUrl.sort((a, b) => a.imgId - b.imgId);
+    },
+    getRecommend(list) {
+      this.newProduct.recommendList = list;
     },
   },
   mounted() {
     this.isLoading = true;
     this.getProduct();
-    this.readonly();
+    // this.$emitter.on('push-is-edit', (status) => {
+    //   this.readonly = status;
+    //   console.log(this.readonly);
+    //   console.log(typeof (this.readonly));
+    // });
   },
 };
 </script>
