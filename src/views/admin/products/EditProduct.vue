@@ -90,7 +90,8 @@
               <CategorySelect :readonly="readonly"
                               :edit-main="productInfo.category"
                               :edit-sub="productInfo.subCategory"
-                              @emit-category='getCategory'></CategorySelect>
+                              @emit-category='getCategory'>
+              </CategorySelect>
               <div class="col-md-6 mb-3">
                 <label for="productOriPrice" class="form-label">原價<sup>*</sup></label>
                 <Field type="number" class="form-control" id="productOriPrice"
@@ -128,7 +129,11 @@
                   <option value="" disabled>請選擇一個折價券</option>
                 </select>
               </div>
-              <!-- <IsEnabledSelect></IsEnabledSelect> -->
+              <IsEnabledSelect :readonly="readonly"
+                               :edit-sell="productInfo.is_enabled"
+                               :edit-time="productInfo.sell_time"
+                               @emit-is-enabled="getIsEnabled">
+              </IsEnabledSelect>
             </div>
           </div>
           <div class="col-md-4 mx-auto d-flex justify-content-center mt-3">
@@ -207,7 +212,7 @@
 
 <script>
 import CategorySelect from '@/components/admin/Select_productCategory.vue';
-// import IsEnabledSelect from '@/components/admin/Select_isEnabled.vue';
+import IsEnabledSelect from '@/components/admin/Select_isEnabled.vue';
 // import ImagesInput from '@/components/admin/Input_image.vue';
 // import Recommended from '@/components/admin/Select_recommand.vue';
 // import emitter from '@/methods/emitter';
@@ -223,7 +228,7 @@ export default {
   },
   components: {
     CategorySelect,
-    // IsEnabledSelect,
+    IsEnabledSelect,
     // ImagesInput,
     // Recommended,
   },
@@ -261,19 +266,19 @@ export default {
       this.read();
     },
     getCategory(mainCategoryValue, subCategoryValue) {
-      this.newProduct.category = mainCategoryValue;
-      this.newProduct.subCategory = subCategoryValue;
+      this.productInfo.category = mainCategoryValue;
+      this.productInfo.subCategory = subCategoryValue;
     },
     getIsEnabled(isSell, sellTime) {
-      this.newProduct.is_enabled = isSell;
-      this.newProduct.sell_time = sellTime;
+      this.productInfo.is_enabled = isSell;
+      this.productInfo.sell_time = sellTime;
     },
     getImages(img) {
-      this.newProduct.imagesUrl = img;
-      this.newProduct.imagesUrl.sort((a, b) => a.imgId - b.imgId);
+      this.productInfo.imagesUrl = img;
+      this.productInfo.imagesUrl.sort((a, b) => a.imgId - b.imgId);
     },
     getRecommend(list) {
-      this.newProduct.recommendList = list;
+      this.productInfo.recommendList = list;
     },
   },
   mounted() {
