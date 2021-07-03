@@ -3,9 +3,9 @@
     <div class="mb-3">
       <label for="productMainImg" class="form-label">商品首圖<sup>*</sup></label>
       <input v-if="!readonly && add" type="file" class="imgInput form-control mb-3"
-             id="productMainImg" data-id="0" @change="emitChangeImages">
-      <input v-else-if="!readonly" type="file" class="imgInput form-control mb-3"
              id="productMainImg" data-id="0">
+      <input v-else-if="!readonly" type="file" class="imgInput form-control mb-3"
+             id="productMainImg" data-id="0" @change="emitChangeImages">
       <template v-for="item in images" :key="item.imgId">
          <div v-if="0 == item.imgId" class="img-fluid editImg bg-cover bg-center"
            :style="{ backgroundImage: 'url(' + item.imgUrl + ')' }">
@@ -17,9 +17,9 @@
     <div class="mb-3">
       <label :for="`productImg${num}`" class="form-label">說明圖片{{ num }}<sup>*</sup></label>
       <input v-if="!readonly && add" type="file" class="imgInput form-control mb-3"
-             :id="`productImg${num}`" :data-id="num" @change="emitChangeImages">
-      <input v-else-if="!readonly" type="file" class="imgInput form-control mb-3"
              :id="`productImg${num}`" :data-id="num">
+      <input v-else-if="!readonly" type="file" class="imgInput form-control mb-3"
+             :id="`productImg${num}`" :data-id="num" @change="emitChangeImages">
        <template v-for="item in images" :key="item.imgId">
          <div v-if="num == item.imgId" class="img-fluid editImg bg-cover bg-center"
            :style="{ backgroundImage: 'url(' + item.imgUrl + ')' }">

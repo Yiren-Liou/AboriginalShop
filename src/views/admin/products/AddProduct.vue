@@ -170,7 +170,7 @@
     </div>
     <div class="tab-pane fade" id="recommend" role="tabpanel" aria-labelledby="recommend-tab">
       <div class="row">
-        <Recommended @emit-recommend='getRecommend'></Recommended>
+        <Recommended @emit-recommend='getRecommend' :add="isAdd"></Recommended>
       </div>
     </div>
   </div>
@@ -208,7 +208,7 @@ export default {
           if (res.data.success) {
             this.isLoading = false;
             this.$swal({ text: res.data.message, icon: 'success' });
-            setTimeout(this.returnToProducts(), 3000);
+            this.$router.push('/admin/products');
           } else {
             this.$swal({ text: res.data.message, icon: 'error' });
             this.isLoading = false;

@@ -202,7 +202,9 @@
     </div>
     <div class="tab-pane fade" id="recommend" role="tabpanel" aria-labelledby="recommend-tab">
       <div class="row">
-        <!-- <Recommended></Recommended> -->
+        <Recommended :readonly="readonly"
+                     :recommend="productInfo.recommendList">
+        </Recommended>
       </div>
     </div>
   </div>
@@ -217,7 +219,7 @@
 import CategorySelect from '@/components/admin/Select_productCategory.vue';
 import IsEnabledSelect from '@/components/admin/Select_isEnabled.vue';
 import ImagesInput from '@/components/admin/Input_image.vue';
-// import Recommended from '@/components/admin/Select_recommand.vue';
+import Recommended from '@/components/admin/Select_recommand.vue';
 
 export default {
   data() {
@@ -232,7 +234,7 @@ export default {
     CategorySelect,
     IsEnabledSelect,
     ImagesInput,
-    // Recommended,
+    Recommended,
   },
   methods: {
     cancelEdit() {

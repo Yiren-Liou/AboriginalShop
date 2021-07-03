@@ -1,19 +1,35 @@
 <template>
-  <div class="col-md-4" v-for="(num) in 6" :key="num">
+  <div class="col-md-4" v-for="(num, i) in 6" :key="num">
     <div class="mb-3">
       <label :for="`recommendImg${num}`" class="form-label">推薦商品{{ num }}</label>
-      <select
+      <select v-if="add"
         :id="`recommendImg${num}`"
         class="form-select recommendSelect"
+        :disabled="readonly"
+        :data-id="num"
       >
         <option value="" selected disabled>請選擇一個推薦商品</option>
-        <option v-for="item in productList" :key="item.id" :value="item.id">
+        <option v-for="(item) in productList" :key="item.id"
+                :value="item.id">
           {{ item.title }}
         </option>
       </select>
+      <select v-else
+        :id="`recommendImg${num}`"
+        class="form-select recommendSelect"
+        :disabled="readonly"
+        :data-id="num"
+      >
+        <option value="" disabled>請選擇一個推薦商品</option>
+        <option v-for="(item) in productList" :key="item.id"
+                :value="item.id" :selected="item.id === recommendList[i].productId">
+          {{ item.title }}
+        </option>
+      </select>
+
     </div>
   </div>
-  <div v-if="readonly" class="col-md-4 mx-auto d-flex justify-content-center mt-3">
+  <div v-if="!readonly" class="col-md-4 mx-auto d-flex justify-content-center mt-3">
     <button type="button" class="btn btn-primary" @click="emitRecommendList()">
       儲存
     </button>
@@ -28,8 +44,14 @@ export default {
       recommendList: [],
     };
   },
-  props: ['readonly'],
+  props: ['readonly', 'recommend', 'add'],
   emits: ['emit-recommend'],
+  watch: {
+    recommend() {
+      this.recommendList = this.recommend;
+      console.log(this.recommendList);
+    },
+  },
   methods: {
     getProducts() {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/products/all`;
@@ -38,6 +60,7 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.productList = Object.values(res.data.products);
+            console.log(this.productList);
           } else {
             this.$swal({ text: res.data.message, icon: 'error' });
           }
@@ -51,9 +74,16 @@ export default {
       const recommendSelect = document.querySelectorAll('.recommendSelect');
       recommendSelect.forEach((item) => {
         const recommendItem = {
+          id: item.getAttribute('data-id'),
           productId: item.value,
         };
+        this.productList.forEach((productInfo) => {
+          if (productInfo.id === recommendItem.productId) {
+            recommendItem.productTitle = productInfo.title;
+          }
+        });
         this.recommendList.push(recommendItem);
+        console.log(this.recommendList);
       });
     },
     emitRecommendList() {
