@@ -54,10 +54,6 @@ export default {
   },
   methods: {
     emitImages() {
-      // 驗證
-      // const token =
-      // document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
-      // this.$http.defaults.headers.common.Authorization = token;
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/upload`;
       const temp = document.querySelectorAll('.imgInput');
       temp.forEach((item) => {
@@ -84,6 +80,7 @@ export default {
             console.dir(err);
           });
       });
+      setTimeout(5000, this.$swal({ text: '上傳成功', icon: 'success' }));
     },
     emitChangeImages(e) {
       this.isLoading = true;

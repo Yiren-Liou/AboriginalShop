@@ -12,19 +12,22 @@
       <li v-if="!readonly" class="breadcrumb-item active">編輯</li>
     </ol>
   </nav>
-  <div v-if="readonly" class="d-flex justify-content-end mb-3">
-    <router-link to='/admin/products'
-                  class="btn btn-primary btn-sm d-flex align-items-center me-3">返回
-    </router-link>
-    <button class="btn btn-primary btn-sm d-flex align-items-center" @click="edit()">
-      編輯
-    </button>
+  <div v-if="readonly" class="d-flex justify-content-between mb-4">
+    <router-link to='/admin/products' class="btn btn-primary btn-sm">返回</router-link>
+    <div class="d-flex">
+      <button class="btn btn-primary btn-sm me-3" @click="delProduct()">
+        刪除
+      </button>
+      <button class="btn btn-primary btn-sm" @click="this.readonly = false">
+        編輯
+      </button>
+    </div>
   </div>
-    <div v-else class="d-flex justify-content-end mb-3">
+  <div v-else class="d-flex justify-content-end mb-3">
     <button class="btn btn-primary btn-sm d-flex align-items-center me-3" @click="cancelEdit">
       取消
     </button>
-    <button class="btn btn-primary btn-sm d-flex align-items-center" @click="read()">
+    <button class="btn btn-primary btn-sm d-flex align-items-center" @click="update()">
       確定
     </button>
   </div>
@@ -60,7 +63,7 @@
   </ul>
   <div class="tab-content border-bottom p-4" id="myTabContent">
     <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
-      <Form v-slot="{ errors }">
+      <Form v-slot="{ errors }" @submit="checkBasicInfo">
         <div class="row">
           <div class="col-md-6">
             <div class="mb-3">
@@ -89,7 +92,7 @@
             <div class="row">
               <CategorySelect :readonly="readonly"
                               :edit-main="productInfo.category"
-                              :edit-sub="productInfo.subCategory"
+                              :edit-sub="productInfo.sub_category"
                               @emit-category='getCategory'>
               </CategorySelect>
               <div class="col-md-6 mb-3">
@@ -145,7 +148,7 @@
       </Form>
     </div>
     <div class="tab-pane fade" id="content" role="tabpanel" aria-labelledby="profile-tab">
-      <Form v-slot="{ errors }">
+      <Form v-slot="{ errors }" @submit="checkBasicInfo">
         <div class="row">
           <div class="col-md-6">
             <div class="mb-3">
@@ -156,7 +159,7 @@
                     placeholder="請輸入主要內容" v-model="productInfo.main_content"
                     name="主要內容" rules="required" as="textarea"
                     :class="{ 'is-invalid': errors['主要內容'] }"
-                     style="height: 172px"
+                     style="height: 368px"
                      :disabled="readonly">
               </Field>
               <error-message name="主要內容" class="invalid-feedback"></error-message>
@@ -170,6 +173,7 @@
               <Field type="text" class="form-control" id="productSubContent"
                     placeholder="請輸入說明內容" v-model="productInfo.sub_content"
                     name="說明內容" rules="required" as="textarea"
+                    style="height: 160px"
                     :class="{ 'is-invalid': errors['說明內容'] }"
                     :disabled="readonly">
               </Field>
@@ -178,7 +182,7 @@
             <div class="mb-3">
               <label for="productPrecautions" class="form-label">注意事項</label>
               <textarea v-model="productInfo.precautions" class="form-control"
-                        id="productPrecautions"
+                        id="productPrecautions" style="height: 160px"
                         placeholder="請輸入注意事項"
                         :disabled="readonly">
               </textarea>
@@ -203,7 +207,7 @@
     <div class="tab-pane fade" id="recommend" role="tabpanel" aria-labelledby="recommend-tab">
       <div class="row">
         <Recommended :readonly="readonly"
-                     :recommend="productInfo.recommendList">
+                     :recommend="productInfo.recommend_list">
         </Recommended>
       </div>
     </div>
@@ -224,6 +228,7 @@ import Recommended from '@/components/admin/Select_recommand.vue';
 export default {
   data() {
     return {
+      routeId: this.$route.params.id,
       productInfo: {},
       updateProduct: {},
       readonly: true,
@@ -237,19 +242,12 @@ export default {
     Recommended,
   },
   methods: {
-    cancelEdit() {
-      this.isLoading = true;
-      this.readonly = true;
-      this.getProduct();
-    },
     getProduct() {
-      const { id } = this.$route.params;
-      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/product/${id}`;
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/product/${this.routeId}`;
       this.$http.get(apiUrl)
         .then((res) => {
           if (res.data.success) {
             this.productInfo = res.data.product;
-            console.log(this.productInfo);
             this.isLoading = false;
           } else {
             this.isLoading = false;
@@ -260,15 +258,46 @@ export default {
           console.dir(err);
         });
     },
-    read() {
+    cancelEdit() {
+      this.isLoading = true;
       this.readonly = true;
-      console.log(this.readonly);
-    },
-    edit() {
-      this.readonly = false;
+      this.getProduct();
     },
     update() {
-      this.read();
+      this.readonly = true;
+      this.isLoading = true;
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/product/${this.routeId}`;
+      this.$http.put(apiUrl, { data: this.productInfo })
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'success' });
+          } else {
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'error' });
+          }
+        })
+        .catch((err) => {
+          console.dir(err);
+        });
+    },
+    delProduct() {
+      this.isLoading = true;
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/product/${this.routeId}`;
+      this.$http.delete(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'success' });
+            this.$router.push('/admin/products');
+          } else {
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'error' });
+          }
+        })
+        .catch((err) => {
+          console.dir(err);
+        });
     },
     getCategory(mainCategoryValue, subCategoryValue) {
       this.productInfo.category = mainCategoryValue;
@@ -284,6 +313,9 @@ export default {
     },
     getRecommend(list) {
       this.productInfo.recommendList = list;
+    },
+    checkBasicInfo() {
+      this.$swal({ text: '儲存成功', icon: 'success' });
     },
   },
   mounted() {

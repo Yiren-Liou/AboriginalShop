@@ -130,7 +130,7 @@
                     placeholder="請輸入主要內容" v-model="newProduct.main_content"
                     name="主要內容" rules="required" as="textarea"
                     :class="{ 'is-invalid': errors['主要內容'] }"
-                     style="height: 172px">
+                     style="height: 368px">
               </Field>
               <error-message name="主要內容" class="invalid-feedback"></error-message>
             </div>
@@ -143,13 +143,14 @@
               <Field type="text" class="form-control" id="productSubContent"
                     placeholder="請輸入說明內容" v-model="newProduct.sub_content"
                     name="說明內容" rules="required" as="textarea"
+                    style="height: 160px"
                     :class="{ 'is-invalid': errors['說明內容'] }">
               </Field>
               <error-message name="說明內容" class="invalid-feedback"></error-message>
             </div>
             <div class="mb-3">
               <label for="productPrecautions" class="form-label">注意事項</label>
-              <textarea v-model="newProduct.precautions"
+              <textarea v-model="newProduct.precautions" style="height: 160px"
                         class="form-control" id="productPrecautions"
                         placeholder="請輸入注意事項">
               </textarea>
@@ -226,7 +227,7 @@ export default {
     },
     getCategory(mainCategoryValue, subCategoryValue) {
       this.newProduct.category = mainCategoryValue;
-      this.newProduct.subCategory = subCategoryValue;
+      this.newProduct.sub_category = subCategoryValue;
     },
     getIsEnabled(isSell, sellTime) {
       this.newProduct.is_enabled = isSell;
@@ -237,7 +238,7 @@ export default {
       this.newProduct.imagesUrl.sort((a, b) => a.imgId - b.imgId);
     },
     getRecommend(list) {
-      this.newProduct.recommendList = list;
+      this.newProduct.recommend_list = list;
     },
     checkBasicInfo() {
       this.$swal({ text: '儲存成功', icon: 'success' });

@@ -65,7 +65,6 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.productList = Object.values(res.data.products);
-            console.log(this.productList);
           } else {
             this.$swal({ text: res.data.message, icon: 'error' });
           }

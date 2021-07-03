@@ -22,6 +22,7 @@
         <th scope="col">商品圖片</th>
         <th scope="col">商品名稱</th>
         <th scope="col">分類</th>
+        <th scope="col">次分類</th>
         <th scope="col">原價</th>
         <th scope="col">售價</th>
         <th scope="col">上架狀態</th>
@@ -30,20 +31,24 @@
         <th scope="col">刪除</th>
       </tr>
     </thead>
-    <tbody class="text-center">
+    <tbody v-if="!productData.length" class="text-center">
+      <tr>目前沒有任何商品呦</tr>
+    </tbody>
+    <tbody v-else class="text-center">
       <tr v-for="(item, i) in productData" :key="item.id">
         <th scope="row">{{ i + 1 }}</th>
         <td>
           <div class="productImg img-fluid bg-cover bg-center"
-               :style="{backgroundImage: `url(${item.imageUrl})`}">
+               :style="{backgroundImage: `url(${item.imagesUrl[0].imgUrl})`}">
           </div>
         </td>
         <td>{{ item.title }}</td>
         <td>{{ item.category }}</td>
+        <td>{{ item.sub_category }}</td>
         <td class="text-center">NT {{ $toCurrency(item.origin_price) }}</td>
         <td class="text-center">NT {{ $toCurrency(item.price )}}</td>
         <td class="text-center">
-          <p v-if="item.is_enabled" class="fw-bold text-warning mb-0">已上架</p>
+          <p v-if="item.is_enabled" class="fw-bold text-warning mb-0">上架</p>
           <p v-else class="mb-0">未上架</p>
         </td>
         <td>
@@ -57,7 +62,10 @@
           </router-link>
         </td>
         <td class="text-center">
-          <input class="form-check-input" type="checkbox" value="" id="delCheck">
+          <button class="btn d-flex justify-content-center w-100"
+                  @click="delProduct(item.id)">
+            <span class="material-icons">delete</span>
+          </button>
         </td>
       </tr>
     </tbody>
@@ -65,7 +73,6 @@
   <div class="d-flex justify-content-center mb-4">
     <Pagination :page="pagination" @emit-page="getProducts"></Pagination>
   </div>
-  <FeatureBtns></FeatureBtns>
   <Loading :active="isLoading">
     <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
     <div></div><div></div><div></div>
@@ -77,8 +84,6 @@
 import Pagination from '@/components/Pagination.vue';
 import Search from '@/components/Search.vue';
 import Filter from '@/components/admin/Filter.vue';
-import FeatureBtns from '@/components/admin/FeatureBtns.vue';
-// import emitter from '@/methods/emitter';
 
 export default {
   data() {
@@ -99,7 +104,6 @@ export default {
   components: {
     Search,
     Filter,
-    FeatureBtns,
     Pagination,
   },
   methods: {
@@ -158,15 +162,17 @@ export default {
           console.dir(err);
         });
     },
-    delData(product) {
-      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/product/${product.id}`;
+    delProduct(id) {
+      this.isLoading = true;
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/product/${id}`;
       this.$http.delete(apiUrl)
         .then((res) => {
           if (res.data.success) {
+            this.isLoading = false;
             this.$swal({ text: res.data.message, icon: 'success' });
             this.getProducts();
           } else {
-            console.log(res.data.message);
+            this.isLoading = false;
             this.$swal({ text: res.data.message, icon: 'error' });
           }
         }).catch((err) => {
