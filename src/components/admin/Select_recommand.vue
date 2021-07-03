@@ -34,6 +34,11 @@
       儲存
     </button>
   </div>
+  <Loading :active="isLoading">
+    <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
+    <div></div><div></div><div></div>
+    </div></div>
+  </Loading>
 </template>
 
 <script>
@@ -42,6 +47,7 @@ export default {
     return {
       productList: '',
       recommendList: [],
+      isLoading: false,
     };
   },
   props: ['readonly', 'recommend', 'add'],
@@ -49,7 +55,6 @@ export default {
   watch: {
     recommend() {
       this.recommendList = this.recommend;
-      console.log(this.recommendList);
     },
   },
   methods: {
@@ -83,7 +88,6 @@ export default {
           }
         });
         this.recommendList.push(recommendItem);
-        console.log(this.recommendList);
       });
     },
     emitRecommendList() {

@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     emitIsEnabled() {
-      if (this.isSell) {
+      if (!this.isSell) {
         this.sellTime = '';
       }
       this.$emit('emit-is-enabled', this.isSell, this.sellTime);
