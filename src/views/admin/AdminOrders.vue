@@ -24,64 +24,102 @@
         <th scope="col">訂單編號</th>
         <th scope="col">訂購人</th>
         <th scope="col">訂購時間</th>
+        <th scope="col">總金額</th>
         <th scope="col">付款狀態</th>
         <th scope="col">出貨狀態</th>
-        <th scope="col">出貨時間</th>
         <th scope="col">查看</th>
+        <th scope="col">編輯</th>
         <th scope="col">刪除</th>
       </tr>
     </thead>
-    <tbody class="text-center">
-      <tr>
-        <th scope="row">1</th>
-        <td>-MspoitUYTK4AW5G</td>
-        <td>買家</td>
-        <td>2021/06/12</td>
-        <td>未付款</td>
+    <tbody v-if="!orderList.length">
+      <tr>目前沒有訂單呦</tr>
+    </tbody>
+    <tbody v-else class="text-center">
+      <tr v-for="(order, i) in orderList" :key="order.id">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ order.id }}</td>
+        <td>{{ order.user.name }}</td>
+        <td>{{ $toDate(order.create_at) }}</td>
+        <td>NT {{ $toCurrency(order.total) }}</td>
+        <td>{{ order.is_paid? '已付款' : '未付款' }}</td>
         <td>未出貨</td>
-        <td> - </td>
         <td>
-          <router-link to="/admin/products" class="material-icons btn">remove_red_eye</router-link>
+          <router-link :to="`order/${order.id}`" class="material-icons btn">
+            remove_red_eye
+          </router-link>
         </td>
         <td>
-          <router-link to="/admin/products" class="material-icons btn">delete</router-link>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>-Qt9oitUYTK4AW5G</td>
-        <td>買家</td>
-        <td>2021/06/10</td>
-        <td>未付款</td>
-        <td>已出貨</td>
-        <td>2021/06/11</td>
-        <td>
-          <router-link to="/admin/products" class="material-icons btn">remove_red_eye</router-link>
+          <router-link :to="`order/${order.id}`" class="material-icons btn">
+            edit
+          </router-link>
         </td>
         <td>
-          <router-link to="/admin/products" class="material-icons btn">delete</router-link>
+          <button class="material-icons btn" @click="delOrder(order.id)">delete</button>
         </td>
       </tr>
     </tbody>
   </table>
-  <FeatureBtns></FeatureBtns>
+  <Loading :active="isLoading">
+    <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
+    <div></div><div></div><div></div>
+    </div></div>
+  </Loading>
 </template>
 
 <script>
 import Search from '@/components/Search.vue';
 import Filter from '@/components/admin/Filter.vue';
-import FeatureBtns from '@/components/admin/FeatureBtns.vue';
 
 export default {
   data() {
     return {
-
+      orderList: '',
+      isLoading: false,
     };
   },
   components: {
     Search,
     Filter,
-    FeatureBtns,
+  },
+  methods: {
+    getOrderList(page = 1) {
+      this.isLoading = true;
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/orders?page=${page}`;
+      this.$http.get(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.orderList = res.data.orders;
+            this.isLoading = false;
+            console.log(this.orderList);
+          } else {
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'error' });
+          }
+        })
+        .catch((err) => {
+          console.dir(err);
+        });
+    },
+    delOrder(id) {
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/order/${id}`;
+      this.$http.delete(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'success' });
+            this.getOrderList();
+          } else {
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'error' });
+          }
+        }).catch((err) => {
+          console.dir(err);
+        });
+    },
+  },
+  mounted() {
+    this.getOrderList();
   },
 };
 </script>

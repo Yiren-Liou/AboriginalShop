@@ -24,7 +24,7 @@ const routes = [
         component: () => import('../views/admin/products/AddProduct.vue'),
       },
       {
-        path: 'products/:id',
+        path: 'product/:id',
         name: 'productInfo',
         component: () => import('../views/admin/products/EditProduct.vue'),
       },
@@ -32,6 +32,11 @@ const routes = [
         path: 'orders',
         name: 'AdminOrders',
         component: () => import('../views/admin/AdminOrders.vue'),
+      },
+      {
+        path: 'order/:id',
+        name: 'orderInfo',
+        component: () => import('../views/admin/orders/EditOrder.vue'),
       },
       {
         path: 'coupon',
