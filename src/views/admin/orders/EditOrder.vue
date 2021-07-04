@@ -252,6 +252,7 @@ export default {
     update() {
       this.readonly = true;
       this.isLoading = true;
+      this.order.user = this.user;
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/order/${this.routeId}}`;
       this.$http.put(apiUrl, { data: this.order })
         .then((res) => {
