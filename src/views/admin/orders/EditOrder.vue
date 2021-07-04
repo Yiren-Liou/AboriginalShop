@@ -79,7 +79,7 @@
           <div class="mb-3">
             <label for="orderTotal" class="form-label">總金額</label>
             <input type="text" class="form-control"
-                   id="orderTotal" v-model="order.total" disabled>
+                   id="orderTotal" :value="$toCurrency(parseInt(order.total))" disabled>
           </div>
         </div>
         <div class="col-md-4">
@@ -102,9 +102,10 @@
             <select class="form-select" id="deliveryStatus"
                     v-model="order.is_delivery" :disabled="readonly">
               <option value='' selected disabled>請選擇出貨狀態</option>
-              <option value="未出貨">未出貨</option>
-              <option value="已出貨">已出貨</option>
+              <option value="false">未出貨</option>
+              <option value="true">已出貨</option>
             </select>
+            {{order.is_delivery}}
           </div>
         </div>
         <div class="col-md-4">
@@ -149,8 +150,8 @@
         <div class="col-md-4">
           <div class="mb-3">
             <label for="buyerPaidMethod" class="form-label">付款方式</label>
-            <input type="text" class="form-control" :disabled="readonly"
-                    id="buyerPaidMethod">
+            <input type="text" class="form-control" v-model="order.payment_method"
+                    id="buyerPaidMethod" disabled>
           </div>
         </div>
       </div>

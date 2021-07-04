@@ -45,29 +45,13 @@
           <router-link to="/admin/products" class="material-icons btn">delete</router-link>
         </td>
       </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>滿千打九折</td>
-        <td>90%</td>
-        <td>未啟用</td>
-        <td> - </td>
-        <td> - </td>
-        <td>
-          <router-link to="/admin/products" class="material-icons btn">edit</router-link>
-        </td>
-        <td>
-          <router-link to="/admin/products" class="material-icons btn">delete</router-link>
-        </td>
-      </tr>
     </tbody>
   </table>
-  <FeatureBtns></FeatureBtns>
 </template>
 
 <script>
 import Search from '@/components/Search.vue';
 import Filter from '@/components/admin/Filter.vue';
-import FeatureBtns from '@/components/admin/FeatureBtns.vue';
 
 export default {
   data() {
@@ -78,7 +62,6 @@ export default {
   components: {
     Search,
     Filter,
-    FeatureBtns,
   },
 };
 </script>

@@ -17,7 +17,7 @@
       <Filter></Filter>
     </div>
   </div>
-  <table class="table table-striped align-middle">
+  <table class="table align-middle mb-3">
     <thead>
       <tr class="text-center">
         <th scope="col">#</th>
@@ -60,6 +60,9 @@
       </tr>
     </tbody>
   </table>
+  <div class="d-flex justify-content-center">
+    <button type="button" class="btn btn-primary" @click="delAll()">刪除全部訂單</button>
+  </div>
   <Loading :active="isLoading">
     <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
     <div></div><div></div><div></div>
@@ -114,6 +117,24 @@ export default {
             this.$swal({ text: res.data.message, icon: 'error' });
           }
         }).catch((err) => {
+          console.dir(err);
+        });
+    },
+    delAll() {
+      this.isLoading = true;
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/orders/all`;
+      this.$http.delete(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'success' });
+            this.getOrderList();
+          } else {
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'error' });
+          }
+        })
+        .catch((err) => {
           console.dir(err);
         });
     },
