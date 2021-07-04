@@ -11,8 +11,8 @@ import VueAxios from 'vue-axios';
 import VueSweetalert2 from 'vue-sweetalert2';
 import VueLoading from 'vue-loading-overlay';
 import toCurrency from './methods/toCurrency';
-import toDate from './methods/toDate';
 import emitter from './methods/emitter';
+import toDate from './methods/toDate';
 import App from './App.vue';
 import router from './router';
 

@@ -52,12 +52,12 @@
           <p v-else class="mb-0">未上架</p>
         </td>
         <td>
-          <router-link :to="`products/${item.id}`" class="material-icons btn"
+          <router-link :to="`product/${item.id}`" class="material-icons btn"
                        @click="pushIsEdit(true)">remove_red_eye
           </router-link>
         </td>
         <td class="text-center">
-          <router-link :to="`products/${item.id}`" class="material-icons btn"
+          <router-link :to="`product/${item.id}`" class="material-icons btn"
                         @click="pushIsEdit(false)">edit
           </router-link>
         </td>
