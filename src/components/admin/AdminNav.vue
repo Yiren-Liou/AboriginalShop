@@ -12,7 +12,7 @@
       <span class="material-icons mb-2">article</span>
       <p>訂單</p>
     </router-link>
-    <router-link class="nav-link text-center" to="/admin/coupon">
+    <router-link class="nav-link text-center" to="/admin/coupons">
       <span class="material-icons mb-2">price_change</span>
       <p>優惠券</p>
     </router-link>

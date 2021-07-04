@@ -7,8 +7,8 @@
   </nav>
   <div class="d-flex justify-content-between align-items-center mb-3">
     <router-link to="/admin/products/addProduct"
-                  class="btn btn-primary d-flex align-items-center">
-        <span class="material-icons me-2">add</span>新增商品
+                 class="btn btn-primary">
+                  新增商品
     </router-link>
     <div class="d-flex">
       <Search class="me-2"></Search>

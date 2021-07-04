@@ -24,10 +24,10 @@
     </div>
   </div>
   <div v-else class="d-flex justify-content-end mb-3">
-    <button class="btn btn-primary btn-sm d-flex align-items-center me-3" @click="cancelEdit">
+    <button class="btn btn-primary btn-sm me-3" @click="cancelEdit">
       取消
     </button>
-    <button class="btn btn-primary btn-sm d-flex align-items-center" @click="update()">
+    <button class="btn btn-primary btn-sm" @click="update()">
       確定
     </button>
   </div>

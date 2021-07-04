@@ -9,10 +9,10 @@
     </ol>
   </nav>
   <div class="d-flex justify-content-end mb-3">
-    <button class="btn btn-primary btn-sm d-flex align-items-center me-3" @click="returnToProducts">
+    <button class="btn btn-primary btn-sm me-3" @click="returnToProducts">
       取消
     </button>
-    <button class="btn btn-primary btn-sm d-flex align-items-center" @click="addProduct">
+    <button class="btn btn-primary btn-sm" @click="addProduct">
       新增
     </button>
   </div>

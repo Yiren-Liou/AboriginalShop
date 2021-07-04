@@ -39,9 +39,19 @@ const routes = [
         component: () => import('../views/admin/orders/EditOrder.vue'),
       },
       {
-        path: 'coupon',
+        path: 'coupons',
         name: 'AdminCoupon',
         component: () => import('../views/admin/AdminCoupon.vue'),
+      },
+      {
+        path: 'coupons/addCoupon',
+        name: 'addCoupon',
+        component: () => import('../views/admin/coupons/AddCoupon.vue'),
+      },
+      {
+        path: 'coupon/:id',
+        name: 'couponInfo',
+        component: () => import('../views/admin/coupons/EditCoupon.vue'),
       },
     ],
   },

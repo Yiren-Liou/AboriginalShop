@@ -24,10 +24,10 @@
     </div>
   </div>
   <div v-else class="d-flex justify-content-end mb-4">
-    <button class="btn btn-primary btn-sm d-flex align-items-center me-3" @click="cancelEdit">
+    <button class="btn btn-primary btn-sm me-3" @click="cancelEdit">
       取消
     </button>
-    <button class="btn btn-primary btn-sm d-flex align-items-center" @click="update()">
+    <button class="btn btn-primary btn-sm" @click="update()">
       確定
     </button>
   </div>
@@ -50,7 +50,7 @@
       </button>
     </div>
   </nav>
-  <div class="tab-content p-4" id="nav-tabContent">
+  <div class="tab-content border-bottom p-4" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-basic" role="tabpanel"
           aria-labelledby="nav-basic-tab">
       <div class="row">
@@ -105,7 +105,6 @@
               <option value="false">未出貨</option>
               <option value="true">已出貨</option>
             </select>
-            {{order.is_delivery}}
           </div>
         </div>
         <div class="col-md-4">
