@@ -130,8 +130,6 @@
 </template>
 
 <script>
-import dayjs from 'dayjs';
-
 export default {
   data() {
     return {
@@ -143,11 +141,11 @@ export default {
     addCoupon() {
       this.isLoading = true;
       if (this.coupon.is_enabled) {
-        this.coupon.start_date = dayjs(this.coupon.start_date).unix();
-        this.coupon.due_date = dayjs(this.coupon.due_date).unix();
+        this.coupon.start_date = this.$date.toUnix(this.coupon.start_date);
+        this.coupon.due_date = this.$date.toUnix(this.coupon.due_date);
       } else {
-        this.coupon.start_date = dayjs().unix();
-        this.coupon.due_date = dayjs().unix();
+        this.coupon.start_date = this.$date.toUnix();
+        this.coupon.due_date = this.$date.toUnix();
       }
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/coupon`;
       this.$http.post(apiUrl, { data: this.coupon })

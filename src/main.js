@@ -12,7 +12,7 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import VueLoading from 'vue-loading-overlay';
 import toCurrency from './methods/toCurrency';
 import emitter from './methods/emitter';
-import toDate from './methods/toDate';
+import { toDate, toUnix } from './methods/toDate';
 import App from './App.vue';
 import router from './router';
 
@@ -29,7 +29,10 @@ setLocale('zh_TW');
 const app = createApp(App);
 app.config.globalProperties.$emitter = emitter;
 app.config.globalProperties.$toCurrency = toCurrency;
-app.config.globalProperties.$toDate = toDate;
+app.config.globalProperties.$date = {
+  toDate,
+  toUnix,
+};
 app.use(router);
 app.use(VueAxios, axios);
 app.use(VueSweetalert2);

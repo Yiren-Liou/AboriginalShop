@@ -65,7 +65,7 @@
           <div class="mb-3">
             <label for="orderDate" class="form-label">訂單日期</label>
             <input type="date" class="form-control"
-                   id="orderDate" :value="$toDate(order.create_at)" disabled>
+                   id="orderDate" :value="this.$date.toDate(order.create_at)" disabled>
           </div>
         </div>
         <div class="col-md-4">
@@ -93,7 +93,7 @@
           <div class="mb-3">
             <label for="paidDate" class="form-label">付款日期</label>
             <input type="date" class="form-control"
-                   id="paidDate" :value="$toDate(order.paid_date)" disabled>
+                   id="paidDate" :value="this.$date.toDate(order.paid_date)" disabled>
           </div>
         </div>
         <div class="col-md-4">
@@ -111,7 +111,7 @@
           <div class="mb-3">
             <label for="deliveryDate" class="form-label">出貨日期</label>
             <input type="date" class="form-control" :disabled="readonly"
-                   id="deliveryDate" :value="$toDate(order.paid_date)">
+                   id="deliveryDate" :value="this.$date.toDate(order.paid_date)">
           </div>
         </div>
       </div>

@@ -149,8 +149,6 @@
 </template>
 
 <script>
-import dayjs from 'dayjs';
-
 export default {
   data() {
     return {
@@ -163,8 +161,8 @@ export default {
   methods: {
     getCoupon() {
       this.coupon = JSON.parse(this.$route.query.coupon);
-      this.coupon.start_date = this.$toDate(this.coupon.start_date);
-      this.coupon.due_date = this.$toDate(this.coupon.due_date);
+      this.coupon.start_date = this.$date.toDate(this.coupon.start_date);
+      this.coupon.due_date = this.$date.toDate(this.coupon.due_date);
       this.isLoading = false;
     },
     cancel() {
@@ -175,11 +173,11 @@ export default {
     update() {
       this.isLoading = true;
       if (this.coupon.is_enabled) {
-        this.coupon.start_date = dayjs(this.coupon.start_date).unix();
-        this.coupon.due_date = dayjs(this.coupon.due_date).unix();
+        this.coupon.start_date = this.$date.toUnix(this.coupon.start_date);
+        this.coupon.due_date = this.$date.toUnix(this.coupon.due_date);
       } else {
-        this.coupon.start_date = dayjs().unix();
-        this.coupon.due_date = dayjs().unix();
+        this.coupon.start_date = this.$date.toUnix();
+        this.coupon.due_date = this.$date.toUnix();
       }
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/coupon/${this.routeId}`;
       this.$http.put(apiUrl, { data: this.coupon })
@@ -187,8 +185,8 @@ export default {
           if (res.data.success) {
             this.readonly = true;
             this.isLoading = false;
-            this.coupon.start_date = this.$toDate(this.coupon.start_date);
-            this.coupon.due_date = this.$toDate(this.coupon.due_date);
+            this.coupon.start_date = this.$date.toDate(this.coupon.start_date);
+            this.coupon.due_date = this.$date.toDate(this.coupon.due_date);
             this.$swal({ text: res.data.message, icon: 'success' });
           } else {
             this.isLoading = false;

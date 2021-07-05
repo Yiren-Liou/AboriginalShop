@@ -17,7 +17,51 @@
               v-model="search">
         <span class="input-group-text material-icons bg-transparent">search</span>
       </div>
-      <Filter></Filter>
+      <div class="dropdown">
+        <button class="material-icons btn btn-outline-secondary
+                d-flex justify-content-center align-items-center me-2"
+                type="button" id="filterBtn"
+                data-bs-toggle="dropdown" aria-expanded="false">sort
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="filterBtn">
+          <li class="mb-2">
+            <a class="dropdown-item" href="#"
+                data-field="sellTime_new_old" @click.prevent='filterItem'>
+                上架時間新到舊
+            </a>
+          </li>
+          <li class="mb-2">
+            <a class="dropdown-item" href="#"
+                data-field="sellTime_old_new" @click.prevent='filterItem'>
+                上架時間舊到新
+            </a>
+          </li>
+          <li class="mb-2">
+            <a class="dropdown-item" href="#"
+               data-field="originPrice_low_high" @click.prevent='filterItem'>
+               原價低到高
+            </a>
+          </li>
+          <li class="mb-2">
+            <a class="dropdown-item" href="#"
+               data-field="originPrice_high_low" @click.prevent='filterItem'>
+               原價高到低
+            </a>
+          </li>
+          <li class="mb-2">
+            <a class="dropdown-item" href="#"
+               data-field="price_low_high" @click.prevent='filterItem'>
+               售價低到高
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#"
+               data-field="price_high_low" @click.prevent='filterItem'>
+               售價高到低
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
   <table class="table align-middle">
@@ -87,7 +131,6 @@
 
 <script>
 import Pagination from '@/components/Pagination.vue';
-import Filter from '@/components/admin/Filter.vue';
 
 export default {
   data() {
@@ -107,7 +150,6 @@ export default {
     };
   },
   components: {
-    Filter,
     Pagination,
   },
   computed: {
@@ -125,7 +167,6 @@ export default {
             this.tempData.data = { imagesUrl: [] };
             this.pagination = res.data.pagination;
             this.isLoading = false;
-            console.log(this.productData);
           } else {
             this.$swal({ text: res.data.message, icon: 'error' });
             this.isLoading = false;
@@ -143,33 +184,6 @@ export default {
       if (this.tempData.data.imagesUrl === undefined) {
         this.tempData.data.imagesUrl = [];
       }
-    },
-    showProduct(status, tempData) {
-      this.isLoading = true;
-      let apiUrl = '';
-      let apiMethod = '';
-      if (status === 'add') {
-        apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/product`;
-        apiMethod = 'post';
-      } else if (status === 'edit') {
-        apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/product/${tempData.id}`;
-        apiMethod = 'put';
-      }
-      this.$http[apiMethod](apiUrl, { data: tempData })
-        .then((res) => {
-          if (res.data.success) {
-            this.isLoading = false;
-            this.$refs.productModal.hideModal();
-            this.$swal({ text: res.data.message, icon: 'success' });
-            this.getProducts();
-          } else {
-            this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'error' });
-          }
-        })
-        .catch((err) => {
-          console.dir(err);
-        });
     },
     delProduct(id) {
       this.isLoading = true;
@@ -190,6 +204,40 @@ export default {
     },
     pushIsEdit(status) {
       this.$emitter.emit('push-is-edit', status);
+    },
+    filterItem(e) {
+      e.preventDefault();
+      const action = e.target.getAttribute('data-field');
+      switch (action) {
+        case 'price_low_high':
+          this.productData.sort((a, b) => a.price - b.price);
+          break;
+        case 'price_high_low':
+          this.productData.sort((a, b) => b.price - a.price);
+          break;
+        case 'originPrice_low_high':
+          this.productData.sort((a, b) => a.origin_price - b.origin_price);
+          break;
+        case 'originPrice_high_low':
+          this.productData.sort((a, b) => b.origin_price - a.origin_price);
+          break;
+        case 'sellTime_new_old':
+          this.productData.sort((a, b) => {
+            const date1 = this.$date.toUnix(a.sell_time);
+            const date2 = this.$date.toUnix(b.sell_time);
+            return date2 - date1;
+          });
+          break;
+        case 'sellTime_old_new':
+          this.productData.sort((a, b) => {
+            const date1 = this.$date.toUnix(a.sell_time);
+            const date2 = this.$date.toUnix(b.sell_time);
+            return date1 - date2;
+          });
+          break;
+        default:
+          break;
+      }
     },
   },
   mounted() {

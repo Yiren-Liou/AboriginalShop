@@ -17,5 +17,24 @@
       <p>優惠券</p>
     </router-link>
   </div>
-  <button class="btn btn-primary">登出</button>
+  <a href="#" @click.prevent="logout" class="btn btn-primary" type="button">登出</a>
+  <!-- <button class="btn btn-primary" @click="logout()">登出</button> -->
 </template>
+
+<script>
+export default {
+  methods: {
+    logout() {
+      console.log('登出');
+      const apiUrl = `${process.env.VUE_APP_URL}logout`;
+      this.$http.post(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.$swal({ text: res.data.message, icon: 'success' });
+            this.$router.push('/');
+          }
+        });
+    },
+  },
+};
+</script>

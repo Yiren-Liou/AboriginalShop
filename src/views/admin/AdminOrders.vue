@@ -16,7 +16,39 @@
               aria-label="search" aria-describedby="searchBtn"
               v-model="search">
         <span class="input-group-text material-icons bg-transparent me-3">search</span>
-        <Filter></Filter>
+        <div class="dropdown">
+          <button class="material-icons btn btn-outline-secondary
+                  d-flex justify-content-center align-items-center me-2"
+                  type="button" id="filterBtn"
+                  data-bs-toggle="dropdown" aria-expanded="false">sort
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="filterBtn">
+            <li class="mb-2">
+              <a class="dropdown-item" href="#"
+                  data-field="create_new_old" @click.prevent='filterItem'>
+                  訂購時間新到舊
+              </a>
+            </li>
+            <li class="mb-2">
+              <a class="dropdown-item" href="#"
+                  data-field="create_old_new" @click.prevent='filterItem'>
+                  訂購時間舊到新
+              </a>
+            </li>
+            <li class="mb-2">
+              <a class="dropdown-item" href="#"
+                  data-field="total_low_high" @click.prevent='filterItem'>
+                  總金額低到高
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#"
+                  data-field="total_high_low" @click.prevent='filterItem'>
+                  總金額高到低
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -43,7 +75,7 @@
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ order.id }}</td>
         <td>{{ order.user.name }}</td>
-        <td>{{ $toDate(order.create_at) }}</td>
+        <td>{{ $date.toDate(order.create_at) }}</td>
         <td>NT {{ $toCurrency(order.total) }}</td>
         <td>{{ order.is_paid? '已付款' : '未付款' }}</td>
         <td>未出貨</td>
@@ -74,8 +106,6 @@
 </template>
 
 <script>
-import Filter from '@/components/admin/Filter.vue';
-
 export default {
   data() {
     return {
@@ -85,7 +115,6 @@ export default {
     };
   },
   components: {
-    Filter,
   },
   computed: {
     filterOrder() {
@@ -144,6 +173,34 @@ export default {
         .catch((err) => {
           console.dir(err);
         });
+    },
+    filterItem(e) {
+      e.preventDefault();
+      const action = e.target.getAttribute('data-field');
+      switch (action) {
+        case 'total_low_high':
+          this.orderList.sort((a, b) => a.total - b.total);
+          break;
+        case 'total_high_low':
+          this.orderList.sort((a, b) => b.total - a.total);
+          break;
+        case 'create_new_old':
+          this.orderList.sort((a, b) => {
+            const date1 = this.$date.toUnix(a.create_at);
+            const date2 = this.$date.toUnix(b.create_at);
+            return date2 - date1;
+          });
+          break;
+        case 'create_old_new':
+          this.orderList.sort((a, b) => {
+            const date1 = this.$date.toUnix(a.create_at);
+            const date2 = this.$date.toUnix(b.create_at);
+            return date1 - date2;
+          });
+          break;
+        default:
+          break;
+      }
     },
   },
   mounted() {

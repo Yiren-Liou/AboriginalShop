@@ -19,9 +19,53 @@
         <input type="text" class="form-control" placeholder="請輸入要搜尋的商品名稱"
               aria-label="search" aria-describedby="searchBtn"
               v-model="search">
-        <span class="input-group-text material-icons bg-transparent">search</span>
+        <span class="input-group-text material-icons bg-transparent me-3">search</span>
+        <div class="dropdown">
+          <button class="material-icons btn btn-outline-secondary
+                  d-flex justify-content-center align-items-center me-2"
+                  type="button" id="filterBtn"
+                  data-bs-toggle="dropdown" aria-expanded="false">sort
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="filterBtn">
+            <li class="mb-2">
+              <a class="dropdown-item" href="#"
+                  data-field="startDate_new_old" @click.prevent='filterItem'>
+                  起始時間新到舊
+              </a>
+            </li>
+            <li class="mb-2">
+              <a class="dropdown-item" href="#"
+                  data-field="startDate_old_new" @click.prevent='filterItem'>
+                  起始時間舊到新
+              </a>
+            </li>
+            <li class="mb-2">
+              <a class="dropdown-item" href="#"
+                  data-field="dueDate_new_old" @click.prevent='filterItem'>
+                  截止時間新到舊
+              </a>
+            </li>
+            <li class="mb-2">
+              <a class="dropdown-item" href="#"
+                  data-field="dueDate_old_new" @click.prevent='filterItem'>
+                  截止時間舊到新
+              </a>
+            </li>
+            <li class="mb-2">
+              <a class="dropdown-item" href="#"
+                  data-field="discount_low_high" @click.prevent='filterItem'>
+                  折扣趴數低到高
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#"
+                  data-field="discount_high_low" @click.prevent='filterItem'>
+                  折扣趴數高到低
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
-      <Filter></Filter>
     </div>
   </div>
   <table class="table align-middle">
@@ -47,13 +91,9 @@
         <td>{{ coupon.title }}</td>
         <td>{{ coupon.percent }}%</td>
         <td>{{ coupon.is_enabled? '啟用' : '未啟用' }}</td>
-        <td>{{ coupon.is_enabled? $toDate(coupon.start_date) : '-'}}</td>
-        <td>{{ coupon.is_enabled? $toDate(coupon.due_date) : '-' }}</td>
+        <td>{{ coupon.is_enabled? $date.toDate(coupon.start_date) : '-'}}</td>
+        <td>{{ coupon.is_enabled? $date.toDate(coupon.due_date) : '-' }}</td>
         <td>
-          <!-- <router-link :to="`/admin/coupon/${coupon.id}`" @click="emitCoupon(i)"
-                       class="material-icons btn">
-            remove_red_eye
-          </router-link> -->
           <button type="button" class="material-icons btn" @click="emitCoupon(i, coupon.id)">
             remove_red_eye
           </button>
@@ -80,8 +120,6 @@
 </template>
 
 <script>
-import Filter from '@/components/admin/Filter.vue';
-
 export default {
   data() {
     return {
@@ -92,7 +130,6 @@ export default {
     };
   },
   components: {
-    Filter,
   },
   computed: {
     filterCoupon() {
@@ -148,6 +185,48 @@ export default {
         .catch((err) => {
           console.dir(err);
         });
+    },
+    filterItem(e) {
+      e.preventDefault();
+      const action = e.target.getAttribute('data-field');
+      switch (action) {
+        case 'discount_low_high':
+          this.coupons.sort((a, b) => a.percent - b.percent);
+          break;
+        case 'discount_high_low':
+          this.coupons.sort((a, b) => b.percent - a.percent);
+          break;
+        case 'startDate_new_old':
+          this.coupons.sort((a, b) => {
+            const date1 = this.$date.toUnix(a.start_date);
+            const date2 = this.$date.toUnix(b.start_date);
+            return date2 - date1;
+          });
+          break;
+        case 'startDate_old_new':
+          this.coupons.sort((a, b) => {
+            const date1 = this.$date.toUnix(a.start_date);
+            const date2 = this.$date.toUnix(b.start_date);
+            return date1 - date2;
+          });
+          break;
+        case 'dueDate_new_old':
+          this.coupons.sort((a, b) => {
+            const date1 = this.$date.toUnix(a.due_date);
+            const date2 = this.$date.toUnix(b.due_date);
+            return date2 - date1;
+          });
+          break;
+        case 'dueDate_old_new':
+          this.coupons.sort((a, b) => {
+            const date1 = this.$date.toUnix(a.due_date);
+            const date2 = this.$date.toUnix(b.due_date);
+            return date1 - date2;
+          });
+          break;
+        default:
+          break;
+      }
     },
   },
   created() {
