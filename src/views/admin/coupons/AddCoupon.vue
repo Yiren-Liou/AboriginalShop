@@ -82,7 +82,7 @@
                     </select>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6" v-if='coupon.is_enabled'>
                 <div class="mb-3">
                   <label for="startDate" class="form-label">啟用日期<sup>*</sup></label>
                   <!-- <input type="date" class="form-control"
@@ -91,12 +91,12 @@
                           placeholder="請輸入啟用日期" v-model="coupon.start_date"
                           name="啟用日期" rules="required"
                           :class="{ 'is-invalid': errors['啟用日期'] }"
-                          :disabled='coupon.is_enabled'>
+                          :disabled='!coupon.is_enabled'>
                   </Field>
                   <error-message name="啟用日期" class="invalid-feedback"></error-message>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6" v-if='coupon.is_enabled'>
                 <div class="mb-3">
                   <label for="couponDueDate" class="form-label">截止日期<sup>*</sup></label>
                   <!-- <input type="date" class="form-control"
@@ -142,15 +142,20 @@ export default {
   methods: {
     addCoupon() {
       this.isLoading = true;
-      this.coupon.start_date = dayjs(this.coupon.start_date).unix();
-      this.coupon.due_date = dayjs(this.coupon.due_date).unix();
+      if (this.coupon.is_enabled) {
+        this.coupon.start_date = dayjs(this.coupon.start_date).unix();
+        this.coupon.due_date = dayjs(this.coupon.due_date).unix();
+      } else {
+        this.coupon.start_date = dayjs().unix();
+        this.coupon.due_date = dayjs().unix();
+      }
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/coupon`;
       this.$http.post(apiUrl, { data: this.coupon })
         .then((res) => {
           if (res.data.success) {
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'success' });
             this.$router.push('/admin/coupons');
+            this.$swal({ text: res.data.message, icon: 'success' });
           } else {
             this.isLoading = false;
             this.$swal({ text: res.data.message, icon: 'error' });

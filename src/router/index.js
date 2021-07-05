@@ -50,7 +50,7 @@ const routes = [
       },
       {
         path: 'coupon/:id',
-        name: 'couponInfo',
+        name: 'coupon',
         component: () => import('../views/admin/coupons/EditCoupon.vue'),
       },
     ],

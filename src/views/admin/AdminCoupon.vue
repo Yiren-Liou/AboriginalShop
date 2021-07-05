@@ -42,15 +42,20 @@
         <td>{{ coupon.title }}</td>
         <td>{{ coupon.percent }}%</td>
         <td>{{ coupon.is_enabled? '啟用' : '未啟用' }}</td>
-        <td>{{ $toDate(coupon.start_date) }}</td>
-        <td>{{ $toDate(coupon.due_date) }}</td>
+        <td>{{ coupon.is_enabled? $toDate(coupon.start_date) : '-'}}</td>
+        <td>{{ coupon.is_enabled? $toDate(coupon.due_date) : '-' }}</td>
         <td>
-          <router-link :to="`/admin/order/${coupon.id}`" class="material-icons btn">
+          <!-- <router-link :to="`/admin/coupon/${coupon.id}`" @click="emitCoupon(i)"
+                       class="material-icons btn">
             remove_red_eye
-          </router-link>
+          </router-link> -->
+          <button type="button" class="material-icons btn" @click="emitCoupon(i, coupon.id)">
+            remove_red_eye
+          </button>
         </td>
         <td>
-          <router-link :to="`/admin/order/${coupon.id}`" class="material-icons btn">
+          <router-link :to="`/admin/coupon/${coupon.id}`" @click="emitCoupon(i)"
+                       class="material-icons btn">
             edit
           </router-link>
         </td>
@@ -77,6 +82,7 @@ export default {
   data() {
     return {
       coupons: '',
+      coupon: '',
       isLoading: false,
     };
   },
@@ -86,7 +92,6 @@ export default {
   },
   methods: {
     getCoupons(page = 1) {
-      this.isLoading = true;
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/coupons?page=${page}`;
       this.$http.get(apiUrl)
         .then((res) => {
@@ -103,6 +108,20 @@ export default {
           console.dir(err);
         });
     },
+    emitCoupon(index, id) {
+      this.coupon = this.coupons[index];
+      const tempId = id;
+      this.$router.push({
+        name: 'coupon',
+        params: {
+          id: tempId,
+        },
+        query: {
+          coupon: JSON.stringify(this.coupon),
+        },
+      });
+      // this.$emitter.emit('pushCoupon', this.coupon);
+    },
     delCoupon(id) {
       this.isLoading = true;
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/coupon/${id}`;
@@ -110,8 +129,8 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'success' });
             this.getCoupons();
+            this.$swal({ text: res.data.message, icon: 'success' });
           } else {
             this.isLoading = false;
             this.$swal({ text: res.data.message, icon: 'error' });
@@ -123,6 +142,7 @@ export default {
     },
   },
   created() {
+    this.isLoading = true;
     this.getCoupons();
   },
 };
