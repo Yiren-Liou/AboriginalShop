@@ -15,7 +15,12 @@
                 新增優惠券
     </router-link>
     <div class="d-flex">
-      <Search class="me-2"></Search>
+      <div class="input-group me-3">
+        <input type="text" class="form-control" placeholder="請輸入要搜尋的商品名稱"
+              aria-label="search" aria-describedby="searchBtn"
+              v-model="search">
+        <span class="input-group-text material-icons bg-transparent">search</span>
+      </div>
       <Filter></Filter>
     </div>
   </div>
@@ -37,7 +42,7 @@
       <tr>目前沒有優惠券呦</tr>
     </tbody>
     <tbody v-else class="text-center">
-      <tr v-for="(coupon, i) in coupons" :key="coupon.id">
+      <tr v-for="(coupon, i) in filterCoupon" :key="coupon.id">
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ coupon.title }}</td>
         <td>{{ coupon.percent }}%</td>
@@ -75,7 +80,6 @@
 </template>
 
 <script>
-import Search from '@/components/Search.vue';
 import Filter from '@/components/admin/Filter.vue';
 
 export default {
@@ -84,11 +88,16 @@ export default {
       coupons: '',
       coupon: '',
       isLoading: false,
+      search: '',
     };
   },
   components: {
-    Search,
     Filter,
+  },
+  computed: {
+    filterCoupon() {
+      return this.coupons.filter((item) => item.title.match(this.search));
+    },
   },
   methods: {
     getCoupons(page = 1) {

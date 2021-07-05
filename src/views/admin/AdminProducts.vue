@@ -11,7 +11,12 @@
                   新增商品
     </router-link>
     <div class="d-flex">
-      <Search class="me-2"></Search>
+      <div class="input-group me-3">
+        <input type="text" class="form-control" placeholder="請輸入要搜尋的商品名稱"
+              aria-label="search" aria-describedby="searchBtn"
+              v-model="search">
+        <span class="input-group-text material-icons bg-transparent">search</span>
+      </div>
       <Filter></Filter>
     </div>
   </div>
@@ -35,7 +40,7 @@
       <tr>目前沒有任何商品呦</tr>
     </tbody>
     <tbody v-else class="text-center">
-      <tr v-for="(item, i) in productData" :key="item.id">
+      <tr v-for="(item, i) in filterProducts" :key="item.id">
         <th scope="row">{{ i + 1 }}</th>
         <td>
           <div class="productImg img-fluid bg-cover bg-center"
@@ -82,7 +87,6 @@
 
 <script>
 import Pagination from '@/components/Pagination.vue';
-import Search from '@/components/Search.vue';
 import Filter from '@/components/admin/Filter.vue';
 
 export default {
@@ -98,13 +102,18 @@ export default {
       updateStatusText: '',
       pagination: '',
       alertText: '',
+      search: '',
       isLoading: false,
     };
   },
   components: {
-    Search,
     Filter,
     Pagination,
+  },
+  computed: {
+    filterProducts() {
+      return this.productData.filter((item) => item.title.match(this.search));
+    },
   },
   methods: {
     getProducts(page = 1) {

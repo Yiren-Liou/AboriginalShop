@@ -9,12 +9,15 @@
       </li>
     </ol>
   </nav>
-  <div class="row justify-content-end">
-    <div class="col-md-3">
-      <Search></Search>
-    </div>
-    <div class="col-md-1">
-      <Filter></Filter>
+  <div class="row justify-content-end mb-3">
+    <div class="col-md-4">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="請輸入要搜尋的訂單編號"
+              aria-label="search" aria-describedby="searchBtn"
+              v-model="search">
+        <span class="input-group-text material-icons bg-transparent me-3">search</span>
+        <Filter></Filter>
+      </div>
     </div>
   </div>
   <table class="table align-middle mb-3">
@@ -36,7 +39,7 @@
       <tr>目前沒有訂單呦</tr>
     </tbody>
     <tbody v-else class="text-center">
-      <tr v-for="(order, i) in orderList" :key="order.id">
+      <tr v-for="(order, i) in filterOrder" :key="order.id">
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ order.id }}</td>
         <td>{{ order.user.name }}</td>
@@ -71,7 +74,6 @@
 </template>
 
 <script>
-import Search from '@/components/Search.vue';
 import Filter from '@/components/admin/Filter.vue';
 
 export default {
@@ -79,11 +81,16 @@ export default {
     return {
       orderList: '',
       isLoading: false,
+      search: '',
     };
   },
   components: {
-    Search,
     Filter,
+  },
+  computed: {
+    filterOrder() {
+      return this.orderList.filter((item) => item.id.match(this.search));
+    },
   },
   methods: {
     getOrderList(page = 1) {
