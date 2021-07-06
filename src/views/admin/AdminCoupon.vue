@@ -16,7 +16,7 @@
     </router-link>
     <div class="d-flex">
       <div class="input-group me-3">
-        <input type="text" class="form-control" placeholder="請輸入要搜尋的商品名稱"
+        <input type="text" class="form-control" placeholder="請輸入優惠券名稱"
               aria-label="search" aria-describedby="searchBtn"
               v-model="search">
         <span class="input-group-text material-icons bg-transparent me-3">search</span>
@@ -94,12 +94,12 @@
         <td>{{ coupon.is_enabled? $date.toDate(coupon.start_date) : '-'}}</td>
         <td>{{ coupon.is_enabled? $date.toDate(coupon.due_date) : '-' }}</td>
         <td>
-          <button type="button" class="material-icons btn" @click="emitCoupon(i, coupon.id)">
+          <button type="button" class="material-icons btn" @click="emitCoupon(i, coupon.id, true)">
             remove_red_eye
           </button>
         </td>
         <td>
-          <router-link :to="`/admin/coupon/${coupon.id}`" @click="emitCoupon(i)"
+          <router-link :to="`/admin/coupon/${coupon.id}`" @click="emitCoupon(i, coupon.id, false)"
                        class="material-icons btn">
             edit
           </router-link>
@@ -154,7 +154,7 @@ export default {
           console.dir(err);
         });
     },
-    emitCoupon(index, id) {
+    emitCoupon(index, id, status) {
       this.coupon = this.coupons[index];
       const tempId = id;
       this.$router.push({
@@ -166,7 +166,10 @@ export default {
           coupon: JSON.stringify(this.coupon),
         },
       });
-      // this.$emitter.emit('pushCoupon', this.coupon);
+      this.$emit('emit-readonly', status);
+    },
+    emitReadonly(status) {
+      this.$emit('emit-readonly', status);
     },
     delCoupon(id) {
       this.isLoading = true;

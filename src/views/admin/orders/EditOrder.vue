@@ -18,7 +18,7 @@
       <button class="btn btn-primary btn-sm me-3" @click="delOrder()">
         刪除
       </button>
-      <button class="btn btn-primary btn-sm" @click="this.readonly = false">
+      <button class="btn btn-primary btn-sm" @click="emitReadonly(false)">
         編輯
       </button>
     </div>
@@ -199,10 +199,16 @@ export default {
       order: '',
       user: '',
       products: '',
-      readonly: true,
       isLoading: false,
     };
   },
+  computed: {
+    readonly() {
+      const readonly = this.readStatus;
+      return readonly;
+    },
+  },
+  props: ['readStatus'],
   methods: {
     getOrder() {
       this.isLoading = true;
@@ -228,7 +234,7 @@ export default {
     },
     cancelEdit() {
       this.isLoading = true;
-      this.readonly = true;
+      this.emitReadonly(true);
       this.getOrder();
     },
     delOrder() {
@@ -250,7 +256,7 @@ export default {
         });
     },
     update() {
-      this.readonly = true;
+      this.emitReadonly(true);
       this.isLoading = true;
       this.order.user = this.user;
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/order/${this.routeId}}`;
@@ -259,7 +265,7 @@ export default {
           if (res.data.success) {
             this.isLoading = false;
             this.getOrder();
-            this.readonly = true;
+            this.emitReadonly(true);
             this.$swal({ text: res.data.message, icon: 'success' });
           } else {
             this.isLoading = false;
@@ -269,6 +275,9 @@ export default {
         .catch((err) => {
           console.dir(err);
         });
+    },
+    emitReadonly(status) {
+      this.$emit('emit-readonly', status);
     },
   },
   created() {

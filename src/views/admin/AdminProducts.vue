@@ -12,7 +12,7 @@
     </router-link>
     <div class="d-flex">
       <div class="input-group me-3">
-        <input type="text" class="form-control" placeholder="請輸入要搜尋的商品名稱"
+        <input type="text" class="form-control" placeholder="請輸入商品名稱"
               aria-label="search" aria-describedby="searchBtn"
               v-model="search">
         <span class="input-group-text material-icons bg-transparent">search</span>
@@ -102,12 +102,12 @@
         </td>
         <td>
           <router-link :to="`product/${item.id}`" class="material-icons btn"
-                       @click="pushIsEdit(true)">remove_red_eye
+                       @click="emitReadonly(true)">remove_red_eye
           </router-link>
         </td>
         <td class="text-center">
           <router-link :to="`product/${item.id}`" class="material-icons btn"
-                        @click="pushIsEdit(false)">edit
+                        @click="emitReadonly(false)">edit
           </router-link>
         </td>
         <td class="text-center">
@@ -149,7 +149,6 @@ export default {
       isLoading: false,
     };
   },
-  inject: ['emitter'],
   components: {
     Pagination,
   },
@@ -203,9 +202,8 @@ export default {
           console.dir(err);
         });
     },
-    pushIsEdit(status) {
-      console.log('emit', status);
-      this.emitter.emit('push-edit', status);
+    emitReadonly(status) {
+      this.$emit('emit-readonly', status);
     },
     filterItem(e) {
       e.preventDefault();

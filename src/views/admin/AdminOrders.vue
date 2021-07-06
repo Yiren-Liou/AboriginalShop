@@ -10,9 +10,9 @@
     </ol>
   </nav>
   <div class="row justify-content-end mb-3">
-    <div class="col-md-4">
+    <div class="col-md-3">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="請輸入要搜尋的訂單編號"
+        <input type="text" class="form-control" placeholder="請輸入訂單編號"
               aria-label="search" aria-describedby="searchBtn"
               v-model="search">
         <span class="input-group-text material-icons bg-transparent me-3">search</span>
@@ -80,12 +80,14 @@
         <td>{{ order.is_paid? '已付款' : '未付款' }}</td>
         <td>未出貨</td>
         <td>
-          <router-link :to="`order/${order.id}`" class="material-icons btn">
+          <router-link :to="`order/${order.id}`" @click="emitReadonly(true)"
+                       class="material-icons btn">
             remove_red_eye
           </router-link>
         </td>
         <td>
-          <router-link :to="`order/${order.id}`" class="material-icons btn">
+          <router-link :to="`order/${order.id}`" @click="emitReadonly(false)"
+                       class="material-icons btn">
             edit
           </router-link>
         </td>
@@ -201,6 +203,9 @@ export default {
         default:
           break;
       }
+    },
+    emitReadonly(status) {
+      this.$emit('emit-readonly', status);
     },
   },
   mounted() {

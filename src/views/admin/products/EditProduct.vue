@@ -18,7 +18,7 @@
       <button class="btn btn-primary btn-sm me-3" @click="delProduct()">
         刪除
       </button>
-      <button class="btn btn-primary btn-sm" @click="this.readonly = false">
+      <button class="btn btn-primary btn-sm" @click="emitReadonly(false)">
         編輯
       </button>
     </div>
@@ -213,7 +213,6 @@
       </div>
     </div>
   </div>
-  <button class="btn btn-primary" @click="show">按鈕</button>
   <Loading :active="isLoading">
     <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
     <div></div><div></div><div></div>
@@ -233,11 +232,16 @@ export default {
       routeId: this.$route.params.id,
       productInfo: {},
       updateProduct: {},
-      readonly: true,
       isLoading: false,
     };
   },
-  inject: ['emitter'],
+  computed: {
+    readonly() {
+      const readonly = this.readStatus;
+      return readonly;
+    },
+  },
+  props: ['readStatus'],
   components: {
     CategorySelect,
     IsEnabledSelect,
@@ -245,13 +249,6 @@ export default {
     Recommended,
   },
   methods: {
-    show() {
-      this.emitter.on('push-edit', (status) => {
-        console.log('emitOn', status);
-        this.readonly = status;
-      });
-      console.log(this.readonly);
-    },
     getProduct() {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/product/${this.routeId}`;
       this.$http.get(apiUrl)
@@ -270,11 +267,11 @@ export default {
     },
     cancelEdit() {
       this.isLoading = true;
-      this.readonly = true;
+      this.emitReadonly(true);
       this.getProduct();
     },
     update() {
-      this.readonly = true;
+      this.emitReadonly(true);
       this.isLoading = true;
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/product/${this.routeId}`;
       this.$http.put(apiUrl, { data: this.productInfo })
@@ -327,14 +324,12 @@ export default {
     checkBasicInfo() {
       this.$swal({ text: '儲存成功', icon: 'success' });
     },
+    emitReadonly(status) {
+      this.$emit('emit-readonly', status);
+    },
   },
   mounted() {
     this.isLoading = true;
-    this.emitter.on('push-edit', (status) => {
-      console.log('emitOn', status);
-      this.readonly = status;
-    });
-    console.log(this.readonly);
     this.getProduct();
   },
 };

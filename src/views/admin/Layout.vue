@@ -10,7 +10,10 @@
       </div>
       <div class="col">
         <div class="py-4 px-3">
-          <router-view v-if="checkUser"></router-view>
+          <router-view v-if="checkUser"
+                       @emit-readonly='getReadonly'
+                       :read-status='readStatus'>
+          </router-view>
         </div>
       </div>
     </div>
@@ -19,23 +22,21 @@
 
 <script>
 import AdminNav from '@/components/admin/AdminNav.vue';
-import emitter from '@/methods/emitter';
 
 export default {
   data() {
     return {
+      readStatus: '',
       checkUser: false,
-    };
-  },
-  provide() {
-    return {
-      emitter,
     };
   },
   components: {
     AdminNav,
   },
   methods: {
+    getReadonly(status) {
+      this.readStatus = status;
+    },
   },
   mounted() {
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
@@ -47,12 +48,11 @@ export default {
           if (res.data.success) {
             this.checkUser = true;
           } else {
-            // alert(res.data.message);
+            this.$swal({ text: res.data.message, icon: 'error' });
             this.$router.push('/login');
           }
         });
     } else {
-      // alert('尚未登入');
       this.$router.push('/login');
     }
   },
