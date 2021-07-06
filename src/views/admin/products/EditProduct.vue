@@ -333,8 +333,8 @@ export default {
     this.emitter.on('push-edit', (status) => {
       console.log('emitOn', status);
       this.readonly = status;
-      console.log(this.readonly);
     });
+    console.log(this.readonly);
     this.getProduct();
   },
 };
