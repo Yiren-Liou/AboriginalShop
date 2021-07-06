@@ -19,5 +19,6 @@ module.exports = {
         "props": false,
       },
     ],
+    'linebreak-style': ["off", "windows"],
   },
 };

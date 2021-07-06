@@ -50,8 +50,6 @@
               <div class="col-md-6">
                 <div class="mb-3">
                   <label for="couponTitle" class="form-label">優惠券標題<sup>*</sup></label>
-                  <!-- <input type="text" class="form-control"
-                        id="couponTitle" v-model="coupon.title"> -->
                   <Field type="text" class="form-control" id="couponTitle"
                     placeholder="請輸入優惠券標題" v-model="coupon.title"
                     name="優惠券標題" rules="required"
@@ -64,8 +62,6 @@
               <div class="col-md-6">
                 <div class="mb-3">
                   <label for="couponCode" class="form-label">折扣碼<sup>*</sup></label>
-                  <!-- <input type="text" class="form-control"
-                        id="couponCode" v-model="coupon.code"> -->
                   <Field type="text" class="form-control" id="couponCode"
                           placeholder="請輸入折扣碼" v-model="coupon.code"
                           name="折扣碼" rules="required"
@@ -78,8 +74,6 @@
               <div class="col-md-6">
                 <div class="mb-3">
                   <label for="couponDiscount" class="form-label">折扣趴數<sup>*</sup></label>
-                  <!-- <input type="number" class="form-control"
-                        id="couponDiscount" v-model="coupon.percent"> -->
                   <Field type="number" class="form-control" id="couponDiscount"
                           placeholder="請輸入折扣趴數" v-model.number="coupon.percent"
                           name="折扣趴數" rules="required"
@@ -103,8 +97,6 @@
               <div class="col-md-6" v-if='coupon.is_enabled'>
                 <div class="mb-3">
                   <label for="startDate" class="form-label">啟用日期<sup>*</sup></label>
-                  <!-- <input type="date" class="form-control"
-                        id="startDate" v-model="coupon.startDate"> -->
                   <Field type="date" class="form-control" id="startDate"
                           placeholder="請輸入啟用日期" v-model="coupon.start_date"
                           name="啟用日期" rules="required"
@@ -117,8 +109,6 @@
               <div class="col-md-6" v-if='coupon.is_enabled'>
                 <div class="mb-3">
                   <label for="couponDueDate" class="form-label">截止日期<sup>*</sup></label>
-                  <!-- <input type="date" class="form-control"
-                        id="couponDueDate" v-model="coupon.dueDate"> -->
                   <Field type="date" class="form-control" id="couponDueDate"
                           placeholder="請輸入截止日期" v-model="coupon.due_date"
                           name="截止日期" rules="required"
@@ -154,7 +144,6 @@ export default {
     return {
       routeId: this.$route.params.id,
       coupon: {},
-      // readonly: true,
       isLoading: false,
     };
   },
