@@ -19,11 +19,17 @@
 
 <script>
 import AdminNav from '@/components/admin/AdminNav.vue';
+import emitter from '@/methods/emitter';
 
 export default {
   data() {
     return {
       checkUser: false,
+    };
+  },
+  provide() {
+    return {
+      emitter,
     };
   },
   components: {

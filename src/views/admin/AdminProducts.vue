@@ -149,6 +149,7 @@ export default {
       isLoading: false,
     };
   },
+  inject: ['emitter'],
   components: {
     Pagination,
   },
@@ -203,7 +204,8 @@ export default {
         });
     },
     pushIsEdit(status) {
-      this.$emitter.emit('push-is-edit', status);
+      console.log('emit', status);
+      this.emitter.emit('push-edit', status);
     },
     filterItem(e) {
       e.preventDefault();

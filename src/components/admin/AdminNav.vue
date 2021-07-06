@@ -25,7 +25,6 @@
 export default {
   methods: {
     logout() {
-      console.log('登出');
       const apiUrl = `${process.env.VUE_APP_URL}logout`;
       this.$http.post(apiUrl)
         .then((res) => {

@@ -213,6 +213,7 @@
       </div>
     </div>
   </div>
+  <button class="btn btn-primary" @click="show">按鈕</button>
   <Loading :active="isLoading">
     <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
     <div></div><div></div><div></div>
@@ -236,6 +237,7 @@ export default {
       isLoading: false,
     };
   },
+  inject: ['emitter'],
   components: {
     CategorySelect,
     IsEnabledSelect,
@@ -243,6 +245,13 @@ export default {
     Recommended,
   },
   methods: {
+    show() {
+      this.emitter.on('push-edit', (status) => {
+        console.log('emitOn', status);
+        this.readonly = status;
+      });
+      console.log(this.readonly);
+    },
     getProduct() {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/product/${this.routeId}`;
       this.$http.get(apiUrl)
@@ -321,6 +330,11 @@ export default {
   },
   mounted() {
     this.isLoading = true;
+    this.emitter.on('push-edit', (status) => {
+      console.log('emitOn', status);
+      this.readonly = status;
+      console.log(this.readonly);
+    });
     this.getProduct();
   },
 };
