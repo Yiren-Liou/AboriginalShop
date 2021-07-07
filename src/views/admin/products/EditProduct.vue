@@ -242,6 +242,7 @@ export default {
     },
   },
   props: ['readStatus'],
+  emits: ['emit-readonly'],
   components: {
     CategorySelect,
     IsEnabledSelect,

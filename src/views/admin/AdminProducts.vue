@@ -149,6 +149,7 @@ export default {
       isLoading: false,
     };
   },
+  emits: ['emit-readonly'],
   components: {
     Pagination,
   },
