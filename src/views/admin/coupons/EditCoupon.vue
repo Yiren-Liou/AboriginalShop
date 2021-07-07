@@ -153,6 +153,7 @@ export default {
       return readonly;
     },
   },
+  emits: ['emit-readonly'],
   props: ['readStatus'],
   methods: {
     getCoupon() {

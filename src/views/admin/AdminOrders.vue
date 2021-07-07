@@ -116,6 +116,7 @@ export default {
       search: '',
     };
   },
+  emits: ['emit-readonly'],
   components: {
   },
   computed: {

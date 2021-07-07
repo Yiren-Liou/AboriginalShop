@@ -202,6 +202,7 @@ export default {
       isLoading: false,
     };
   },
+  emits: ['emit-readonly'],
   computed: {
     readonly() {
       const readonly = this.readStatus;
