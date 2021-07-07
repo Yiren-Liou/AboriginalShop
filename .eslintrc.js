@@ -19,7 +19,6 @@ module.exports = {
         "props": false,
       },
     ],
-    'inheritAttrs': false,
     // 'linebreak-style': ["off", "windows"],
   },
 };
