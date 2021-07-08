@@ -3,6 +3,17 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 const routes = [
   {
     path: '/',
+    component: () => import('../views/front/FrontLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Home',
+        component: () => import('../views/front/Home.vue'),
+      },
+    ],
+  },
+  {
+    path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue'),
   },
@@ -57,6 +68,11 @@ const routes = [
   {
     path: '/:pathMatch(.*)*',
     component: () => import('../views/NotFound.vue'),
+  },
+  {
+    path: '/upload',
+    name: 'Upload',
+    component: () => import('../views/UploadImgs.vue'),
   },
 ];
 
