@@ -18,7 +18,6 @@
     </router-link>
   </div>
   <a href="#" @click.prevent="logout" class="btn btn-primary" type="button">登出</a>
-  <!-- <button class="btn btn-primary" @click="logout()">登出</button> -->
 </template>
 
 <script>
@@ -29,8 +28,9 @@ export default {
       this.$http.post(apiUrl)
         .then((res) => {
           if (res.data.success) {
+            document.cookie = 'hexToken=; expires=; path=/';
             this.$swal({ text: res.data.message, icon: 'success' });
-            this.$router.push('/');
+            this.$router.push('/login');
           }
         });
     },

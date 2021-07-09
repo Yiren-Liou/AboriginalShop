@@ -10,11 +10,30 @@
   background-size: cover;
 }
 
+.fontSizeS{
+  font-size: $font-size-base * 0.75;
+}
+
 .fontSizeM{
-  font-size: $font-size-base * 2;
+  font-size: $font-size-base * 1.5;
 }
 .fontSizeL{
-  font-size: $font-size-base * 3;
+  font-size: $font-size-base * 1.75;
+}
+
+.fontSize-lg-M{
+  @media (min-width: 992px){
+    font-size: $font-size-base * 1.5;
+  }
+}
+.fontSize-lg-L{
+  @media (min-width: 992px){
+    font-size: $font-size-base * 3;
+  }
+}
+
+.zindexTop{
+  z-index: $zindex-sticky;
 }
 
 .text-strike{

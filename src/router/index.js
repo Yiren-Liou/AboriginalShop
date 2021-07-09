@@ -3,13 +3,14 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 const routes = [
   {
     path: '/',
-    component: () => import('../views/front/FrontLayout.vue'),
+    name: 'Home',
+    component: () => import('../views/front/Home.vue'),
     children: [
-      {
-        path: '',
-        name: 'Home',
-        component: () => import('../views/front/Home.vue'),
-      },
+      // {
+      //   path: '',
+      //   name: 'Home',
+      //   component: () => import('../views/front/Home.vue'),
+      // },
     ],
   },
   {

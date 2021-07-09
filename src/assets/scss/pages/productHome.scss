@@ -1,0 +1,27 @@
+.banner{
+  display: flex;
+  flex-direction: column;
+  justify-content:space-between;
+  align-items:center;
+  background-image: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1625801130926.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=IBDHUJD6GjR3OqMzzWLUiANJ6fOX7T1cyKclt8ONdiVvwpXLLmd6L4moUkQZ9hrM7lh7W5U3kh3HQ4BkudnGB%2FIbckSAxQ7c4dRYyJQ%2Byq4Ik7EOHrtjXNyAbxkBJbPv4Psj2668S8FUpIrNnLBKgwp2s7Y0w5md0gagpnSlqksukaJftHr92a0KdncCffquTvUU6oHr5DP4cwujxBrunE71eA4StxfDz%2FDz9aAiUoaNx6qhZKukHW4vaW5e%2B928sjiD3Yi7uCJgxJEoDlGOkBQ%2FiNcg%2FXxSn1uiHJyXtMkAIfJCVTqOvD2arpQv4WIXbezojJ3y05g%2FWi6ZP3nW1g%3D%3D);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  @media (min-width: 992px){
+    background-image: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1625800945548.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=mr%2Fd%2BiweQ6mYWz1FTHZihntrqXkiVkhz4BiG28WPx1PdZ2vwrONGg8qxa1cuRZ%2BUcHYP6gYV9jSCanZWT9gjwinkpMutbuyyQtgd3ftrvi70e3NGql%2BRJYwlm4UFyw5CAb8Z2npu38LhAqwBB1kYMcxeROFKmoZn09P%2FRRcqVsxrtlIGFBxoxM27RsksdmwsOY6Y2qugklqfwZf2kzYlAKrt1TTh450fr9sI4EwoxrDVstL94guZH%2BROsliMNlNtjPRZ5dyGiTXdQ18ROkWyWUlPqqVwDq2lwe2dZ1wEbQYlj%2Fp560PhmdX72TOr2Xgr46jkX0zvaK0k6rWDZ98Rww%3D%3D);
+  }
+  .bannerCover{
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,.1);
+    position: absolute;
+  }
+  .bannerSlogan{
+    position: absolute;
+    top: 48%;
+    @media (min-width: 992px){
+      transform: translate(0, -60%);
+    }
+  }
+}

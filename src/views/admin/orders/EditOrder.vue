@@ -15,16 +15,16 @@
   <div v-if="readonly" class="d-flex justify-content-between mb-4">
     <router-link to='/admin/orders' class="btn btn-primary btn-sm">返回</router-link>
     <div class="d-flex">
-      <button class="btn btn-primary btn-sm me-3" @click="delOrder()">
+      <button type="button" class="btn btn-primary btn-sm me-3" @click="delOrder()">
         刪除
       </button>
-      <button class="btn btn-primary btn-sm" @click="emitReadonly(false)">
+      <button type="button" class="btn btn-primary btn-sm" @click="emitReadonly(false)">
         編輯
       </button>
     </div>
   </div>
   <div v-else class="d-flex justify-content-end mb-4">
-    <button class="btn btn-primary btn-sm me-3" @click="cancelEdit">
+    <button type="button" class="btn btn-primary btn-sm me-3" @click="cancelEdit">
       取消
     </button>
     <button class="btn btn-primary btn-sm" @click="update()">
@@ -149,7 +149,7 @@
         <div class="col-md-4">
           <div class="mb-3">
             <label for="buyerPaidMethod" class="form-label">付款方式</label>
-            <input type="text" class="form-control" v-model="order.payment_method"
+            <input type="text" class="form-control" v-model="user.payment"
                     id="buyerPaidMethod" disabled>
           </div>
         </div>

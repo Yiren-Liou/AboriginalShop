@@ -111,7 +111,7 @@
           </router-link>
         </td>
         <td class="text-center">
-          <button class="btn d-flex justify-content-center w-100"
+          <button type="button" class="btn d-flex justify-content-center w-100"
                   @click="delProduct(item.id)">
             <span class="material-icons">delete</span>
           </button>

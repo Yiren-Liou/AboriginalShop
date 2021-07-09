@@ -15,16 +15,16 @@
   <div v-if="readonly" class="d-flex justify-content-between mb-4">
     <router-link to='/admin/coupons' class="btn btn-primary btn-sm">返回</router-link>
     <div class="d-flex">
-      <button class="btn btn-primary btn-sm me-3" @click="delCoupon">
+      <button type="button" class="btn btn-primary btn-sm me-3" @click="delCoupon">
         刪除
       </button>
-      <button class="btn btn-primary btn-sm" @click="emitReadonly(false)">
+      <button type="button" class="btn btn-primary btn-sm" @click="emitReadonly(false)">
         編輯
       </button>
     </div>
   </div>
   <div v-else class="d-flex justify-content-end mb-3">
-    <button class="btn btn-primary btn-sm me-3" @click="cancel">
+    <button type="button" class="btn btn-primary btn-sm me-3" @click="cancel">
       取消
     </button>
     <button class="btn btn-primary btn-sm" @click="update">
@@ -76,7 +76,7 @@
                   <label for="couponDiscount" class="form-label">折扣趴數<sup>*</sup></label>
                   <Field type="number" class="form-control" id="couponDiscount"
                           placeholder="請輸入折扣趴數" v-model.number="coupon.percent"
-                          name="折扣趴數" rules="required"
+                          name="折扣趴數" rules="required" min="1" max="100"
                           :class="{ 'is-invalid': errors['折扣趴數'] }"
                           :disabled='readonly'>
                   </Field>
@@ -108,8 +108,8 @@
               </div>
               <div class="col-md-6" v-if='coupon.is_enabled'>
                 <div class="mb-3">
-                  <label for="couponDueDate" class="form-label">截止日期<sup>*</sup></label>
-                  <Field type="date" class="form-control" id="couponDueDate"
+                  <label for="dueDate" class="form-label">截止日期<sup>*</sup></label>
+                  <Field type="date" class="form-control" id="dueDate"
                           placeholder="請輸入截止日期" v-model="coupon.due_date"
                           name="截止日期" rules="required"
                           :class="{ 'is-invalid': errors['截止日期'] }"

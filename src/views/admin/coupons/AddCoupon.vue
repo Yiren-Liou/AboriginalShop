@@ -9,7 +9,7 @@
     </ol>
   </nav>
   <div class="d-flex justify-content-end mb-3">
-      <button class="btn btn-primary btn-sm me-3" @click="cancel">
+      <button type="button" class="btn btn-primary btn-sm me-3" @click="cancel">
         取消
       </button>
       <button class="btn btn-primary btn-sm" @click="addCoupon">
@@ -48,8 +48,6 @@
               <div class="col-md-6">
                 <div class="mb-3">
                   <label for="couponCode" class="form-label">折扣碼<sup>*</sup></label>
-                  <!-- <input type="text" class="form-control"
-                        id="couponCode" v-model="coupon.code"> -->
                   <Field type="text" class="form-control" id="couponCode"
                           placeholder="請輸入折扣碼" v-model="coupon.code"
                           name="折扣碼" rules="required"
@@ -61,11 +59,9 @@
               <div class="col-md-6">
                 <div class="mb-3">
                   <label for="couponDiscount" class="form-label">折扣趴數<sup>*</sup></label>
-                  <!-- <input type="number" class="form-control"
-                        id="couponDiscount" v-model="coupon.percent"> -->
                   <Field type="number" class="form-control" id="couponDiscount"
                           placeholder="請輸入折扣趴數" v-model.number="coupon.percent"
-                          name="折扣趴數" rules="required"
+                          name="折扣趴數" rules="required" min="1" max="100"
                           :class="{ 'is-invalid': errors['折扣趴數'] }">
                   </Field>
                   <error-message name="折扣趴數" class="invalid-feedback"></error-message>
@@ -73,8 +69,8 @@
               </div>
               <div class="col-md-6">
                 <div class="mb-3">
-                  <label for="couponDiscount" class="form-label">啟用狀態<sup>*</sup></label>
-                    <select class="form-select" id="couponDiscount"
+                  <label for="couponIsEnabled" class="form-label">啟用狀態<sup>*</sup></label>
+                    <select class="form-select" id="couponIsEnabled"
                             v-model.number="coupon.is_enabled">
                       <option value='' selected disabled>請選擇啟用狀態</option>
                       <option value=0>未啟用</option>
@@ -85,8 +81,6 @@
               <div class="col-md-6" v-if='coupon.is_enabled'>
                 <div class="mb-3">
                   <label for="startDate" class="form-label">啟用日期<sup>*</sup></label>
-                  <!-- <input type="date" class="form-control"
-                        id="startDate" v-model="coupon.startDate"> -->
                   <Field type="date" class="form-control" id="startDate"
                           placeholder="請輸入啟用日期" v-model="coupon.start_date"
                           name="啟用日期" rules="required"
@@ -98,10 +92,8 @@
               </div>
               <div class="col-md-6" v-if='coupon.is_enabled'>
                 <div class="mb-3">
-                  <label for="couponDueDate" class="form-label">截止日期<sup>*</sup></label>
-                  <!-- <input type="date" class="form-control"
-                        id="couponDueDate" v-model="coupon.dueDate"> -->
-                  <Field type="date" class="form-control" id="couponDueDate"
+                  <label for="dueDate" class="form-label">截止日期<sup>*</sup></label>
+                  <Field type="date" class="form-control" id="dueDate"
                           placeholder="請輸入截止日期" v-model="coupon.due_date"
                           name="截止日期" rules="required"
                           :class="{ 'is-invalid': errors['截止日期'] }">

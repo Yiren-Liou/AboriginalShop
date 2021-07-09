@@ -9,7 +9,7 @@
     </ol>
   </nav>
   <div class="d-flex justify-content-end mb-3">
-    <button class="btn btn-primary btn-sm me-3" @click="returnToProducts">
+    <button type="button" class="btn btn-primary btn-sm me-3" @click="returnToProducts">
       取消
     </button>
     <button class="btn btn-primary btn-sm" @click="addProduct">
@@ -78,7 +78,7 @@
                 <label for="productOriPrice" class="form-label">原價<sup>*</sup></label>
                 <Field type="number" class="form-control" id="productOriPrice"
                       placeholder="請輸入商品原價" v-model.number="newProduct.origin_price"
-                      name="商品原價" rules="min_value:1|required"
+                      name="商品原價" rules="min_value:1|required" min=1
                       :class="{ 'is-invalid': errors['商品原價'] }">
                 </Field>
                 <error-message name="商品原價" class="invalid-feedback"></error-message>
@@ -87,7 +87,7 @@
                 <label for="productPrice" class="form-label">售價<sup>*</sup></label>
                 <Field type="number" class="form-control" id="productPrice"
                       placeholder="請輸入商品售價" v-model.number="newProduct.price"
-                      name="商品售價" rules="min_value:1|required"
+                      name="商品售價" rules="min_value:1|required" min=1
                       :class="{ 'is-invalid': errors['商品售價'] }">
                 </Field>
                 <error-message name="商品售價" class="invalid-feedback"></error-message>

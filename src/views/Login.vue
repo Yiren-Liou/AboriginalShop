@@ -22,7 +22,7 @@
             </div>
             <div class="mb-3">
               <label for="adminPwd" class="form-label">密碼 </label>
-              <Field id="adminPwd" name="密碼" type="text"
+              <Field id="adminPwd" name="密碼" type="password"
                       class="form-control"
                       :class="{ 'is-invalid': errors['密碼'] }"
                       placeholder="請輸入密碼"

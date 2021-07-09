@@ -15,16 +15,16 @@
   <div v-if="readonly" class="d-flex justify-content-between mb-4">
     <router-link to='/admin/products' class="btn btn-primary btn-sm">返回</router-link>
     <div class="d-flex">
-      <button class="btn btn-primary btn-sm me-3" @click="delProduct()">
+      <button type="button" class="btn btn-primary btn-sm me-3" @click="delProduct()">
         刪除
       </button>
-      <button class="btn btn-primary btn-sm" @click="emitReadonly(false)">
+      <button type="button" class="btn btn-primary btn-sm" @click="emitReadonly(false)">
         編輯
       </button>
     </div>
   </div>
   <div v-else class="d-flex justify-content-end mb-3">
-    <button class="btn btn-primary btn-sm me-3" @click="cancelEdit">
+    <button type="button" class="btn btn-primary btn-sm me-3" @click="cancelEdit">
       取消
     </button>
     <button class="btn btn-primary btn-sm" @click="update()">
@@ -99,7 +99,7 @@
                 <label for="productOriPrice" class="form-label">原價<sup>*</sup></label>
                 <Field type="number" class="form-control" id="productOriPrice"
                       placeholder="請輸入商品原價" v-model.number="productInfo.origin_price"
-                      name="商品原價" rules="min_value:1|required"
+                      name="商品原價" rules="min_value:1|required" min=1
                       :class="{ 'is-invalid': errors['商品原價'] }"
                       :disabled="readonly">
                 </Field>
@@ -109,7 +109,7 @@
                 <label for="productPrice" class="form-label">售價<sup>*</sup></label>
                 <Field type="number" class="form-control" id="productPrice"
                       placeholder="請輸入商品售價" v-model.number="productInfo.price"
-                      name="商品售價" rules="min_value:1|required"
+                      name="商品售價" rules="min_value:1|required" min=1
                       :class="{ 'is-invalid': errors['商品售價'] }"
                       :disabled="readonly">
                 </Field>

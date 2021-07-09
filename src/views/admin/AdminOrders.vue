@@ -92,7 +92,9 @@
           </router-link>
         </td>
         <td>
-          <button class="material-icons btn" @click="delOrder(order.id)">delete</button>
+          <button type="button" class="material-icons btn"
+                  @click="delOrder(order.id)">delete
+          </button>
         </td>
       </tr>
     </tbody>

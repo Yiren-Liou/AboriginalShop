@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <footer class="container">
     <nav class="navbar navbar-expand-lg justify-content-center justify-content-lg-between">
       <ul class="navbar-nav d-none d-lg-flex">
         <li class="nav-item">
@@ -12,9 +12,9 @@
           <a class="nav-link" href="#">版權申明</a>
         </li>
       </ul>
-      <span>Copyright ©</span>
+      <span class="fontSizeS">Copyright ©</span>
     </nav>
-  </div>
+  </footer>
 </template>
 
 <script>
