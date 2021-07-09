@@ -4,35 +4,16 @@
     <div class="row justify-content-between">
       <div class="col-md-5">
         <h3 class="fs-4">商品首頁</h3>
-        <label for="productIndex" class="form-label">圖片檔案</label>
-        <input type="file" class="form-control mb-3" id="productIndex">
-        <label for="productIndexTitle" class="form-label">圖片名稱</label>
-        <input type="text" class="form-control mb-3" id="productIndexTitle">
-        <div class="d-flex justify-content-between">
-          <button type="button" class="btn btn-primary btn-sm me-3"
-                @click="upload('productIndex')">上傳
-          </button>
-          <button type="button" class="btn btn-primary btn-sm"
-                @click="pushImages">更新頁面圖片
-          </button>
-        </div>
-      </div>
-      <div class="col-md-5">
-        <h3 class="fs-4">訂購完成</h3>
-        <label for="orderCompleted" class="form-label">圖片檔案</label>
-        <input type="file" class="form-control mb-3" id="orderCompleted">
-        <label for="orderCompletedTitle" class="form-label">圖片名稱</label>
-        <input type="text" class="form-control mb-3" id="orderCompletedTitle">
-        <div class="d-flex justify-content-between">
-          <button type="button" class="btn btn-primary btn-sm me-3"
-                @click="upload('orderCompleted')">上傳
-          </button>
-          <button type="button" class="btn btn-primary btn-sm"
-                @click="pushImages">更新頁面圖片
-          </button>
-        </div>
+        <label for="images" class="form-label">圖片檔案</label>
+        <input type="file" class="form-control mb-3" id="images">
+        <button type="button" class="btn btn-primary btn-sm mb-5"
+                @click="upload">上傳
+        </button>
       </div>
     </div>
+    <p class="p-4">
+      {{ imgUrl }}
+    </p>
   </div>
   <Loading :active="isLoading">
     <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
@@ -42,35 +23,20 @@
 </template>
 
 <script>
-// import emitter from '..methods/emitter';
-
 export default {
   data() {
     return {
       checkUser: '',
       isLoading: false,
-      productIndex: [],
+      images: [],
+      imgUrl: '',
       orderCompleted: [],
     };
   },
   methods: {
-    upload(location) {
+    upload() {
       this.isLoading = true;
-      let imgInput = '';
-      let imgInputTitle = '';
-      switch (location) {
-        case 'productIndex':
-          imgInput = document.querySelector('#productIndex');
-          imgInputTitle = document.querySelector('#productIndexTitle');
-          break;
-        case 'orderCompleted':
-          imgInput = document.querySelector('#orderCompleted');
-          imgInputTitle = document.querySelector('#orderCompletedTitle');
-          break;
-        default:
-          console.log('no');
-          break;
-      }
+      const imgInput = document.querySelector('#images');
       const file = imgInput.files[0];
       const formData = new FormData();
       formData.append('file-to-upload', file);
@@ -78,17 +44,7 @@ export default {
       this.$http.post(apiUrl, formData)
         .then((res) => {
           if (res.data.success) {
-            const img = {
-              title: imgInputTitle.value,
-              imgUrl: res.data.imageUrl,
-            };
-            if (location === 'productIndex') {
-              this.productIndex.push(img);
-              console.log(this.productIndex);
-            } else if (location === 'orderCompleted') {
-              this.orderCompleted.push(img);
-              console.log(this.orderCompleted);
-            }
+            this.imgUrl = res.data.imageUrl;
             this.isLoading = false;
             this.$swal({ text: '上傳成功', icon: 'success' });
           } else {
@@ -100,8 +56,6 @@ export default {
           this.isLoading = false;
           console.dir(err);
         });
-    },
-    pushImages() {
     },
   },
   mounted() {

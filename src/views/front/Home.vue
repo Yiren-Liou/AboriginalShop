@@ -8,8 +8,10 @@ export default {
     return {
     };
   },
-  components: {},
+  components: {
+  },
   methods: {},
-  created() {},
+  created() {
+  },
 };
 </script>
