@@ -5,13 +5,22 @@ const routes = [
     path: '/',
     name: 'Home',
     component: () => import('../views/front/Home.vue'),
+  },
+  {
+    path: '/',
+    component: () => import('../views/front/FrontLayout.vue'),
     children: [
-      // {
-      //   path: '',
-      //   name: 'Home',
-      //   component: () => import('../views/front/Home.vue'),
-      // },
+      {
+        path: 'order',
+        name: 'Order',
+        component: () => import('../views/front/Orders.vue'),
+      },
     ],
+  },
+  {
+    path: '/orderCompleted',
+    name: 'OrderCompleted',
+    component: () => import('../views/front/OrderCompleted.vue'),
   },
   {
     path: '/login',

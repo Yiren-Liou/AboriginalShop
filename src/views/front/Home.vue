@@ -1,6 +1,6 @@
 <template>
-  <div class="banner">
-    <div class="bannerCover"></div>
+  <div class="bgImg banner justify-content-between align-items-center">
+    <div class="bgCover"></div>
     <Navbar :nav-light='isNavLight'></Navbar>
     <div class="bannerSlogan d-flex flex-column align-items-center">
       <h2 class="fontSizeL fontSize-lg-L fw-bold mb-3">你知道友善環境的美食嗎?</h2>
@@ -21,7 +21,6 @@
       我想知道
       <span class="material-icons">keyboard_arrow_down</span>
     </p>
-
   </div>
   <Footer></Footer>
 </template>
@@ -45,9 +44,3 @@ export default {
   },
 };
 </script>
-
-<style>
-  .banner{
-    color: white;
-  }
-</style>
