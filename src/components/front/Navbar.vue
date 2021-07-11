@@ -29,8 +29,9 @@
               :class="{'text-white': navLight}" href="#">關於我們</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link"
-              :class="{'text-white': navLight}" href="#">查詢訂單</a>
+            <router-link to="/order" class="nav-link" :class="{'text-white': navLight}">
+              查詢訂單
+            </router-link>
           </li>
           <li class="nav-item">
             <a class="nav-link"
@@ -40,11 +41,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link"
-              :class="{'text-white': navLight}" href="#">
+            <router-link to="/cart" class="nav-link" :class="{'text-white': navLight}">
               <span class="material-icons d-none d-lg-block">shopping_cart</span>
               <span class="d-lg-none">購物車</span>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item d-lg-none">
             <a class="nav-link"
