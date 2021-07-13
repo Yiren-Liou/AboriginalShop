@@ -13,12 +13,14 @@
       <div class="collapse navbar-collapse" id="topNav">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
           <li class="nav-item">
-            <a class="nav-link"
-               :class="{'text-white': navLight}" href="/">首頁</a>
+            <router-link to="/" class="nav-link" :class="{'text-white': navLight}">
+              首頁
+            </router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link"
-               :class="{'text-white': navLight}" href="#">全部商品</a>
+            <router-link to="/products" class="nav-link" :class="{'text-white': navLight}">
+              全部商品
+            </router-link>
           </li>
           <li class="nav-item">
             <a class="nav-link"

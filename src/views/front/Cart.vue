@@ -7,7 +7,7 @@
             <div class="border border-2 rounded-circle bg-dark p-2 mb-3"></div>
             <span class="text-center">確認購物車</span>
           </div>
-          <div class="progressLine border-dark"></div>
+          <div class="progressLine"></div>
           <div class="d-flex flex-column align-items-center">
             <div class="border border-2 rounded-circle p-2 mb-3"></div>
             <span class="text-center">填寫訂購資訊</span>
@@ -82,26 +82,29 @@
       <div class="col-md-4">
         <div class="d-flex justify-content-between mb-2">
           <p class="mb-0">折扣前總金額:</p>
-          <!-- <span>NT.{{ $toCurrency(cart.total) }}</span> -->
+          <!-- <span>NT {{ $toCurrency(cart.total) }}</span> -->
         </div>
         <div class="d-flex justify-content-between align-items-center mb-2">
-          <select class="form-select form-select-sm w-50">
-            <option selected>請選擇優惠券</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-          <!-- <span>NT.{{ $toCurrency(cart.total) }}</span> -->
+          <input type="text" id="couponCode" placeholder="請輸入折扣碼"
+                @blur = 'useCoupons'
+                 class="form-control w-50" aria-describedby="couponCode">
+          <span v-if='final_total'>NT {{ $toCurrency(cart.total - final_total) }}</span>
         </div>
-        <div class="d-flex justify-content-between">
+        <div v-if='final_total' class="d-flex justify-content-between">
           <p>折扣後總金額:</p>
-          <!-- <span class="fontSizeM fw-bold">NT.{{ $toCurrency(cart.final_total) }}</span> -->
+          <span class="fontSizeM fw-bold">NT.{{ $toCurrency(final_total) }}</span>
         </div>
       </div>
     </div>
     <div class="d-flex justify-content-center mb-4">
-      <button type="button" class="btn btn-outline-secondary me-3">我想繼續購物</button>
-      <button type="button" class="btn btn-outline-secondary">我要去結帳</button>
+      <router-link to='/products' role="button"
+                   class="btn btn-outline-secondary me-3">
+        繼續購物
+      </router-link>
+      <router-link to='/buyerForm' role="button"
+                   class="btn btn-outline-secondary me-3">
+        填寫訂購資訊
+      </router-link>
     </div>
   </div>
   <Loading :active="isLoading">
@@ -117,6 +120,7 @@ export default {
     return {
       cart: '',
       coupons: '',
+      final_total: '',
       isLoading: false,
     };
   },
@@ -139,14 +143,16 @@ export default {
           console.dir(err);
         });
     },
-    getCoupons(page = 1) {
-      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/coupons?page=${page}`;
-      this.$http.get(apiUrl)
+    useCoupons() {
+      const code = document.querySelector('#couponCode').value;
+      console.log(code);
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/coupon`;
+      this.$http.post(apiUrl, { data: { code } })
         .then((res) => {
           if (res.data.success) {
             this.isLoading = false;
-            this.coupons = res.data.coupons;
-            console.log(this.coupons);
+            this.final_total = res.data.data.final_total;
+            console.log(this.final_total);
           } else {
             this.isLoading = false;
             this.$swal({ text: res.data.message, icon: 'error' });
@@ -169,11 +175,6 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           this.delOneCart(product);
-          // this.$swal.fire(
-          //   'Deleted!',
-          //   'Your file has been deleted.',
-          //   'success',
-          // );
         }
       });
     },

@@ -11,6 +11,21 @@ const routes = [
     component: () => import('../views/front/FrontLayout.vue'),
     children: [
       {
+        path: 'products',
+        name: 'Products',
+        component: () => import('../views/front/Products.vue'),
+      },
+      {
+        path: 'buyerForm',
+        name: 'buyerForm',
+        component: () => import('../views/front/BuyerForm.vue'),
+      },
+      {
+        path: 'orderConfirm',
+        name: 'orderConfirm',
+        component: () => import('../views/front/OrderConfirm.vue'),
+      },
+      {
         path: 'order',
         name: 'Order',
         component: () => import('../views/front/Orders.vue'),
