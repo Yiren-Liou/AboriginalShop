@@ -22,10 +22,10 @@
               全部商品
             </router-link>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link"
               :class="{'text-white': navLight}" href="#">全部文章</a>
-          </li>
+          </li> -->
           <li class="nav-item d-lg-none">
             <a class="nav-link"
               :class="{'text-white': navLight}" href="#">關於我們</a>

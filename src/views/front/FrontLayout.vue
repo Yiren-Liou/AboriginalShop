@@ -1,6 +1,6 @@
 <template>
   <Navbar></Navbar>
-  <router-view></router-view>
+  <router-view @emit-order='getOrder' :order='order' :neworder='order'></router-view>
   <Footer></Footer>
 </template>
 
@@ -11,13 +11,19 @@ import Footer from '@/components/front/Footer.vue';
 export default {
   data() {
     return {
+      order: '',
     };
   },
   components: {
     Navbar,
     Footer,
   },
-  methods: {},
+  methods: {
+    getOrder(order) {
+      this.order = order;
+      console.log(this.order);
+    },
+  },
   created() {},
 };
 </script>

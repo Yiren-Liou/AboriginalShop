@@ -1,3 +1,199 @@
 <template>
-  訂單明細
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-6">
+        <div class="d-flex justify-content-between">
+          <div class="d-flex flex-column align-items-center">
+            <div class="border border-2 rounded-circle bg-dark p-2 mb-3"></div>
+            <span class="text-center">確認購物車</span>
+          </div>
+          <div class="progressLine border-dark"></div>
+          <div class="d-flex flex-column align-items-center">
+            <div class="border border-2 rounded-circle bg-dark p-2 mb-3"></div>
+            <span class="text-center">填寫訂購資訊</span>
+          </div>
+          <div class="progressLine border-dark"></div>
+          <div class="d-flex flex-column align-items-center">
+            <div class="border border-2 rounded-circle bg-dark p-2 mb-3"></div>
+            <span class="text-center">確認結帳</span>
+          </div>
+          <div class="progressLine"></div>
+          <div class="d-flex flex-column align-items-center">
+            <div class="border border-2 rounded-circle p-2 mb-3"></div>
+            <span class="text-center">訂購成功</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="text-center text-danger mb-5">
+      請確認購買商品和買家資訊，確認無誤後點選頁面下方確認結帳按鈕，訂單才會成功送出呦
+    </p>
+    <h2 class='fontSizeM mb-4'>購買的商品</h2>
+    <div class="px-4 mb-5">
+      <table class="table align-middle">
+        <thead>
+          <tr class="text-center">
+            <th scope="col"></th>
+            <th scope="col" width="200">商品圖片</th>
+            <th scope="col">商品名稱</th>
+            <th scope="col">規格</th>
+            <th scope="col">購買數量</th>
+            <th scope="col">小計</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, i) in cart.carts" :key='item.product_id' class="text-center">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>
+              <div :style="{ backgroundImage: 'url(' + item.product.imagesUrl[0].imgUrl + ')' }"
+                  class="cartImg bg-cover bg-center">
+              </div>
+            </td>
+            <td>
+              {{ item.product.title }}
+            </td>
+            <td>
+              {{ item.product.unit }}
+            </td>
+            <td>
+              {{ item.qty }}
+            </td>
+            <td>
+              NT {{ $toCurrency(item.final_total) }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 class='fontSizeM mb-4'>訂購人資訊</h2>
+    <div class="px-4 mb-4">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="buyerName" class="form-label">訂購人姓名</label>
+            <input type="text" class="form-control" id="buyerName" :value='order.user.name'
+                   aria-describedby="buyerName" disabled>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="buyerTell" class="form-label">訂購人手機</label>
+            <input type="text" class="form-control" id="buyerTell" :value='order.user.tel'
+                   aria-describedby="buyerTell" disabled>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="buyerEmail" class="form-label">訂購人信箱</label>
+            <input type="email" class="form-control" id="buyerEmail" :value='order.user.email'
+                   aria-describedby="buyerEmail" disabled>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="payment" class="form-label">付款方式</label>
+            <input type="text" class="form-control" id="payment" :value='order.user.payment'
+                   aria-describedby="payment" disabled>
+          </div>
+        </div>
+        <template v-if='order.isEqual'>
+          <div v-if='order.user.payment ==="信用卡"' class="col-md-4">
+            <div class="mb-3">
+              <label for="address" class="form-label">收件地址</label>
+              <input type="text" class="form-control" id="address" :value='order.user.address'
+                    aria-describedby="address" disabled>
+            </div>
+          </div>
+        </template>
+        <template v-else>
+          <div class="col-md-4">
+            <div class="mb-3">
+              <label for="recipientName" class="form-label">收件人姓名</label>
+              <input type="text" class="form-control" id="recipientName"
+                    :value='order.recipient.name' aria-describedby="recipientName" disabled>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="mb-3">
+              <label for="recipientTell" class="form-label">收件人手機</label>
+              <input type="text" class="form-control" id="recipientTell"
+                    :value='order.recipient.tel' aria-describedby="recipientTell" disabled>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="mb-3">
+              <label for="address" class="form-label">收件地址</label>
+              <input type="text" class="form-control" id="address" :value='order.user.address'
+                    aria-describedby="payment" disabled>
+            </div>
+          </div>
+        </template>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="message" class="form-label">備註</label>
+            <input type="text" class="form-control" id="message" :value='order.message'
+                   aria-describedby="message" disabled>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <button type='button' class="btn btn-outline-primary me-3" @click="emitOrder">重新填寫</button>
+      <!-- <router-link to='/buyerForm' class='btn btn-outline-primary me-3'>重新填寫</router-link> -->
+      <button type='button' class="btn btn-primary me-3" @click='sendOrder'>確認結帳</button>
+    </div>
+  </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      cart: '',
+    };
+  },
+  props: ['order'],
+  methods: {
+    getCart() {
+      this.isLoading = true;
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/cart`;
+      this.$http.get(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.cart = res.data.data;
+            console.log(this.cart);
+            this.isLoading = false;
+          } else {
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'error' });
+          }
+        })
+        .catch((err) => {
+          console.dir(err);
+        });
+    },
+    sendOrder() {
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/order`;
+      this.$http.post(apiUrl, { data: this.order })
+        .then((res) => {
+          if (res.data.success) {
+            this.$router.push('/orderCompleted');
+          } else {
+            console.log(res.data.message);
+          }
+        })
+        .catch((err) => {
+          console.dir(err);
+        });
+    },
+    emitOrder() {
+      this.$emit('emit-order', this.order);
+      this.$router.push('/buyerForm');
+    },
+  },
+  created() {
+    this.getCart();
+    this.$swal({ text: '請確認「購買商品」和「買家資訊」後，點選頁面下方「確認結帳按鈕」，訂單才會成功送出呦', icon: 'warning' });
+  },
+};
+</script>

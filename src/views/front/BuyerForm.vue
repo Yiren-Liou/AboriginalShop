@@ -28,7 +28,7 @@
     <h2 class="fw-bold fontSize-lg-L text-center mb-5">訂購資訊</h2>
     <div class="row justify-content-center">
       <div class="col-md-7">
-        <Form v-slot="{ errors }" @submit='sendOrder'>
+        <Form v-slot="{ errors }" @submit='emitOrder'>
           <div class="border rounded py-4 px-5 mb-4">
             <div class="row mb-3">
               <label for="userName" class="col-sm-4 col-form-label">訂購人姓名<sup>*</sup></label>
@@ -71,13 +71,13 @@
                     name="付款方式" rules="required" as='select'
                     :class="{ 'is-invalid': errors['付款方式'] }">
                     <option value='' selected disabled>請選擇付款方式</option>
-                    <option value="creditCard">信用卡</option>
-                    <option value="711pay">7-11 取貨付款</option>
+                    <option value="信用卡">信用卡</option>
+                    <option value="711取貨付款">7-11 取貨付款</option>
                 </Field>
                 <error-message name="付款方式" class="invalid-feedback"></error-message>
               </div>
             </div>
-            <template v-if='user.payment==="711pay"'>
+            <template v-if='user.payment==="711取貨付款"'>
               <div class="row mb-3">
                 <label for="payment" class="col-sm-4 col-form-label">711取貨門市<sup>*</sup></label>
                 <div class="col-sm-8">
@@ -94,7 +94,7 @@
                 </div>
               </div>
             </template>
-            <template v-else-if='user.payment==="creditCard"'>
+            <template v-else-if='user.payment==="信用卡"'>
               <div class="form-check mb-3">
                 <input type="checkbox" class="form-check-input" v-model="isEqual"
                         id="userEqual">
@@ -125,20 +125,20 @@
                     <error-message name="收件人手機" class="invalid-feedback"></error-message>
                   </div>
                 </div>
-                <div class="row mb-3">
-                  <label for="RecipientAddre" class="col-sm-4 col-form-label">
-                    收件人地址<sup>*</sup>
-                  </label>
-                  <div class="col-sm-8">
-                    <Field type="text" class="form-control disabled" id="RecipientAddre"
-                        placeholder="請輸入收件人地址" v-model="user.address"
-                        name="收件人地址" rules="required"
-                        :class="{ 'is-invalid': errors['收件人地址'] }">
-                    </Field>
-                    <error-message name="收件人地址" class="invalid-feedback"></error-message>
-                  </div>
-                </div>
               </template>
+              <div class="row mb-3">
+                <label for="RecipientAddre" class="col-sm-4 col-form-label">
+                  收件地址<sup>*</sup>
+                </label>
+                <div class="col-sm-8">
+                  <Field type="text" class="form-control disabled" id="RecipientAddre"
+                      placeholder="請輸入收件地址" v-model="user.address"
+                      name="收件地址" rules="required"
+                      :class="{ 'is-invalid': errors['收件地址'] }">
+                  </Field>
+                  <error-message name="收件地址" class="invalid-feedback"></error-message>
+                </div>
+              </div>
             </template>
             <div class="row mb-3">
               <label for="remarks" class="col-sm-4 col-form-label">備註</label>
@@ -150,17 +150,12 @@
           </div>
           <div class="d-flex justify-content-center">
             <router-link to='/cart' class='btn btn-outline-primary me-3'>回到購物車</router-link>
-            <button type='submit' class="btn btn-primary me-3">確認結帳</button>
+            <button type='submit' class="btn btn-primary me-3">前往下一步</button>
           </div>
         </Form>
       </div>
     </div>
   </div>
-  <Loading :active="isLoading">
-    <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
-    <div></div><div></div><div></div>
-    </div></div>
-  </Loading>
 </template>
 
 <script>
@@ -175,33 +170,26 @@ export default {
       isLoading: false,
     };
   },
+  watch: {
+    getOrder() {
+      this.order = this.neworder;
+    },
+  },
+  props: ['neworder'],
   methods: {
     isPhone(value) {
       const phoneNumber = /^(09)[0-9]{8}$/;
       return phoneNumber.test(value) ? true : '請輸入正確的手機號碼';
     },
-    sendOrder() {
-      this.isLoading = true;
+    emitOrder() {
       this.order.user = this.user;
       this.order.message = this.message;
       this.order.isEqual = this.isEqual;
       if (this.recipient) {
         this.order.recipient = this.recipient;
       }
-      console.log(this.order);
-      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/order`;
-      this.$http.post(apiUrl, { data: this.order })
-        .then((res) => {
-          if (res.data.success) {
-            this.isLoading = false;
-            this.$router.push('/orderConfirm');
-          } else {
-            console.log(res.data.message);
-          }
-        })
-        .catch((err) => {
-          console.dir(err);
-        });
+      this.$emit('emit-order', this.order);
+      this.$router.push('/orderConfirm');
     },
   },
   created() {},
