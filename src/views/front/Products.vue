@@ -67,14 +67,16 @@
             <div class="card-footer bg-transparent p-0">
               <div class="d-flex">
                 <button type="button"
-                        class="favoriteBtn btn px-0 w-50">
+                        class="favoriteBtn btn px-0 w-50"
+                        @click.stop="addToFavorite(item)">
                   <p class="d-center border-end mb-0 w-100">
                     <span class="material-icons me-2">favorite_border</span>
                     我喜歡
                   </p>
                 </button>
                 <button type="button"
-                        class="addCartBtn btn d-center w-50">
+                        class="addCartBtn btn d-center w-50"
+                        @click.stop="addToCart(item.id)">
                   <p class="d-center mb-0 w-100">
                   <span class="material-icons me-2">add_shopping_cart</span>
                     我要買
@@ -108,6 +110,8 @@
 </style>
 
 <script>
+import emitter from '@/methods/emitter';
+
 export default {
   data() {
     return {
@@ -134,6 +138,30 @@ export default {
     getProduct(item, i) {
       this.$emit('emit-products', this.products, i);
       this.$router.push(`/product/${item.id}`);
+    },
+    addToCart(productId) {
+      this.isLoading = true;
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/cart`;
+      const cartData = {
+        data: {
+          product_id: productId,
+          qty: 1,
+        },
+      };
+      this.$http.post(apiUrl, cartData)
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading = false;
+            emitter.emit('update-cart');
+            this.$swal({ text: res.data.message, icon: 'success' });
+          } else {
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'error' });
+          }
+        })
+        .catch((err) => {
+          console.dir(err);
+        });
     },
   },
   created() {

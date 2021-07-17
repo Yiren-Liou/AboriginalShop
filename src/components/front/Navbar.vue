@@ -46,6 +46,10 @@
             <router-link to="/cart" class="nav-link" :class="{'text-white': navLight}">
               <span class="material-icons d-none d-lg-block">shopping_cart</span>
               <span class="d-lg-none">購物車</span>
+              <span v-if='cart.carts'
+                    class='cartNum rounded-circle'>
+                    {{ cart.carts.length }}
+              </span>
             </router-link>
           </li>
           <li class="nav-item d-lg-none">
@@ -63,14 +67,38 @@
 </template>
 
 <script>
+import emitter from '@/methods/emitter';
+
 export default {
   data() {
     return {
+      cart: '',
     };
   },
   props: ['navLight'],
   components: {},
-  methods: {},
-  created() {},
+  methods: {
+    getCart() {
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/cart`;
+      this.$http.get(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.cart = res.data.data;
+            console.log(this.cart);
+          } else {
+            this.$swal({ text: res.data.message, icon: 'error' });
+          }
+        })
+        .catch((err) => {
+          console.dir(err);
+        });
+    },
+  },
+  created() {
+    this.getCart();
+    emitter.on('update-cart', () => {
+      this.getCart();
+    });
+  },
 };
 </script>

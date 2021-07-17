@@ -38,7 +38,8 @@
                     @click="updateProductNum('add')">add
             </button>
           </div>
-          <button class="btn btn-outline-secondary d-center" type="button">
+          <button class="btn btn-outline-secondary d-center" type="button"
+                  @click="addToCart(product.id, qty)">
             <span class="material-icons">add_shopping_cart</span>
             加入購物車
           </button>
@@ -95,29 +96,35 @@
               "clickable": true
             }'
             class="mySwiper mb-5">
-      <template v-for="(item) in recommend" :key='item.id'>
+      <template v-for="(item, i) in recommend" :key='item.id'>
         <swiper-slide>
-          <button type="button" class="btn" @click='changeProduct(item)'>
-          <div class="card h-100">
-            <img :src="item.imagesUrl[0].imgUrl" class="card-img-top" :alt="item.title">
-            <div class="card-body text-center">
-              <h2 class="fontSizeM card-title">{{ item.title }}</h2>
-              <p class="card-text">
-                NT {{ $toCurrency(item.price) }}
-                <span class="fontSizeS text-decoration-line-through me-1">
-                  NT {{ $toCurrency(item.origin_price) }}
-                </span>
-              </p>
+          <button type="button" class="btn" @click='changeProduct(item, i)'>
+            <div class="card h-100">
+              <img :src="item.imagesUrl[0].imgUrl" class="card-img-top" :alt="item.title">
+              <div class="card-body text-center">
+                <h2 class="fontSizeM card-title">{{ item.title }}</h2>
+                <p class="card-text">
+                  NT {{ $toCurrency(item.price) }}
+                  <span class="fontSizeS text-decoration-line-through me-1">
+                    NT {{ $toCurrency(item.origin_price) }}
+                  </span>
+                </p>
+              </div>
             </div>
-          </div>
           </button>
         </swiper-slide>
       </template>
     </swiper>
   </div>
+  <Loading :active="isLoading">
+    <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
+    <div></div><div></div><div></div>
+    </div></div>
+  </Loading>
 </template>
 
 <script>
+import emitter from '@/methods/emitter';
 import SwiperCore, {
   Pagination, Autoplay,
 } from 'swiper/core';
@@ -132,6 +139,7 @@ export default {
       product: '',
       qty: 1,
       recommend: [],
+      isLoading: false,
     };
   },
   props: ['products', 'productIndex'],
@@ -177,6 +185,39 @@ export default {
       arrSet.forEach((i) => {
         this.recommend.push(this.products[i]);
       });
+    },
+    updateProductNum(action) {
+      if (action === 'add') {
+        this.qty += 1;
+      } else if (action === 'minus' && this.qty === 1) {
+        this.$swal({ text: '購買商品數量最低為 1 個呦', icon: 'warning' });
+      } else if (action === 'minus') {
+        this.qty -= 1;
+      }
+    },
+    addToCart(productId, qty) {
+      this.isLoading = true;
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/cart`;
+      const cartData = {
+        data: {
+          product_id: productId,
+          qty,
+        },
+      };
+      this.$http.post(apiUrl, cartData)
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading = false;
+            emitter.emit('update-cart');
+            this.$swal({ text: res.data.message, icon: 'success' });
+          } else {
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'error' });
+          }
+        })
+        .catch((err) => {
+          console.dir(err);
+        });
     },
     changeProduct(item) {
       // this.$emit('emit-products', this.products, i);
