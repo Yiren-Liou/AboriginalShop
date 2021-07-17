@@ -204,7 +204,7 @@
         </ImagesInput>
       </div>
     </div>
-    <div v-if="productInfo.recommend_list"
+    <div
     class="tab-pane fade" id="recommend" role="tabpanel" aria-labelledby="recommend-tab">
       <div class="row">
         <Recommended :readonly="readonly"

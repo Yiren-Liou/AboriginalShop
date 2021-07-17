@@ -1,6 +1,8 @@
 <template>
   <Navbar></Navbar>
-  <router-view @emit-order='getOrder' :order='order' :neworder='order'></router-view>
+  <router-view @emit-order='getOrder' @emit-products='getProducts'
+               :order='order' :products='products' :product-index='productIndex'>
+  </router-view>
   <Footer></Footer>
 </template>
 
@@ -12,6 +14,8 @@ export default {
   data() {
     return {
       order: '',
+      products: '',
+      productIndex: '',
     };
   },
   components: {
@@ -22,6 +26,11 @@ export default {
     getOrder(order) {
       this.order = order;
       console.log(this.order);
+    },
+    getProducts(products, productIndex) {
+      this.products = products;
+      this.productIndex = productIndex;
+      console.log(this.products);
     },
   },
   created() {},

@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-4" v-for="(num, i) in 6" :key="num">
+  <div class="col-md-4" v-for="(num) in 6" :key="num">
     <div class="mb-3">
       <label :for="`recommendImg${num}`" class="form-label">推薦商品{{ num }}</label>
       <select v-if="add"
@@ -22,7 +22,7 @@
       >
         <option value="" disabled>請選擇一個推薦商品</option>
         <option v-for="(item) in productList" :key="item.id"
-                :value="item.id" :selected="item.id === recommendList[i].productId">
+                :value="item.id">
           {{ item.title }}
         </option>
       </select>
@@ -65,6 +65,7 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.productList = Object.values(res.data.products);
+            console.log(this.productList);
           } else {
             this.$swal({ text: res.data.message, icon: 'error' });
           }
@@ -87,6 +88,7 @@ export default {
           }
         });
         this.recommendList.push(recommendItem);
+        console.log(this.recommendList);
       });
     },
     emitRecommendList() {

@@ -12,7 +12,7 @@
         <br class="d-lg-none">
         也能讓消費者吃得安心又健康。
       </p>
-      <router-link to='/' role='button'
+      <router-link to='/products' role='button'
           class="btn btn-light fontSizeM fw-bold px-4">
           我現在就想吃
       </router-link>

@@ -50,38 +50,40 @@
         </div>
       </div>
     </div>
-    <div class="row justify-content-center">
-      <div v-for='item in products' :key="item.id" class="col-md-3">
-        <div class="card h-100">
-          <img :src="item.imagesUrl[0].imgUrl" class="card-img-top" :alt="item.title">
-          <div class="card-body text-center">
-            <h2 class="fontSizeM card-title">{{ item.title }}</h2>
-            <p class="card-text">
-              NT {{ $toCurrency(item.price) }}
-              <span class="fontSizeS text-decoration-line-through me-1">
-                NT {{ $toCurrency(item.origin_price) }}
-              </span>
-            </p>
-          </div>
-          <div class="card-footer bg-transparent p-0">
-            <div class="d-flex">
-              <button type="button"
-                      class="favoriteBtn btn px-0 w-50">
-                <p class="d-center border-end mb-0 w-100">
-                  <span class="material-icons me-2">favorite_border</span>
-                  我喜歡
-                </p>
-              </button>
-              <button type="button"
-                      class="addCartBtn btn d-center w-50">
-                <p class="d-center mb-0 w-100">
-                <span class="material-icons me-2">add_shopping_cart</span>
-                  我要買
-                </p>
-              </button>
+    <div class="row">
+      <div v-for='(item,i ) in products' :key="item.id" class="col-md-4">
+        <button type="button" class="btn" @click='getProduct(item, i)'>
+          <div class="card h-100">
+            <img :src="item.imagesUrl[0].imgUrl" class="card-img-top" :alt="item.title">
+            <div class="card-body text-center">
+              <h2 class="fontSizeM card-title">{{ item.title }}</h2>
+              <p class="card-text">
+                NT {{ $toCurrency(item.price) }}
+                <span class="fontSizeS text-decoration-line-through me-1">
+                  NT {{ $toCurrency(item.origin_price) }}
+                </span>
+              </p>
+            </div>
+            <div class="card-footer bg-transparent p-0">
+              <div class="d-flex">
+                <button type="button"
+                        class="favoriteBtn btn px-0 w-50">
+                  <p class="d-center border-end mb-0 w-100">
+                    <span class="material-icons me-2">favorite_border</span>
+                    我喜歡
+                  </p>
+                </button>
+                <button type="button"
+                        class="addCartBtn btn d-center w-50">
+                  <p class="d-center mb-0 w-100">
+                  <span class="material-icons me-2">add_shopping_cart</span>
+                    我要買
+                  </p>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </button>
       </div>
     </div>
   </div>
@@ -128,6 +130,10 @@ export default {
         .catch((err) => {
           console.dir(err);
         });
+    },
+    getProduct(item, i) {
+      this.$emit('emit-products', this.products, i);
+      this.$router.push(`/product/${item.id}`);
     },
   },
   created() {

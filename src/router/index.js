@@ -16,6 +16,10 @@ const routes = [
         component: () => import('../views/front/Products.vue'),
       },
       {
+        path: 'product/:id',
+        component: () => import('../views/front/Product.vue'),
+      },
+      {
         path: 'buyerForm',
         name: 'buyerForm',
         component: () => import('../views/front/BuyerForm.vue'),

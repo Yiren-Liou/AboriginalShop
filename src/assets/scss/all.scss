@@ -3,6 +3,9 @@
 @import './helpers/variables';
 @import '~bootstrap/scss/mixins';
 @import '~bootstrap/scss/bootstrap';
+@import 'swiper/swiper.scss';
+@import 'swiper/components/navigation/navigation.scss';
+@import 'swiper/components/pagination/pagination.scss';
 @import '~sweetalert2/dist/sweetalert2.min.css';
 @import '~vue-loading-overlay/dist/vue-loading.css';
 @import './components/utilities';
