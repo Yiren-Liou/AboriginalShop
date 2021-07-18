@@ -82,17 +82,21 @@
         <div class="col-md-4">
           <div class="d-flex justify-content-between mb-2">
             <p class="mb-0">折扣前總金額:</p>
-            <!-- <span>NT {{ $toCurrency(cart.total) }}</span> -->
+            <span>NT {{ $toCurrency(cart.total) }}</span>
           </div>
           <div class="d-flex justify-content-between align-items-center mb-2">
             <input type="text" id="couponCode" placeholder="請輸入折扣碼"
                   @blur = 'useCoupons'
                   class="form-control w-50" aria-describedby="couponCode">
+            <button v-if='!final_total' @click = 'useCoupons'
+                    type='button' class="btn btn-warning btn-sm">
+              套用
+            </button>
             <span v-if='final_total'>NT {{ $toCurrency(cart.total - final_total) }}</span>
           </div>
           <div v-if='final_total' class="d-flex justify-content-between">
             <p>折扣後總金額:</p>
-            <span class="fontSizeM fw-bold">NT.{{ $toCurrency(final_total) }}</span>
+            <span class="fontSizeM fw-bold">NT {{ $toCurrency(final_total) }}</span>
           </div>
         </div>
       </div>
@@ -146,15 +150,15 @@ export default {
         });
     },
     useCoupons() {
+      this.isLoading = true;
       const code = document.querySelector('#couponCode').value;
       console.log(code);
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/coupon`;
       this.$http.post(apiUrl, { data: { code } })
         .then((res) => {
           if (res.data.success) {
-            this.isLoading = false;
             this.final_total = res.data.data.final_total;
-            console.log(this.final_total);
+            this.isLoading = false;
           } else {
             this.isLoading = false;
             this.$swal({ text: res.data.message, icon: 'error' });

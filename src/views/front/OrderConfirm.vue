@@ -64,6 +64,12 @@
           </tr>
         </tbody>
       </table>
+      <div class="d-flex justify-content-end">
+        <p>
+          總金額
+          <span class='ms-2'>NT {{ finalTotal }}</span>
+        </p>
+      </div>
     </div>
     <h2 class='fontSizeM mb-4'>訂購人資訊</h2>
     <div class="px-4 mb-4">
@@ -150,6 +156,7 @@ export default {
   data() {
     return {
       cart: '',
+      finalTotal: '',
     };
   },
   props: ['order'],
@@ -161,6 +168,7 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.cart = res.data.data;
+            this.finalTotal = this.$toCurrency(this.cart.final_total);
             console.log(this.cart);
             this.isLoading = false;
           } else {

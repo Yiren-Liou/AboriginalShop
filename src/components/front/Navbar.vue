@@ -40,6 +40,10 @@
               :class="{'text-white': navLight}" href="#">
               <span class="material-icons d-none d-lg-block">favorite_border</span>
               <span class="d-lg-none">我的最愛</span>
+              <span v-if='favoriteNum'
+                    class='numCircle rounded-circle'>
+                    {{ favoriteNum }}
+              </span>
             </a>
           </li>
           <li class="nav-item">
@@ -47,7 +51,7 @@
               <span class="material-icons d-none d-lg-block">shopping_cart</span>
               <span class="d-lg-none">購物車</span>
               <span v-if='cart.carts'
-                    class='cartNum rounded-circle'>
+                    class='numCircle rounded-circle'>
                     {{ cart.carts.length }}
               </span>
             </router-link>
@@ -73,6 +77,7 @@ export default {
   data() {
     return {
       cart: '',
+      favoriteNum: '',
     };
   },
   props: ['navLight'],
@@ -84,7 +89,6 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.cart = res.data.data;
-            console.log(this.cart);
           } else {
             this.$swal({ text: res.data.message, icon: 'error' });
           }
@@ -93,11 +97,19 @@ export default {
           console.dir(err);
         });
     },
+    getFavoriteNum() {
+      this.favoriteNum = JSON.parse(localStorage.getItem('favorite'));
+      this.favoriteNum = this.favoriteNum.length;
+    },
   },
   created() {
     this.getCart();
+    this.getFavoriteNum();
     emitter.on('update-cart', () => {
       this.getCart();
+    });
+    emitter.on('update-favorite', () => {
+      this.getFavoriteNum();
     });
   },
 };

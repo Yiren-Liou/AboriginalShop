@@ -16,6 +16,7 @@ export default {
       order: '',
       products: '',
       productIndex: '',
+      favoriteNum: '',
     };
   },
   components: {

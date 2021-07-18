@@ -51,7 +51,7 @@
       </div>
     </div>
     <div class="row">
-      <div v-for='(item,i ) in products' :key="item.id" class="col-md-4">
+      <div v-for='(item,i ) in products' :key="item.id" class="col-sm-6 col-lg-4">
         <button type="button" class="btn" @click='getProduct(item, i)'>
           <div class="card h-100">
             <img :src="item.imagesUrl[0].imgUrl" class="card-img-top" :alt="item.title">
@@ -116,6 +116,7 @@ export default {
   data() {
     return {
       products: '',
+      favorite: [],
     };
   },
   methods: {
@@ -162,6 +163,17 @@ export default {
         .catch((err) => {
           console.dir(err);
         });
+    },
+    addToFavorite(item) {
+      this.favorite = [];
+      const isSave = localStorage.getItem('favorite');
+      if (isSave) {
+        this.favorite = JSON.parse(isSave);
+      }
+      this.favorite.push(item);
+      this.favorite = JSON.stringify(this.favorite);
+      localStorage.setItem('favorite', this.favorite);
+      emitter.emit('update-favorite');
     },
   },
   created() {
