@@ -1,7 +1,7 @@
 <template>
   <Navbar class='mb-4'></Navbar>
   <router-view @emit-order='getOrder' @emit-products='getProducts'
-               :order='order' :products='products' :product-index='productIndex'>
+               :push-order='order' :push-products='products' :product-index='productIndex'>
   </router-view>
   <Footer></Footer>
 </template>

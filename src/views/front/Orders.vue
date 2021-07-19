@@ -83,6 +83,7 @@ export default {
   components: {
     Pagination,
   },
+  props: ['pushOrder', 'pushProducts', 'productIndex'],
   methods: {
     getOrders(page = 1) {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/orders?page=${page}`;

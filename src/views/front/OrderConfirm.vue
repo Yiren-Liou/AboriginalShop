@@ -124,36 +124,36 @@
         <div class="col-md-4">
           <div class="mb-3">
             <label for="buyerName" class="form-label">訂購人姓名</label>
-            <input type="text" class="form-control" id="buyerName" :value='order.user.name'
+            <input type="text" class="form-control" id="buyerName" :value='pushOrder.user.name'
                    aria-describedby="buyerName" disabled>
           </div>
         </div>
         <div class="col-md-4">
           <div class="mb-3">
             <label for="buyerTell" class="form-label">訂購人手機</label>
-            <input type="text" class="form-control" id="buyerTell" :value='order.user.tel'
+            <input type="text" class="form-control" id="buyerTell" :value='pushOrder.user.tel'
                    aria-describedby="buyerTell" disabled>
           </div>
         </div>
         <div class="col-md-4">
           <div class="mb-3">
             <label for="buyerEmail" class="form-label">訂購人信箱</label>
-            <input type="email" class="form-control" id="buyerEmail" :value='order.user.email'
+            <input type="email" class="form-control" id="buyerEmail" :value='pushOrder.user.email'
                    aria-describedby="buyerEmail" disabled>
           </div>
         </div>
         <div class="col-md-4">
           <div class="mb-3">
             <label for="payment" class="form-label">付款方式</label>
-            <input type="text" class="form-control" id="payment" :value='order.user.payment'
+            <input type="text" class="form-control" id="payment" :value='pushOrder.user.payment'
                    aria-describedby="payment" disabled>
           </div>
         </div>
-        <template v-if='order.isEqual'>
-          <div v-if='order.user.payment ==="信用卡"' class="col-md-4">
+        <template v-if='pushOrder.isEqual'>
+          <div v-if='pushOrder.user.payment ==="信用卡"' class="col-md-4">
             <div class="mb-3">
               <label for="address" class="form-label">收件地址</label>
-              <input type="text" class="form-control" id="address" :value='order.user.address'
+              <input type="text" class="form-control" id="address" :value='pushOrder.user.address'
                     aria-describedby="address" disabled>
             </div>
           </div>
@@ -163,20 +163,20 @@
             <div class="mb-3">
               <label for="recipientName" class="form-label">收件人姓名</label>
               <input type="text" class="form-control" id="recipientName"
-                    :value='order.recipient.name' aria-describedby="recipientName" disabled>
+                    :value='pushOrder.recipient.name' aria-describedby="recipientName" disabled>
             </div>
           </div>
           <div class="col-md-4">
             <div class="mb-3">
               <label for="recipientTell" class="form-label">收件人手機</label>
               <input type="text" class="form-control" id="recipientTell"
-                    :value='order.recipient.tel' aria-describedby="recipientTell" disabled>
+                    :value='pushOrder.recipient.tel' aria-describedby="recipientTell" disabled>
             </div>
           </div>
           <div class="col-md-4">
             <div class="mb-3">
               <label for="address" class="form-label">收件地址</label>
-              <input type="text" class="form-control" id="address" :value='order.user.address'
+              <input type="text" class="form-control" id="address" :value='pushOrder.user.address'
                     aria-describedby="payment" disabled>
             </div>
           </div>
@@ -184,7 +184,7 @@
         <div class="col-md-4">
           <div class="mb-3">
             <label for="message" class="form-label">備註</label>
-            <input type="text" class="form-control" id="message" :value='order.message'
+            <input type="text" class="form-control" id="message" :value='pushOrder.message'
                    aria-describedby="message" disabled>
           </div>
         </div>
@@ -206,7 +206,7 @@ export default {
       finalTotal: '',
     };
   },
-  props: ['order'],
+  props: ['pushOrder', 'pushProducts', 'productIndex'],
   methods: {
     getCart() {
       this.isLoading = true;
@@ -242,7 +242,6 @@ export default {
         });
     },
     emitOrder() {
-      // this.$emit('emit-order', this.order);
       this.$router.push('/buyerForm');
     },
   },

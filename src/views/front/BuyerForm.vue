@@ -170,6 +170,7 @@ export default {
       isLoading: false,
     };
   },
+  props: ['pushOrder', 'pushProducts', 'productIndex'],
   watch: {
   },
   methods: {

@@ -124,7 +124,9 @@
       </ul>
       <div class="d-flex mb-5">
         <!-- <button type="button" class="btn btn-outline-secondary me-3">刪除勾選商品</button> -->
-        <button type="button" class="btn btn-outline-secondary">刪除全部商品</button>
+        <button type="button" class="btn btn-outline-secondary"
+            @click='delAllNotice'>刪除全部商品
+        </button>
       </div>
       <div class="row justify-content-end mb-5">
         <div class="col-md-4">
@@ -181,6 +183,8 @@ export default {
       isLoading: false,
     };
   },
+  emits: ['emit-order', 'emit-products'],
+  props: ['pushOrder', 'pushProducts', 'productIndex'],
   methods: {
     getCart() {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/cart`;
@@ -241,6 +245,40 @@ export default {
             this.isLoading = false;
             this.$swal({ text: res.data.message, icon: 'success' });
             this.getCart();
+          } else {
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'error' });
+          }
+        })
+        .catch((err) => {
+          console.dir(err);
+        });
+    },
+    delAllNotice() {
+      this.$swal.fire({
+        title: '確定要清空購物車嗎?',
+        text: '清空後無法復原呦',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '確定',
+        cancelButtonText: '取消',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.delAll();
+        }
+      });
+    },
+    delAll() {
+      this.isLoading = true;
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/carts`;
+      this.$http.delete(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.getCart();
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'success' });
           } else {
             this.isLoading = false;
             this.$swal({ text: res.data.message, icon: 'error' });

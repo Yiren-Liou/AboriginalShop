@@ -141,7 +141,7 @@ export default {
       isLoading: false,
     };
   },
-  props: ['products', 'productIndex'],
+  props: ['pushOrder', 'pushProducts', 'productIndex'],
   components: {
     Swiper,
     SwiperSlide,
@@ -180,17 +180,17 @@ export default {
     },
     getRecommend() {
       console.log(this.productIndex);
-      const maxSize = this.products.length < 7 ? this.products.length : 6;
+      const maxSize = this.pushProducts.length < 7 ? this.pushProducts.length : 6;
       const arrSet = new Set([]);
       for (let index = 0; arrSet.size < maxSize; index + 1) {
-        let num = Math.floor(Math.random() * this.products.length);
+        let num = Math.floor(Math.random() * this.pushProducts.length);
         if (num === this.productIndex) {
-          num = Math.floor(Math.random() * this.products.length);
+          num = Math.floor(Math.random() * this.pushProducts.length);
         }
         arrSet.add(num);
       }
       arrSet.forEach((i) => {
-        this.recommend.push(this.products[i]);
+        this.recommend.push(this.pushProducts[i]);
       });
     },
     updateProductNum(action) {

@@ -126,6 +126,7 @@ export default {
       filterProducts: '',
     };
   },
+  props: ['pushOrder', 'pushProducts', 'productIndex'],
   methods: {
     getProducts(page = 1) {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/products?page=${page}`;
