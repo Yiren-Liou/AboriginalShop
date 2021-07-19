@@ -62,8 +62,6 @@
             <button class="btn btn-sm btn-primary" type="button">查看訂單</button>
           </div>
         </div>
-
-        <div class="col-4"></div>
       </li>
     </ul>
     <Pagination v-if='pagination.total_pages > 1' :page="pagination"

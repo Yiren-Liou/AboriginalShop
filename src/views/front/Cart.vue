@@ -4,22 +4,22 @@
       <div class="col-md-6">
         <div class="d-flex justify-content-between">
           <div class="d-flex flex-column align-items-center">
-            <div class="border border-2 rounded-circle bg-dark p-2 mb-3"></div>
+            <div class="border border-2 rounded-circle bg-dark p-1 p-md-2 mb-3"></div>
             <span class="text-center">確認購物車</span>
           </div>
           <div class="progressLine"></div>
           <div class="d-flex flex-column align-items-center">
-            <div class="border border-2 rounded-circle p-2 mb-3"></div>
-            <span class="text-center">填寫訂購資訊</span>
+            <div class="border border-2 rounded-circle p-1 p-md-2 mb-3"></div>
+            <span class="text-center">訂購資訊</span>
           </div>
           <div class="progressLine"></div>
           <div class="d-flex flex-column align-items-center">
-            <div class="border border-2 rounded-circle p-2 mb-3"></div>
+            <div class="border border-2 rounded-circle p-1 p-md-2 mb-3"></div>
             <span class="text-center">確認結帳</span>
           </div>
           <div class="progressLine"></div>
           <div class="d-flex flex-column align-items-center">
-            <div class="border border-2 rounded-circle p-2 mb-3"></div>
+            <div class="border border-2 rounded-circle p-1 p-md-2 mb-3"></div>
             <span class="text-center">訂購成功</span>
           </div>
         </div>
@@ -28,7 +28,7 @@
     <h2 class="fw-bold fontSize-lg-L text-center mb-5">購物車</h2>
     <template v-if='Array.isArray(cart.carts) && cart.carts[0]'>
       <p>總共有件<span class="fw-bold mx-1">{{ cart.carts.length }}</span>商品</p>
-      <table class="table align-middle">
+      <table class="table align-middle d-none d-md-table mb-5">
         <thead>
           <tr class="text-center">
             <th scope="col"></th>
@@ -42,9 +42,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in cart.carts" :key='item.product_id' class="text-center">
+          <tr v-for="(item, i) in cart.carts" :key='item.product_id' class="text-center">
             <th scope="row">
-              <input type="checkbox" class="form-check-input" :id="item.id">
+              <!-- <input type="checkbox" class="form-check-input" :id="item.id"> -->
+              {{ i + 1 }}
             </th>
             <td>
               <div :style="{ backgroundImage: 'url(' + item.product.imagesUrl[0].imgUrl + ')' }"
@@ -74,8 +75,49 @@
           </tr>
         </tbody>
       </table>
-      <div class="d-flex mb-3">
-        <button type="button" class="btn btn-outline-secondary me-3">刪除勾選商品</button>
+      <ul class='d-md-none list-unstyled mb-5'>
+        <li v-for="item in cart.carts" :key='item.product_id' class='card mb-3'>
+          <div class="row align-items-center g-0">
+            <div class="col-5">
+              <div :style="{ backgroundImage: 'url(' + item.product.imagesUrl[0].imgUrl + ')' }"
+                    class="cartImg bg-cover bg-center">
+              </div>
+            </div>
+            <div class="col-7">
+              <div class="card-body">
+                <ul class='list-unstyled'>
+                  <li class='mb-2'>
+                    <p class="card-text fontSizeS">
+                      商品名稱:
+                      <span class='ms-1'>#{{ item.product.title }}</span>
+                    </p>
+                  </li>
+                  <li class='mb-2'>
+                    <p class="card-text fontSizeS">
+                      商品規格:
+                      <span class='ms-1'>{{ item.product.unit }}</span>
+                    </p>
+                  </li>
+                  <li class='mb-2'>
+                    <p class="card-text fontSizeS">
+                      商品數量:
+                      <span class='ms-1'>{{ item.qty }}</span>
+                    </p>
+                  </li>
+                  <li class='mb-2'>
+                    <p class="card-text fontSizeS">
+                      商品售價:
+                      <span class='ms-1'>NT {{ $toCurrency(item.final_total) }}</span>
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="d-flex mb-5">
+        <!-- <button type="button" class="btn btn-outline-secondary me-3">刪除勾選商品</button> -->
         <button type="button" class="btn btn-outline-secondary">刪除全部商品</button>
       </div>
       <div class="row justify-content-end mb-5">
