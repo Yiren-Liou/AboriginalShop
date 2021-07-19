@@ -6,14 +6,13 @@
           <router-link to='/products'>全部商品</router-link>
         </li>
         <li class="breadcrumb-item">{{ product.category }}
-          <!-- <router-link to='/products'>全部商品</router-link> -->
         </li>
         <li class="breadcrumb-item">{{ product.title }}</li>
       </ol>
     </nav>
     <div class="row justify-content-between align-items-center mb-5">
       <div class="col-md-7">
-        <img :src="product.imagesUrl[0].imgUrl"
+        <img v-if='product.imagesUrl[0].imgUrl' :src="product.imagesUrl[0].imgUrl"
             class='img-fluid rounded' :alt="product.title">
       </div>
       <div class="col-md-4">

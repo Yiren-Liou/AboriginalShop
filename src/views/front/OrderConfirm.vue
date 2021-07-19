@@ -242,7 +242,7 @@ export default {
         });
     },
     emitOrder() {
-      this.$emit('emit-order', this.order);
+      // this.$emit('emit-order', this.order);
       this.$router.push('/buyerForm');
     },
   },

@@ -26,6 +26,7 @@ export default {
   methods: {
     getOrder(order) {
       this.order = order;
+      console.log(this.order);
     },
     getProducts(products, productIndex) {
       this.products = products;

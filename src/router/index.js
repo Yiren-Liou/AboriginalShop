@@ -12,11 +12,12 @@ const routes = [
     children: [
       {
         path: 'products',
-        name: 'Products',
+        name: 'products',
         component: () => import('../views/front/Products.vue'),
       },
       {
         path: 'product/:id',
+        name: 'product',
         component: () => import('../views/front/Product.vue'),
       },
       {
@@ -31,24 +32,24 @@ const routes = [
       },
       {
         path: 'order',
-        name: 'Order',
+        name: 'order',
         component: () => import('../views/front/Orders.vue'),
       },
       {
         path: 'cart',
-        name: 'Cart',
+        name: 'cart',
         component: () => import('../views/front/Cart.vue'),
       },
     ],
   },
   {
     path: '/orderCompleted',
-    name: 'OrderCompleted',
+    name: 'orderCompleted',
     component: () => import('../views/front/OrderCompleted.vue'),
   },
   {
     path: '/login',
-    name: 'Login',
+    name: 'login',
     component: () => import('../views/Login.vue'),
   },
   {
@@ -105,7 +106,7 @@ const routes = [
   },
   {
     path: '/upload',
-    name: 'Upload',
+    name: 'upload',
     component: () => import('../views/UploadImgs.vue'),
   },
 ];

@@ -171,11 +171,7 @@ export default {
     };
   },
   watch: {
-    getOrder() {
-      this.order = this.neworder;
-    },
   },
-  props: ['neworder'],
   methods: {
     isPhone(value) {
       const phoneNumber = /^(09)[0-9]{8}$/;
