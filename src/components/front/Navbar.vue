@@ -89,7 +89,7 @@ export default {
   data() {
     return {
       cart: '',
-      favoriteNum: '',
+      favoriteNum: 0,
     };
   },
   props: ['navLight'],
