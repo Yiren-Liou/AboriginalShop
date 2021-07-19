@@ -5,6 +5,6 @@ module.exports = {
   // 官方文件：https://cli.vuejs.org/zh/config/#publicpath
   // publicPath: '/',
   publicPath: process.env.NODE_ENV === 'production'
-    ? '/AboriginalShop/' // test20200915 為 repo 名稱
+    ? '/AboriginalShop/'
     : '/'
 };

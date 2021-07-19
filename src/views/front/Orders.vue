@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h2 class="text-center mb-5">全部訂單</h2>
-    <table class="table align-middle">
+    <table class="table align-middle d-none d-md-table">
       <thead>
         <tr class="text-center">
           <th scope="col">#</th>
@@ -25,6 +25,47 @@
         </tr>
       </tbody>
     </table>
+    <ul class='d-md-none list-unstyled'>
+      <li v-for='(item) in orders' :key=item.id class='card mb-3'>
+        <div class="row align-items-center">
+          <div class="col-8">
+            <div class="card-body">
+              <ul class='list-unstyled'>
+                <li class='mb-2'>
+                  <p class="card-text fontSizeS">
+                    <!-- 訂單編號: -->
+                    <span class='ms-1'>#{{ item.id }}</span>
+                  </p>
+                </li>
+                <li class='mb-2'>
+                  <p class="card-text fontSizeS">
+                    訂單日期:
+                    <span class='ms-1'>{{ $date.toDate(item.create_at) }}</span>
+                  </p>
+                </li>
+                <li class='mb-2'>
+                  <p class="card-text fontSizeS">
+                    商品數量:
+                    <span class='ms-1'>{{ Object.keys(item.products).length }}</span>
+                  </p>
+                </li>
+                <li class='mb-2'>
+                  <p class="card-text fontSizeS">
+                    商品金額:
+                    <span class='ms-1'>NT {{ $toCurrency(item.total) }}</span>
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-4">
+            <button class="btn btn-sm btn-primary" type="button">查看訂單</button>
+          </div>
+        </div>
+
+        <div class="col-4"></div>
+      </li>
+    </ul>
     <Pagination v-if='pagination.total_pages > 1' :page="pagination"
                 @emit-page='getOrders'>
     </Pagination>
@@ -52,7 +93,7 @@ export default {
           if (res.data.success) {
             this.orders = res.data.orders;
             this.pagination = res.data.pagination;
-            console.log(res.data);
+            console.log(this.orders);
           } else {
             this.$swal({ text: res.data.message, icon: 'error' });
           }
