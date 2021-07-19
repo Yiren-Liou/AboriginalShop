@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="d-flex flex-column align-items-center mb-5">
-      <router-link to='/products' class="fontSizeM text-center">全部商品</router-link>
+      <button type="button" class='btn fontSizeM text-center' @click='getProducts'>全部商品</button>
       <div class="d-flex">
         <div class="dropdown">
           <button class="btn" type="button"
@@ -10,10 +10,12 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="vegetables">
             <li>
-              <button class="dropdown-item btn btn-sm" type="button">水果</button>
+              <button class="dropdown-item btn btn-sm" type="button"
+                      data-subCategory='水果' @click='filterProduct'>水果</button>
             </li>
             <li>
-              <button class="dropdown-item btn btn-sm" type="button">蔬菜</button>
+              <button class="dropdown-item btn btn-sm" type="button"
+                      data-subCategory='蔬菜' @click='filterProduct'>蔬菜</button>
             </li>
           </ul>
         </div>
@@ -24,14 +26,16 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="drinks">
             <li>
-              <button class="dropdown-item btn btn-sm" type="button">咖啡豆</button>
+              <button class="dropdown-item btn btn-sm" type="button"
+                      data-subCategory='咖啡' @click='filterProduct'>咖啡</button>
             </li>
             <li>
-              <button class="dropdown-item btn btn-sm" type="button">高山茶葉</button>
+              <button class="dropdown-item btn btn-sm" type="button"
+                      data-subCategory='茶葉' @click='filterProduct'>茶葉</button>
             </li>
           </ul>
         </div>
-        <button class="btn" type="button" id="jam">
+        <button class="btn" type="button" id="jam" data-subCategory='天然果醬' @click='filterProduct'>
           天然果醬
         </button>
         <div class="dropdown">
@@ -41,17 +45,19 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="weave">
             <li>
-              <button class="dropdown-item btn btn-sm" type="button">置物籃</button>
+              <button class="dropdown-item btn btn-sm" type="button"
+                      data-subCategory='置物籃' @click='filterProduct'>置物籃</button>
             </li>
             <li>
-              <button class="dropdown-item btn btn-sm" type="button">圍巾</button>
+              <button class="dropdown-item btn btn-sm" type="button"
+                      data-subCategory='圍巾' @click='filterProduct'>圍巾</button>
             </li>
           </ul>
         </div>
       </div>
     </div>
     <div class="row">
-      <div v-for='(item,i ) in products' :key="item.id" class="col-sm-6 col-lg-4">
+      <div v-for='(item,i ) in filterProducts' :key="item.id" class="col-sm-6 col-lg-4">
         <button type="button" class="btn" @click='getProduct(item, i)'>
           <div class="card h-100">
             <img :src="item.imagesUrl[0].imgUrl" class="card-img-top" :alt="item.title">
@@ -117,6 +123,7 @@ export default {
     return {
       products: '',
       favorite: [],
+      filterProducts: '',
     };
   },
   methods: {
@@ -126,6 +133,7 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.products = res.data.products;
+            this.filterProducts = this.products;
             // this.pagination = res.data.pagination;
             console.log(this.products);
           } else {
@@ -174,6 +182,11 @@ export default {
       this.favorite = JSON.stringify(this.favorite);
       localStorage.setItem('favorite', this.favorite);
       emitter.emit('update-favorite');
+    },
+    filterProduct(e) {
+      this.filterProducts = this.products;
+      const filterCategory = e.target.getAttribute('data-subCategory');
+      this.filterProducts = this.products.filter((item) => item.sub_category === filterCategory);
     },
   },
   created() {

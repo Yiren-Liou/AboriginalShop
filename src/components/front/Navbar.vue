@@ -114,7 +114,7 @@ export default {
       this.favoriteNum = this.favoriteNum.length;
     },
   },
-  created() {
+  mounted() {
     this.getCart();
     this.getFavoriteNum();
     emitter.on('update-cart', () => {
@@ -123,6 +123,12 @@ export default {
     emitter.on('update-favorite', () => {
       this.getFavoriteNum();
     });
+    const nav = document.querySelector('#topNav');
+    if (nav.className.indexOf('show') !== -1) {
+      console.log('y');
+    } else {
+      console.log('n');
+    }
   },
 };
 </script>

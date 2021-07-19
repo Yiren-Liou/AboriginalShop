@@ -143,12 +143,6 @@
   <Footer></Footer>
 </template>
 
-<style>
-  body, html{
-    background-color: #FDFAF6;
-  }
-</style>
-
 <script>
 import Navbar from '@/components/front/Navbar.vue';
 import Footer from '@/components/front/Footer.vue';
