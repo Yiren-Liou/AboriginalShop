@@ -35,7 +35,7 @@
             </li>
           </ul>
         </div>
-        <button class="btn" type="button" id="jam" data-subCategory='天然果醬' @click='filterProduct'>
+        <button class="btn" type="button" id="jam" data-subCategory='手工果醬' @click='filterProduct'>
           天然果醬
         </button>
         <div class="dropdown">
