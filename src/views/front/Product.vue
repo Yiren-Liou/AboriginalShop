@@ -220,7 +220,6 @@ export default {
         });
     },
     changeProduct(item) {
-      // this.$emit('emit-products', this.products, i);
       this.$router.push(`/product/${item.id}`);
     },
   },

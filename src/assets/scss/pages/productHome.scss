@@ -11,4 +11,12 @@
       transform: translate(0, -60%);
     }
   }
+  .moreBtn{
+    position: absolute;
+    bottom: 16px;
+    &:hover{
+      text-decoration: none;
+      font-size: 1rem;
+    }
+  }
 }
