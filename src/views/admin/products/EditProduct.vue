@@ -53,13 +53,6 @@
               商品圖片
       </button>
     </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="recommend-tab" type="button" role="tab"
-              data-bs-toggle="tab" data-bs-target="#recommend"
-              aria-controls="recommend" aria-selected="false">
-              推薦商品
-      </button>
-    </li>
   </ul>
   <div class="tab-content border-bottom p-4" id="myTabContent">
     <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
@@ -204,14 +197,6 @@
         </ImagesInput>
       </div>
     </div>
-    <div
-    class="tab-pane fade" id="recommend" role="tabpanel" aria-labelledby="recommend-tab">
-      <div class="row">
-        <Recommended :readonly="readonly"
-                     :recommend="productInfo.recommend_list">
-        </Recommended>
-      </div>
-    </div>
   </div>
   <Loading :active="isLoading">
     <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
@@ -224,7 +209,6 @@
 import CategorySelect from '@/components/admin/Select_productCategory.vue';
 import IsEnabledSelect from '@/components/admin/Select_isEnabled.vue';
 import ImagesInput from '@/components/admin/Input_image.vue';
-import Recommended from '@/components/admin/Select_recommand.vue';
 
 export default {
   data() {
@@ -247,7 +231,6 @@ export default {
     CategorySelect,
     IsEnabledSelect,
     ImagesInput,
-    Recommended,
   },
   methods: {
     getProduct() {
