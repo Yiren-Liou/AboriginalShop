@@ -1,0 +1,25 @@
+.numCircle{
+  position: absolute;
+  top: 12px;
+  right: 0;
+  font-size: 10px;
+  background-color: $warning;
+  padding: 0 6px;
+}
+
+.favoriteNum {
+  right: 40px;
+}
+
+.change-bgc{
+  background-color: #000;
+  @media (min-width: 992px){
+    background-color: transparent;
+  }
+}
+.navbar-collapse{
+  margin: 0 -38px;
+  @media (min-width: 992px){
+    margin: 0;
+  }
+}

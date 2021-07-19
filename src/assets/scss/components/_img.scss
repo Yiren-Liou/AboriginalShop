@@ -35,5 +35,15 @@
   background-position: bottom;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 400px;
+  height: 210px;
+  @media (min-width: 992px) {
+    height: 400px;
+  }
+}
+
+.homeImgs{
+  height: 218px;
+  @media (min-width: 992px) {
+    height: 408px;
+  }
 }
