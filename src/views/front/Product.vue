@@ -47,10 +47,10 @@
       </div>
     </div>
     <div class="row justify-content-between align-items-center mb-5">
-      <div class="col-md-5">
+      <div class="col-md-5 order-1 order-md-0">
         <p v-html="product.main_content"></p>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 mb-3 mb-md-0">
         <div class="row">
           <div class="col">
             <img :src="product.imagesUrl[1].imgUrl"
@@ -64,7 +64,7 @@
       </div>
     </div>
     <div class="row justify-content-between align-items-center mb-5">
-    <div class="col-md-6">
+    <div class="col-md-6 mb-3 mb-md-0">
       <img :src="product.imagesUrl[3].imgUrl"
            class='img-fluid rounded mb-4' alt="新鮮現採">
       <div class="row">
@@ -85,7 +85,7 @@
     <h4 class='fontSizeS'>注意事項</h4>
     <p v-html="product.precautions" class='fontSizeS mb-5'></p>
     <h3 class='fontSizeM text-center'>推薦商品</h3>
-    <swiper :slidesPerView="3"
+    <swiper :slidesPerView="windowSize"
             :spaceBetween="30"
             :freeMode="true"
             :autoplay='{
@@ -146,6 +146,14 @@ export default {
   components: {
     Swiper,
     SwiperSlide,
+  },
+  computed: {
+    windowSize() {
+      if (window.screen.width <= 576) {
+        return 1;
+      }
+      return 3;
+    },
   },
   methods: {
     getProduct() {

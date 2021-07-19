@@ -29,7 +29,7 @@
       請確認購買商品和買家資訊，確認無誤後點選頁面下方確認結帳按鈕，訂單才會成功送出呦
     </p>
     <h2 class='fontSizeM mb-4'>購買的商品</h2>
-    <div class="px-4 mb-5">
+    <div class="px-4 mb-5 d-none d-md-block">
       <table class="table align-middle">
         <thead>
           <tr class="text-center">
@@ -71,6 +71,53 @@
         </p>
       </div>
     </div>
+    <ul class='d-md-none list-unstyled mb-5'>
+        <li v-for="item in cart.carts" :key='item.product_id' class='card mb-3'>
+          <div class="row align-items-center g-0">
+            <div class="col-5">
+              <div :style="{ backgroundImage: 'url(' + item.product.imagesUrl[0].imgUrl + ')' }"
+                    class="cartImg bg-cover bg-center">
+              </div>
+            </div>
+            <div class="col-7">
+              <div class="card-body">
+                <ul class='list-unstyled'>
+                  <li class='mb-2'>
+                    <p class="card-text fontSizeS">
+                      商品名稱:
+                      <span class='ms-1'>#{{ item.product.title }}</span>
+                    </p>
+                  </li>
+                  <li class='mb-2'>
+                    <p class="card-text fontSizeS">
+                      商品規格:
+                      <span class='ms-1'>{{ item.product.unit }}</span>
+                    </p>
+                  </li>
+                  <li class='mb-2'>
+                    <p class="card-text fontSizeS">
+                      商品售價:
+                      <span class='ms-1'>NT {{ $toCurrency(item.product.price) }}</span>
+                    </p>
+                  </li>
+                  <li class='mb-2'>
+                    <p class="card-text fontSizeS">
+                      商品數量:
+                      <span class='ms-1'>{{ item.qty }}</span>
+                    </p>
+                  </li>
+                  <li class='mb-2'>
+                    <p class="card-text fontSizeS">
+                      商品總價:
+                      <span class='ms-1'>NT {{ $toCurrency(item.final_total) }}</span>
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+    </ul>
     <h2 class='fontSizeM mb-4'>訂購人資訊</h2>
     <div class="px-4 mb-4">
       <div class="row">

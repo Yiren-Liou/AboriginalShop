@@ -100,6 +100,12 @@
                   </li>
                   <li class='mb-2'>
                     <p class="card-text fontSizeS">
+                      商品售價:
+                      <span class='ms-1'>NT {{ $toCurrency(item.product.price) }}</span>
+                    </p>
+                  </li>
+                  <li class='mb-2'>
+                    <p class="card-text fontSizeS">
                       商品數量:
                       <span class='ms-1'>{{ item.qty }}</span>
                     </p>
@@ -245,8 +251,12 @@ export default {
         });
     },
   },
-  created() {
+  mounted() {
     this.getCart();
+    const topNav = document.querySelector('#topNav');
+    if (topNav.classList.contains('show')) {
+      topNav.classList.remove('show');
+    }
   },
 };
 </script>

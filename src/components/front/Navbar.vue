@@ -15,7 +15,7 @@
                   :class="{'text-white': navLight}">menu
               </span>
       </button>
-      <div class="collapse navbar-collapse" id="topNav">
+      <div class="collapse navbar-collapse" id="topNav" ref='topNav'>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
           <li class="nav-item">
             <router-link to="/" class="nav-link"
@@ -123,12 +123,6 @@ export default {
     emitter.on('update-favorite', () => {
       this.getFavoriteNum();
     });
-    const nav = document.querySelector('#topNav');
-    if (nav.className.indexOf('show') !== -1) {
-      console.log('y');
-    } else {
-      console.log('n');
-    }
   },
 };
 </script>

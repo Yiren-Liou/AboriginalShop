@@ -1,5 +1,5 @@
 <template>
-  <Navbar></Navbar>
+  <Navbar class='mb-4'></Navbar>
   <router-view @emit-order='getOrder' @emit-products='getProducts'
                :order='order' :products='products' :product-index='productIndex'>
   </router-view>
