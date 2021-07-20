@@ -18,7 +18,7 @@
       <div class="collapse navbar-collapse" id="topNav" ref='topNav'>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
           <li class="nav-item">
-            <router-link to="/" class="nav-link d-lg-none"
+            <router-link to="/" class="nav-link d-none d-lg-block"
                 :class="{'text-white': navLight, 'change-bgc': navLight}">
               首頁
             </router-link>
