@@ -98,6 +98,11 @@
       </div>
     </div>
   </div>
+  <Loading :active="isLoading">
+    <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
+    <div></div><div></div><div></div>
+    </div></div>
+  </Loading>
 </template>
 
 <style scoped>
@@ -125,6 +130,7 @@ export default {
       products: '',
       favorite: [],
       filterProducts: '',
+      isLoading: false,
     };
   },
   props: ['pushOrder', 'pushProducts', 'productIndex'],

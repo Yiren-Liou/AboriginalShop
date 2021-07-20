@@ -25,7 +25,7 @@
         </div>
       </div>
     </div>
-    <h2 class="fw-bold fontSize-lg-L text-center mb-5">訂購資訊</h2>
+    <h2 class="fontSizeL text-center mb-5">訂購資訊</h2>
     <div class="row justify-content-center">
       <div class="col-md-7">
         <Form v-slot="{ errors }" @submit='emitOrder'>
@@ -67,17 +67,17 @@
               <label for="payment" class="col-sm-4 col-form-label">付款方式<sup>*</sup></label>
               <div class="col-sm-8">
                 <Field class="form-select" id="payment"
-                    v-model="user.payment"
+                    v-model="user.paymentMethod"
                     name="付款方式" rules="required" as='select'
                     :class="{ 'is-invalid': errors['付款方式'] }">
                     <option value='' selected disabled>請選擇付款方式</option>
                     <option value="信用卡">信用卡</option>
-                    <option value="711取貨付款">7-11 取貨付款</option>
+                    <option value="7-11 取貨付款">7-11 取貨付款</option>
                 </Field>
                 <error-message name="付款方式" class="invalid-feedback"></error-message>
               </div>
             </div>
-            <template v-if='user.payment==="711取貨付款"'>
+            <template v-if='user.paymentMethod==="7-11 取貨付款"'>
               <div class="row mb-3">
                 <label for="payment" class="col-sm-4 col-form-label">711取貨門市<sup>*</sup></label>
                 <div class="col-sm-8">
@@ -94,38 +94,7 @@
                 </div>
               </div>
             </template>
-            <template v-else-if='user.payment==="信用卡"'>
-              <div class="form-check mb-3">
-                <input type="checkbox" class="form-check-input" v-model="isEqual"
-                        id="userEqual">
-                <label class="form-check-label" for="userEqual">訂購人等於收件人</label>
-              </div>
-              <template v-if='!isEqual'>
-                <div class="row mb-3">
-                  <label for="RecipientName" class="col-sm-4 col-form-label">
-                      收件人姓名<sup>*</sup>
-                  </label>
-                  <div class="col-sm-8">
-                    <Field type="text" class="form-control disabled" id="RecipientName"
-                        placeholder="請輸入收件人姓名" v-model="recipient.name"
-                        name="收件人姓名" rules="required"
-                        :class="{ 'is-invalid': errors['收件人姓名'] }">
-                    </Field>
-                    <error-message name="收件人姓名" class="invalid-feedback"></error-message>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="userTell" class="col-sm-4 col-form-label">收件人手機<sup>*</sup></label>
-                  <div class="col-sm-8">
-                    <Field type="tel" class="form-control disabled" id="userTell"
-                        placeholder="請輸入收件人手機號碼" v-model="recipient.tel"
-                        name="收件人手機" :rules="isPhone"
-                        :class="{ 'is-invalid': errors['收件人手機'] }">
-                    </Field>
-                    <error-message name="收件人手機" class="invalid-feedback"></error-message>
-                  </div>
-                </div>
-              </template>
+            <template v-else-if='user.paymentMethod==="信用卡"'>
               <div class="row mb-3">
                 <label for="RecipientAddre" class="col-sm-4 col-form-label">
                   收件地址<sup>*</sup>
@@ -164,9 +133,7 @@ export default {
     return {
       user: {},
       message: '',
-      recipient: {},
       order: {},
-      isEqual: false,
       isLoading: false,
     };
   },
@@ -181,12 +148,6 @@ export default {
     emitOrder() {
       this.order.user = this.user;
       this.order.message = this.message;
-      this.order.isEqual = this.isEqual;
-      this.order.orderStatus = '處理中';
-      this.order.is_delivery = '未出貨';
-      if (this.recipient) {
-        this.order.recipient = this.recipient;
-      }
       this.$emit('emit-order', this.order);
       this.$router.push('/orderConfirm');
     },

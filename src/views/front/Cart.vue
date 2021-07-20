@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-4">
+  <div class="main container mt-4">
     <div class="row justify-content-center mb-5">
       <div class="col-md-6">
         <div class="d-flex justify-content-between">
@@ -25,7 +25,7 @@
         </div>
       </div>
     </div>
-    <h2 class="fw-bold fontSize-lg-L text-center mb-5">購物車</h2>
+    <h2 class="fontSizeL text-center mb-5">購物車</h2>
     <template v-if='Array.isArray(cart.carts) && cart.carts[0]'>
       <p>總共有件<span class="fw-bold mx-1">{{ cart.carts.length }}</span>商品</p>
       <table class="table align-middle d-none d-md-table mb-5">

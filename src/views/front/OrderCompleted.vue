@@ -6,10 +6,12 @@
       <h2 class="text-white fontSize-lg-L fw-bold">訂購成功，來杯咖啡吧</h2>
       <p class="text-white">訂單資訊已寄送至您的信箱，謝謝支持</p>
       <div class="d-flex">
-        <router-link to='/' role="button" class="btn btn-light fontSizeM fw-bold px-4 me-3">
+        <router-link to='/product/-Meidwal0yluLh617uZz'
+              role="button" class="btn btn-light fontSizeM fw-bold px-4 me-3">
           我要美式
         </router-link>
-        <router-link to='/' role="button" class="btn btn-light fontSizeM fw-bold px-4">
+        <router-link to='/product/-Meidwal0yluLh617uZz'
+              role="button" class="btn btn-light fontSizeM fw-bold px-4">
           我要拿鐵
         </router-link>
       </div>

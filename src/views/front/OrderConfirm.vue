@@ -145,42 +145,18 @@
         <div class="col-md-4">
           <div class="mb-3">
             <label for="payment" class="form-label">付款方式</label>
-            <input type="text" class="form-control" id="payment" :value='pushOrder.user.payment'
+            <input type="text" class="form-control" id="payment"
+                   :value='pushOrder.user.paymentMethod'
                    aria-describedby="payment" disabled>
           </div>
         </div>
-        <template v-if='pushOrder.isEqual'>
-          <div v-if='pushOrder.user.payment ==="信用卡"' class="col-md-4">
-            <div class="mb-3">
-              <label for="address" class="form-label">收件地址</label>
-              <input type="text" class="form-control" id="address" :value='pushOrder.user.address'
-                    aria-describedby="address" disabled>
-            </div>
+        <div v-if='pushOrder.payment_method ==="信用卡"' class="col-md-4">
+          <div class="mb-3">
+            <label for="address" class="form-label">收件地址</label>
+            <input type="text" class="form-control" id="address" :value='pushOrder.user.address'
+                  aria-describedby="address" disabled>
           </div>
-        </template>
-        <template v-else>
-          <div class="col-md-4">
-            <div class="mb-3">
-              <label for="recipientName" class="form-label">收件人姓名</label>
-              <input type="text" class="form-control" id="recipientName"
-                    :value='pushOrder.recipient.name' aria-describedby="recipientName" disabled>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="mb-3">
-              <label for="recipientTell" class="form-label">收件人手機</label>
-              <input type="text" class="form-control" id="recipientTell"
-                    :value='pushOrder.recipient.tel' aria-describedby="recipientTell" disabled>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="mb-3">
-              <label for="address" class="form-label">收件地址</label>
-              <input type="text" class="form-control" id="address" :value='pushOrder.user.address'
-                    aria-describedby="payment" disabled>
-            </div>
-          </div>
-        </template>
+        </div>
         <div class="col-md-4">
           <div class="mb-3">
             <label for="message" class="form-label">備註</label>

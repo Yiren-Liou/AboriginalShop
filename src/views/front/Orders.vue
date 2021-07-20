@@ -1,7 +1,15 @@
 <template>
   <div class="main container">
-    <h2 class="text-center mb-5">全部訂單</h2>
-    <p v-if='!orders.length' class='text-center'>快點去逛逛吧</p>
+    <h2 class="fontSizeL text-center mb-5">全部訂單</h2>
+    <template v-if='!orders.length'>
+      <div class="d-flex flex-column align-items-center">
+        <p class='fontSizeM text-center mb-5'>你還沒有買任何東西?<br>快點去逛逛吧</p>
+        <router-link to='/products' role="button"
+                    class="btn btn-primary me-3">
+          繼續購物
+        </router-link>
+      </div>
+    </template>
     <table v-if='orders.length' class="table align-middle d-none d-md-table">
       <thead>
         <tr class="text-center">
