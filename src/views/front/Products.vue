@@ -1,10 +1,12 @@
 <template>
   <div class="container">
     <div class="d-flex flex-column align-items-center mb-5">
-      <button type="button" class='btn fontSizeM text-center' @click='getProducts'>全部商品</button>
+      <button type="button" class='btn btn-text fontSizeM text-center' @click='getProducts'>
+          全部商品
+      </button>
       <div class="d-flex">
         <div class="dropdown">
-          <button class="btn" type="button"
+          <button class="btn btn-text" type="button"
                   id="vegetables" data-bs-toggle="dropdown" aria-expanded="false">
             新鮮蔬果
           </button>
@@ -20,7 +22,7 @@
           </ul>
         </div>
         <div class="dropdown">
-          <button class="btn" type="button"
+          <button class="btn btn-text" type="button"
                   id="drinks" data-bs-toggle="dropdown" aria-expanded="false">
             沖泡飲品
           </button>
@@ -35,11 +37,12 @@
             </li>
           </ul>
         </div>
-        <button class="btn" type="button" id="jam" data-subCategory='手工果醬' @click='filterProduct'>
+        <button class="btn btn-text" type="button" id="jam"
+                data-subCategory='手工果醬' @click='filterProduct'>
           天然果醬
         </button>
         <div class="dropdown">
-          <button class="btn" type="button"
+          <button class="btn btn-text" type="button"
                   id="weave" data-bs-toggle="dropdown" aria-expanded="false">
             手工編織
           </button>
@@ -56,7 +59,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row mb-6">
       <div v-for='(item,i ) in filterProducts' :key="item.id" class="col-sm-6 col-lg-4">
         <button type="button" class="btn" @click='getProduct(item, i)'>
           <div class="card h-100">
@@ -101,14 +104,12 @@
   .dropdown-menu{
     min-width: 8rem;
   }
-  .favoriteBtn{
-    border-radius: 0 0 0 .25rem;
-  }
-  .addCartBtn{
-    border-radius: 0 0 .25rem 0;
-  }
   .card{
     border-radius: 1rem;
+  }
+  .card:hover{
+    border-color: transparent;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
   }
   .card-img-top{
     border-radius: 1rem 1rem 0 0;

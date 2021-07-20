@@ -11,6 +11,7 @@
           <th scope="col">付款狀態</th>
           <th scope="col">訂單狀態</th>
           <th scope="col">出貨日期</th>
+          <!-- <th scope="col">查看訂單</th> -->
         </tr>
       </thead>
       <tbody>
@@ -19,9 +20,15 @@
           <td>{{ order.id }}</td>
           <td>{{ $date.toDate(order.create_at) }}</td>
           <td>{{ $toCurrency(order.total) }}</td>
-          <td>{{ order.is_paid? '已付款' : '未付款' }}</td>
+          <td :class='{"text-secondary":order.is_paid}'>{{ order.is_paid? '已付款' : '未付款' }}</td>
           <td>{{ order.orderStatus? order.orderStatus : '處理中' }}</td>
           <td>{{ order.deliveryDate? $date.toDate(order.deliveryDate) : '-' }}</td>
+          <!-- <td>
+            <router-link :to="`order/${order.id}`"
+                       class="material-icons btn">
+              remove_red_eye
+            </router-link>
+          </td> -->
         </tr>
       </tbody>
     </table>

@@ -46,7 +46,11 @@
   text-decoration: line-through;
 }
 
-
+.btn-text{
+  &:hover{
+    color: $secondary;
+  }
+}
 
 
 

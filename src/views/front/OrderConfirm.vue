@@ -4,17 +4,17 @@
       <div class="col-md-6">
         <div class="d-flex justify-content-between">
           <div class="d-flex flex-column align-items-center">
-            <div class="border border-2 rounded-circle bg-dark p-2 mb-3"></div>
+            <div class="border border-2 rounded-circle bg-primary p-2 mb-3"></div>
             <span class="text-center">確認購物車</span>
           </div>
-          <div class="progressLine border-dark"></div>
+          <div class="progressLine border-primary"></div>
           <div class="d-flex flex-column align-items-center">
-            <div class="border border-2 rounded-circle bg-dark p-2 mb-3"></div>
+            <div class="border border-2 rounded-circle bg-primary p-2 mb-3"></div>
             <span class="text-center">填寫訂購資訊</span>
           </div>
-          <div class="progressLine border-dark"></div>
+          <div class="progressLine border-primary"></div>
           <div class="d-flex flex-column align-items-center">
-            <div class="border border-2 rounded-circle bg-dark p-2 mb-3"></div>
+            <div class="border border-2 rounded-circle bg-primary p-2 mb-3"></div>
             <span class="text-center">確認結帳</span>
           </div>
           <div class="progressLine"></div>
@@ -191,9 +191,9 @@
       </div>
     </div>
     <div class="d-flex justify-content-center">
-      <button type='button' class="btn btn-outline-primary me-3" @click="emitOrder">重新填寫</button>
+      <button type='button' class="btn btn-outline-secondary me-3" @click="emitOrder">重新填寫</button>
       <!-- <router-link to='/buyerForm' class='btn btn-outline-primary me-3'>重新填寫</router-link> -->
-      <button type='button' class="btn btn-primary me-3" @click='sendOrder'>確認結帳</button>
+      <button type='button' class="btn btn-secondary me-3" @click='sendOrder'>確認結帳</button>
     </div>
   </div>
 </template>

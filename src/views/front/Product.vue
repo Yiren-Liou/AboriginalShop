@@ -28,16 +28,16 @@
         </p>
         <div class="d-flex">
           <div class="input-group me-3 w-50">
-            <button class="btn btn-outline-secondary material-icons" type="button"
+            <button class="btn btn-outline-dark material-icons" type="button"
                     @click="updateProductNum('minus')">remove
             </button>
             <input type="number" class="form-control text-center bg-white"
                    v-model.number="qty" min=1 disabled>
-            <button class="btn btn-outline-secondary material-icons" type="button"
+            <button class="btn btn-outline-dark material-icons" type="button"
                     @click="updateProductNum('add')">add
             </button>
           </div>
-          <button class="btn btn-outline-secondary d-center" type="button"
+          <button class="btn btn-primary d-center" type="button"
                   @click="addToCart(product.id, qty)">
             <span class="material-icons">add_shopping_cart</span>
             加入購物車

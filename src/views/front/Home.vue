@@ -24,6 +24,15 @@
     </button>
   </div>
   <div class="container mb-6" id='intro'>
+    <div class='row justify-content-center mb-6'>
+      <div class="col-md-6">
+        <h3 class="fontSizeM fw-bold text-center mb-4">依循大自然的法則</h3>
+        <p class='text-center'>
+          相信土地以及作物本身的生命力，不噴灑化學農藥以及化學肥料，回歸最原始的耕作方式。
+          尊重土壤為基本，維護整個生態循環體系，使人類和環境可以和平相處，就是部落族人使用的農業技術。
+        </p>
+      </div>
+    </div>
     <div class="row justify-content-between align-items-center mb-6">
       <div class="col-md-6 order-1 order-md-0">
         <div class="row">
@@ -98,7 +107,7 @@
     <span class='fontSizeL fw-bold text-white mt-6'>給予時間 自然成長</span>
   </div>
   <div class='container mb-6'>
-    <div class="row justify-content-around align-items-center mb-6">
+    <div class="row justify-content-around align-items-center">
       <div class="col-md-5">
         <h3 class="fontSizeM fw-bold text-center mb-4">與時間賽跑、當天現採寄出</h3>
         <p class=''>
@@ -119,10 +128,9 @@
       <div class="col-md-5">
         <h3 class="fontSizeM fw-bold text-center mb-4">讓土地休息、保持土壤生機</h3>
         <p class=''>
-          採收完畢後，不會馬上播種新的作物，讓土地有時間恢復健康，
-          長相不完美的蔬果會回歸自然，農民將它們放進土壤，
-          等待微生物分解成養分，保持土壤的活力，
-          讓下一次的種植仍然可以豐收。
+          採收完畢後，長相不完美的蔬果會回歸自然，農民將它們放進土壤，
+          等待微生物分解成養分，利用輪作的方式，將土壤培育好、保持土壤的活力，
+          依循季節，再種植適合的作物，生產出優質的蔬果產品。
         </p>
         <div class="d-flex justify-content-between">
           <div class='homeImgs bg-cover bg-center rounded w-50 mb-md-3'
