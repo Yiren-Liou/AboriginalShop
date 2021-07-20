@@ -110,8 +110,10 @@ export default {
         });
     },
     getFavoriteNum() {
-      this.favoriteNum = JSON.parse(localStorage.getItem('favorite'));
-      this.favoriteNum = this.favoriteNum.length;
+      if (localStorage.getItem('favorite')) {
+        this.favoriteNum = JSON.parse(localStorage.getItem('favorite'));
+        this.favoriteNum = this.favoriteNum.length;
+      }
     },
   },
   mounted() {
