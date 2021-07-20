@@ -65,14 +65,14 @@
           <div class="mb-3">
             <label for="orderDate" class="form-label">訂單日期</label>
             <input type="date" class="form-control"
-                   id="orderDate" :value="this.$date.toDate(order.create_at)" disabled>
+                   id="orderDate" :value="$date.toDate(order.create_at)" disabled>
           </div>
         </div>
         <div class="col-md-4">
           <div class="mb-3">
             <label for="orderStatus" class="form-label">訂單狀態</label>
             <select class="form-select" id="orderStatus"
-                    v-model="order.orderStatus" :disabled="readonly">
+                    v-model="orderStatus" :disabled="readonly">
               <option value='' disabled>請選擇訂單狀態</option>
               <option value="處理中">處理中</option>
               <option value="已出貨">已出貨</option>
@@ -97,7 +97,9 @@
           <div class="mb-3">
             <label for="paidDate" class="form-label">付款日期</label>
             <input type="date" class="form-control"
-                   id="paidDate" :value="this.$date.toDate(order.paid_date)" disabled>
+                   id="paidDate"
+                   :value="$date.toDate(order.paid_date)? $date.toDate(order.paid_date) : ''"
+                   disabled>
           </div>
         </div>
         <div class="col-md-4">
@@ -115,7 +117,8 @@
           <div class="mb-3">
             <label for="deliveryDate" class="form-label">出貨日期</label>
             <input type="date" class="form-control" :disabled="readonly"
-                   id="deliveryDate" :value="this.$date.toDate(order.paid_date)">
+                   id="deliveryDate"
+            :value="$date.toDate(order.paid_date)? $date.toDate(order.paid_date): ''">
           </div>
         </div>
       </div>
@@ -201,6 +204,7 @@ export default {
     return {
       routeId: this.$route.params.id,
       order: '',
+      orderStatus: '',
       user: '',
       products: '',
       isLoading: false,
@@ -264,7 +268,8 @@ export default {
       this.emitReadonly(true);
       this.isLoading = true;
       this.order.user = this.user;
-      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/order/${this.routeId}}`;
+      this.order.orderStatus = this.orderStatus;
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/order/${this.order.id}}`;
       this.$http.put(apiUrl, { data: this.order })
         .then((res) => {
           if (res.data.success) {

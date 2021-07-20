@@ -228,10 +228,12 @@ export default {
         });
     },
     sendOrder() {
+      console.log(this.pushOrder);
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/order`;
       this.$http.post(apiUrl, { data: this.pushOrder })
         .then((res) => {
           if (res.data.success) {
+            console.log(res);
             this.$router.push('/orderCompleted');
           } else {
             console.log(res.data.message);
@@ -247,6 +249,7 @@ export default {
   },
   created() {
     this.getCart();
+    console.log(this.pushOrder);
     this.$swal({ text: '請確認「購買商品」和「買家資訊」後，點選頁面下方「確認結帳按鈕」，訂單才會成功送出呦', icon: 'warning' });
   },
 };

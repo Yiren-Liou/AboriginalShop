@@ -1,7 +1,8 @@
 <template>
   <div class="main container">
     <h2 class="text-center mb-5">全部訂單</h2>
-    <table class="table align-middle d-none d-md-table">
+    <p v-if='!orders.length' class='text-center'>快點去逛逛吧</p>
+    <table v-if='orders.length' class="table align-middle d-none d-md-table">
       <thead>
         <tr class="text-center">
           <th scope="col">#</th>
@@ -32,7 +33,7 @@
         </tr>
       </tbody>
     </table>
-    <ul class='d-md-none list-unstyled'>
+    <ul v-if='orders.length' class='d-md-none list-unstyled'>
       <li v-for='(order) in orders' :key=order.id class='card mb-3'>
         <div class="row align-items-center">
           <div class="col-8">

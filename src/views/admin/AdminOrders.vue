@@ -119,6 +119,7 @@ export default {
     };
   },
   emits: ['emit-readonly'],
+  props: ['read-status'],
   components: {
   },
   computed: {
