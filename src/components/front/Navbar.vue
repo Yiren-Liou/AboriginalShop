@@ -83,7 +83,7 @@
 </style>
 
 <script>
-import emitter from '@/methods/emitter';
+import emitter from '@/methods/Emitter';
 
 export default {
   data() {

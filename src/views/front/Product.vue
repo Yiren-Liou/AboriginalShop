@@ -123,7 +123,7 @@
 </template>
 
 <script>
-import emitter from '@/methods/emitter';
+import emitter from '@/methods/Emitter';
 import SwiperCore, {
   Pagination, Autoplay,
 } from 'swiper/core';
