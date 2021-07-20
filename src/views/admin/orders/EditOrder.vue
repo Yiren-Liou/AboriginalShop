@@ -71,8 +71,12 @@
         <div class="col-md-4">
           <div class="mb-3">
             <label for="orderStatus" class="form-label">訂單狀態</label>
-            <input type="text" class="form-control" :disabled="readonly"
-                   id="orderStatus" value="處理中">
+            <select class="form-select" id="orderStatus"
+                    v-model="order.orderStatus" :disabled="readonly">
+              <option value='' disabled>請選擇訂單狀態</option>
+              <option value="處理中">處理中</option>
+              <option value="已出貨">已出貨</option>
+            </select>
           </div>
         </div>
         <div class="col-md-4">

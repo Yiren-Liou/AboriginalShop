@@ -34,7 +34,7 @@
               :class="{'text-white': navLight, 'change-bgc': navLight}" href="#">關於我們</a>
           </li>
           <li class="nav-item">
-            <router-link to="/order" class="nav-link"
+            <router-link to="/orders" class="nav-link"
                 :class="{'text-white': navLight, 'change-bgc': navLight}">
               查詢訂單
             </router-link>

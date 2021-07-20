@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="main container">
     <h2 class="text-center mb-5">全部訂單</h2>
     <table class="table align-middle d-none d-md-table">
       <thead>
@@ -11,7 +11,7 @@
           <th scope="col">付款狀態</th>
           <th scope="col">訂單狀態</th>
           <th scope="col">出貨日期</th>
-          <!-- <th scope="col">查看訂單</th> -->
+          <th scope="col">查看訂單</th>
         </tr>
       </thead>
       <tbody>
@@ -23,17 +23,17 @@
           <td :class='{"text-secondary":order.is_paid}'>{{ order.is_paid? '已付款' : '未付款' }}</td>
           <td>{{ order.orderStatus? order.orderStatus : '處理中' }}</td>
           <td>{{ order.deliveryDate? $date.toDate(order.deliveryDate) : '-' }}</td>
-          <!-- <td>
-            <router-link :to="`order/${order.id}`"
+          <td>
+            <router-link :to="`/order/${order.id}`"
                        class="material-icons btn">
-              remove_red_eye
+              description
             </router-link>
-          </td> -->
+          </td>
         </tr>
       </tbody>
     </table>
     <ul class='d-md-none list-unstyled'>
-      <li v-for='(item) in orders' :key=item.id class='card mb-3'>
+      <li v-for='(order) in orders' :key=order.id class='card mb-3'>
         <div class="row align-items-center">
           <div class="col-8">
             <div class="card-body">
@@ -41,32 +41,36 @@
                 <li class='mb-2'>
                   <p class="card-text fontSizeS">
                     <!-- 訂單編號: -->
-                    <span class='ms-1'>#{{ item.id }}</span>
+                    <span class='ms-1'>#{{ order.id }}</span>
                   </p>
                 </li>
                 <li class='mb-2'>
                   <p class="card-text fontSizeS">
                     訂單日期:
-                    <span class='ms-1'>{{ $date.toDate(item.create_at) }}</span>
+                    <span class='ms-1'>{{ $date.toDate(order.create_at) }}</span>
                   </p>
                 </li>
                 <li class='mb-2'>
                   <p class="card-text fontSizeS">
                     商品數量:
-                    <span class='ms-1'>{{ Object.keys(item.products).length }}</span>
+                    <span class='ms-1'>{{ Object.keys(order.products).length }}</span>
                   </p>
                 </li>
                 <li class='mb-2'>
                   <p class="card-text fontSizeS">
                     商品金額:
-                    <span class='ms-1'>NT {{ $toCurrency(item.total) }}</span>
+                    <span class='ms-1'>NT {{ $toCurrency(order.total) }}</span>
                   </p>
                 </li>
               </ul>
             </div>
           </div>
           <div class="col-4">
-            <button class="btn btn-sm btn-primary" type="button">查看訂單</button>
+            <router-link :to="`/order/${order.id}`"
+                       class="btn btn-sm btn-primary">
+              查看訂單
+            </router-link>
+            <!-- <button class="btn btn-sm btn-primary" type="button">查看訂單</button> -->
           </div>
         </div>
       </li>

@@ -229,7 +229,7 @@ export default {
     },
     sendOrder() {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/order`;
-      this.$http.post(apiUrl, { data: this.order })
+      this.$http.post(apiUrl, { data: this.pushOrder })
         .then((res) => {
           if (res.data.success) {
             this.$router.push('/orderCompleted');

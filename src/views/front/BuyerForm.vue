@@ -182,6 +182,8 @@ export default {
       this.order.user = this.user;
       this.order.message = this.message;
       this.order.isEqual = this.isEqual;
+      this.order.orderStatus = '處理中';
+      this.order.is_delivery = '未出貨';
       if (this.recipient) {
         this.order.recipient = this.recipient;
       }
