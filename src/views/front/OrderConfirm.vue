@@ -225,7 +225,6 @@ export default {
   },
   created() {
     this.getCart();
-    console.log(this.pushOrder);
     this.$swal({ text: '請確認「購買商品」和「買家資訊」後，點選頁面下方「確認結帳按鈕」，訂單才會成功送出呦', icon: 'warning' });
   },
 };

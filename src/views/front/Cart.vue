@@ -192,6 +192,7 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.cart = res.data.data;
+            this.isLoading = false;
             console.log(this.cart);
           } else {
             this.$swal({ text: res.data.message, icon: 'error' });
@@ -290,6 +291,7 @@ export default {
     },
   },
   mounted() {
+    this.isLoading = true;
     this.getCart();
     const topNav = document.querySelector('#topNav');
     if (topNav.classList.contains('show')) {

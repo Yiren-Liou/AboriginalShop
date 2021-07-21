@@ -132,6 +132,7 @@ export default {
           if (res.data.success) {
             this.products = res.data.products;
             this.filterProducts = this.products;
+            this.isLoading = false;
             // this.pagination = res.data.pagination;
             console.log(this.products);
           } else {
@@ -196,6 +197,7 @@ export default {
     },
   },
   created() {
+    this.isLoading = true;
     this.getProducts();
     const topNav = document.querySelector('#topNav');
     if (topNav.classList.contains('show')) {

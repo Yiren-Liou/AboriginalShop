@@ -88,6 +88,11 @@
                 @emit-page='getOrders'>
     </Pagination>
   </div>
+  <Loading :active="isLoading">
+    <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
+    <div></div><div></div><div></div>
+    </div></div>
+  </Loading>
 </template>
 
 <script>
@@ -98,6 +103,7 @@ export default {
     return {
       orders: '',
       pagination: '',
+      isLoading: false,
     };
   },
   components: {
@@ -112,6 +118,7 @@ export default {
           if (res.data.success) {
             this.orders = res.data.orders;
             this.pagination = res.data.pagination;
+            this.isLoading = false;
             console.log(this.orders);
           } else {
             this.$swal({ text: res.data.message, icon: 'error' });
@@ -123,6 +130,7 @@ export default {
     },
   },
   created() {
+    this.isLoading = true;
     this.getOrders();
     const topNav = document.querySelector('#topNav');
     if (topNav.classList.contains('show')) {

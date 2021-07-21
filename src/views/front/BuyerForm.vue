@@ -134,7 +134,6 @@ export default {
       user: {},
       message: '',
       order: {},
-      isLoading: false,
     };
   },
   props: ['pushOrder', 'pushProducts', 'productIndex'],
@@ -152,6 +151,8 @@ export default {
       this.$router.push('/orderConfirm');
     },
   },
-  created() {},
+  created() {
+    this.$swal({ text: '請填寫真實姓名及手機號碼，以免無法領取包裹呦', icon: 'warning' });
+  },
 };
 </script>
