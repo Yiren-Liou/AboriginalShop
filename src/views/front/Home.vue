@@ -3,7 +3,7 @@
     <div class="bgCover"></div>
     <Navbar :nav-light='isNavLight'></Navbar>
     <div class="bannerSlogan d-flex flex-column align-items-center">
-      <h2 class="fontSizeL fontSize-lg-L fw-bold mb-3">你知道友善環境的美食嗎?</h2>
+      <h2 class="fontSizeM fontSize-lg-L fw-bold mb-3">你知道友善環境的美食嗎?</h2>
       <p class="text-center d-none d-lg-block mb-lg-0">
         原民部落使用永續循環的栽種方式，保持大自然的平衡，
       </p>

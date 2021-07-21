@@ -121,8 +121,11 @@
               <div class="col-md-6 mb-3">
                 <label for="coupon" class="form-label">適用折價券</label>
                 <select id="coupon" class="form-select"
-                        v-model="productInfo.coupons" :disabled="readonly">
+                        v-model="productInfo.coupons" :disabled="readonly" multiple>
                   <option value="" disabled>請選擇一個折價券</option>
+                  <option v-for='item in coupons' :key='item.id' value="item" >
+                    {{ item.title }}
+                  </option>
                 </select>
               </div>
               <IsEnabledSelect :readonly="readonly"
@@ -216,6 +219,7 @@ export default {
       routeId: this.$route.params.id,
       productInfo: {},
       updateProduct: {},
+      coupons: '',
       isLoading: false,
     };
   },
@@ -240,6 +244,23 @@ export default {
           if (res.data.success) {
             this.productInfo = res.data.product;
             this.isLoading = false;
+          } else {
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'error' });
+          }
+        })
+        .catch((err) => {
+          console.dir(err);
+        });
+    },
+    getCoupons(page = 1) {
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/coupons?page=${page}`;
+      this.$http.get(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading = false;
+            this.coupons = res.data.coupons;
+            console.log(this.coupons);
           } else {
             this.isLoading = false;
             this.$swal({ text: res.data.message, icon: 'error' });
@@ -315,6 +336,7 @@ export default {
   mounted() {
     this.isLoading = true;
     this.getProduct();
+    this.getCoupons();
   },
 };
 </script>

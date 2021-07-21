@@ -15,7 +15,7 @@
                   :class="{'text-white': navLight}">menu
               </span>
       </button>
-      <div class="collapse navbar-collapse" id="topNav" ref='topNav'>
+      <div class="collapse navbar-collapse zindexTop" id="topNav" ref='topNav'>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
           <li class="nav-item">
             <router-link to="/" class="nav-link d-none d-lg-block"
@@ -40,15 +40,15 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link"
-              :class="{'text-white': navLight, 'change-bgc': navLight}" href="#">
+            <router-link class="nav-link" to="/favorite"
+                        :class="{'text-white': navLight, 'change-bgc': navLight}">
               <span class="material-icons d-none d-lg-block">favorite_border</span>
               <span class="d-lg-none">我的最愛</span>
               <span v-if='favoriteNum'
                     class='favoriteNum numCircle rounded-circle d-none d-lg-block'>
                     {{ favoriteNum }}
               </span>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/cart" class="nav-link"

@@ -10,7 +10,7 @@
         </router-link>
       </div>
     </template>
-    <table v-if='orders.length' class="table align-middle d-none d-md-table">
+    <table v-else class="table align-middle d-none d-md-table">
       <thead>
         <tr class="text-center">
           <th scope="col">#</th>
