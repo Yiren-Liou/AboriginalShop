@@ -127,7 +127,8 @@ const router = createRouter({
   linkActiveClass: 'active',
   scrollBehavior() {
     return {
-      top: 0,
+      x: 0,
+      y: 0,
     };
   },
 });

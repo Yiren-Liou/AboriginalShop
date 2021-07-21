@@ -182,7 +182,7 @@ export default {
       finalTotal: '',
     };
   },
-  props: ['pushOrder', 'pushProducts', 'productIndex'],
+  props: ['pushOrder'],
   methods: {
     getCart() {
       this.isLoading = true;

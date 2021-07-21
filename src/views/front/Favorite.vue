@@ -13,7 +13,7 @@
     <div v-else class="row mb-6">
       <div v-for='(item,i ) in favorite' :key="item.id" class="col-sm-6 col-lg-4">
         <button type="button" class="btn" @click='getProduct(item, i)'>
-          <div class="productcard card h-100">
+          <div class="productCard card h-100">
             <img :src="item.imagesUrl[0].imgUrl" class="card-img-top" :alt="item.title">
             <div class="card-body text-center">
               <h2 class="fontSizeM card-title">{{ item.title }}</h2>
@@ -114,6 +114,10 @@ export default {
   created() {
     this.isLoading = true;
     this.getFavorite();
+    const topNav = document.querySelector('#topNav');
+    if (topNav.classList.contains('show')) {
+      topNav.classList.remove('show');
+    }
   },
 };
 </script>

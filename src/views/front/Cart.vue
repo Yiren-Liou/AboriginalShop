@@ -184,7 +184,7 @@ export default {
     };
   },
   emits: ['emit-order', 'emit-products'],
-  props: ['pushOrder', 'pushProducts', 'productIndex'],
+  props: ['pushOrder'],
   methods: {
     getCart() {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/cart`;

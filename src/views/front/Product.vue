@@ -10,110 +10,110 @@
         <li class="breadcrumb-item">{{ product.title }}</li>
       </ol>
     </nav>
-    <div class="row justify-content-between align-items-center mb-5">
-      <div class="col-md-7">
-        <img v-if='product.imagesUrl[0].imgUrl' :src="product.imagesUrl[0].imgUrl"
-            class='img-fluid rounded' :alt="product.title">
-      </div>
-      <div class="col-md-4">
-        <span class="badge text-dark ps-0">{{ product.category }}</span>
-        <h2 class='fontSizeL'>{{ product.title }}</h2>
-        <p v-html="product.description"></p>
-        <span class="badge bg-secondary">適用優惠券</span>
-        <p class='fontSizeM fw-bold'>
-          NT {{ product.price }}
-          <span class="fontSizeS text-decoration-line-through ms-1">
-            NT {{ product.origin_price }}
-          </span>
-        </p>
-        <div class="d-flex">
-          <div class="input-group me-3 w-50">
-            <button class="btn btn-outline-dark material-icons" type="button"
-                    @click="updateProductNum('minus')">remove
-            </button>
-            <input type="number" class="form-control text-center bg-white"
-                   v-model.number="qty" min=1 disabled>
-            <button class="btn btn-outline-dark material-icons" type="button"
-                    @click="updateProductNum('add')">add
+    <template v-if="product && products">
+      <div class="row justify-content-between align-items-center mb-5">
+        <div class="col-md-7">
+          <img v-if='product.imagesUrl[0].imgUrl' :src="product.imagesUrl[0].imgUrl"
+              class='img-fluid rounded' :alt="product.title">
+        </div>
+        <div class="col-md-4">
+          <span class="badge text-dark ps-0">{{ product.category }}</span>
+          <h2 class='fontSizeL'>{{ product.title }}</h2>
+          <p v-html="product.description"></p>
+          <span class="badge bg-secondary">適用優惠券</span>
+          <p class='fontSizeM fw-bold'>
+            NT {{ product.price }}
+            <span class="fontSizeS text-decoration-line-through ms-1">
+              NT {{ product.origin_price }}
+            </span>
+          </p>
+          <div class="d-flex">
+            <div class="input-group me-3 w-50">
+              <button class="btn btn-outline-dark material-icons" type="button"
+                      @click="updateProductNum('minus')">remove
+              </button>
+              <input type="number" class="form-control text-center bg-white"
+                    v-model.number="qty" min=1 disabled>
+              <button class="btn btn-outline-dark material-icons" type="button"
+                      @click="updateProductNum('add')">add
+              </button>
+            </div>
+            <button class="btn btn-primary d-center" type="button"
+                    @click="addToCart(product.id, qty)">
+              <span class="material-icons">add_shopping_cart</span>
+              加入購物車
             </button>
           </div>
-          <button class="btn btn-primary d-center" type="button"
-                  @click="addToCart(product.id, qty)">
-            <span class="material-icons">add_shopping_cart</span>
-            加入購物車
-          </button>
         </div>
       </div>
-    </div>
-    <div class="row justify-content-between align-items-center mb-5">
-      <div class="col-md-5 order-1 order-md-0">
-        <p v-html="product.main_content"></p>
+      <div class="row justify-content-between align-items-center mb-5">
+        <div class="col-md-5 order-1 order-md-0">
+          <p v-html="product.main_content"></p>
+        </div>
+        <div class="col-md-6 mb-3 mb-md-0">
+          <div class="row">
+            <div class="col">
+              <img :src="product.imagesUrl[1].imgUrl"
+                    class='img-fluid rounded' alt="新鮮現採">
+            </div>
+            <div class="col">
+              <img :src="product.imagesUrl[2].imgUrl"
+                    class='img-fluid rounded' alt="無毒栽種">
+            </div>
+          </div>
+        </div>
       </div>
+      <div class="row justify-content-between align-items-center mb-5">
       <div class="col-md-6 mb-3 mb-md-0">
+        <img :src="product.imagesUrl[3].imgUrl"
+            class='img-fluid rounded mb-4' alt="新鮮現採">
         <div class="row">
           <div class="col">
-            <img :src="product.imagesUrl[1].imgUrl"
-                  class='img-fluid rounded' alt="新鮮現採">
+            <img :src="product.imagesUrl[4].imgUrl"
+                class='img-fluid rounded' alt="新鮮現採">
           </div>
           <div class="col">
-            <img :src="product.imagesUrl[2].imgUrl"
-                  class='img-fluid rounded' alt="無毒栽種">
+            <img :src="product.imagesUrl[5].imgUrl"
+                class='img-fluid rounded' alt="新鮮現採">
           </div>
         </div>
       </div>
-    </div>
-    <div class="row justify-content-between align-items-center mb-5">
-    <div class="col-md-6 mb-3 mb-md-0">
-      <img :src="product.imagesUrl[3].imgUrl"
-           class='img-fluid rounded mb-4' alt="新鮮現採">
-      <div class="row">
-        <div class="col">
-          <img :src="product.imagesUrl[4].imgUrl"
-              class='img-fluid rounded' alt="新鮮現採">
-        </div>
-        <div class="col">
-          <img :src="product.imagesUrl[5].imgUrl"
-              class='img-fluid rounded' alt="新鮮現採">
-        </div>
+      <div class="col-md-5">
+        <p v-html="product.sub_content"></p>
       </div>
-    </div>
-    <div class="col-md-5">
-      <p v-html="product.sub_content"></p>
-    </div>
-    </div>
-    <h4 class='fontSizeS'>注意事項</h4>
-    <p v-html="product.precautions" class='fontSizeS mb-5'></p>
-    <h3 class='fontSizeM text-center'>推薦商品</h3>
-    <swiper :slidesPerView="windowSize"
-            :spaceBetween="30"
-            :freeMode="true"
-            :autoplay='{
-              "delay": 2500,
-              "disableOnInteraction": false
-            }'
-            :pagination='{
-              "clickable": true
-            }'
-            class="mySwiper mb-5">
-      <template v-for="(item, i) in recommend" :key='item.id'>
-        <swiper-slide>
-          <button type="button" class="btn" @click='changeProduct(item, i)'>
-            <div class="card h-100">
-              <img :src="item.imagesUrl[0].imgUrl" class="card-img-top" :alt="item.title">
-              <div class="card-body text-center">
-                <h2 class="fontSizeM card-title">{{ item.title }}</h2>
-                <p class="card-text">
-                  NT {{ $toCurrency(item.price) }}
-                  <span class="fontSizeS text-decoration-line-through me-1">
-                    NT {{ $toCurrency(item.origin_price) }}
-                  </span>
-                </p>
+      </div>
+      <h4 class='fontSizeS'>注意事項</h4>
+      <p v-html="product.precautions" class='fontSizeS mb-5'></p>
+      <h3 class='fontSizeM text-center'>推薦商品</h3>
+      <swiper :slidesPerView="windowSize"
+              :spaceBetween="30"
+              :freeMode="true"
+              :autoplay='{
+                "delay": 2500,
+                "disableOnInteraction": false
+              }'
+              :pagination='{
+                "clickable": true
+              }'
+              class="mySwiper mb-5">
+          <swiper-slide v-for="(item) in recommends" :key='item.id'>
+            <router-link :to='`/product/${item.id}`'>
+              <div class="productCard card h-100">
+                <img :src="item.imagesUrl[0].imgUrl" class="card-img-top" :alt="item.title">
+                <div class="card-body text-center">
+                  <h2 class="fontSizeM card-title">{{ item.title }}</h2>
+                  <p class="card-text">
+                    NT {{ $toCurrency(item.price) }}
+                    <span class="fontSizeS text-decoration-line-through me-1">
+                      NT {{ $toCurrency(item.origin_price) }}
+                    </span>
+                  </p>
+                </div>
               </div>
-            </div>
-          </button>
-        </swiper-slide>
-      </template>
-    </swiper>
+            </router-link>
+          </swiper-slide>
+      </swiper>
+     </template>
   </div>
   <Loading :active="isLoading">
     <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
@@ -137,11 +137,11 @@ export default {
       routeId: '',
       product: '',
       qty: 1,
-      recommend: [],
+      products: '',
       isLoading: false,
     };
   },
-  props: ['pushOrder', 'pushProducts', 'productIndex'],
+  props: ['pushOrder'],
   components: {
     Swiper,
     SwiperSlide,
@@ -153,10 +153,22 @@ export default {
       }
       return 3;
     },
+    recommends() {
+      return this.products.filter((item) => item.id !== this.product.id);
+    },
+  },
+  watch: {
+    $route() {
+      if (this.$route.name === 'product') {
+        this.isLoading = true;
+        this.routeId = this.$route.params.id;
+        this.getProduct();
+        window.scrollTo(0, 0);
+      }
+    },
   },
   methods: {
     getProduct() {
-      this.routeId = this.$route.params.id;
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/product/${this.routeId}`;
       this.$http.get(apiUrl)
         .then((res) => {
@@ -168,7 +180,7 @@ export default {
             this.product.sub_content = this.product.sub_content.replace(/\n/g, '<br/>');
             this.product.price = this.$toCurrency(this.product.price);
             this.product.origin_price = this.$toCurrency(this.product.origin_price);
-            this.getRecommend();
+            this.isLoading = false;
             console.log(this.product);
           } else {
             console.log(res.data.message);
@@ -178,20 +190,19 @@ export default {
           console.dir(err);
         });
     },
-    getRecommend() {
-      console.log(this.productIndex);
-      const maxSize = this.pushProducts.length < 7 ? this.pushProducts.length : 6;
-      const arrSet = new Set([]);
-      for (let index = 0; arrSet.size < maxSize; index + 1) {
-        let num = Math.floor(Math.random() * this.pushProducts.length);
-        if (num === this.productIndex) {
-          num = Math.floor(Math.random() * this.pushProducts.length);
-        }
-        arrSet.add(num);
-      }
-      arrSet.forEach((i) => {
-        this.recommend.push(this.pushProducts[i]);
-      });
+    getProducts(page = 1) {
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/products?page=${page}`;
+      this.$http.get(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.products = res.data.products;
+          } else {
+            this.$swal({ text: res.data.message, icon: 'error' });
+          }
+        })
+        .catch((err) => {
+          console.dir(err);
+        });
     },
     updateProductNum(action) {
       if (action === 'add') {
@@ -226,12 +237,12 @@ export default {
           console.dir(err);
         });
     },
-    changeProduct(item) {
-      this.$router.push(`/product/${item.id}`);
-    },
   },
   created() {
+    this.isLoading = true;
+    this.routeId = this.$route.params.id;
     this.getProduct();
+    this.getProducts();
   },
 };
 </script>

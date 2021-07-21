@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class="d-flex flex-column align-items-center mb-5">
-      <button type="button" class='btn btn-text fontSizeM text-center' @click='getProducts'>
+    <div class="d-flex flex-column align-items-center mb-2 mb-md-5">
+      <button type="button" class='btn fontSizeBase fontSize-lg-M text-center' @click='getProducts'>
           全部商品
       </button>
       <div class="d-flex">
@@ -60,9 +60,9 @@
       </div>
     </div>
     <div class="row mb-6">
-      <div v-for='(item,i ) in filterProducts' :key="item.id" class="col-sm-6 col-lg-4">
-        <button type="button" class="btn" @click='getProduct(item, i)'>
-          <div class="productcard card h-100">
+      <div v-for='(item) in filterProducts' :key="item.id" class="col-md-6 col-lg-4 mb-4">
+        <router-link class="btn" :to='`/product/${item.id}`'>
+          <div class="productCard card h-100">
             <img :src="item.imagesUrl[0].imgUrl" class="card-img-top" :alt="item.title">
             <div class="card-body text-center">
               <h2 class="fontSizeM card-title">{{ item.title }}</h2>
@@ -94,7 +94,7 @@
               </div>
             </div>
           </div>
-        </button>
+        </router-link>
       </div>
     </div>
   </div>
@@ -123,7 +123,7 @@ export default {
       isLoading: false,
     };
   },
-  props: ['pushOrder', 'pushProducts', 'productIndex'],
+  props: ['pushOrder'],
   methods: {
     getProducts(page = 1) {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/products?page=${page}`;
@@ -143,8 +143,7 @@ export default {
           console.dir(err);
         });
     },
-    getProduct(item, i) {
-      this.$emit('emit-products', this.products, i);
+    getProduct(item) {
       this.$router.push(`/product/${item.id}`);
     },
     addToCart(productId) {

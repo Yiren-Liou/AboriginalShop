@@ -1,7 +1,6 @@
 <template>
-  <Navbar class='mb-4'></Navbar>
-  <router-view @emit-order='getOrder' @emit-products='getProducts'
-               :push-order='order' :push-products='products' :product-index='productIndex'>
+  <Navbar class='mb-2 mb-md-4'></Navbar>
+  <router-view @emit-order='getOrder' :push-order='order'>
   </router-view>
   <Footer></Footer>
 </template>
@@ -14,8 +13,6 @@ export default {
   data() {
     return {
       order: '',
-      products: '',
-      productIndex: '',
       favoriteNum: '',
     };
   },
@@ -26,11 +23,6 @@ export default {
   methods: {
     getOrder(order) {
       this.order = order;
-      console.log(this.order);
-    },
-    getProducts(products, productIndex) {
-      this.products = products;
-      this.productIndex = productIndex;
     },
   },
   created() {},

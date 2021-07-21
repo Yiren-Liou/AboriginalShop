@@ -136,7 +136,7 @@ export default {
       order: {},
     };
   },
-  props: ['pushOrder', 'pushProducts', 'productIndex'],
+  props: ['pushOrder'],
   watch: {
   },
   methods: {
