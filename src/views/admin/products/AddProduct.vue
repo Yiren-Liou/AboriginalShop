@@ -195,6 +195,7 @@ export default {
     },
     addProduct() {
       console.log(this.newProduct);
+      this.getCoupons();
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/product`;
       this.$http.post(apiUrl, { data: this.newProduct })
         .then((res) => {

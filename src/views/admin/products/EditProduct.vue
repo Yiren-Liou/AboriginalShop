@@ -118,27 +118,12 @@
                 </Field>
                 <error-message name="商品單位" class="invalid-feedback"></error-message>
               </div>
-              <div class="col-md-6 mb-3">
-                <label for="coupon" class="form-label">適用折價券</label>
-                <select id="coupon" class="form-select"
-                        v-model="productInfo.coupons" :disabled="readonly" multiple>
-                  <option value="" disabled>請選擇一個折價券</option>
-                  <option v-for='item in coupons' :key='item.id' value="item" >
-                    {{ item.title }}
-                  </option>
-                </select>
-              </div>
               <IsEnabledSelect :readonly="readonly"
                                :edit-sell="productInfo.is_enabled"
                                :edit-time="productInfo.sell_time"
                                @emit-is-enabled="getIsEnabled">
               </IsEnabledSelect>
             </div>
-          </div>
-          <div v-if="!readonly" class="col-md-4 mx-auto d-flex justify-content-center mt-3">
-            <button type="submit" class="btn btn-primary">
-              儲存
-            </button>
           </div>
         </div>
       </Form>
@@ -219,7 +204,6 @@ export default {
       routeId: this.$route.params.id,
       productInfo: {},
       updateProduct: {},
-      coupons: '',
       isLoading: false,
     };
   },
@@ -244,23 +228,7 @@ export default {
           if (res.data.success) {
             this.productInfo = res.data.product;
             this.isLoading = false;
-          } else {
-            this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'error' });
-          }
-        })
-        .catch((err) => {
-          console.dir(err);
-        });
-    },
-    getCoupons(page = 1) {
-      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/coupons?page=${page}`;
-      this.$http.get(apiUrl)
-        .then((res) => {
-          if (res.data.success) {
-            this.isLoading = false;
-            this.coupons = res.data.coupons;
-            console.log(this.coupons);
+            console.log(this.productInfo);
           } else {
             this.isLoading = false;
             this.$swal({ text: res.data.message, icon: 'error' });
@@ -336,7 +304,6 @@ export default {
   mounted() {
     this.isLoading = true;
     this.getProduct();
-    this.getCoupons();
   },
 };
 </script>

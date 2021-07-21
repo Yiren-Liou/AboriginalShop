@@ -116,6 +116,12 @@
                       <span class='ms-1'>NT {{ $toCurrency(item.final_total) }}</span>
                     </p>
                   </li>
+                  <li>
+                    <button type="button"
+                            class="btn btn-sm btn-outline-secondary" @click='delNotice(item)'>
+                      刪除
+                    </button>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -129,25 +135,30 @@
         </button>
       </div>
       <div class="row justify-content-end mb-5">
-        <div class="col-md-4">
+        <div class="col-md-5">
           <div class="d-flex justify-content-between mb-2">
             <p class="mb-0">折扣前總金額:</p>
             <span>NT {{ $toCurrency(cart.total) }}</span>
           </div>
           <div class="d-flex justify-content-between align-items-center mb-2">
-            <input type="text" id="couponCode" placeholder="請輸入折扣碼"
-                  @blur = 'useCoupons'
-                  class="form-control w-50" aria-describedby="couponCode">
-            <button v-if='!final_total' @click = 'useCoupons'
-                    type='button' class="btn btn-warning btn-sm">
-              套用
+            <button @click = 'showCoupons'
+                  type='button' class="btn btn-warning btn-sm"
+                  data-bs-toggle="modal" data-bs-target="#showCoupons">
+              選擇優惠券
             </button>
-            <span v-if='final_total'>NT {{ $toCurrency(cart.total - final_total) }}</span>
+            <input type="text" id="couponCode" placeholder="請選擇優惠券" v-model.trim="useCoupon"
+                  class="form-control w-50" aria-describedby="couponCode" disabled>
           </div>
-          <div v-if='final_total' class="d-flex justify-content-between">
-            <p>折扣後總金額:</p>
-            <span class="fontSizeM fw-bold">NT {{ $toCurrency(final_total) }}</span>
-          </div>
+          <template v-if='final_total'>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <p class="mb-0">可折扣金額:</p>
+              <span>NT {{ $toCurrency(Math.round(cart.total - final_total)) }}</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <p class='mb-0'>折扣後總金額:</p>
+              <span class="fontSizeM fw-bold">NT {{ $toCurrency(parseInt(final_total)) }}</span>
+            </div>
+          </template>
         </div>
       </div>
     </template>
@@ -166,6 +177,43 @@
       </router-link>
     </div>
   </div>
+  <div class="modal fade show" id="showCoupons" tabindex="-1"
+      aria-labelledby="showCouponsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="showCouponsLabel">請選擇要使用的折價券</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="table align-middle">
+            <thead>
+              <tr class="text-center">
+                <th scope="col">折價券名稱</th>
+                <th scope="col">折扣數</th>
+                <th scope="col">可折扣金額</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item) in coupons" :key='item' class="text-center">
+                <td>{{ item.name }}</td>
+                <td>{{ item.count }}</td>
+                <td>NT {{ $toCurrency(Math.round(cart.total - cart.total * item.percent)) }}</td>
+                <td>
+                  <button @click='useCoupons(item.code, item.name)' data-bs-dismiss="modal"
+                      type='button' class="btn btn-warning btn-sm">
+                      使用
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
   <Loading :active="isLoading">
     <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
     <div></div><div></div><div></div>
@@ -180,6 +228,7 @@ export default {
       cart: '',
       coupons: '',
       final_total: '',
+      useCoupon: '',
       isLoading: false,
     };
   },
@@ -202,10 +251,9 @@ export default {
           console.dir(err);
         });
     },
-    useCoupons() {
+    useCoupons(code, coupon) {
       this.isLoading = true;
-      const code = document.querySelector('#couponCode').value;
-      console.log(code);
+      this.useCoupon = coupon;
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/coupon`;
       this.$http.post(apiUrl, { data: { code } })
         .then((res) => {
@@ -220,6 +268,28 @@ export default {
         .catch((err) => {
           console.dir(err);
         });
+    },
+    // useCoupons() {
+    //   this.isLoading = true;
+    //   const code = this.useCoupon;
+    //   const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/coupon`;
+    //   this.$http.post(apiUrl, { data: { code } })
+    //     .then((res) => {
+    //       if (res.data.success) {
+    //         this.final_total = res.data.data.final_total;
+    //         this.isLoading = false;
+    //       } else {
+    //         this.isLoading = false;
+    //         this.$swal({ text: res.data.message, icon: 'error' });
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.dir(err);
+    //     });
+    // },
+    showCoupons() {
+      this.coupons = JSON.parse(localStorage.getItem('coupons'));
+      console.log(this.coupons);
     },
     delNotice(product) {
       this.$swal.fire({
@@ -289,10 +359,38 @@ export default {
           console.dir(err);
         });
     },
+    saveCoupons() {
+      const hasCoupons = localStorage.getItem('coupons');
+      if (!hasCoupons) {
+        this.coupons = [
+          {
+            name: '抗疫優惠',
+            count: '8 折',
+            percent: 0.8,
+            code: 'loveTaiwan',
+          },
+          {
+            name: '新會員優惠',
+            count: '85 折',
+            percent: 0.85,
+            code: 'wellcome85',
+          },
+          {
+            name: '滿千九折',
+            count: '9 折',
+            percent: 0.9,
+            code: 'thank90',
+          },
+        ];
+        this.coupons = JSON.stringify(this.coupons);
+        localStorage.setItem('coupons', this.coupons);
+      }
+    },
   },
   mounted() {
     this.isLoading = true;
     this.getCart();
+    this.saveCoupons();
     const topNav = document.querySelector('#topNav');
     if (topNav.classList.contains('show')) {
       topNav.classList.remove('show');

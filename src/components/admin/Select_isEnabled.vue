@@ -8,11 +8,11 @@
       <option v-for="item in enabled" :key="item" :value='item'>{{ item? '上架' : '未上架' }}</option>
     </select>
   </div>
-  <div class="col-md-6 mb-3" >
+  <div v-if='isSell' class="col-md-6 mb-3" >
     <label for="productSellTime" class="form-label">上架時間</label>
     <input type="date" class="form-control"
             id="productSellTime" v-model="sellTime"
-            :disabled="readonly || !isSell" @change="emitIsEnabled()">
+            :disabled="readonly" @change="emitIsEnabled()">
   </div>
 </template>
 

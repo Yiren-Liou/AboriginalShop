@@ -67,7 +67,7 @@
       <div class="d-flex justify-content-end">
         <p>
           總金額
-          <span class='ms-2'>NT {{ finalTotal }}</span>
+          <span class='ms-2'>NT {{ $toCurrency(parseInt(finalTotal)) }}</span>
         </p>
       </div>
     </div>
