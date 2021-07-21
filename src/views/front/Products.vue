@@ -61,7 +61,7 @@
     </div>
     <div class="row mb-6">
       <div v-for='(item) in filterProducts' :key="item.id" class="col-md-6 col-lg-4 mb-4">
-        <router-link class="btn" :to='`/product/${item.id}`'>
+        <button type='button' class="btn" @click='getProduct(item.id)'>
           <div class="productCard card h-100">
             <img :src="item.imagesUrl[0].imgUrl" class="card-img-top" :alt="item.title">
             <div class="card-body text-center">
@@ -94,7 +94,7 @@
               </div>
             </div>
           </div>
-        </router-link>
+        </button>
       </div>
     </div>
   </div>
@@ -143,8 +143,8 @@ export default {
           console.dir(err);
         });
     },
-    getProduct(item) {
-      this.$router.push(`/product/${item.id}`);
+    getProduct(id) {
+      this.$router.push(`/product/${id}`);
     },
     addToCart(productId) {
       this.isLoading = true;
