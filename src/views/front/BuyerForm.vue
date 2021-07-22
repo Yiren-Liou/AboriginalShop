@@ -72,30 +72,12 @@
                     :class="{ 'is-invalid': errors['付款方式'] }">
                     <option value='' selected disabled>請選擇付款方式</option>
                     <option value="信用卡">信用卡</option>
-                    <option value="7-11 取貨付款">7-11 取貨付款</option>
+                    <option value="超商付款">超商付款</option>
                 </Field>
                 <error-message name="付款方式" class="invalid-feedback"></error-message>
               </div>
             </div>
-            <template v-if='user.paymentMethod==="7-11 取貨付款"'>
-              <div class="row mb-3">
-                <label for="payment" class="col-sm-4 col-form-label">711取貨門市<sup>*</sup></label>
-                <div class="col-sm-8">
-                  <Field class="form-select mb-2" id="convenienceStore"
-                      name="711取貨門市" rules="required" as='select'
-                      :class="{ 'is-invalid': errors['711取貨門市'] }">
-                      <option value='' selected disabled>請選擇711取貨門市</option>
-                      <option value="creditCard">信用卡</option>
-                      <option value="711pay">7-11 取貨付款</option>
-                  </Field>
-                  <input class="form-control disabled" id="storeAddr" type="text"
-                        aria-describedby="storeAddr" v-model="user.address">
-                  <error-message name="711取貨門市" class="invalid-feedback"></error-message>
-                </div>
-              </div>
-            </template>
-            <template v-else-if='user.paymentMethod==="信用卡"'>
-              <div class="row mb-3">
+            <div class="row mb-3">
                 <label for="RecipientAddre" class="col-sm-4 col-form-label">
                   收件地址<sup>*</sup>
                 </label>
@@ -108,7 +90,6 @@
                   <error-message name="收件地址" class="invalid-feedback"></error-message>
                 </div>
               </div>
-            </template>
             <div class="row mb-3">
               <label for="remarks" class="col-sm-4 col-form-label">備註</label>
               <div class="col-sm-8">
