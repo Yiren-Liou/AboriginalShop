@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mb-6">
     <div class="row justify-content-center mb-5">
       <div class="col-md-6">
         <div class="d-flex justify-content-between">
@@ -67,7 +67,7 @@
       <div class="d-flex justify-content-end">
         <p>
           總金額
-          <span class='ms-2'>NT {{ $toCurrency(parseInt(finalTotal)) }}</span>
+          <span class='ms-2'>NT {{ $toCurrency(finalTotal) }}</span>
         </p>
       </div>
     </div>

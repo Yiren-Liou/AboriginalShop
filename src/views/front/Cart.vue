@@ -152,11 +152,11 @@
           <template v-if='final_total'>
             <div class="d-flex justify-content-between align-items-center mb-2">
               <p class="mb-0">可折扣金額:</p>
-              <span>NT {{ $toCurrency(Math.round(cart.total - final_total)) }}</span>
+              <span>NT {{ $toCurrency(cart.total - final_total) }}</span>
             </div>
             <div class="d-flex justify-content-between align-items-center">
               <p class='mb-0'>折扣後總金額:</p>
-              <span class="fontSizeM fw-bold">NT {{ $toCurrency(parseInt(final_total)) }}</span>
+              <span class="fontSizeM fw-bold">NT {{ $toCurrency(final_total) }}</span>
             </div>
           </template>
         </div>
@@ -200,7 +200,7 @@
               <tr v-for="(item) in coupons" :key='item' class="text-center">
                 <td>{{ item.name }}</td>
                 <td>{{ item.count }}</td>
-                <td>NT {{ $toCurrency(Math.round(cart.total - cart.total * item.percent)) }}</td>
+                <td>NT {{ $toCurrency(cart.total - cart.total * item.percent) }}</td>
                 <td>
                   <button @click='useCoupons(item.code, item.name)' data-bs-dismiss="modal"
                       type='button' class="btn btn-warning btn-sm">
@@ -269,24 +269,6 @@ export default {
           console.dir(err);
         });
     },
-    // useCoupons() {
-    //   this.isLoading = true;
-    //   const code = this.useCoupon;
-    //   const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/coupon`;
-    //   this.$http.post(apiUrl, { data: { code } })
-    //     .then((res) => {
-    //       if (res.data.success) {
-    //         this.final_total = res.data.data.final_total;
-    //         this.isLoading = false;
-    //       } else {
-    //         this.isLoading = false;
-    //         this.$swal({ text: res.data.message, icon: 'error' });
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.dir(err);
-    //     });
-    // },
     showCoupons() {
       this.coupons = JSON.parse(localStorage.getItem('coupons'));
       console.log(this.coupons);
@@ -371,15 +353,15 @@ export default {
           },
           {
             name: '新會員優惠',
-            count: '85 折',
-            percent: 0.85,
-            code: 'wellcome85',
-          },
-          {
-            name: '滿千九折',
             count: '9 折',
             percent: 0.9,
-            code: 'thank90',
+            code: 'wellcome90',
+          },
+          {
+            name: '老朋友優惠',
+            count: '7 折',
+            percent: 0.7,
+            code: 'thank70',
           },
         ];
         this.coupons = JSON.stringify(this.coupons);

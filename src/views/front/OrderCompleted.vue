@@ -16,7 +16,7 @@
         </router-link>
       </div>
     </div>
-    <Footer :footer-light="isFooterLight" class="position-fixed bottom-0"></Footer>
+    <Footer class="position-fixed bottom-0"></Footer>
   </div>
 </template>
 
@@ -28,7 +28,6 @@ export default {
   data() {
     return {
       isNavLight: true,
-      isFooterLight: true,
     };
   },
   components: {

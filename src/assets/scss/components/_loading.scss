@@ -18,17 +18,17 @@ top: 60px;
 left: 20px;
 }
 .ldio-u3364un719 div:nth-child(1) {
-background: #e90c59;
+background: $primary;
 animation: ldio-u3364un719 1s linear infinite;
 animation-delay: -0.5s;
 }
 .ldio-u3364un719 div:nth-child(2) {
-background: #46dff0;
+background: $secondary;
 animation: ldio-u3364un719 1s linear infinite;
 animation-delay: 0s;
 }
 .ldio-u3364un719 div:nth-child(3) {
-background: #e90c59;
+background: $primary;
 animation: ldio-u3364un719-o 1s linear infinite;
 animation-delay: -0.5s;
 }

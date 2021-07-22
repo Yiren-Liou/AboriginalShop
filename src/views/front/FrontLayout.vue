@@ -2,7 +2,9 @@
   <Navbar class='mb-2 mb-md-4'></Navbar>
   <router-view @emit-order='getOrder' :push-order='order'>
   </router-view>
-  <Footer></Footer>
+  <div class="bg-secondary">
+    <Footer></Footer>
+  </div>
 </template>
 
 <script>

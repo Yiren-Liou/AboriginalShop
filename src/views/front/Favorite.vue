@@ -1,5 +1,5 @@
 <template>
-  <div class="main container">
+  <div class="main container mb-6">
     <h2 class="fontSizeL text-center mb-5">─ 收藏清單 ─</h2>
     <template v-if='!favorite.length'>
       <div class="d-flex flex-column align-items-center">
@@ -111,9 +111,11 @@ export default {
       this.$swal({ text: '成功移除收藏', icon: 'success' });
     },
   },
-  created() {
+  mounted() {
     this.isLoading = true;
-    this.getFavorite();
+    setTimeout(() => {
+      this.getFavorite();
+    }, 2000);
     const topNav = document.querySelector('#topNav');
     if (topNav.classList.contains('show')) {
       topNav.classList.remove('show');

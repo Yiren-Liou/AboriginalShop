@@ -148,7 +148,7 @@
       來顆水果吧
     </router-link>
   </div>
-  <Footer></Footer>
+  <Footer :footer-dark="isFooterDark"></Footer>
 </template>
 
 <script>
@@ -159,6 +159,7 @@ export default {
   data() {
     return {
       isNavLight: true,
+      isFooterDark: true,
     };
   },
   components: {

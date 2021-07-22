@@ -5,7 +5,7 @@
           全部商品
       </button>
       <div class="d-flex">
-        <div class="dropdown">
+        <div class="dropdown me-3">
           <button class="btn btn-text" type="button"
                   id="vegetables" data-bs-toggle="dropdown" aria-expanded="false">
             新鮮蔬果
@@ -21,7 +21,7 @@
             </li>
           </ul>
         </div>
-        <div class="dropdown">
+        <div class="dropdown me-3">
           <button class="btn btn-text" type="button"
                   id="drinks" data-bs-toggle="dropdown" aria-expanded="false">
             沖泡飲品
@@ -37,11 +37,11 @@
             </li>
           </ul>
         </div>
-        <button class="btn btn-text" type="button" id="jam"
+        <button class="btn btn-text me-3" type="button" id="jam"
                 data-subCategory='手工果醬' @click='filterProduct'>
           天然果醬
         </button>
-        <div class="dropdown">
+        <div class="dropdown me-3">
           <button class="btn btn-text" type="button"
                   id="weave" data-bs-toggle="dropdown" aria-expanded="false">
             手工編織
