@@ -99,6 +99,10 @@ export default {
   },
   methods: {},
   created() {
+    const topNav = document.querySelector('#topNav');
+    if (topNav.classList.contains('show')) {
+      topNav.classList.remove('show');
+    }
     this.isLoading = true;
     setTimeout(() => {
       this.isLoading = false;

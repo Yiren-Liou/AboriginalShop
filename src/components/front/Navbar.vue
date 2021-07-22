@@ -62,12 +62,18 @@
             </router-link>
           </li>
           <li class="nav-item d-lg-none">
-            <a class="nav-link"
-              :class="{'text-white': navLight, 'change-bgc': navLight}" href="#">聯絡我們</a>
+            <router-link to='/contact'
+                        class="nav-link"
+                       :class="{'text-white': navLight, 'change-bgc': navLight}">
+                        聯絡我們
+            </router-link>
           </li>
           <li class="nav-item d-lg-none">
-            <a class="nav-link"
-              :class="{'text-white': navLight, 'change-bgc': navLight}" href="#">版權申明</a>
+            <router-link to='/copyright'
+                        class="nav-link"
+                        :class="{'text-white': navLight, 'change-bgc': navLight}">
+                        版權宣告
+            </router-link>
           </li>
         </ul>
       </div>

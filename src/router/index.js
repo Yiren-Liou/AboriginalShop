@@ -51,6 +51,11 @@ const routes = [
         component: () => import('../views/front/Favorite.vue'),
       },
       {
+        path: 'contact',
+        name: 'contact',
+        component: () => import('../views/front/Contact.vue'),
+      },
+      {
         path: 'copyright',
         name: 'copyright',
         component: () => import('../views/front/Copyright.vue'),

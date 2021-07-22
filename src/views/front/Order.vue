@@ -92,6 +92,11 @@
     </div>
     <router-link to='/orders' class='btn btn-primary mb-6'>返回訂單列表</router-link>
   </div>
+  <Loading :active="isLoading">
+    <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
+    <div></div><div></div><div></div>
+    </div></div>
+  </Loading>
 </template>
 
 <script>
@@ -102,12 +107,12 @@ export default {
       order: '',
       user: '',
       products: '',
+      isLoading: false,
     };
   },
   props: ['pushOrder', 'pushProducts', 'productIndex'],
   methods: {
     getOrder() {
-      this.isLoading = true;
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/order/${this.routeId}`;
       this.$http.get(apiUrl)
         .then((res) => {
@@ -131,6 +136,7 @@ export default {
     },
   },
   created() {
+    this.isLoading = true;
     this.getOrder();
     const topNav = document.querySelector('#topNav');
     if (topNav.classList.contains('show')) {

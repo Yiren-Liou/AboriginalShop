@@ -9,9 +9,11 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"
-              :class="{'text-dark': footerDark}">聯絡我們
-            </a>
+            <router-link to='/contact'
+                        class="nav-link"
+                        :class="{'text-dark': footerDark}">
+                        聯絡我們
+            </router-link>
           </li>
           <li class="nav-item">
             <router-link to='/copyright'
