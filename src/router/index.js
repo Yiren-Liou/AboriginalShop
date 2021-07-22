@@ -50,6 +50,11 @@ const routes = [
         name: 'favorite',
         component: () => import('../views/front/Favorite.vue'),
       },
+      {
+        path: 'copyright',
+        name: 'copyright',
+        component: () => import('../views/front/Copyright.vue'),
+      },
     ],
   },
   {

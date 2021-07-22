@@ -13,9 +13,11 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"
-            :class="{'text-white': footerLight}">版權申明
-          </a>
+          <router-link to='/copyright'
+                      class="nav-link"
+                      :class="{'text-white': footerLight}">
+                      版權宣告
+          </router-link>
         </li>
       </ul>
       <span class="fontSizeS" :class="{'text-white': footerLight}">Copyright ©</span>
