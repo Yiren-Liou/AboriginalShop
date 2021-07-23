@@ -2,14 +2,14 @@
   <div class="main container-fluid">
     <div class="row justify-content-center mb-6">
       <div class="col-md-5">
-        <h2 class="fontSizeL text-center mb-5">聯絡我們</h2>
+        <h2 class="fontSizeM text-center mb-5">聯絡我們</h2>
         <ul class="list-unstyled text-center mb-4">
           <li class='mb-3'>
             如果需要大量訂購，或任何問題，歡迎您來電( <a href="tel:+886-2-12345678"
              class="text-secondary fw-bold text-decoration-underline">02-1234-5678</a> )洽詢。
           </li>
           <li>
-            不方便來電，可以透過下方郵件詢問，我們會在 2 個工作天內回覆您。
+            不方便來電，可以透過下方郵件詢問，我們會於 2 個工作天內回覆您。
           </li>
         </ul>
         <Form v-slot="{ errors }" @submit='sendEmail'
@@ -70,11 +70,16 @@ export default {
       isLoading: false,
     };
   },
+  methods: {
+    sendEmail() {
+      this.$swal({ text: '已成功送出信件', icon: 'success' });
+    },
+  },
   mounted() {
     this.isLoading = true;
     setTimeout(() => {
       this.isLoading = false;
-    }, 2000);
+    }, 1000);
     const topNav = document.querySelector('#topNav');
     if (topNav.classList.contains('show')) {
       topNav.classList.remove('show');

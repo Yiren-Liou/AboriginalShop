@@ -25,7 +25,7 @@
         </div>
       </div>
     </div>
-    <h2 class="fontSizeL text-center mb-5">購物車</h2>
+    <h2 class="fontSizeM text-center mb-5">購物車</h2>
     <template v-if='Array.isArray(cart.carts) && cart.carts[0]'>
       <p>總共有件<span class="fw-bold mx-1">{{ cart.carts.length }}</span>商品</p>
       <table class="table align-middle d-none d-md-table mb-5">

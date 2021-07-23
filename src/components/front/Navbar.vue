@@ -18,20 +18,10 @@
       <div class="collapse navbar-collapse zindexTop" id="topNav" ref='topNav'>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
           <li class="nav-item">
-            <router-link to="/" class="nav-link d-none d-lg-block"
-                :class="{'text-white': navLight, 'change-bgc': navLight}">
-              首頁
-            </router-link>
-          </li>
-          <li class="nav-item">
             <router-link to="/products" class="nav-link"
                 :class="{'text-white': navLight, 'change-bgc': navLight}">
               全部商品
             </router-link>
-          </li>
-          <li class="nav-item d-lg-none">
-            <a class="nav-link"
-              :class="{'text-white': navLight, 'change-bgc': navLight}" href="#">關於我們</a>
           </li>
           <li class="nav-item">
             <router-link to="/orders" class="nav-link"
@@ -40,10 +30,16 @@
             </router-link>
           </li>
           <li class="nav-item">
+            <router-link to="/questions" class="nav-link"
+                :class="{'text-white': navLight, 'change-bgc': navLight}">
+              常見問題
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" to="/favorite"
                         :class="{'text-white': navLight, 'change-bgc': navLight}">
               <span class="material-icons d-none d-lg-block">favorite_border</span>
-              <span class="d-lg-none">我的最愛</span>
+              <span class="d-lg-none">收藏清單</span>
               <span v-if='favoriteNum'
                     class='favoriteNum numCircle rounded-circle d-none d-lg-block'>
                     {{ favoriteNum }}
@@ -60,6 +56,10 @@
                     {{ cart.carts.length }}
               </span>
             </router-link>
+          </li>
+          <li class="nav-item d-lg-none">
+            <a class="nav-link"
+              :class="{'text-white': navLight, 'change-bgc': navLight}" href="#">關於我們</a>
           </li>
           <li class="nav-item d-lg-none">
             <router-link to='/contact'

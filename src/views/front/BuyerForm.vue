@@ -25,7 +25,7 @@
         </div>
       </div>
     </div>
-    <h2 class="fontSizeL text-center mb-5">訂購資訊</h2>
+    <h2 class="fontSizeM text-center mb-5">訂購資訊</h2>
     <div class="row justify-content-center">
       <div class="col-md-7">
         <Form v-slot="{ errors }" @submit='emitOrder'>

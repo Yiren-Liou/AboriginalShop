@@ -1,6 +1,6 @@
 <template>
   <div class="main container">
-    <h2 class="fontSizeL text-center mb-5">─ 收藏清單 ─</h2>
+    <h2 class="fontSizeM font-size-lg-L text-center mb-5">─ 收藏清單 ─</h2>
     <template v-if='!favorite.length'>
       <div class="d-flex flex-column align-items-center">
         <p class='fontSizeM text-center mb-5'>目前沒有收藏任何商品呦<br>快點去逛逛吧</p>
@@ -115,7 +115,7 @@ export default {
     this.isLoading = true;
     setTimeout(() => {
       this.getFavorite();
-    }, 2000);
+    }, 1000);
     const topNav = document.querySelector('#topNav');
     if (topNav.classList.contains('show')) {
       topNav.classList.remove('show');

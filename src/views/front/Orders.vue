@@ -1,6 +1,6 @@
 <template>
   <div class="main container">
-    <h2 class="fontSizeL text-center mb-5">全部訂單</h2>
+    <h2 class="fontSizeM text-center mb-5">全部訂單</h2>
     <template v-if='!orders.length'>
       <div class="d-flex flex-column align-items-center">
         <p class='fontSizeM text-center mb-5'>你還沒有買任何東西?<br>快點去逛逛吧</p>
