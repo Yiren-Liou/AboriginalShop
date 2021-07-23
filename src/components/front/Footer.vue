@@ -4,7 +4,7 @@
                   justify-content-center justify-content-lg-between p-1 p-md-0">
         <ul class="navbar-nav d-none d-lg-flex">
           <li class="nav-item">
-            <router-link to='/about'
+            <router-link to='/'
                         class="nav-link"
                         :class="{'text-dark': footerDark}">
                         關於我們
