@@ -1,5 +1,5 @@
 <template>
-  <div class="border-bottom border-secondary mb-2 mb-md-4">
+  <div class="border-bottom border-secondary">
     <Navbar></Navbar>
   </div>
   <router-view @emit-order='getOrder' :push-order='order'>

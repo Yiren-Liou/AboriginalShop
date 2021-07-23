@@ -1,5 +1,5 @@
 <template>
-  <div class="main container">
+  <div class="main container mt-4">
     <h2 class="fontSizeM text-center mb-5">全部訂單</h2>
     <template v-if='!orders.length'>
       <div class="d-flex flex-column align-items-center">

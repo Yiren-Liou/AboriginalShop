@@ -51,6 +51,11 @@ const routes = [
         component: () => import('../views/front/Favorite.vue'),
       },
       {
+        path: 'about',
+        name: 'about',
+        component: () => import('../views/front/About.vue'),
+      },
+      {
         path: 'contact',
         name: 'contact',
         component: () => import('../views/front/Contact.vue'),

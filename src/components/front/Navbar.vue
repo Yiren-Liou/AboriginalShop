@@ -58,8 +58,11 @@
             </router-link>
           </li>
           <li class="nav-item d-lg-none">
-            <a class="nav-link"
-              :class="{'text-white': navLight, 'change-bgc': navLight}" href="#">關於我們</a>
+            <router-link to='/about'
+                        class="nav-link"
+                       :class="{'text-white': navLight, 'change-bgc': navLight}">
+                        關於我們
+            </router-link>
           </li>
           <li class="nav-item d-lg-none">
             <router-link to='/contact'

@@ -1,7 +1,7 @@
 <template>
-  <div class="main container mb-3">
+  <div class="main container mt-4">
     <h2 class='fontSizeM fw-bold text-center mb-4'>版權宣告</h2>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mb-6">
       <div class="col-md-10">
         <p>
           Original 高山部落蔬果的<strong>網站圖片</strong>及<strong>文字</strong>，

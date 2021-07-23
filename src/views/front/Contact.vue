@@ -1,5 +1,5 @@
 <template>
-  <div class="main container-fluid">
+  <div class="main container-fluid mt-4">
     <div class="row justify-content-center mb-6">
       <div class="col-md-5">
         <h2 class="fontSizeM text-center mb-5">聯絡我們</h2>

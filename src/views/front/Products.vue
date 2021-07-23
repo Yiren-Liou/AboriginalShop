@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mt-4">
     <div class="d-flex flex-column align-items-center mb-2 mb-md-5">
       <button type="button" class='btn fontSizeBase fontSize-lg-M text-center' @click='getProducts'>
           全部商品

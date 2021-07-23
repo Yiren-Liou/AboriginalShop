@@ -1,5 +1,5 @@
 <template>
-  <div class="container mb-6">
+  <div class="container  mt-5 mb-6">
     <div class="row justify-content-center mb-5">
       <div class="col-md-6">
         <div class="d-flex justify-content-between">

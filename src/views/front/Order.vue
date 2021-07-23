@@ -1,5 +1,5 @@
 <template>
-  <div class="main container d-center flex-column">
+  <div class="main container d-center flex-column mt-4">
     <h2 class="fontSizeM fw-bold mb-3">訂單資訊</h2>
     <div class="border rounded bg-white p-2 px-md-3 mb-5">
       <div class="row">

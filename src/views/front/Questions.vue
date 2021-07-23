@@ -1,5 +1,5 @@
 <template>
-  <div class="main container">
+  <div class="main container mt-4">
     <h2 class="fontSizeM text-center mb-5">常見問題</h2>
     <div class="row justify-content-center mb-6">
       <div class="col-md-8">

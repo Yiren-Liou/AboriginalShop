@@ -103,7 +103,7 @@
       </div>
     </div>
   </div>
-  <div class='sectionBg d-center mb-6' style='backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1626619325929.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=VpKkTAEF0OqsCm%2FPtxXGuybFNxfTBdb4fI3x13Qg9DXamsPac2vfp39I9GbADRyhT6MAdDZq0ANYr0Q3dwgWIzk%2FJu6TzRqeHonKgrabYbFKuSp49N%2FxEff%2FqkvV1MQxRQ1LQ4Ji6gHS868iAYEhzVmYv%2Fv6kHkRLL4q60%2B1myaDkhcgRaWBE83QvglYK%2Br2JGO3JVkgT5L7HEdy3UlxUtHzmy2frAe%2BgvhA9qlH441l%2FYjco%2BxAPCIEKf9IkR01fh2KNr5nctO6%2FzNZ9xWyZvpGvVbDBbgp1y1rScyAa8TRC2NDfm75elXf0uCuComdLA%2Fo5hTHgrf8IfXov5cZmA%3D%3D)'>
+  <div class='sectionBg d-center bg-bottom mb-6' style='backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1626619325929.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=VpKkTAEF0OqsCm%2FPtxXGuybFNxfTBdb4fI3x13Qg9DXamsPac2vfp39I9GbADRyhT6MAdDZq0ANYr0Q3dwgWIzk%2FJu6TzRqeHonKgrabYbFKuSp49N%2FxEff%2FqkvV1MQxRQ1LQ4Ji6gHS868iAYEhzVmYv%2Fv6kHkRLL4q60%2B1myaDkhcgRaWBE83QvglYK%2Br2JGO3JVkgT5L7HEdy3UlxUtHzmy2frAe%2BgvhA9qlH441l%2FYjco%2BxAPCIEKf9IkR01fh2KNr5nctO6%2FzNZ9xWyZvpGvVbDBbgp1y1rScyAa8TRC2NDfm75elXf0uCuComdLA%2Fo5hTHgrf8IfXov5cZmA%3D%3D)'>
     <span class='fontSizeL fw-bold text-white mt-6'>給予時間 自然成長</span>
   </div>
   <div class='container mb-6'>
@@ -143,7 +143,7 @@
       </div>
     </div>
   </div>
-  <div class='bgImg d-center'  style='backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1626620909470.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=g6alKQw0vrNxhv7L6IQ8dzxjVXyxvyzWVAcbuTFuPv%2FIBQAw1NLgjC8Vj6qBqjr6OhItkwTFGD1JeoqspE9DXrAe6KfCGzzATudBH%2F10ycirrbp2hkLIdMIZgyVXgsxyeovtqpt0P9HFqoJLNXKKr0%2BaH21nubvtIMGocTrGdX69fzxDKXDTNKDRQ6qJUO%2FTmsyUoyzK4pn%2B%2FBHfZqGcstCcQBUEs2F%2FHRWcnTdCR%2FExEsKPQeMTLibkRObZzdphRyTENODctRSryyoRpa0AQ45FlJHnDrUbwa4mTm3E9zON3Rf2vcqph%2Fk4ofzGeEklEuShdeLv%2FeUm5tO9RHwxBQ%3D%3D)'>
+  <div class='bgImg d-center' style='backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1626620909470.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=g6alKQw0vrNxhv7L6IQ8dzxjVXyxvyzWVAcbuTFuPv%2FIBQAw1NLgjC8Vj6qBqjr6OhItkwTFGD1JeoqspE9DXrAe6KfCGzzATudBH%2F10ycirrbp2hkLIdMIZgyVXgsxyeovtqpt0P9HFqoJLNXKKr0%2BaH21nubvtIMGocTrGdX69fzxDKXDTNKDRQ6qJUO%2FTmsyUoyzK4pn%2B%2FBHfZqGcstCcQBUEs2F%2FHRWcnTdCR%2FExEsKPQeMTLibkRObZzdphRyTENODctRSryyoRpa0AQ45FlJHnDrUbwa4mTm3E9zON3Rf2vcqph%2Fk4ofzGeEklEuShdeLv%2FeUm5tO9RHwxBQ%3D%3D)'>
     <router-link to='/products' role='button' class="btn btn-light fontSizeM fw-bold mb-4">
       來顆水果吧
     </router-link>

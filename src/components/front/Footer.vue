@@ -4,9 +4,11 @@
                   justify-content-center justify-content-lg-between p-1 p-md-0">
         <ul class="navbar-nav d-none d-lg-flex">
           <li class="nav-item">
-            <a class="nav-link ps-0" href="#"
-              :class="{'text-dark': footerDark}">關於我們
-            </a>
+            <router-link to='/about'
+                        class="nav-link"
+                        :class="{'text-dark': footerDark}">
+                        關於我們
+            </router-link>
           </li>
           <li class="nav-item">
             <router-link to='/contact'
