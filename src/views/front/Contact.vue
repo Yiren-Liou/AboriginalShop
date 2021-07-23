@@ -70,6 +70,8 @@ export default {
       isLoading: false,
     };
   },
+  emits: ['emit-order', 'emit-products'],
+  props: ['pushOrder'],
   methods: {
     sendEmail() {
       this.$swal({ text: '已成功送出信件', icon: 'success' });

@@ -97,6 +97,8 @@ export default {
       isLoading: false,
     };
   },
+  emits: ['emit-order', 'emit-products'],
+  props: ['pushOrder'],
   methods: {},
   created() {
     const topNav = document.querySelector('#topNav');

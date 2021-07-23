@@ -110,7 +110,7 @@ export default {
       isLoading: false,
     };
   },
-  props: ['pushOrder', 'pushProducts', 'productIndex'],
+  props: ['pushOrder'],
   methods: {
     getOrder() {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/order/${this.routeId}`;

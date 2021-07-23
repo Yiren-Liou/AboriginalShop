@@ -1,7 +1,7 @@
 <template>
   <div class="main container mt-4">
     <h2 class="fontSizeM font-size-lg-L text-center mb-5">─ 收藏清單 ─</h2>
-    <template v-if='!favorite.length'>
+    <template v-if='favorite == null || favorite.length == 0'>
       <div class="d-flex flex-column align-items-center">
         <p class='fontSizeM text-center mb-5'>目前沒有收藏任何商品呦<br>快點去逛逛吧</p>
         <router-link to='/products' role="button"
@@ -66,6 +66,8 @@ export default {
       isLoading: false,
     };
   },
+  emits: ['emit-order', 'emit-products'],
+  props: ['pushOrder'],
   methods: {
     getFavorite() {
       this.favorite = JSON.parse(localStorage.getItem('favorite'));

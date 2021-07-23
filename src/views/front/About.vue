@@ -18,6 +18,8 @@ export default {
       isLoading: false,
     };
   },
+  emits: ['emit-order', 'emit-products'],
+  props: ['pushOrder'],
   created() {
     this.isLoading = true;
     setTimeout(() => {
