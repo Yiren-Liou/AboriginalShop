@@ -172,6 +172,11 @@
       <button type='button' class="btn btn-secondary me-3" @click='sendOrder'>確認結帳</button>
     </div>
   </div>
+  <Loading :active="isLoading">
+    <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
+    <div></div><div></div><div></div>
+    </div></div>
+  </Loading>
 </template>
 
 <script>
@@ -180,6 +185,7 @@ export default {
     return {
       cart: '',
       finalTotal: '',
+      isLoading: false,
     };
   },
   props: ['pushOrder'],
@@ -224,8 +230,12 @@ export default {
     },
   },
   created() {
+    this.isLoading = true;
     this.getCart();
-    this.$swal({ text: '請確認「購買商品」和「買家資訊」後，點選頁面下方「確認結帳按鈕」，訂單才會成功送出呦', icon: 'warning' });
+    setTimeout(() => {
+      this.isLoading = false;
+      this.$swal({ text: '請確認「購買商品」和「買家資訊」後，點選頁面下方「確認結帳按鈕」，訂單才會成功送出呦', icon: 'warning' });
+    }, 2000);
   },
 };
 </script>

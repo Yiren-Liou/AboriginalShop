@@ -1,6 +1,6 @@
 <template>
-  <div class="main container mt-4">
-    <div class="row justify-content-center mb-5">
+  <div class="main container">
+    <div class="row justify-content-center my-5">
       <div class="col-md-6">
         <div class="d-flex justify-content-between">
           <div class="d-flex flex-column align-items-center">
@@ -165,7 +165,7 @@
     <template v-else>
       <p class="fontSizeM text-center mb-5">目前購物車是空的呦</p>
     </template>
-    <div class="d-flex justify-content-center mb-4">
+    <div class="d-flex justify-content-center mb-6">
       <router-link to='/products' role="button"
                    class="btn btn-outline-secondary me-3">
         繼續購物

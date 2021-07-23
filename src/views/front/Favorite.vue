@@ -1,5 +1,5 @@
 <template>
-  <div class="main container mb-6">
+  <div class="main container">
     <h2 class="fontSizeL text-center mb-5">─ 收藏清單 ─</h2>
     <template v-if='!favorite.length'>
       <div class="d-flex flex-column align-items-center">

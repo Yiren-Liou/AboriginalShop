@@ -28,7 +28,7 @@
           <th scope="row">{{ i + 1 }}</th>
           <td>{{ order.id }}</td>
           <td>{{ $date.toDate(order.create_at) }}</td>
-          <td>{{ $toCurrency(order.total) }}</td>
+          <td>NT {{ $toCurrency(order.total) }}</td>
           <td :class='{"text-secondary":order.is_paid}'>{{ order.is_paid? '已付款' : '未付款' }}</td>
           <td>{{ order.orderStatus? order.orderStatus : '處理中' }}</td>
           <td>{{ order.deliveryDate? $date.toDate(order.deliveryDate) : '-' }}</td>

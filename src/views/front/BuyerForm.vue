@@ -1,5 +1,5 @@
 <template>
-  <div class="container mb-5">
+  <div class="main container">
     <div class="row justify-content-center mb-5">
       <div class="col-md-6">
         <div class="d-flex justify-content-between">
@@ -106,6 +106,11 @@
       </div>
     </div>
   </div>
+  <Loading :active="isLoading">
+    <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
+    <div></div><div></div><div></div>
+    </div></div>
+  </Loading>
 </template>
 
 <script>
@@ -115,6 +120,7 @@ export default {
       user: {},
       message: '',
       order: {},
+      isLoading: false,
     };
   },
   props: ['pushOrder'],
@@ -133,7 +139,11 @@ export default {
     },
   },
   created() {
-    this.$swal({ text: '請填寫真實姓名及手機號碼，以免無法領取包裹呦', icon: 'warning' });
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+      this.$swal({ text: '請填寫真實姓名及手機號碼，以免無法領取包裹呦', icon: 'warning' });
+    }, 2000);
   },
 };
 </script>
