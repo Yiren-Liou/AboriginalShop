@@ -231,8 +231,8 @@ export default {
   },
   created() {
     this.isLoading = true;
-    this.getCart();
     setTimeout(() => {
+      this.getCart();
       this.isLoading = false;
       this.$swal({ text: '請確認「購買商品」和「買家資訊」後，點選頁面下方「確認結帳按鈕」，訂單才會成功送出呦', icon: 'warning' });
     }, 2000);

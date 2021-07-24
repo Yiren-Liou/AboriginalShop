@@ -13,7 +13,7 @@
           </li>
         </ul>
         <Form v-slot="{ errors }" @submit='sendEmail'
-              class="rounded-3 border border-secondary py-4 py-lg-5">
+              class="rounded-3 border border-secondary px-3 py-4 px-lg-0 py-lg-5">
           <div class="row justify-content-center mb-3 mb-lg-4">
             <label for="userName" class="col-sm-2 col-form-label">姓名<sup>*</sup></label>
             <div class="col-sm-8">
