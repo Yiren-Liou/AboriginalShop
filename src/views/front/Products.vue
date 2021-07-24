@@ -55,6 +55,10 @@
               <button class="dropdown-item btn btn-sm" type="button"
                       data-subCategory='圍巾' @click='filterProduct'>圍巾</button>
             </li>
+            <li>
+              <button class="dropdown-item btn btn-sm" type="button"
+                      data-subCategory='包包' @click='filterProduct'>包包</button>
+            </li>
           </ul>
         </div>
       </div>
@@ -97,6 +101,9 @@
         </button>
       </div>
     </div>
+    <div class="d-flex justify-content-center">
+      <Pagination :page="pagination" @emit-page="getProducts"></Pagination>
+    </div>
   </div>
   <Loading :active="isLoading">
     <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
@@ -113,6 +120,7 @@
 
 <script>
 import emitter from '@/methods/Emitter';
+import Pagination from '@/components/Pagination.vue';
 
 export default {
   data() {
@@ -120,8 +128,12 @@ export default {
       products: '',
       favorite: [],
       filterProducts: '',
+      pagination: '',
       isLoading: false,
     };
+  },
+  components: {
+    Pagination,
   },
   props: ['pushOrder'],
   methods: {
@@ -131,6 +143,7 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.products = res.data.products;
+            this.pagination = res.data.pagination;
             this.filterProducts = this.products;
             this.isLoading = false;
             // this.pagination = res.data.pagination;

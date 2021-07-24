@@ -94,19 +94,8 @@
                 </Field>
                 <error-message name="商品單位" class="invalid-feedback"></error-message>
               </div>
-              <div class="col-md-6 mb-3">
-                <label for="coupon" class="form-label">適用折價券</label>
-                <select id="coupon" class="form-select" v-model="newProduct.coupons">
-                  <option value="" disabled>請選擇一個折價券</option>
-                </select>
-              </div>
               <IsEnabledSelect @emit-is-enabled="getIsEnabled"></IsEnabledSelect>
             </div>
-          </div>
-          <div class="col-md-4 mx-auto d-flex justify-content-center mt-3">
-            <button type="submit" class="btn btn-primary">
-              儲存
-            </button>
           </div>
         </div>
       </Form>
@@ -183,6 +172,7 @@ export default {
       isLoading: false,
     };
   },
+  props: ['readStatus'],
   components: {
     CategorySelect,
     IsEnabledSelect,
@@ -195,7 +185,6 @@ export default {
     },
     addProduct() {
       console.log(this.newProduct);
-      this.getCoupons();
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/product`;
       this.$http.post(apiUrl, { data: this.newProduct })
         .then((res) => {
@@ -223,9 +212,6 @@ export default {
     getImages(img) {
       this.newProduct.imagesUrl = img;
       this.newProduct.imagesUrl.sort((a, b) => a.imgId - b.imgId);
-    },
-    getRecommend(list) {
-      this.newProduct.recommend_list = list;
     },
     checkBasicInfo() {
       this.$swal({ text: '儲存成功', icon: 'success' });

@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-4">
+  <div class="container mt-4 mb-6">
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class='mb-4'>
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
@@ -11,7 +11,8 @@
       </ol>
     </nav>
     <template v-if="product && products">
-      <div class="row justify-content-between align-items-center mb-5">
+      <div class="row justify-content-between align-items-center mb-5"
+            data-aos="fade-up" data-aos-duration="2000">
         <div class="col-md-7">
           <img v-if='product.imagesUrl[0].imgUrl' :src="product.imagesUrl[0].imgUrl"
               class='img-fluid rounded' :alt="product.title">
@@ -46,7 +47,8 @@
           </div>
         </div>
       </div>
-      <div class="row justify-content-between align-items-center mb-5">
+      <div class="row justify-content-between align-items-center mb-5"
+           data-aos="fade-up" data-aos-duration="2000">
         <div class="col-md-5 order-1 order-md-0">
           <p v-html="product.main_content"></p>
         </div>
@@ -63,7 +65,8 @@
           </div>
         </div>
       </div>
-      <div class="row justify-content-between align-items-center mb-5">
+      <div class="row justify-content-between align-items-center mb-5"
+           data-aos="fade-up" data-aos-duration="2000">
       <div class="col-md-6 mb-3 mb-md-0">
         <img :src="product.imagesUrl[3].imgUrl"
             class='img-fluid rounded mb-4' alt="新鮮現採">
@@ -82,9 +85,10 @@
         <p v-html="product.sub_content"></p>
       </div>
       </div>
-      <h4 class='fontSizeS'>注意事項</h4>
-      <p v-html="product.precautions" class='fontSizeS mb-5'></p>
-      <h3 class='fontSizeM text-center'>推薦商品</h3>
+      <h4 class='fontSizeS' data-aos="fade-up" data-aos-duration="2000">注意事項</h4>
+      <p v-html="product.precautions" class='fontSizeS mb-6'
+         data-aos="fade-up" data-aos-duration="2000"></p>
+      <h3 class='fontSizeM text-center' data-aos="fade-up" data-aos-duration="2000">推薦商品</h3>
       <swiper :slidesPerView="windowSize"
               :spaceBetween="30"
               :freeMode="true"
@@ -95,7 +99,8 @@
               :pagination='{
                 "clickable": true
               }'
-              class="mySwiper mb-5">
+              class="mySwiper mb-6"
+              data-aos="fade-up" data-aos-duration="2000">
           <swiper-slide v-for="(item) in recommends" :key='item.id'>
             <router-link :to='`/product/${item.id}`'>
               <div class="productCard card h-100">
