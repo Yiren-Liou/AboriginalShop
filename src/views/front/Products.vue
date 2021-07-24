@@ -59,7 +59,7 @@
         </div>
       </div>
     </div>
-    <div class="row mb-6">
+    <div class="row mb-6" data-aos="fade-up" data-aos-duration="2000">
       <div v-for='(item) in filterProducts' :key="item.id" class="col-md-6 col-lg-4 mb-4">
         <button type='button' class="btn" @click='getProduct(item.id)'>
           <div class="productCard card h-100">

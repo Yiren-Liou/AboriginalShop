@@ -10,6 +10,8 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueSweetalert2 from 'vue-sweetalert2';
 import VueLoading from 'vue-loading-overlay';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import toCurrency from './methods/toCurrency';
 import { toDate, toUnix } from './methods/toDate';
 import App from './App.vue';
@@ -24,6 +26,10 @@ configure({
   validateOnInput: true,
 });
 setLocale('zh_TW');
+
+AOS.init({
+  once: true,
+});
 
 const app = createApp(App);
 app.config.globalProperties.$toCurrency = toCurrency;
