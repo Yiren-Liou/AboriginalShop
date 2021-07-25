@@ -36,8 +36,10 @@
                   <li class=''>
                     <p class="fw-bold mb-1">來信購買:</p>
                     <span>請至
-                      <a href="/contact"
-                         class="text-secondary fw-bold text-decoration-underline">此頁面</a>
+                      <router-link to='/contact'
+                      class="text-secondary fw-bold text-decoration-underline">
+                          此頁面
+                      </router-link>
                       填寫您需要的商品、數量以及相關連絡付款方式，我們會於 2 個工作天與您聯絡，確認您訂單後即完成訂購。
                     </span>
                   </li>
