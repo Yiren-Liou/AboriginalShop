@@ -23,8 +23,9 @@
       <span class="material-icons">keyboard_arrow_down</span>
     </button>
   </div>
-  <div class="container mb-6" id='intro'>
-    <div class='row justify-content-center mb-6' data-aos="fade-up" data-aos-duration="2000">
+  <div class="container mb-4 mb-md-7" id='intro'>
+    <div class='row justify-content-center mb-4 mb-md-7'
+         data-aos="fade-up" data-aos-duration="2000">
       <div class="col-md-6">
         <h3 class="fontSizeM fw-bold text-center mb-4">依循大自然的法則</h3>
         <p class='text-center'>
@@ -33,7 +34,7 @@
         </p>
       </div>
     </div>
-    <div class="row justify-content-between align-items-center mb-6"
+    <div class="row justify-content-between align-items-center mb-4 mb-md-7"
          data-aos="fade-up" data-aos-duration="2000">
       <div class="col-md-6 order-1 order-md-0">
         <div class="row">
@@ -57,7 +58,7 @@
         </p>
       </div>
     </div>
-    <div class="row justify-content-between align-items-center mb-6"
+    <div class="row justify-content-between align-items-center mb-4 mb-md-7"
          data-aos="fade-up" data-aos-duration="2000">
       <div class="col-md-6 order-1">
         <div class="row">
@@ -106,15 +107,15 @@
       </div>
     </div>
   </div>
-  <div class='sectionBg d-center bg-bottom mb-6' style='backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1626619325929.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=VpKkTAEF0OqsCm%2FPtxXGuybFNxfTBdb4fI3x13Qg9DXamsPac2vfp39I9GbADRyhT6MAdDZq0ANYr0Q3dwgWIzk%2FJu6TzRqeHonKgrabYbFKuSp49N%2FxEff%2FqkvV1MQxRQ1LQ4Ji6gHS868iAYEhzVmYv%2Fv6kHkRLL4q60%2B1myaDkhcgRaWBE83QvglYK%2Br2JGO3JVkgT5L7HEdy3UlxUtHzmy2frAe%2BgvhA9qlH441l%2FYjco%2BxAPCIEKf9IkR01fh2KNr5nctO6%2FzNZ9xWyZvpGvVbDBbgp1y1rScyAa8TRC2NDfm75elXf0uCuComdLA%2Fo5hTHgrf8IfXov5cZmA%3D%3D)'>
+  <div class='sectionBg d-center bg-bottom mb-4 mb-md-7' style='backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1626619325929.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=VpKkTAEF0OqsCm%2FPtxXGuybFNxfTBdb4fI3x13Qg9DXamsPac2vfp39I9GbADRyhT6MAdDZq0ANYr0Q3dwgWIzk%2FJu6TzRqeHonKgrabYbFKuSp49N%2FxEff%2FqkvV1MQxRQ1LQ4Ji6gHS868iAYEhzVmYv%2Fv6kHkRLL4q60%2B1myaDkhcgRaWBE83QvglYK%2Br2JGO3JVkgT5L7HEdy3UlxUtHzmy2frAe%2BgvhA9qlH441l%2FYjco%2BxAPCIEKf9IkR01fh2KNr5nctO6%2FzNZ9xWyZvpGvVbDBbgp1y1rScyAa8TRC2NDfm75elXf0uCuComdLA%2Fo5hTHgrf8IfXov5cZmA%3D%3D)'>
     <span class='fontSizeL fw-bold text-white mt-6'
           data-aos="fade-up" data-aos-duration="2000">
       給予時間 自然成長</span>
   </div>
-  <div class='container mb-6'>
+  <div class='container mb-4 mb-md-7'>
     <div class="row justify-content-around align-items-center"
          data-aos="fade-up" data-aos-duration="2000">
-      <div class="col-md-5">
+      <div class="col-md-5 mb-5 mb-md-0">
         <h3 class="fontSizeM fw-bold text-center mb-4">與時間賽跑、當天現採寄出</h3>
         <p class=''>
           抓緊蔬果採收的黃金時間，清晨太陽都還沒有露臉，
@@ -122,14 +123,16 @@
           加上蔬果溫度低，利於保存與運送，
           保持蔬果的新鮮送達到消費者手中，享受健康的蔬果。
         </p>
-        <div class="d-flex justify-content-between">
-          <div class='homeImgs bg-cover bg-center rounded w-50 mb-6 mb-md-3'
+        <div class='row'>
+          <div class="col">
+            <div class='homeImgs bg-cover bg-center rounded'
             style='backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1625801566876.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=UNh%2FaPGYkkk1U06nUPjdb8aNdxVkWkZUdngJYPHH5CKBkCNUsFQlX1fSNV6SUwwdtPjwQqU8Q9VZdtcwXF8FG3sQMzHXVI5Vh5lGTml8gUFr4W440eA4wnZfny2oFoWdOmd2hF3xBruq0oaNGcFEvKp9n15xLdsvoGnTPpBd4Avgi9u3lt8kfdNL7K9Mx77ScNrjGQZ8DlHZeZWrvralbqyVMPPNr%2Fkb%2FO%2BJJ9gPRUcbLIF8QwRQ%2BDG60k%2Brs5gv%2BI0KITekqgop6ro%2B5dkegrI2knuhq9Y2gicXpmaADfhuOu5PWaX6hmI%2Bb5ganz1sLtj2qVzkiG3t2Ak11iae9A%3D%3D)'></div>
-          <div class='homeImgs bg-cover bg-center rounded w-50 ms-4 d-md-none'
+          </div>
+          <div class="col">
+            <div class='homeImgs bg-cover bg-center rounded'
             style='backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1625801583050.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=njuN6Cc1N0uD%2BwWNvr06vhwZ4yFcF9njOC%2BA8z5Lddg%2BgNEjg1NCjfdgk5fgLFicEGSeToKtOJwPKtYuL7ucgpgr05hKzNK9KyYbCHB5WK%2BV42pVdxyJKqRNP%2BzzTWSknRsTV4OTxK9RtBVMUOJ6ZonzCsUFsiOZuplQ0AZCOqg5HcfIxddYVHrjjTmBYx3RFNDAGK%2BbNppE3zoq%2Buo94Tz2gXdnGdWfraQZE4dbQGQLr2FvMxV%2BL89nJixTBhi8D6jH26KxhCNLVAfT3X17nKzcEBz3moK%2BbDMqFEsIzepDlUiJ%2BxQaQixcBAGn1gTXDJgVGAgWEuiYvfrrjQA5KQ%3D%3D)'></div>
+          </div>
         </div>
-        <div class='homeImgs bg-cover bg-center rounded w-50 ms-md-auto d-none d-md-block'
-            style='backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1625801583050.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=njuN6Cc1N0uD%2BwWNvr06vhwZ4yFcF9njOC%2BA8z5Lddg%2BgNEjg1NCjfdgk5fgLFicEGSeToKtOJwPKtYuL7ucgpgr05hKzNK9KyYbCHB5WK%2BV42pVdxyJKqRNP%2BzzTWSknRsTV4OTxK9RtBVMUOJ6ZonzCsUFsiOZuplQ0AZCOqg5HcfIxddYVHrjjTmBYx3RFNDAGK%2BbNppE3zoq%2Buo94Tz2gXdnGdWfraQZE4dbQGQLr2FvMxV%2BL89nJixTBhi8D6jH26KxhCNLVAfT3X17nKzcEBz3moK%2BbDMqFEsIzepDlUiJ%2BxQaQixcBAGn1gTXDJgVGAgWEuiYvfrrjQA5KQ%3D%3D)'></div>
       </div>
       <div class="col-md-5">
         <h3 class="fontSizeM fw-bold text-center mb-4">讓土地休息、保持土壤生機</h3>
@@ -138,14 +141,16 @@
           等待微生物分解成養分，利用輪作的方式，將土壤培育好、保持土壤的活力，
           依循季節，再種植適合的作物，生產出優質的蔬果產品。
         </p>
-        <div class="d-flex justify-content-between">
-          <div class='homeImgs bg-cover bg-center rounded w-50 mb-md-3'
+        <div class='row'>
+          <div class="col">
+            <div class='homeImgs bg-cover bg-center rounded'
             style='backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1625801611015.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=nPLMiGQSjPV%2BsSusSVrCy8eqTTUK7C0QeY4xjTv%2B3etsaQIS%2FyU2UINgDz5Pe%2B8d3bJBGh%2FmKWzM5Lag2Xm8U7z%2FtAA5ALE6qDcPUvCRf53jyqJgl8fofjgDoIB2iFf%2BfEO6zttHmORJr%2Fwx3L3apP5gaZtl8GIKvzczGvu27x6lLPe19%2FhfR1jsYTpvWYlB1QPS5AfK2dw4W0ZKfhlpF6SkytHoRyxlGrrUs2FPm%2F7FNtJkBLu8PKJIEi1yQdzplTwcma72kgOpnRdfNXG3OqquDwOV5stvs3gusujoR%2F5IypwKyXdBh%2FdFyqydSgbXRIdw5q%2F6MBavc1whWR09nA%3D%3D)'></div>
-          <div class='homeImgs bg-cover bg-center rounded w-50 ms-4 d-md-none'
+          </div>
+          <div class="col">
+            <div class='homeImgs bg-cover bg-center rounded'
             style='backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1625801627030.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=QcgKPxKEMBgUBNntpPsyf0kwDEX5x4GDfDkF4%2F553EjsgbsFhRTMDUQaEVB0SgecUHchZSS9s7JCsL58DVouYtxh2xAoNXtwYn7NA9vDIrPoER7m6qbNB4OTL0z5oAvQFEk5Q3tNrOLIIIzSYLIewebHJYPXIkbDpsjWW4rPiToGLKSHXD1B2eJ2P5JCi6glj50ASaPR4D22GP0nQdEW9FHyQrqMSF5Tz8Dc9CL6f3SuGN7WDjClT2JhiONkLXK48%2B6SEOMzgs90aB38DRF8BK2ggtJbJ%2BIOrOGUjnw9KkpvZU9Xkyx28Mg%2B8gwxvFuIXht8h5zlxOL%2BJq%2BB4x2euQ%3D%3D)'></div>
+          </div>
         </div>
-        <div class='homeImgs bg-cover bg-center rounded w-50 ms-md-auto d-none d-md-block'
-            style='backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1625801627030.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=QcgKPxKEMBgUBNntpPsyf0kwDEX5x4GDfDkF4%2F553EjsgbsFhRTMDUQaEVB0SgecUHchZSS9s7JCsL58DVouYtxh2xAoNXtwYn7NA9vDIrPoER7m6qbNB4OTL0z5oAvQFEk5Q3tNrOLIIIzSYLIewebHJYPXIkbDpsjWW4rPiToGLKSHXD1B2eJ2P5JCi6glj50ASaPR4D22GP0nQdEW9FHyQrqMSF5Tz8Dc9CL6f3SuGN7WDjClT2JhiONkLXK48%2B6SEOMzgs90aB38DRF8BK2ggtJbJ%2BIOrOGUjnw9KkpvZU9Xkyx28Mg%2B8gwxvFuIXht8h5zlxOL%2BJq%2BB4x2euQ%3D%3D)'></div>
       </div>
     </div>
   </div>

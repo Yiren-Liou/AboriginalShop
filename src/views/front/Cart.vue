@@ -153,7 +153,7 @@
             @click='delAllNotice'>刪除全部商品
         </button>
       </div>
-      <div class="row justify-content-end mb-5">
+      <div class="row justify-content-end mb-5 mb-md-7">
         <div class="col-md-5">
           <div class="d-flex justify-content-between mb-2">
             <p class="mb-0">折扣前總金額:</p>

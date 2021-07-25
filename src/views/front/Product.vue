@@ -11,7 +11,7 @@
       </ol>
     </nav>
     <template v-if="product && products">
-      <div class="row justify-content-between align-items-center mb-5"
+      <div class="row justify-content-between align-items-center mb-4 mb-md-7"
             data-aos="fade-up" data-aos-duration="2000">
         <div class="col-md-7">
           <img v-if='product.imagesUrl[0].imgUrl' :src="product.imagesUrl[0].imgUrl"
@@ -47,7 +47,7 @@
           </div>
         </div>
       </div>
-      <div class="row justify-content-between align-items-center mb-5"
+      <div class="row justify-content-between align-items-center mb-4 mb-md-7"
            data-aos="fade-up" data-aos-duration="2000">
         <div class="col-md-5 order-1 order-md-0">
           <p v-html="product.main_content"></p>
@@ -65,28 +65,28 @@
           </div>
         </div>
       </div>
-      <div class="row justify-content-between align-items-center mb-5"
+      <div class="row justify-content-between align-items-center mb-4 mb-md-7"
            data-aos="fade-up" data-aos-duration="2000">
-      <div class="col-md-6 mb-3 mb-md-0">
-        <img :src="product.imagesUrl[3].imgUrl"
-            class='img-fluid rounded mb-4' alt="新鮮現採">
-        <div class="row">
-          <div class="col">
-            <img :src="product.imagesUrl[4].imgUrl"
-                class='img-fluid rounded' alt="新鮮現採">
-          </div>
-          <div class="col">
-            <img :src="product.imagesUrl[5].imgUrl"
-                class='img-fluid rounded' alt="新鮮現採">
+        <div class="col-md-6 mb-3 mb-md-0">
+          <img :src="product.imagesUrl[3].imgUrl"
+              class='img-fluid rounded mb-4' alt="新鮮現採">
+          <div class="row">
+            <div class="col">
+              <img :src="product.imagesUrl[4].imgUrl"
+                  class='img-fluid rounded' alt="新鮮現採">
+            </div>
+            <div class="col">
+              <img :src="product.imagesUrl[5].imgUrl"
+                  class='img-fluid rounded' alt="新鮮現採">
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-5">
-        <p v-html="product.sub_content"></p>
-      </div>
+        <div class="col-md-5">
+          <p v-html="product.sub_content"></p>
+        </div>
       </div>
       <h4 class='fontSizeS' data-aos="fade-up" data-aos-duration="2000">注意事項</h4>
-      <p v-html="product.precautions" class='fontSizeS mb-6'
+      <p v-html="product.precautions" class='fontSizeS mb-4 mb-md-7'
          data-aos="fade-up" data-aos-duration="2000"></p>
       <h3 class='fontSizeM text-center mb-3' data-aos="fade-up" data-aos-duration="2000">推薦商品</h3>
       <swiper :slidesPerView="windowSize"
@@ -99,7 +99,7 @@
               :pagination='{
                 "clickable": true
               }'
-              class="mySwiper mb-6 pb-6"
+              class="mySwiper mb-4 mb-md-7 pb-6"
               data-aos="fade-up" data-aos-duration="2000">
           <swiper-slide v-for="(item) in recommends" :key='item.id'>
             <router-link :to='`/product/${item.id}`'>
