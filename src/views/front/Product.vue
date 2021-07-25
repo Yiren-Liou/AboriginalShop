@@ -88,7 +88,7 @@
       <h4 class='fontSizeS' data-aos="fade-up" data-aos-duration="2000">注意事項</h4>
       <p v-html="product.precautions" class='fontSizeS mb-6'
          data-aos="fade-up" data-aos-duration="2000"></p>
-      <h3 class='fontSizeM text-center' data-aos="fade-up" data-aos-duration="2000">推薦商品</h3>
+      <h3 class='fontSizeM text-center mb-3' data-aos="fade-up" data-aos-duration="2000">推薦商品</h3>
       <swiper :slidesPerView="windowSize"
               :spaceBetween="30"
               :freeMode="true"
@@ -99,7 +99,7 @@
               :pagination='{
                 "clickable": true
               }'
-              class="mySwiper mb-6"
+              class="mySwiper mb-6 pb-6"
               data-aos="fade-up" data-aos-duration="2000">
           <swiper-slide v-for="(item) in recommends" :key='item.id'>
             <router-link :to='`/product/${item.id}`'>
