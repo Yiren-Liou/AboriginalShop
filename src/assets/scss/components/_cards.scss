@@ -1,11 +1,7 @@
 .productCard{
-  border-radius: 1rem;
   &:hover {
     border-color: transparent;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
-  }
-  .card-img-top{
-    border-radius: 1rem 1rem 0 0;
   }
 }
 
