@@ -98,7 +98,7 @@
                   <li class='mb-2'>
                     <p class="card-text fontSizeS">
                       名稱:
-                      <span class='ms-1'>#{{ item.product.title }}</span>
+                      <span class='ms-1'>{{ item.product.title }}</span>
                     </p>
                   </li>
                   <li class='mb-2'>

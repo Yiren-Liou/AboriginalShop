@@ -49,3 +49,11 @@
     height: 408px;
   }
 }
+
+.cardImg{
+  height: 112px;
+  width: 100%;
+  @media (min-width: 992px) {
+    height: 144px;
+  }
+}
