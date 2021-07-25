@@ -58,9 +58,6 @@
             <td>
               {{ item.product.unit }}
             </td>
-            <!-- <td>
-              {{ item.qty }}
-            </td> -->
             <td>
               <div class="input-group w-50 mx-auto">
                 <button class="btn btn-outline-dark material-icons" type="button"
@@ -100,31 +97,41 @@
                 <ul class='list-unstyled'>
                   <li class='mb-2'>
                     <p class="card-text fontSizeS">
-                      商品名稱:
+                      名稱:
                       <span class='ms-1'>#{{ item.product.title }}</span>
                     </p>
                   </li>
                   <li class='mb-2'>
                     <p class="card-text fontSizeS">
-                      商品規格:
+                      規格:
                       <span class='ms-1'>{{ item.product.unit }}</span>
                     </p>
                   </li>
                   <li class='mb-2'>
                     <p class="card-text fontSizeS">
-                      商品售價:
+                      售價:
                       <span class='ms-1'>NT {{ $toCurrency(item.product.price) }}</span>
                     </p>
                   </li>
-                  <li class='mb-2'>
-                    <p class="card-text fontSizeS">
-                      商品數量:
-                      <span class='ms-1'>{{ item.qty }}</span>
+                  <li class='d-flex align-items-center mb-2'>
+                    <p class="card-text fontSizeS mb-0">
+                      數量:
+                      <!-- <span class='ms-1'>{{ item.qty }}</span> -->
                     </p>
+                    <div class="input-group mx-auto w-75">
+                        <button class="btn btn-sm btn-outline-dark material-icons"
+                                @click="updateProductNum('minus', item)" type="button">remove
+                        </button>
+                        <input type="number" class="form-control fontSizeS text-center bg-white"
+                              v-model.number="item.qty" min=1 disabled>
+                        <button class="btn btn-sm btn-outline-dark material-icons" type="button"
+                                @click="updateProductNum('add', item)">add
+                        </button>
+                      </div>
                   </li>
                   <li class='mb-2'>
                     <p class="card-text fontSizeS">
-                      商品售價:
+                      售價:
                       <span class='ms-1'>NT {{ $toCurrency(item.final_total) }}</span>
                     </p>
                   </li>
