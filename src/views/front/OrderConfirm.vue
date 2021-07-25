@@ -28,148 +28,107 @@
     <p class="text-center text-danger mb-5">
       請確認購買商品和買家資訊，確認無誤後點選頁面下方確認結帳按鈕，訂單才會成功送出呦
     </p>
-    <h2 class='fontSizeM mb-4'>購買的商品</h2>
-    <div class="px-4 mb-5 d-none d-md-block">
-      <table class="table align-middle">
-        <thead>
-          <tr class="text-center">
-            <th scope="col"></th>
-            <th scope="col" width="200">商品圖片</th>
-            <th scope="col">商品名稱</th>
-            <th scope="col">規格</th>
-            <th scope="col">購買數量</th>
-            <th scope="col">小計</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item, i) in cart.carts" :key='item.product_id' class="text-center">
-            <th scope="row">{{ i + 1 }}</th>
-            <td>
-              <div :style="{ backgroundImage: 'url(' + item.product.imagesUrl[0].imgUrl + ')' }"
-                  class="cartImg bg-cover bg-center">
+    <div class="row justify-content-around mb-6">
+      <div class="col-md-6">
+        <h2 class='fontSizeM mb-4'>購買的商品</h2>
+        <ul class='list-unstyled mb-3'>
+          <li v-for="item in cart.carts" :key='item.product_id' class='card mb-3'>
+            <div class="row align-items-center g-0">
+              <div class="col-5 h-100">
+                <div :style="{ backgroundImage: 'url(' + item.product.imagesUrl[0].imgUrl + ')' }"
+                      class="img-fluid cartImg bg-cover bg-center">
+                </div>
               </div>
-            </td>
-            <td>
-              {{ item.product.title }}
-            </td>
-            <td>
-              {{ item.product.unit }}
-            </td>
-            <td>
-              {{ item.qty }}
-            </td>
-            <td>
-              NT {{ $toCurrency(item.final_total) }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="d-flex justify-content-end">
-        <p>
-          總金額
-          <span class='ms-2'>NT {{ $toCurrency(finalTotal) }}</span>
-        </p>
+              <div class="col-7">
+                <div class="card-body">
+                  <ul class='list-unstyled'>
+                    <li class='mb-2'>
+                      <p class="card-text fontSizeS fontSize-lg-Base">
+                        商品名稱:
+                        <span class='ms-1'>{{ item.product.title }}</span>
+                      </p>
+                    </li>
+                    <li class='mb-2'>
+                      <p class="card-text fontSizeS fontSize-lg-Base">
+                        商品規格:
+                        <span class='ms-1'>{{ item.product.unit }}</span>
+                      </p>
+                    </li>
+                    <li class='mb-2'>
+                      <p class="card-text fontSizeS fontSize-lg-Base">
+                        商品數量:
+                        <span class='ms-1'>{{ item.qty }}</span>
+                      </p>
+                    </li>
+                    <li class='mb-2'>
+                      <p class="card-text fontSizeS fontSize-lg-Base">
+                        商品總價:
+                        <span class='ms-1'>NT {{ $toCurrency(item.final_total) }}</span>
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="d-flex justify-content-end">
+          <p>
+            總金額
+            <span class='ms-2'>NT {{ $toCurrency(finalTotal) }}</span>
+          </p>
+        </div>
       </div>
-    </div>
-    <ul class='d-md-none list-unstyled mb-5'>
-        <li v-for="item in cart.carts" :key='item.product_id' class='card mb-3'>
-          <div class="row align-items-center g-0">
-            <div class="col-5">
-              <div :style="{ backgroundImage: 'url(' + item.product.imagesUrl[0].imgUrl + ')' }"
-                    class="cartImg bg-cover bg-center">
-              </div>
-            </div>
-            <div class="col-7">
-              <div class="card-body">
-                <ul class='list-unstyled'>
-                  <li class='mb-2'>
-                    <p class="card-text fontSizeS">
-                      商品名稱:
-                      <span class='ms-1'>#{{ item.product.title }}</span>
-                    </p>
-                  </li>
-                  <li class='mb-2'>
-                    <p class="card-text fontSizeS">
-                      商品規格:
-                      <span class='ms-1'>{{ item.product.unit }}</span>
-                    </p>
-                  </li>
-                  <li class='mb-2'>
-                    <p class="card-text fontSizeS">
-                      商品售價:
-                      <span class='ms-1'>NT {{ $toCurrency(item.product.price) }}</span>
-                    </p>
-                  </li>
-                  <li class='mb-2'>
-                    <p class="card-text fontSizeS">
-                      商品數量:
-                      <span class='ms-1'>{{ item.qty }}</span>
-                    </p>
-                  </li>
-                  <li class='mb-2'>
-                    <p class="card-text fontSizeS">
-                      商品總價:
-                      <span class='ms-1'>NT {{ $toCurrency(item.final_total) }}</span>
-                    </p>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </li>
-    </ul>
-    <h2 class='fontSizeM mb-4'>訂購人資訊</h2>
-    <div class="px-4 mb-4">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="mb-3">
-            <label for="buyerName" class="form-label">訂購人姓名</label>
-            <input type="text" class="form-control" id="buyerName" :value='pushOrder.user.name'
-                   aria-describedby="buyerName" disabled>
-          </div>
+      <div class="col-md-4">
+        <h2 class='fontSizeM mb-4'>訂購人資訊</h2>
+        <div class="mb-3">
+          <label for="buyerName" class="form-label">訂購人姓名</label>
+          <input type="text" class="form-control" id="buyerName" :value='pushOrder.user.name'
+                  aria-describedby="buyerName" disabled>
         </div>
-        <div class="col-md-4">
-          <div class="mb-3">
-            <label for="buyerTell" class="form-label">訂購人手機</label>
-            <input type="text" class="form-control" id="buyerTell" :value='pushOrder.user.tel'
-                   aria-describedby="buyerTell" disabled>
-          </div>
+        <div class="mb-3">
+          <label for="buyerTell" class="form-label">訂購人手機</label>
+          <input type="text" class="form-control" id="buyerTell" :value='pushOrder.user.tel'
+                  aria-describedby="buyerTell" disabled>
         </div>
-        <div class="col-md-4">
-          <div class="mb-3">
-            <label for="buyerEmail" class="form-label">訂購人信箱</label>
-            <input type="email" class="form-control" id="buyerEmail" :value='pushOrder.user.email'
-                   aria-describedby="buyerEmail" disabled>
-          </div>
+        <div class="mb-3">
+          <label for="buyerEmail" class="form-label">訂購人信箱</label>
+          <input type="email" class="form-control" id="buyerEmail" :value='pushOrder.user.email'
+                  aria-describedby="buyerEmail" disabled>
         </div>
-        <div class="col-md-4">
-          <div class="mb-3">
-            <label for="payment" class="form-label">付款方式</label>
-            <input type="text" class="form-control" id="payment"
-                   :value='pushOrder.user.paymentMethod'
-                   aria-describedby="payment" disabled>
-          </div>
+        <div class="mb-3">
+          <label for="payment" class="form-label">付款方式</label>
+          <input type="text" class="form-control" id="payment"
+                  :value='pushOrder.user.paymentMethod'
+                  aria-describedby="payment" disabled>
         </div>
-        <div v-if='pushOrder.payment_method ==="信用卡"' class="col-md-4">
-          <div class="mb-3">
-            <label for="address" class="form-label">收件地址</label>
-            <input type="text" class="form-control" id="address" :value='pushOrder.user.address'
-                  aria-describedby="address" disabled>
-          </div>
+        <div v-if='pushOrder.user.paymentMethod ==="信用卡"' class="mb-3">
+          <label for="address" class="form-label">收件地址</label>
+          <input type="text" class="form-control" id="address" :value='pushOrder.user.address'
+                aria-describedby="address" disabled>
         </div>
-        <div class="col-md-4">
-          <div class="mb-3">
-            <label for="message" class="form-label">備註</label>
-            <input type="text" class="form-control" id="message" :value='pushOrder.message'
-                   aria-describedby="message" disabled>
-          </div>
+        <div class="mb-3">
+          <label for="message" class="form-label">備註</label>
+          <input type="text" class="form-control" id="message" :value='pushOrder.message'
+                  aria-describedby="message" disabled>
         </div>
       </div>
     </div>
     <div class="d-flex justify-content-center">
-      <button type='button' class="btn btn-outline-secondary me-3" @click="emitOrder">重新填寫</button>
+      <button type='button' class="btn btn-outline-secondary me-3" @click="returnToForm">
+        重新填寫
+      </button>
       <!-- <router-link to='/buyerForm' class='btn btn-outline-primary me-3'>重新填寫</router-link> -->
-      <button type='button' class="btn btn-secondary me-3" @click='sendOrder'>確認結帳</button>
+      <button v-if='pushOrder.user.paymentMethod === "信用卡"' type='button'
+              class="btn btn-secondary me-3" @click='sendOrder'>
+        前往付款
+      </button>
+      <!-- <router-link v-else to='/orderCompleted'
+      class="btn btn-secondary me-3">確認下單</router-link> -->
+      <button v-else type='button' class="btn btn-secondary me-3"
+              @click='sendOrder'>
+        確認下單
+      </button>
     </div>
   </div>
   <Loading :active="isLoading">
@@ -210,13 +169,19 @@ export default {
         });
     },
     sendOrder() {
+      this.isLoading = true;
       console.log(this.pushOrder);
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/order`;
       this.$http.post(apiUrl, { data: this.pushOrder })
         .then((res) => {
           if (res.data.success) {
             console.log(res);
-            this.$router.push('/orderCompleted');
+            if (this.pushOrder.user.paymentMethod === '信用卡') {
+              this.toPaid(res.data.orderId);
+            } else {
+              this.isLoading = false;
+              this.$router.push('/orderCompleted');
+            }
           } else {
             console.log(res.data.message);
           }
@@ -225,7 +190,35 @@ export default {
           console.dir(err);
         });
     },
-    emitOrder() {
+    toPaid(orderId) {
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/pay/${orderId}`;
+      this.$http.post(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'success' });
+            this.$swal.fire({
+              title: res.data.message,
+              text: '感謝您的支持',
+              icon: 'success',
+              showCancelButton: false,
+              confirmButtonColor: '#629677',
+              confirmButtonText: '確定',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.$router.push('/orderCompleted');
+              }
+            });
+          } else {
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'error' });
+          }
+        })
+        .catch((err) => {
+          console.dir(err);
+        });
+    },
+    returnToForm() {
       this.$router.push('/buyerForm');
     },
   },
@@ -234,7 +227,8 @@ export default {
     setTimeout(() => {
       this.getCart();
       this.isLoading = false;
-      this.$swal({ text: '請確認「購買商品」和「買家資訊」後，點選頁面下方「確認結帳按鈕」，訂單才會成功送出呦', icon: 'warning' });
+      this.$swal({ text: '請確認「購買商品」和「買家資訊」，訂單送出後無法修改呦', icon: 'warning' });
+      console.log(this.pushOrder);
     }, 2000);
   },
 };

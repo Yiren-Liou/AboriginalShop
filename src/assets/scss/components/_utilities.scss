@@ -1,3 +1,9 @@
+.d-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .vh100{
   height: 100vh;
 }
@@ -29,10 +35,10 @@
   font-size: $font-size-base * 1.75;
 }
 
-.d-center{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.fontSize-lg-Base{
+  @media (min-width: 992px) {
+    font-size: $font-size-base;
+  }
 }
 
 .fontSize-lg-M{
