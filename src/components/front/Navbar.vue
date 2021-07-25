@@ -58,7 +58,7 @@
             </router-link>
           </li>
           <li class="nav-item d-lg-none">
-            <router-link to='/'
+            <router-link to='/about'
                         class="nav-link"
                        :class="{'text-white': navLight, 'change-bgc': navLight}">
                         關於我們
