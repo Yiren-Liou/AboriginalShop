@@ -58,8 +58,20 @@
             <td>
               {{ item.product.unit }}
             </td>
-            <td>
+            <!-- <td>
               {{ item.qty }}
+            </td> -->
+            <td>
+              <div class="input-group w-50 mx-auto">
+                <button class="btn btn-outline-dark material-icons" type="button"
+                        @click="updateProductNum('minus', item)">remove
+                </button>
+                <input type="number" class="form-control text-center bg-white"
+                      v-model.number="item.qty" min=1 disabled>
+                <button class="btn btn-outline-dark material-icons" type="button"
+                        @click="updateProductNum('add', item)">add
+                </button>
+              </div>
             </td>
             <td>
               NT {{ $toCurrency(item.product.price) }}
@@ -244,6 +256,36 @@ export default {
             this.isLoading = false;
             console.log(this.cart);
           } else {
+            this.$swal({ text: res.data.message, icon: 'error' });
+          }
+        })
+        .catch((err) => {
+          console.dir(err);
+        });
+    },
+    updateProductNum(action, product) {
+      if (action === 'add') {
+        product.qty += 1;
+      } else if (action === 'minus' && product.qty === 1) {
+        this.$swal({ text: '購買商品數量最低為 1 個呦', icon: 'warning' });
+        return;
+      } else if (action === 'minus') {
+        product.qty -= 1;
+      }
+      this.isLoading = true;
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/cart/${product.id}`;
+      const cartData = {
+        data: {
+          product_id: product.product_id,
+          qty: product.qty,
+        },
+      };
+      this.$http.put(apiUrl, cartData)
+        .then((res) => {
+          if (res.data.success) {
+            this.getCart();
+          } else {
+            this.isLoading = false;
             this.$swal({ text: res.data.message, icon: 'error' });
           }
         })
