@@ -142,11 +142,10 @@ export default {
       this.$http.get(apiUrl)
         .then((res) => {
           if (res.data.success) {
-            this.products = res.data.products;
+            this.products = res.data.products.sort((a, b) => b.num - a.num);
             this.pagination = res.data.pagination;
             this.filterProducts = this.products;
             this.isLoading = false;
-            // this.pagination = res.data.pagination;
             console.log(this.products);
           } else {
             this.$swal({ text: res.data.message, icon: 'error' });
@@ -155,6 +154,15 @@ export default {
         .catch((err) => {
           console.dir(err);
         });
+    },
+    sortCategory() {
+      const result = new Set();
+      this.products.forEach((item) => {
+        if (!result.has(item.category)) {
+          result.add(item.category);
+        }
+      });
+      console.log(result);
     },
     getProduct(id) {
       this.$router.push(`/product/${id}`);

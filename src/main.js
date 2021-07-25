@@ -27,9 +27,7 @@ configure({
 });
 setLocale('zh_TW');
 
-AOS.init({
-  once: true,
-});
+AOS.init();
 
 const app = createApp(App);
 app.config.globalProperties.$toCurrency = toCurrency;
