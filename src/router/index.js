@@ -147,8 +147,8 @@ const router = createRouter({
   linkActiveClass: 'active',
   scrollBehavior() {
     return {
-      x: 0,
-      y: 0,
+      top: 0,
+      behavior: 'smooth',
     };
   },
 });
