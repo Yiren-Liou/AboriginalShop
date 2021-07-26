@@ -80,13 +80,13 @@
         <td>{{ order.is_paid? '已付款' : '未付款' }}</td>
         <td>未出貨</td>
         <td>
-          <router-link :to="`order/${order.id}`" @click="emitReadonly(true)"
+          <router-link :to="`order/${order.id}`" @click="emitOrder(true, order)"
                        class="material-icons btn">
             remove_red_eye
           </router-link>
         </td>
         <td>
-          <router-link :to="`order/${order.id}`" @click="emitReadonly(false)"
+          <router-link :to="`order/${order.id}`" @click="emitOrder(false, order)"
                        class="material-icons btn">
             edit
           </router-link>
@@ -118,8 +118,8 @@ export default {
       search: '',
     };
   },
-  emits: ['emit-readonly'],
-  props: ['read-status'],
+  emits: ['emit-readonly', 'emit-order'],
+  props: ['readStatus', 'pushOrder'],
   components: {
   },
   computed: {
@@ -208,8 +208,9 @@ export default {
           break;
       }
     },
-    emitReadonly(status) {
+    emitOrder(status, order) {
       this.$emit('emit-readonly', status);
+      this.$emit('emit-order', order);
     },
   },
   mounted() {

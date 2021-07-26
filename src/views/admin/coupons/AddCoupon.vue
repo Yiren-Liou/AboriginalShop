@@ -129,8 +129,8 @@ export default {
       isLoading: false,
     };
   },
-  emits: ['emit-readonly'],
-  props: ['readStatus'],
+  emits: ['emit-readonly', 'emit-order'],
+  props: ['readStatus', 'pushOrder'],
   methods: {
     addCoupon() {
       this.isLoading = true;

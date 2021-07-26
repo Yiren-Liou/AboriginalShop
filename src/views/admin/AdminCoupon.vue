@@ -129,8 +129,8 @@ export default {
       search: '',
     };
   },
-  emits: ['emit-readonly'],
-  props: ['readStatus'],
+  emits: ['emit-readonly', 'emit-order'],
+  props: ['readStatus', 'pushOrder'],
   components: {
   },
   computed: {

@@ -213,8 +213,8 @@ export default {
       return readonly;
     },
   },
-  props: ['readStatus'],
-  emits: ['emit-readonly'],
+  emits: ['emit-readonly', 'emit-order'],
+  props: ['readStatus', 'pushOrder'],
   components: {
     CategorySelect,
     IsEnabledSelect,

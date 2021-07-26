@@ -153,8 +153,8 @@ export default {
       return readonly;
     },
   },
-  emits: ['emit-readonly'],
-  props: ['readStatus'],
+  emits: ['emit-readonly', 'emit-order'],
+  props: ['readStatus', 'pushOrder'],
   methods: {
     getCoupon() {
       this.coupon = JSON.parse(this.$route.query.coupon);

@@ -11,8 +11,8 @@
       <div class="col">
         <div class="py-4 px-3">
           <router-view v-if="checkUser"
-                       @emit-readonly='getReadonly'
-                       :read-status='readStatus'>
+                       @emit-readonly='getReadonly' :read-status='readStatus'
+                       @emit-order='getOrder' :push-order='order'>
           </router-view>
         </div>
       </div>
@@ -28,6 +28,7 @@ export default {
     return {
       readStatus: '',
       checkUser: false,
+      order: '',
     };
   },
   components: {
@@ -36,6 +37,10 @@ export default {
   methods: {
     getReadonly(status) {
       this.readStatus = status;
+    },
+    getOrder(order) {
+      this.order = order;
+      console.log(this.order);
     },
   },
   mounted() {

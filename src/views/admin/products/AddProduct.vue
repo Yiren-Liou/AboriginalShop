@@ -172,8 +172,8 @@ export default {
       isLoading: false,
     };
   },
-  emits: ['emit-readonly'],
-  props: ['readStatus'],
+  emits: ['emit-readonly', 'emit-order'],
+  props: ['readStatus', 'pushOrder'],
   components: {
     CategorySelect,
     IsEnabledSelect,

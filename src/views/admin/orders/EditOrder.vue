@@ -58,7 +58,7 @@
           <div class="mb-3">
             <label for="orderId" class="form-label">訂單編號</label>
             <input type="text" class="form-control"
-                   id="orderId" v-model="order.create_at" disabled>
+                   id="orderId" :value="order.create_at" disabled>
           </div>
         </div>
         <div class="col-md-4">
@@ -108,17 +108,17 @@
             <select class="form-select" id="deliveryStatus"
                     v-model="order.is_delivery" :disabled="readonly">
               <option value='' selected disabled>請選擇出貨狀態</option>
-              <option value="false">未出貨</option>
-              <option value="true">已出貨</option>
+              <option value="未出貨">未出貨</option>
+              <option value="已出貨">已出貨</option>
             </select>
           </div>
         </div>
         <div class="col-md-4">
           <div class="mb-3">
             <label for="deliveryDate" class="form-label">出貨日期</label>
-            <input type="date" class="form-control" :disabled="readonly"
-                   id="deliveryDate"
-            :value="$date.toDate(order.paid_date)? $date.toDate(order.paid_date): ''">
+            <input type="date" class="form-control"
+                   :disabled="readonly || order.is_delivery === '未出貨'"
+                   id="deliveryDate" v-model='order.deliveryDate'>
           </div>
         </div>
       </div>
@@ -129,34 +129,34 @@
           <div class="mb-3">
             <label for="buyerName" class="form-label">姓名</label>
             <input type="text" class="form-control" :disabled="readonly"
-                    id="buyerName" v-model.trim="order.user.name">
+                    id="buyerName" v-model="order.user.name">
           </div>
         </div>
         <div class="col-md-4">
           <div class="mb-3">
             <label for="buyerTel" class="form-label">電話</label>
             <input type="tel" class="form-control" :disabled="readonly"
-                    id="buyerTel" v-model.trim="order.user.tel">
+                    id="buyerTel" v-model="order.user.tel">
           </div>
         </div>
         <div class="col-md-4">
           <div class="mb-3">
             <label for="buyerEamil" class="form-label">信箱</label>
             <input type="email" class="form-control" :disabled="readonly"
-                    id="buyerEamil" v-model.trim="order.user.email">
+                    id="buyerEamil" v-model="order.user.email">
           </div>
         </div>
         <div class="col-md-4">
           <div class="mb-3">
             <label for="buyerAddress" class="form-label">地址</label>
             <input type="text" class="form-control" :disabled="readonly"
-                    id="buyerAddress" v-model.trim="order.user.address">
+                    id="buyerAddress" v-model="order.user.address">
           </div>
         </div>
         <div class="col-md-4">
           <div class="mb-3">
             <label for="buyerPaidMethod" class="form-label">付款方式</label>
-            <input type="text" class="form-control" v-model="order.user.paymentMethod"
+            <input type="text" class="form-control" :value="order.user.paymentMethod"
                     id="buyerPaidMethod" disabled>
           </div>
         </div>
@@ -203,16 +203,13 @@ export default {
   data() {
     return {
       routeId: this.$route.params.id,
-      order: {
-        user: {},
-        orderStatus: '',
-      },
+      order: '',
       products: '',
       isLoading: false,
     };
   },
-  emits: ['emit-readonly'],
-  props: ['readStatus'],
+  emits: ['emit-readonly', 'emit-order'],
+  props: ['readStatus', 'pushOrder'],
   computed: {
     readonly() {
       const readonly = this.readStatus;
@@ -221,23 +218,8 @@ export default {
   },
   methods: {
     getOrder() {
-      this.isLoading = true;
-      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/order/${this.routeId}`;
-      this.$http.get(apiUrl)
-        .then((res) => {
-          if (res.data.success) {
-            this.order = res.data.order;
-            this.products = Object.values(this.order.products);
-            this.isLoading = false;
-            console.log(this.order);
-          } else {
-            this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'error' });
-          }
-        })
-        .catch((err) => {
-          console.dir(err);
-        });
+      this.order = JSON.parse(JSON.stringify(this.pushOrder));
+      this.products = Object.values(this.order.products);
     },
     cancelEdit() {
       this.isLoading = true;
@@ -265,12 +247,12 @@ export default {
     update(id) {
       this.emitReadonly(true);
       this.isLoading = true;
-      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/order/${id}}`;
-      this.$http.put(apiUrl, { data: { ...this.order } })
+      const updateOrder = { data: { ...this.order } };
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/order/${id}`;
+      this.$http.put(apiUrl, updateOrder)
         .then((res) => {
           if (res.data.success) {
             this.isLoading = false;
-            // this.getOrder();
             this.emitReadonly(true);
             this.$swal({ text: res.data.message, icon: 'success' });
           } else {
