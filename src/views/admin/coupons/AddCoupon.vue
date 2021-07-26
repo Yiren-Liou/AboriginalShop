@@ -129,6 +129,8 @@ export default {
       isLoading: false,
     };
   },
+  emits: ['emit-readonly'],
+  props: ['readStatus'],
   methods: {
     addCoupon() {
       this.isLoading = true;

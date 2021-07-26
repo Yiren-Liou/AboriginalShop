@@ -10,7 +10,8 @@
         </router-link>
       </div>
     </template>
-    <table v-else class="table align-middle d-none d-md-table">
+    <template v-else>
+      <table class="table align-middle d-none d-md-table mb-7">
       <thead>
         <tr class="text-center">
           <th scope="col">#</th>
@@ -26,11 +27,11 @@
       <tbody>
         <tr v-for='(order, i) in orders' :key='order.id' class="text-center">
           <th scope="row">{{ i + 1 }}</th>
-          <td>{{ order.id }}</td>
+          <td>{{ order.create_at }}</td>
           <td>{{ $date.toDate(order.create_at) }}</td>
           <td>NT {{ $toCurrency(order.total) }}</td>
           <td :class='{"text-secondary":order.is_paid}'>{{ order.is_paid? '已付款' : '未付款' }}</td>
-          <td>{{ order.orderStatus? order.orderStatus : '處理中' }}</td>
+          <td>{{ order.is_paid? '待出貨' : '處理中' }}</td>
           <td>{{ order.deliveryDate? $date.toDate(order.deliveryDate) : '-' }}</td>
           <td>
             <router-link :to="`/order/${order.id}`"
@@ -40,53 +41,54 @@
           </td>
         </tr>
       </tbody>
-    </table>
-    <ul v-if='orders.length' class='d-md-none list-unstyled'>
-      <li v-for='(order) in orders' :key=order.id class='card mb-3'>
-        <div class="row align-items-center">
-          <div class="col-8">
-            <div class="card-body">
-              <ul class='list-unstyled'>
-                <li class='mb-2'>
-                  <p class="card-text fontSizeS">
-                    <!-- 訂單編號: -->
-                    <span class='ms-1'>#{{ order.id }}</span>
-                  </p>
-                </li>
-                <li class='mb-2'>
-                  <p class="card-text fontSizeS">
-                    訂單日期:
-                    <span class='ms-1'>{{ $date.toDate(order.create_at) }}</span>
-                  </p>
-                </li>
-                <li class='mb-2'>
-                  <p class="card-text fontSizeS">
-                    商品數量:
-                    <span class='ms-1'>{{ Object.keys(order.products).length }}</span>
-                  </p>
-                </li>
-                <li class='mb-2'>
-                  <p class="card-text fontSizeS">
-                    商品金額:
-                    <span class='ms-1'>NT {{ $toCurrency(order.total) }}</span>
-                  </p>
-                </li>
-              </ul>
+      </table>
+      <ul class='d-md-none list-unstyled mb-6'>
+        <li v-for='(order) in orders' :key=order.id class='card mb-3'>
+          <div class="row align-items-center">
+            <div class="col-8">
+              <div class="card-body">
+                <ul class='list-unstyled'>
+                  <li class='mb-2'>
+                    <p class="card-text fontSizeS">
+                      <!-- 訂單編號: -->
+                      <span class='ms-1'>#{{ order.create_at }}</span>
+                    </p>
+                  </li>
+                  <li class='mb-2'>
+                    <p class="card-text fontSizeS">
+                      訂單日期:
+                      <span class='ms-1'>{{ $date.toDate(order.create_at) }}</span>
+                    </p>
+                  </li>
+                  <li class='mb-2'>
+                    <p class="card-text fontSizeS">
+                      商品數量:
+                      <span class='ms-1'>{{ Object.keys(order.products).length }}</span>
+                    </p>
+                  </li>
+                  <li class='mb-2'>
+                    <p class="card-text fontSizeS">
+                      商品金額:
+                      <span class='ms-1'>NT {{ $toCurrency(order.total) }}</span>
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-4">
+              <router-link :to="`/order/${order.id}`"
+                        class="btn btn-sm btn-primary">
+                查看訂單
+              </router-link>
+              <!-- <button class="btn btn-sm btn-primary" type="button">查看訂單</button> -->
             </div>
           </div>
-          <div class="col-4">
-            <router-link :to="`/order/${order.id}`"
-                       class="btn btn-sm btn-primary">
-              查看訂單
-            </router-link>
-            <!-- <button class="btn btn-sm btn-primary" type="button">查看訂單</button> -->
-          </div>
-        </div>
-      </li>
-    </ul>
-    <Pagination v-if='pagination.total_pages > 1' :page="pagination"
-                @emit-page='getOrders'>
-    </Pagination>
+        </li>
+      </ul>
+      <div class='d-center'>
+        <Pagination :page="pagination" @emit-page='getOrders'></Pagination>
+      </div>
+    </template>
   </div>
   <Loading :active="isLoading">
     <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">

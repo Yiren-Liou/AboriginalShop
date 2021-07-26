@@ -172,6 +172,7 @@ export default {
       isLoading: false,
     };
   },
+  emits: ['emit-readonly'],
   props: ['readStatus'],
   components: {
     CategorySelect,

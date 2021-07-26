@@ -189,7 +189,7 @@ export default {
             });
           } else {
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'error' });
+            this.$swal({ text: res.data.message, icon: 'error', confirmButtonColor: '#ffbc1f' });
           }
         })
         .catch((err) => {
@@ -205,7 +205,7 @@ export default {
     this.isLoading = true;
     setTimeout(() => {
       this.isLoading = false;
-      this.$swal({ text: '請確認「購買商品」和「買家資訊」，訂單送出後無法修改呦', icon: 'warning' });
+      this.$swal({ text: '請確認「購買商品」和「買家資訊」，訂單送出後無法修改呦', icon: 'warning', confirmButtonColor: '#ffbc1f' });
     }, 2000);
   },
 };

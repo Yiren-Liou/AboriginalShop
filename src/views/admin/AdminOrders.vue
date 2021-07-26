@@ -73,7 +73,7 @@
     <tbody v-else class="text-center">
       <tr v-for="(order, i) in filterOrder" :key="order.id">
         <th scope="row">{{ i + 1 }}</th>
-        <td>{{ order.id }}</td>
+        <td>{{ order.create_at }}</td>
         <td>{{ order.user.name }}</td>
         <td>{{ $date.toDate(order.create_at) }}</td>
         <td>NT {{ $toCurrency(order.total) }}</td>

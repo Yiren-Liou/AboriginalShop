@@ -130,6 +130,7 @@ export default {
     };
   },
   emits: ['emit-readonly'],
+  props: ['readStatus'],
   components: {
   },
   computed: {
