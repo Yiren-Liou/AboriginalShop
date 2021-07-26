@@ -160,12 +160,16 @@
       來顆水果吧
     </router-link>
   </div>
+  <div class='position-relative'>
+    <GoTop></GoTop>
+  </div>
   <Footer :footer-dark="isFooterDark"></Footer>
 </template>
 
 <script>
 import Navbar from '@/components/front/Navbar.vue';
 import Footer from '@/components/front/Footer.vue';
+import GoTop from '@/components/GoTop.vue';
 
 export default {
   data() {
@@ -177,6 +181,7 @@ export default {
   components: {
     Navbar,
     Footer,
+    GoTop,
   },
   methods: {
     moveToIntro() {

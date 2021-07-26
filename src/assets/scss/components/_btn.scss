@@ -23,3 +23,11 @@
     font-size: 1rem;
   }
 }
+
+.topBtn{
+  position: fixed;
+  right: 20px;
+  bottom: 56px;
+  display: none;
+  transition: 1s;
+}

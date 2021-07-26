@@ -105,6 +105,9 @@
       <Pagination :page="pagination" @emit-page="getProducts"></Pagination>
     </div>
   </div>
+  <div class='position-relative'>
+    <GoTop></GoTop>
+  </div>
   <Loading :active="isLoading">
     <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
     <div></div><div></div><div></div>
@@ -121,6 +124,7 @@
 <script>
 import emitter from '@/methods/Emitter';
 import Pagination from '@/components/Pagination.vue';
+import GoTop from '@/components/GoTop.vue';
 
 export default {
   data() {
@@ -134,6 +138,7 @@ export default {
   },
   components: {
     Pagination,
+    GoTop,
   },
   props: ['pushOrder'],
   methods: {

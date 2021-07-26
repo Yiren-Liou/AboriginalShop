@@ -60,6 +60,9 @@
       </div>
     </div>
   </div>
+  <div class='position-relative'>
+    <GoTop></GoTop>
+  </div>
   <Loading :active="isLoading">
     <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
     <div></div><div></div><div></div>
@@ -68,6 +71,8 @@
 </template>
 
 <script>
+import GoTop from '@/components/GoTop.vue';
+
 export default {
   data() {
     return {
@@ -76,6 +81,9 @@ export default {
   },
   emits: ['emit-order', 'emit-products'],
   props: ['pushOrder'],
+  components: {
+    GoTop,
+  },
   created() {
     this.isLoading = true;
     setTimeout(() => {
