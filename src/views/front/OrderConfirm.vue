@@ -118,7 +118,6 @@
       <button type='button' class="btn btn-outline-secondary me-3" @click="returnToForm">
         重新填寫
       </button>
-      <!-- <router-link to='/buyerForm' class='btn btn-outline-primary me-3'>重新填寫</router-link> -->
       <button v-if='pushOrder.user.paymentMethod === "信用卡"' type='button'
               class="btn btn-secondary me-3" @click='sendOrder'>
         前往付款
