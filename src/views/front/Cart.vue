@@ -262,7 +262,6 @@ export default {
           if (res.data.success) {
             this.cart = res.data.data;
             this.isLoading = false;
-            console.log(this.cart);
           } else {
             this.$swal({ text: res.data.message, icon: 'error' });
           }

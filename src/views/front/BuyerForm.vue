@@ -125,12 +125,6 @@ export default {
   },
   emits: ['emit-order', 'emit-carts'],
   props: ['pushOrder', 'pushCarts'],
-  watch: {
-    orderDetails() {
-      this.user = this.pushOrder.user;
-      this.user = this.pushOrder.message;
-    },
-  },
   methods: {
     isPhone(value) {
       const phoneNumber = /^(09)[0-9]{8}$/;
@@ -140,6 +134,10 @@ export default {
       this.order.user = this.user;
       this.order.message = this.message;
       this.$emit('emit-order', this.order);
+      const localOrder = JSON.stringify(this.order);
+      localStorage.setItem('order', localOrder);
+      // this.order = JSON.stringify(this.order);
+      // localStorage.setItem('order', this.order);
       this.$router.push('/orderConfirm');
     },
   },
@@ -149,6 +147,10 @@ export default {
       this.isLoading = false;
       this.$swal({ text: '請填寫真實姓名及手機號碼，以免無法領取包裹呦', icon: 'warning' });
     }, 2000);
+    if (this.pushOrder) {
+      this.user = this.pushOrder.user;
+      this.message = this.pushOrder.message;
+    }
   },
 };
 </script>

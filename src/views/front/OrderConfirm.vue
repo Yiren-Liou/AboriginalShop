@@ -182,7 +182,7 @@ export default {
               text: '感謝您的支持',
               icon: 'success',
               showCancelButton: false,
-              confirmButtonColor: '#629677',
+              confirmButtonColor: '#ffbc1f',
               confirmButtonText: '確定',
             }).then((result) => {
               if (result.isConfirmed) {
@@ -199,6 +199,7 @@ export default {
         });
     },
     returnToForm() {
+      this.$emit('emit-order', this.pushOrder);
       this.$router.push('/buyerForm');
     },
   },
@@ -207,8 +208,6 @@ export default {
     setTimeout(() => {
       this.isLoading = false;
       this.$swal({ text: '請確認「購買商品」和「買家資訊」，訂單送出後無法修改呦', icon: 'warning' });
-      console.log(this.pushOrder);
-      console.log(this.pushCarts);
     }, 2000);
   },
 };
