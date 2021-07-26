@@ -98,10 +98,10 @@ export default {
           if (res.data.success) {
             this.isLoading = false;
             emitter.emit('update-cart');
-            this.$swal({ text: res.data.message, icon: 'success' });
+            this.$swal({ text: res.data.message, icon: 'success', confirmButtonColor: '#ffbc1f' });
           } else {
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'error' });
+            this.$swal({ text: res.data.message, icon: 'error', confirmButtonColor: '#ffbc1f' });
           }
         })
         .catch((err) => {
@@ -116,7 +116,7 @@ export default {
       localStorage.setItem('favorite', this.favorite);
       emitter.emit('update-favorite');
       this.getFavorite();
-      this.$swal({ text: '成功移除收藏', icon: 'success' });
+      this.$swal({ text: '成功移除收藏', icon: 'success', confirmButtonColor: '#ffbc1f' });
     },
   },
   mounted() {

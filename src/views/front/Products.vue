@@ -153,7 +153,7 @@ export default {
             this.filterProducts = this.products;
             this.isLoading = false;
           } else {
-            this.$swal({ text: res.data.message, icon: 'error' });
+            this.$swal({ text: res.data.message, icon: 'error', confirmButtonColor: '#ffbc1f' });
           }
         })
         .catch((err) => {
@@ -186,10 +186,10 @@ export default {
           if (res.data.success) {
             this.isLoading = false;
             emitter.emit('update-cart');
-            this.$swal({ text: res.data.message, icon: 'success' });
+            this.$swal({ text: res.data.message, icon: 'success', confirmButtonColor: '#ffbc1f' });
           } else {
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'error' });
+            this.$swal({ text: res.data.message, icon: 'error', confirmButtonColor: '#ffbc1f' });
           }
         })
         .catch((err) => {
@@ -203,13 +203,13 @@ export default {
         const isSave = this.favorite.map((favorite) => favorite.id).indexOf(item.id);
         if (isSave < 0) {
           this.favorite.push(item);
-          this.$swal({ text: '成功收藏', icon: 'success' });
+          this.$swal({ text: '成功收藏', icon: 'success', confirmButtonColor: '#ffbc1f' });
         } else {
-          this.$swal({ text: '已經收藏過囉', icon: 'warning' });
+          this.$swal({ text: '已經收藏過囉', icon: 'warning', confirmButtonColor: '#ffbc1f' });
         }
       } else {
         this.favorite.push(item);
-        this.$swal({ text: '成功收藏', icon: 'success' });
+        this.$swal({ text: '成功收藏', icon: 'success', confirmButtonColor: '#ffbc1f' });
       }
       this.favorite = JSON.stringify(this.favorite);
       localStorage.setItem('favorite', this.favorite);

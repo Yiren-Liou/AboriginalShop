@@ -214,7 +214,7 @@ export default {
       if (action === 'add') {
         this.qty += 1;
       } else if (action === 'minus' && this.qty === 1) {
-        this.$swal({ text: '購買商品數量最低為 1 個呦', icon: 'warning' });
+        this.$swal({ text: '購買商品數量最低為 1 個呦', icon: 'warning', confirmButtonColor: '#ffbc1f' });
       } else if (action === 'minus') {
         this.qty -= 1;
       }
@@ -233,10 +233,10 @@ export default {
           if (res.data.success) {
             this.isLoading = false;
             emitter.emit('update-cart');
-            this.$swal({ text: res.data.message, icon: 'success' });
+            this.$swal({ text: res.data.message, icon: 'success', confirmButtonColor: '#ffbc1f' });
           } else {
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'error' });
+            this.$swal({ text: res.data.message, icon: 'error', confirmButtonColor: '#ffbc1f' });
           }
         })
         .catch((err) => {

@@ -74,7 +74,7 @@ export default {
   props: ['pushOrder', 'pushCarts'],
   methods: {
     sendEmail() {
-      this.$swal({ text: '已成功送出信件', icon: 'success' });
+      this.$swal({ text: '已成功送出信件', icon: 'success', confirmButtonColor: '#ffbc1f' });
     },
   },
   mounted() {

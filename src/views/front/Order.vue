@@ -166,7 +166,7 @@ export default {
             this.isLoading = false;
           } else {
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'error' });
+            this.$swal({ text: res.data.message, icon: 'error', confirmButtonColor: '#ffbc1f' });
           }
         })
         .catch((err) => {

@@ -42,10 +42,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, i) in cart.carts" :key='item.product_id' class="text-center">
+          <tr v-for="(item) in cart.carts" :key='item.product_id' class="text-center">
             <th scope="row">
-              <!-- <input type="checkbox" class="form-check-input" :id="item.id"> -->
-              {{ i + 1 }}
+              <input type="checkbox" class="form-check-input" :id="item.id" @click='getDelId'>
+              <!-- {{ i + 1 }} -->
             </th>
             <td>
               <div :style="{ backgroundImage: 'url(' + item.product.imagesUrl[0].imgUrl + ')' }"
@@ -77,7 +77,7 @@
               NT {{ $toCurrency(item.final_total) }}
             </td>
             <td>
-              <button type="button" class="btn" @click='delNotice(item)'>
+              <button type="button" class="btn" @click='delNotice("one", item)'>
                 <span class="material-icons">delete_outline</span>
               </button>
             </td>
@@ -148,9 +148,12 @@
         </li>
       </ul>
       <div class="d-flex mb-5">
-        <!-- <button type="button" class="btn btn-outline-secondary me-3">刪除勾選商品</button> -->
+        <button type="button" class="btn btn-outline-secondary d-none d-md-block me-3"
+                @click='delNotice("checked")'>
+          刪除勾選商品
+        </button>
         <button type="button" class="btn btn-outline-secondary"
-            @click='delAllNotice'>刪除全部商品
+            @click='delNotice()'>刪除全部商品
         </button>
       </div>
       <div class="row justify-content-end mb-5 mb-md-7">
@@ -175,7 +178,7 @@
             </div>
             <div class="d-flex justify-content-between align-items-center">
               <p class='mb-0'>折扣後總金額:</p>
-              <span class="fontSizeM fw-bold">NT {{ $toCurrency(final_total) }}</span>
+              <span class="fontSizeM fw-bold">NT {{ $toCurrency(Math.round(final_total)) }}</span>
             </div>
           </template>
         </div>
@@ -220,7 +223,7 @@
               <tr v-for="(item) in coupons" :key='item' class="text-center">
                 <td>{{ item.name }}</td>
                 <td>{{ item.count }}</td>
-                <td>NT {{ $toCurrency(cart.total - cart.total * item.percent) }}</td>
+                <td>NT {{ $toCurrency(Math.round(cart.total - cart.total * item.percent)) }}</td>
                 <td>
                   <button @click='useCoupons(item.code, item.name)' data-bs-dismiss="modal"
                       type='button' class="btn btn-warning btn-sm">
@@ -242,6 +245,8 @@
 </template>
 
 <script>
+import emitter from '@/methods/Emitter';
+
 export default {
   data() {
     return {
@@ -249,6 +254,7 @@ export default {
       coupons: '',
       final_total: '',
       useCoupon: '',
+      checkCart: [],
       isLoading: false,
     };
   },
@@ -263,18 +269,26 @@ export default {
             this.cart = res.data.data;
             this.isLoading = false;
           } else {
-            this.$swal({ text: res.data.message, icon: 'error' });
+            this.$swal({ text: res.data.message, icon: 'error', confirmButtonColor: '#ffbc1f' });
           }
         })
         .catch((err) => {
           console.dir(err);
         });
     },
+    getDelId(e) {
+      if (e.target.checked) {
+        this.checkCart.push(e.target.id);
+      } else {
+        const delIndex = this.checkCart.map((id) => id).indexOf(e.target.id);
+        this.checkCart.splice(delIndex, 1);
+      }
+    },
     updateProductNum(action, product) {
       if (action === 'add') {
         product.qty += 1;
       } else if (action === 'minus' && product.qty === 1) {
-        this.$swal({ text: '購買商品數量最低為 1 個呦', icon: 'warning' });
+        this.$swal({ text: '購買商品數量最低為 1 個呦', icon: 'warning', confirmButtonColor: '#ffbc1f' });
         return;
       } else if (action === 'minus') {
         product.qty -= 1;
@@ -311,7 +325,7 @@ export default {
             this.isLoading = false;
           } else {
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'error' });
+            this.$swal({ text: res.data.message, icon: 'error', confirmButtonColor: '#ffbc1f' });
           }
         })
         .catch((err) => {
@@ -320,75 +334,6 @@ export default {
     },
     showCoupons() {
       this.coupons = JSON.parse(localStorage.getItem('coupons'));
-      console.log(this.coupons);
-    },
-    delNotice(product) {
-      this.$swal.fire({
-        title: `確定不想買${product.product.title}嗎?`,
-        text: '刪除後無法復原呦',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '確定',
-        cancelButtonText: '取消',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.delOneCart(product);
-        }
-      });
-    },
-    delOneCart(product) {
-      this.isLoading = true;
-      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/cart/${product.id}`;
-      this.$http.delete(apiUrl)
-        .then((res) => {
-          if (res.data.success) {
-            this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'success' });
-            this.getCart();
-          } else {
-            this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'error' });
-          }
-        })
-        .catch((err) => {
-          console.dir(err);
-        });
-    },
-    delAllNotice() {
-      this.$swal.fire({
-        title: '確定要清空購物車嗎?',
-        text: '清空後無法復原呦',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '確定',
-        cancelButtonText: '取消',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.delAll();
-        }
-      });
-    },
-    delAll() {
-      this.isLoading = true;
-      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/carts`;
-      this.$http.delete(apiUrl)
-        .then((res) => {
-          if (res.data.success) {
-            this.getCart();
-            this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'success' });
-          } else {
-            this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'error' });
-          }
-        })
-        .catch((err) => {
-          console.dir(err);
-        });
     },
     saveCoupons() {
       const hasCoupons = localStorage.getItem('coupons');
@@ -416,6 +361,82 @@ export default {
         this.coupons = JSON.stringify(this.coupons);
         localStorage.setItem('coupons', this.coupons);
       }
+    },
+    delNotice(status, product) {
+      let title = '';
+      let text = '刪除後無法復原呦';
+      let delFunction = '';
+      switch (status) {
+        case 'one':
+          title = `確定不想買${product.product.title}嗎?`;
+          delFunction = this.delOneCart;
+          break;
+        case 'checked':
+          title = '確定不想買已勾選的商品嗎?';
+          delFunction = this.delCheck;
+          break;
+        default:
+          title = '確定要清空購物車嗎?';
+          text = '清空後無法復原呦';
+          delFunction = this.delAll;
+          break;
+      }
+      this.$swal.fire({
+        title,
+        text,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#6c757d',
+        cancelButtonColor: '#ffbc1f',
+        confirmButtonText: '確定',
+        cancelButtonText: '取消',
+      }).then((result) => {
+        if (result.isConfirmed && status === 'one') {
+          delFunction(product.id);
+        } else if (result.isConfirmed) {
+          delFunction();
+        }
+      });
+    },
+    delOneCart(delId) {
+      this.isLoading = true;
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/cart/${delId}`;
+      this.$http.delete(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'success', confirmButtonColor: '#ffbc1f' });
+            this.getCart();
+          } else {
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'error', confirmButtonColor: '#ffbc1f' });
+          }
+        })
+        .catch((err) => {
+          console.dir(err);
+        });
+    },
+    delAll() {
+      this.isLoading = true;
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/carts`;
+      this.$http.delete(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.getCart();
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'success', confirmButtonColor: '#ffbc1f' });
+            emitter.emit('update-cart');
+          } else {
+            this.isLoading = false;
+            this.$swal({ text: res.data.message, icon: 'error', confirmButtonColor: '#ffbc1f' });
+          }
+        })
+        .catch((err) => {
+          console.dir(err);
+        });
+    },
+    delCheck() {
+      this.checkCart.forEach((item) => this.delOneCart(item));
     },
     emitCarts() {
       this.$emit('emit-carts', this.cart);

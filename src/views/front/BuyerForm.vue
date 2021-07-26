@@ -141,7 +141,7 @@ export default {
     this.isLoading = true;
     setTimeout(() => {
       this.isLoading = false;
-      this.$swal({ text: '請填寫真實姓名及手機號碼，以免無法領取包裹呦', icon: 'warning' });
+      this.$swal({ text: '請填寫真實姓名及手機號碼，以免無法領取包裹呦', icon: 'warning', confirmButtonColor: '#ffbc1f' });
     }, 2000);
     if (this.pushOrder) {
       this.user = this.pushOrder.user;
