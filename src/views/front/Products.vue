@@ -140,8 +140,8 @@ export default {
     Pagination,
     GoTop,
   },
-  emits: ['emit-order'],
-  props: ['pushOrder'],
+  emits: ['emit-order', 'emit-carts'],
+  props: ['pushOrder', 'pushCarts'],
   methods: {
     getProducts(page = 1) {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/products?page=${page}`;
@@ -152,7 +152,6 @@ export default {
             this.pagination = res.data.pagination;
             this.filterProducts = this.products;
             this.isLoading = false;
-            console.log(this.products);
           } else {
             this.$swal({ text: res.data.message, icon: 'error' });
           }

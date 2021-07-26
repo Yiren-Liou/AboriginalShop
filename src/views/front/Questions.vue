@@ -261,7 +261,8 @@ export default {
       isLoading: false,
     };
   },
-  emits: ['emit-order'],
+  emits: ['emit-order', 'emit-carts'],
+  props: ['pushOrder', 'pushCarts'],
   created() {
     this.isLoading = true;
     setTimeout(() => {

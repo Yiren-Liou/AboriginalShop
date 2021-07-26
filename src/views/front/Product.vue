@@ -146,8 +146,8 @@ export default {
       isLoading: false,
     };
   },
-  emits: ['emit-order'],
-  props: ['pushOrder'],
+  emits: ['emit-order', 'emit-carts'],
+  props: ['pushOrder', 'pushCarts'],
   components: {
     Swiper,
     SwiperSlide,
@@ -168,6 +168,7 @@ export default {
       if (this.$route.name === 'product') {
         this.isLoading = true;
         this.routeId = this.$route.params.id;
+        this.qty = 1;
         this.getProduct();
         window.scrollTo(0, 0);
       }
@@ -187,7 +188,6 @@ export default {
             this.product.price = this.$toCurrency(this.product.price);
             this.product.origin_price = this.$toCurrency(this.product.origin_price);
             this.isLoading = false;
-            console.log(this.product);
           } else {
             console.log(res.data.message);
           }

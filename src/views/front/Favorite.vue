@@ -73,13 +73,12 @@ export default {
   components: {
     GoTop,
   },
-  emits: ['emit-order'],
-  props: ['pushOrder'],
+  emits: ['emit-order', 'emit-carts'],
+  props: ['pushOrder', 'pushCarts'],
   methods: {
     getFavorite() {
       this.favorite = JSON.parse(localStorage.getItem('favorite'));
       this.isLoading = false;
-      console.log(this.favorite);
     },
     getProduct(item, i) {
       this.$emit('emit-products', this.products, i);

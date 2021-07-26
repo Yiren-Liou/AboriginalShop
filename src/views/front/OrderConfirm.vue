@@ -32,7 +32,7 @@
       <div class="col-md-6">
         <h2 class='fontSizeM mb-4'>購買的商品</h2>
         <ul class='list-unstyled mb-3'>
-          <li v-for="item in cart.carts" :key='item.product_id' class='card mb-3'>
+          <li v-for="item in this.pushCarts.carts" :key='item.product_id' class='card mb-3'>
             <div class="row align-items-center g-0">
               <div class="col-5 h-100">
                 <div :style="{ backgroundImage: 'url(' + item.product.imagesUrl[0].imgUrl + ')' }"
@@ -75,7 +75,7 @@
         <div class="d-flex justify-content-end">
           <p>
             總金額
-            <span class='ms-2'>NT {{ $toCurrency(finalTotal) }}</span>
+            <span class='ms-2'>NT {{ $toCurrency(this.pushCarts.final_total) }}</span>
           </p>
         </div>
       </div>
@@ -123,8 +123,6 @@
               class="btn btn-secondary me-3" @click='sendOrder'>
         前往付款
       </button>
-      <!-- <router-link v-else to='/orderCompleted'
-      class="btn btn-secondary me-3">確認下單</router-link> -->
       <button v-else type='button' class="btn btn-secondary me-3"
               @click='sendOrder'>
         確認下單
@@ -147,28 +145,9 @@ export default {
       isLoading: false,
     };
   },
-  emits: ['emit-order'],
-  props: ['pushOrder'],
+  emits: ['emit-order', 'emit-carts'],
+  props: ['pushOrder', 'pushCarts'],
   methods: {
-    getCart() {
-      this.isLoading = true;
-      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/cart`;
-      this.$http.get(apiUrl)
-        .then((res) => {
-          if (res.data.success) {
-            this.cart = res.data.data;
-            this.finalTotal = this.$toCurrency(this.cart.final_total);
-            console.log(this.cart);
-            this.isLoading = false;
-          } else {
-            this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'error' });
-          }
-        })
-        .catch((err) => {
-          console.dir(err);
-        });
-    },
     sendOrder() {
       this.isLoading = true;
       console.log(this.pushOrder);
@@ -226,10 +205,10 @@ export default {
   created() {
     this.isLoading = true;
     setTimeout(() => {
-      this.getCart();
       this.isLoading = false;
       this.$swal({ text: '請確認「購買商品」和「買家資訊」，訂單送出後無法修改呦', icon: 'warning' });
       console.log(this.pushOrder);
+      console.log(this.pushCarts);
     }, 2000);
   },
 };

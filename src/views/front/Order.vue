@@ -151,8 +151,8 @@ export default {
       isLoading: false,
     };
   },
-  emits: ['emit-order'],
-  props: ['pushOrder'],
+  emits: ['emit-order', 'emit-carts'],
+  props: ['pushOrder', 'pushCarts'],
   methods: {
     getOrder() {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/order/${this.routeId}`;
@@ -164,9 +164,6 @@ export default {
             this.products = Object.values(this.order.products);
             this.user = this.order.user;
             this.isLoading = false;
-            console.log(this.order);
-            console.log(this.products);
-            console.log(this.user);
           } else {
             this.isLoading = false;
             this.$swal({ text: res.data.message, icon: 'error' });

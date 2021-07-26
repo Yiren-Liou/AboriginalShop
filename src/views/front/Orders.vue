@@ -109,8 +109,8 @@ export default {
   components: {
     Pagination,
   },
-  emits: ['emit-order'],
-  props: ['pushOrder'],
+  emits: ['emit-order', 'emit-carts'],
+  props: ['pushOrder', 'pushCarts'],
   methods: {
     getOrders(page = 1) {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/orders?page=${page}`;
@@ -120,7 +120,6 @@ export default {
             this.orders = res.data.orders;
             this.pagination = res.data.pagination;
             this.isLoading = false;
-            console.log(this.orders);
           } else {
             this.$swal({ text: res.data.message, icon: 'error' });
           }

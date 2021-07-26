@@ -79,8 +79,8 @@ export default {
       isLoading: false,
     };
   },
-  emits: ['emit-order'],
-  props: ['pushOrder'],
+  emits: ['emit-order', 'emit-carts'],
+  props: ['pushOrder', 'pushCarts'],
   components: {
     GoTop,
   },

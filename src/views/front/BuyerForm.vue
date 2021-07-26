@@ -123,9 +123,13 @@ export default {
       isLoading: false,
     };
   },
-  emits: ['emit-order'],
-  props: ['pushOrder'],
+  emits: ['emit-order', 'emit-carts'],
+  props: ['pushOrder', 'pushCarts'],
   watch: {
+    orderDetails() {
+      this.user = this.pushOrder.user;
+      this.user = this.pushOrder.message;
+    },
   },
   methods: {
     isPhone(value) {

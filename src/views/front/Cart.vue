@@ -191,6 +191,7 @@
       </router-link>
       <router-link to='/buyerForm' role="button"
                    class="btn btn-secondary me-3"
+                   @click='emitCarts'
                    v-if='Array.isArray(cart.carts) && cart.carts[0]'>
         填寫訂購資訊
       </router-link>
@@ -251,8 +252,8 @@ export default {
       isLoading: false,
     };
   },
-  emits: ['emit-order'],
-  props: ['pushOrder'],
+  emits: ['emit-order', 'emit-carts'],
+  props: ['pushOrder', 'pushCarts'],
   methods: {
     getCart() {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/cart`;
@@ -416,6 +417,9 @@ export default {
         this.coupons = JSON.stringify(this.coupons);
         localStorage.setItem('coupons', this.coupons);
       }
+    },
+    emitCarts() {
+      this.$emit('emit-carts', this.cart);
     },
   },
   mounted() {
