@@ -68,11 +68,11 @@ export default {
             const { token, expired } = res.data;
             document.cookie = `hexToken=${token}; expires=${new Date(expired)}; path=/`;
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'success' });
+            this.$swal({ text: res.data.message, icon: 'success', confirmButtonColor: '#ffbc1f' });
             this.$router.push({ name: 'AdminProducts' });
           } else {
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'error' });
+            this.$swal({ text: res.data.message, icon: 'error', confirmButtonColor: '#ffbc1f' });
           }
         }).catch((err) => {
           console.dir(err);

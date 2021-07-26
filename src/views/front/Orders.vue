@@ -30,9 +30,11 @@
           <td>{{ order.create_at }}</td>
           <td>{{ $date.toDate(order.create_at) }}</td>
           <td>NT {{ $toCurrency(order.total) }}</td>
-          <td :class='{"text-secondary":order.is_paid}'>{{ order.is_paid? '已付款' : '未付款' }}</td>
-          <td>{{ order.is_paid? '待出貨' : '處理中' }}</td>
-          <td>{{ order.deliveryDate? $date.toDate(order.deliveryDate) : '-' }}</td>
+          <td :class='{"text-secondary": !order.is_paid}'>{{ order.is_paid? '已付款' : '未付款' }}</td>
+          <td :class='{"text-secondary": order.orderStatus === "已出貨"}'>
+            {{ order.orderStatus? order.orderStatus : '確認中' }}
+          </td>
+          <td>{{ order.deliveryDate? order.deliveryDate: '-' }}</td>
           <td>
             <router-link :to="`/order/${order.id}`"
                        class="material-icons btn">
@@ -122,6 +124,7 @@ export default {
             this.orders = res.data.orders;
             this.pagination = res.data.pagination;
             this.isLoading = false;
+            console.log(this.orders);
           } else {
             this.$swal({ text: res.data.message, icon: 'error', confirmButtonColor: '#ffbc1f' });
           }

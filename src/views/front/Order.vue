@@ -4,30 +4,47 @@
       <div class="col-md-5">
         <h2 class="fontSizeM fw-bold mb-3">訂單資訊</h2>
         <div class="border rounded bg-white fontSizeS fontSize-lg-Base p-2 px-md-3 mb-5">
-          <ul class='list-unstyled mb-0 '>
-            <li>
+          <ul class='row list-unstyled mb-0 '>
+            <li class='col-md-6'>
               <p>訂單編號
                 <span class='ms-3'>{{ order.create_at }}</span>
               </p>
             </li>
-            <li>
+            <li class='col-md-6'>
               <p>訂單日期
                 <span class='ms-3'>{{ $date.toDate(order.create_at) }}</span>
               </p>
             </li>
-            <li>
+            <li class='col-md-6'>
               <p>訂單金額
                 <span class='ms-3'>NT {{ order.total }}</span>
               </p>
             </li>
-            <li>
+            <li class='col-md-6'>
               <p>付款方式
-                <span class='ms-3'>NT {{ user.paymentMethod }}</span>
+                <span class='ms-3'>{{ user.paymentMethod }}</span>
               </p>
             </li>
-            <li>
-              <p class='mb-0'>付款狀態
+            <li class='col-md-6'>
+              <p>付款狀態
                 <span class='ms-3'>{{ order.is_paid? '已付款' : '未付款' }}</span>
+              </p>
+            </li>
+            <li class='col-md-6'>
+              <p>付款日期
+                <span class='ms-3'>
+                  {{ order.paid_date? $date.toDate(order.paid_date) : '未付款' }}
+                </span>
+              </p>
+            </li>
+            <li class='col-md-6'>
+              <p>訂單狀態
+                <span class='ms-3'>{{ order.orderStatus? order.orderStatus : '確認中' }}</span>
+              </p>
+            </li>
+            <li class='col-md-6'>
+              <p class='mb-0'>出貨日期
+                <span class='ms-3'>{{ order.deliveryDate? order.deliveryDate : '未出貨' }}</span>
               </p>
             </li>
           </ul>

@@ -61,7 +61,7 @@
         <th scope="col">訂購時間</th>
         <th scope="col">總金額</th>
         <th scope="col">付款狀態</th>
-        <th scope="col">出貨狀態</th>
+        <th scope="col">訂單狀態</th>
         <th scope="col">查看</th>
         <th scope="col">編輯</th>
         <th scope="col">刪除</th>
@@ -77,8 +77,10 @@
         <td>{{ order.user.name }}</td>
         <td>{{ $date.toDate(order.create_at) }}</td>
         <td>NT {{ $toCurrency(order.total) }}</td>
-        <td>{{ order.is_paid? '已付款' : '未付款' }}</td>
-        <td>未出貨</td>
+        <td :class='{"text-secondary": !order.is_paid}'>{{ order.is_paid? '已付款' : '未付款' }}</td>
+        <td :class='{"text-secondary": !order.orderStatus}'>
+          {{ order.orderStatus? order.orderStatus : '確認中'}}
+        </td>
         <td>
           <router-link :to="`order/${order.id}`" @click="emitOrder(true, order)"
                        class="material-icons btn">

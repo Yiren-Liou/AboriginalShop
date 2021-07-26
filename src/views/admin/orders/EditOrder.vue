@@ -70,20 +70,21 @@
         </div>
         <div class="col-md-4">
           <div class="mb-3">
+            <label for="orderTotal" class="form-label">總金額</label>
+            <input type="text" class="form-control"
+                   id="orderTotal" :value="$toCurrency(parseInt(order.total))" disabled>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
             <label for="orderStatus" class="form-label">訂單狀態</label>
             <select class="form-select" id="orderStatus"
                     v-model="order.orderStatus" :disabled="readonly">
               <option value='' disabled>請選擇訂單狀態</option>
               <option value="處理中">處理中</option>
               <option value="已出貨">已出貨</option>
+              <option value="已完成">已完成</option>
             </select>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="mb-3">
-            <label for="orderTotal" class="form-label">總金額</label>
-            <input type="text" class="form-control"
-                   id="orderTotal" :value="$toCurrency(parseInt(order.total))" disabled>
           </div>
         </div>
         <div class="col-md-4">
@@ -104,21 +105,17 @@
         </div>
         <div class="col-md-4">
           <div class="mb-3">
-            <label for="deliveryStatus" class="form-label">出貨狀態</label>
-            <select class="form-select" id="deliveryStatus"
-                    v-model="order.is_delivery" :disabled="readonly">
-              <option value='' selected disabled>請選擇出貨狀態</option>
-              <option value="未出貨">未出貨</option>
-              <option value="已出貨">已出貨</option>
-            </select>
+            <label for="deliveryDate" class="form-label">出貨日期</label>
+            <input type="date" class="form-control"
+                  :disabled="readonly || order.orderStatus === '處理中' || order.orderStatus === '已完成'"
+                   id="deliveryDate" v-model='order.deliveryDate'>
           </div>
         </div>
         <div class="col-md-4">
           <div class="mb-3">
-            <label for="deliveryDate" class="form-label">出貨日期</label>
-            <input type="date" class="form-control"
-                   :disabled="readonly || order.is_delivery === '未出貨'"
-                   id="deliveryDate" v-model='order.deliveryDate'>
+            <label for="orderMessage" class="form-label">備註</label>
+            <input type="text" class="form-control"
+                   id="orderMessage" :value="order.message" disabled>
           </div>
         </div>
       </div>
@@ -245,7 +242,12 @@ export default {
         });
     },
     update(id) {
-      this.emitReadonly(true);
+      if (this.order.orderStatus === '已出貨') {
+        if (this.order.deliveryDate === '' || !this.order.deliveryDate) {
+          this.$swal({ text: '請填入出貨日期!', icon: 'warning', confirmButtonColor: '#ffbc1f' });
+          return;
+        }
+      }
       this.isLoading = true;
       const updateOrder = { data: { ...this.order } };
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/order/${id}`;
@@ -254,10 +256,10 @@ export default {
           if (res.data.success) {
             this.isLoading = false;
             this.emitReadonly(true);
-            this.$swal({ text: res.data.message, icon: 'success' });
+            this.$swal({ text: res.data.message, icon: 'success', confirmButtonColor: '#ffbc1f' });
           } else {
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'error' });
+            this.$swal({ text: res.data.message, icon: 'error', confirmButtonColor: '#ffbc1f' });
           }
         })
         .catch((err) => {

@@ -174,7 +174,7 @@
           <template v-if='final_total'>
             <div class="d-flex justify-content-between align-items-center mb-2">
               <p class="mb-0">可折扣金額:</p>
-              <span>NT {{ $toCurrency(cart.total - final_total) }}</span>
+              <span>NT {{ $toCurrency(Math.round(cart.total - final_total)) }}</span>
             </div>
             <div class="d-flex justify-content-between align-items-center">
               <p class='mb-0'>折扣後總金額:</p>

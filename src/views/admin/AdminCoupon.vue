@@ -90,7 +90,9 @@
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ coupon.title }}</td>
         <td>{{ coupon.percent }}%</td>
-        <td>{{ coupon.is_enabled? '啟用' : '未啟用' }}</td>
+        <td :class='{"text-secondary": !coupon.is_enabled}'>
+          {{ coupon.is_enabled? '啟用' : '未啟用' }}
+        </td>
         <td>{{ coupon.is_enabled? $date.toDate(coupon.start_date) : '-'}}</td>
         <td>{{ coupon.is_enabled? $date.toDate(coupon.due_date) : '-' }}</td>
         <td>

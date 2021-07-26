@@ -96,9 +96,8 @@
         <td>{{ item.sub_category }}</td>
         <td class="text-center">NT {{ $toCurrency(item.origin_price) }}</td>
         <td class="text-center">NT {{ $toCurrency(item.price )}}</td>
-        <td class="text-center">
-          <p v-if="item.is_enabled" class="fw-bold text-warning mb-0">上架</p>
-          <p v-else class="mb-0">未上架</p>
+        <td class="text-center" :class='{"text-secondary": !item.is_enabled}'>
+          {{ item.is_enabled? '上架' : '未上架' }}
         </td>
         <td>
           <router-link :to="`product/${item.id}`" class="material-icons btn"

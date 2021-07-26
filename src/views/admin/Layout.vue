@@ -40,7 +40,6 @@ export default {
     },
     getOrder(order) {
       this.order = order;
-      console.log(this.order);
     },
   },
   mounted() {
