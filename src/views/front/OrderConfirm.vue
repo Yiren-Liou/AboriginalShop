@@ -155,7 +155,6 @@ export default {
       this.$http.post(apiUrl, { data: this.pushOrder })
         .then((res) => {
           if (res.data.success) {
-            console.log(res);
             if (this.pushOrder.user.paymentMethod === '信用卡') {
               this.toPaid(res.data.orderId);
             } else {

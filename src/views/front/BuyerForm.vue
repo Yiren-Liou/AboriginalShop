@@ -134,10 +134,6 @@ export default {
       this.order.user = this.user;
       this.order.message = this.message;
       this.$emit('emit-order', this.order);
-      const localOrder = JSON.stringify(this.order);
-      localStorage.setItem('order', localOrder);
-      // this.order = JSON.stringify(this.order);
-      // localStorage.setItem('order', this.order);
       this.$router.push('/orderConfirm');
     },
   },
