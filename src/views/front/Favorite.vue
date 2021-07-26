@@ -73,7 +73,7 @@ export default {
   components: {
     GoTop,
   },
-  emits: ['emit-order', 'emit-products'],
+  emits: ['emit-order'],
   props: ['pushOrder'],
   methods: {
     getFavorite() {

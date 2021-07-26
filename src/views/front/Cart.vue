@@ -251,7 +251,7 @@ export default {
       isLoading: false,
     };
   },
-  emits: ['emit-order', 'emit-products'],
+  emits: ['emit-order'],
   props: ['pushOrder'],
   methods: {
     getCart() {

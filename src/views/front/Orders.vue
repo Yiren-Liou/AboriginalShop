@@ -109,6 +109,7 @@ export default {
   components: {
     Pagination,
   },
+  emits: ['emit-order'],
   props: ['pushOrder'],
   methods: {
     getOrders(page = 1) {

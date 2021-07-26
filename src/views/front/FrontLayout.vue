@@ -2,8 +2,10 @@
   <div class="border-bottom border-secondary">
     <Navbar></Navbar>
   </div>
-  <router-view @emit-order='getOrder' :push-order='order'>
-  </router-view>
+  <!-- <router-view/>
+  <router-view name='buyerForm' @emit-order='getOrder' :push-order='order'></router-view>
+  <router-view name='orderConfirm' @emit-order='getOrder' :push-order='order'></router-view> -->
+  <router-view @emit-order='getOrder' :push-order='order'></router-view>
   <div class="bg-secondary">
     <Footer></Footer>
   </div>

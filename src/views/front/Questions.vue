@@ -261,6 +261,7 @@ export default {
       isLoading: false,
     };
   },
+  emits: ['emit-order'],
   created() {
     this.isLoading = true;
     setTimeout(() => {

@@ -140,6 +140,7 @@ export default {
     Pagination,
     GoTop,
   },
+  emits: ['emit-order'],
   props: ['pushOrder'],
   methods: {
     getProducts(page = 1) {
