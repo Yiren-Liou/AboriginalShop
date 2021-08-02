@@ -36,10 +36,9 @@
 
 .sectionBg{
   background-size: cover;
-  background-repeat: no-repeat;
   height: 210px;
   @media (min-width: 992px) {
-    height: 400px;
+    height: 500px;
   }
 }
 
@@ -56,4 +55,9 @@
   @media (min-width: 992px) {
     height: 144px;
   }
+}
+
+.iconImg{
+  width: 24px;
+  height: 24px;
 }

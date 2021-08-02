@@ -1,50 +1,88 @@
 <template>
-  <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mb-3">
+  <nav
+    style="--bs-breadcrumb-divider: '>'"
+    aria-label="breadcrumb"
+    class="mb-3"
+  >
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
         <p class="mb-0">訂單</p>
       </li>
       <li class="breadcrumb-item active" aria-current="page">
-        <router-link to='/admin/products'>全部訂單</router-link>
+        <router-link to="/admin/products">全部訂單</router-link>
       </li>
     </ol>
   </nav>
   <div class="row justify-content-end mb-3">
     <div class="col-md-3">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="請輸入訂單編號"
-              aria-label="search" aria-describedby="searchBtn"
-              v-model="search">
-        <span class="input-group-text material-icons bg-transparent me-3">search</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="請輸入訂單編號"
+          aria-label="search"
+          aria-describedby="searchBtn"
+          v-model="search"
+        />
+        <span class="input-group-text material-icons bg-transparent me-3"
+          >search</span
+        >
         <div class="dropdown">
-          <button class="material-icons btn btn-outline-secondary
-                  d-flex justify-content-center align-items-center me-2"
-                  type="button" id="filterBtn"
-                  data-bs-toggle="dropdown" aria-expanded="false">sort
+          <button
+            class="
+              material-icons
+              btn btn-outline-secondary
+              d-flex
+              justify-content-center
+              align-items-center
+              me-2
+            "
+            type="button"
+            id="filterBtn"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            sort
           </button>
           <ul class="dropdown-menu" aria-labelledby="filterBtn">
             <li class="mb-2">
-              <a class="dropdown-item" href="#"
-                  data-field="create_new_old" @click.prevent='filterItem'>
-                  訂購時間新到舊
+              <a
+                class="dropdown-item"
+                href="#"
+                data-field="create_new_old"
+                @click.prevent="filterItem"
+              >
+                訂購時間新到舊
               </a>
             </li>
             <li class="mb-2">
-              <a class="dropdown-item" href="#"
-                  data-field="create_old_new" @click.prevent='filterItem'>
-                  訂購時間舊到新
+              <a
+                class="dropdown-item"
+                href="#"
+                data-field="create_old_new"
+                @click.prevent="filterItem"
+              >
+                訂購時間舊到新
               </a>
             </li>
             <li class="mb-2">
-              <a class="dropdown-item" href="#"
-                  data-field="total_low_high" @click.prevent='filterItem'>
-                  總金額低到高
+              <a
+                class="dropdown-item"
+                href="#"
+                data-field="total_low_high"
+                @click.prevent="filterItem"
+              >
+                總金額低到高
               </a>
             </li>
             <li>
-              <a class="dropdown-item" href="#"
-                  data-field="total_high_low" @click.prevent='filterItem'>
-                  總金額高到低
+              <a
+                class="dropdown-item"
+                href="#"
+                data-field="total_high_low"
+                @click.prevent="filterItem"
+              >
+                總金額高到低
               </a>
             </li>
           </ul>
@@ -68,7 +106,9 @@
       </tr>
     </thead>
     <tbody v-if="!orderList.length">
-      <tr>目前沒有訂單呦</tr>
+      <tr>
+        目前沒有訂單呦
+      </tr>
     </tbody>
     <tbody v-else class="text-center">
       <tr v-for="(order, i) in filterOrder" :key="order.id">
@@ -77,37 +117,55 @@
         <td>{{ order.user.name }}</td>
         <td>{{ $date.toDate(order.create_at) }}</td>
         <td>NT {{ $toCurrency(order.total) }}</td>
-        <td :class='{"text-secondary": !order.is_paid}'>{{ order.is_paid? '已付款' : '未付款' }}</td>
-        <td :class='{"text-secondary": !order.orderStatus}'>
-          {{ order.orderStatus? order.orderStatus : '確認中'}}
+        <td :class="{ 'text-secondary': !order.is_paid }">
+          {{ order.is_paid ? '已付款' : '未付款' }}
+        </td>
+        <td :class="{ 'text-secondary': !order.orderStatus }">
+          {{ order.orderStatus ? order.orderStatus : '確認中' }}
         </td>
         <td>
-          <router-link :to="`order/${order.id}`" @click="emitOrder(true, order)"
-                       class="material-icons btn">
+          <router-link
+            :to="`order/${order.id}`"
+            @click="emitOrder(true, order)"
+            class="material-icons btn"
+          >
             remove_red_eye
           </router-link>
         </td>
         <td>
-          <router-link :to="`order/${order.id}`" @click="emitOrder(false, order)"
-                       class="material-icons btn">
+          <router-link
+            :to="`order/${order.id}`"
+            @click="emitOrder(false, order)"
+            class="material-icons btn"
+          >
             edit
           </router-link>
         </td>
         <td>
-          <button type="button" class="material-icons btn"
-                  @click="delOrder(order.id)">delete
+          <button
+            type="button"
+            class="material-icons btn"
+            @click="delOrder(order.id)"
+          >
+            delete
           </button>
         </td>
       </tr>
     </tbody>
   </table>
   <div class="d-flex justify-content-center">
-    <button type="button" class="btn btn-primary" @click="delAll()">刪除全部訂單</button>
+    <button type="button" class="btn btn-primary" @click="delAll()">
+      刪除全部訂單
+    </button>
   </div>
   <Loading :active="isLoading">
-    <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
-    <div></div><div></div><div></div>
-    </div></div>
+    <div class="loadingio-spinner-dual-ball-haac1tizt7t">
+      <div class="ldio-u3364un719">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
   </Loading>
 </template>
 
@@ -122,8 +180,6 @@ export default {
   },
   emits: ['emit-readonly', 'emit-order'],
   props: ['readStatus', 'pushOrder'],
-  components: {
-  },
   computed: {
     filterOrder() {
       return this.orderList.filter((item) => item.id.match(this.search));
@@ -133,53 +189,88 @@ export default {
     getOrderList(page = 1) {
       this.isLoading = true;
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/orders?page=${page}`;
-      this.$http.get(apiUrl)
+      this.$http
+        .get(apiUrl)
         .then((res) => {
           if (res.data.success) {
             this.orderList = res.data.orders;
             this.isLoading = false;
-            console.log(this.orderList);
           } else {
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'error' });
+            this.$swal({
+              text: res.data.message,
+              icon: 'error',
+              confirmButtonColor: '#ffbc1f',
+            });
           }
         })
-        .catch((err) => {
-          console.dir(err);
+        .catch(() => {
+          this.$swal({
+            text: 'Opps ... 發生錯誤，請嘗試重新整理此頁面',
+            icon: 'error',
+            confirmButtonColor: '#ffbc1f',
+          });
         });
     },
     delOrder(id) {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/order/${id}`;
-      this.$http.delete(apiUrl)
+      this.$http
+        .delete(apiUrl)
         .then((res) => {
           if (res.data.success) {
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'success' });
+            this.$swal({
+              text: res.data.message,
+              icon: 'success',
+              confirmButtonColor: '#ffbc1f',
+            });
             this.getOrderList();
           } else {
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'error' });
+            this.$swal({
+              text: res.data.message,
+              icon: 'error',
+              confirmButtonColor: '#ffbc1f',
+            });
           }
-        }).catch((err) => {
-          console.dir(err);
+        })
+        .catch(() => {
+          this.$swal({
+            text: 'Opps ... 發生錯誤，請嘗試重新整理此頁面',
+            icon: 'error',
+            confirmButtonColor: '#ffbc1f',
+          });
         });
     },
     delAll() {
       this.isLoading = true;
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/orders/all`;
-      this.$http.delete(apiUrl)
+      this.$http
+        .delete(apiUrl)
         .then((res) => {
           if (res.data.success) {
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'success' });
+            this.$swal({
+              text: res.data.message,
+              icon: 'success',
+              confirmButtonColor: '#ffbc1f',
+            });
             this.getOrderList();
           } else {
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'error' });
+            this.$swal({
+              text: res.data.message,
+              icon: 'error',
+              confirmButtonColor: '#ffbc1f',
+            });
           }
         })
-        .catch((err) => {
-          console.dir(err);
+        .catch(() => {
+          this.$swal({
+            text: 'Opps ... 發生錯誤，請嘗試重新整理此頁面',
+            icon: 'error',
+            confirmButtonColor: '#ffbc1f',
+          });
         });
     },
     filterItem(e) {

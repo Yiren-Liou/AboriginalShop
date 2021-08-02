@@ -1,20 +1,26 @@
 <template>
-  <div class="container  mt-5 mb-6">
+  <div class="container mt-5 mb-6">
     <div class="row justify-content-center mb-5">
       <div class="col-md-6">
         <div class="d-flex justify-content-between">
           <div class="d-flex flex-column align-items-center">
-            <div class="border border-2 rounded-circle bg-primary p-2 mb-3"></div>
+            <div
+              class="border border-2 rounded-circle bg-primary p-2 mb-3"
+            ></div>
             <span class="text-center">確認購物車</span>
           </div>
           <div class="progressLine border-primary"></div>
           <div class="d-flex flex-column align-items-center">
-            <div class="border border-2 rounded-circle bg-primary p-2 mb-3"></div>
+            <div
+              class="border border-2 rounded-circle bg-primary p-2 mb-3"
+            ></div>
             <span class="text-center">填寫訂購資訊</span>
           </div>
           <div class="progressLine border-primary"></div>
           <div class="d-flex flex-column align-items-center">
-            <div class="border border-2 rounded-circle bg-primary p-2 mb-3"></div>
+            <div
+              class="border border-2 rounded-circle bg-primary p-2 mb-3"
+            ></div>
             <span class="text-center">確認結帳</span>
           </div>
           <div class="progressLine"></div>
@@ -30,40 +36,50 @@
     </p>
     <div class="row justify-content-around mb-6">
       <div class="col-md-6">
-        <h2 class='fontSizeM mb-4'>購買的商品</h2>
-        <ul class='list-unstyled mb-3'>
-          <li v-for="item in this.pushCarts.carts" :key='item.product_id' class='card mb-3'>
+        <h2 class="fontSizeM mb-4">購買的商品</h2>
+        <ul class="list-unstyled mb-3">
+          <li
+            v-for="item in this.pushCarts.carts"
+            :key="item.product_id"
+            class="card mb-3"
+          >
             <div class="row align-items-center g-0">
               <div class="col-5 h-100">
-                <div :style="{ backgroundImage: 'url(' + item.product.imagesUrl[0].imgUrl + ')' }"
-                      class="img-fluid cartImg bg-cover bg-center">
-                </div>
+                <div
+                  :style="{
+                    backgroundImage:
+                      'url(' + item.product.imagesUrl[0].imgUrl + ')',
+                  }"
+                  class="img-fluid cartImg bg-cover bg-center"
+                ></div>
               </div>
               <div class="col-7">
                 <div class="card-body">
-                  <ul class='list-unstyled'>
-                    <li class='mb-2'>
-                      <p class="card-text fontSizeS fontSize-lg-Base">
+                  <ul class="list-unstyled">
+                    <li class="mb-2">
+                      <p class="card-text">
                         商品名稱:
-                        <span class='ms-1'>{{ item.product.title }}</span>
+                        <span class="ms-1">{{ item.product.title }}</span>
                       </p>
                     </li>
-                    <li class='mb-2'>
-                      <p class="card-text fontSizeS fontSize-lg-Base">
+                    <li class="mb-2">
+                      <p class="card-text">
                         商品規格:
-                        <span class='ms-1'>{{ item.product.unit }}</span>
+                        <span class="ms-1">{{ item.product.unit }}</span>
                       </p>
                     </li>
-                    <li class='mb-2'>
-                      <p class="card-text fontSizeS fontSize-lg-Base">
+                    <li class="mb-2">
+                      <p class="card-text">
                         商品數量:
-                        <span class='ms-1'>{{ item.qty }}</span>
+                        <span class="ms-1">{{ item.qty }}</span>
                       </p>
                     </li>
-                    <li class='mb-2'>
-                      <p class="card-text fontSizeS fontSize-lg-Base">
+                    <li class="mb-2">
+                      <p class="card-text">
                         商品總價:
-                        <span class='ms-1'>NT {{ $toCurrency(item.final_total) }}</span>
+                        <span class="ms-1"
+                          >NT {{ $toCurrency(item.final_total) }}</span
+                        >
                       </p>
                     </li>
                   </ul>
@@ -75,63 +91,127 @@
         <div class="d-flex justify-content-end">
           <p>
             總金額
-            <span class='ms-2'>NT {{ $toCurrency(this.pushCarts.final_total) }}</span>
+            <span class="ms-2"
+              >NT {{ $toCurrency(this.pushCarts.final_total) }}</span
+            >
           </p>
         </div>
       </div>
       <div class="col-md-4">
-        <h2 class='fontSizeM mb-4'>訂購人資訊</h2>
+        <h2 class="fontSizeM mb-4">訂購人資訊</h2>
         <div class="mb-3">
           <label for="buyerName" class="form-label">訂購人姓名</label>
-          <input type="text" class="form-control" id="buyerName" :value='pushOrder.user.name'
-                  aria-describedby="buyerName" disabled>
+          <input
+            type="text"
+            class="form-control"
+            id="buyerName"
+            :value="pushOrder.user.name"
+            aria-describedby="buyerName"
+            disabled
+          />
         </div>
         <div class="mb-3">
           <label for="buyerTell" class="form-label">訂購人手機</label>
-          <input type="text" class="form-control" id="buyerTell" :value='pushOrder.user.tel'
-                  aria-describedby="buyerTell" disabled>
+          <input
+            type="text"
+            class="form-control"
+            id="buyerTell"
+            :value="pushOrder.user.tel"
+            aria-describedby="buyerTell"
+            disabled
+          />
         </div>
         <div class="mb-3">
           <label for="buyerEmail" class="form-label">訂購人信箱</label>
-          <input type="email" class="form-control" id="buyerEmail" :value='pushOrder.user.email'
-                  aria-describedby="buyerEmail" disabled>
+          <input
+            type="email"
+            class="form-control"
+            id="buyerEmail"
+            :value="pushOrder.user.email"
+            aria-describedby="buyerEmail"
+            disabled
+          />
         </div>
         <div class="mb-3">
           <label for="payment" class="form-label">付款方式</label>
-          <input type="text" class="form-control" id="payment"
-                  :value='pushOrder.user.paymentMethod'
-                  aria-describedby="payment" disabled>
+          <input
+            type="text"
+            class="form-control"
+            id="payment"
+            :value="pushOrder.user.paymentMethod"
+            aria-describedby="payment"
+            disabled
+          />
         </div>
-        <div v-if='pushOrder.user.paymentMethod ==="信用卡"' class="mb-3">
+        <div class="mb-3">
+          <label for="buyerUniformNum" class="form-label">統一編號</label>
+          <input
+            type="text"
+            class="form-control"
+            id="buyerUniformNum"
+            :value="pushOrder.user.uniformNumbers"
+            aria-describedby="uniformNumbers"
+            disabled
+          />
+        </div>
+        <div v-if="pushOrder.user.paymentMethod === '信用卡'" class="mb-3">
           <label for="address" class="form-label">收件地址</label>
-          <input type="text" class="form-control" id="address" :value='pushOrder.user.address'
-                aria-describedby="address" disabled>
+          <input
+            type="text"
+            class="form-control"
+            id="address"
+            :value="pushOrder.user.address"
+            aria-describedby="address"
+            disabled
+          />
         </div>
         <div class="mb-3">
           <label for="message" class="form-label">備註</label>
-          <input type="text" class="form-control" id="message" :value='pushOrder.message'
-                  aria-describedby="message" disabled>
+          <input
+            type="text"
+            class="form-control"
+            id="message"
+            :value="pushOrder.message"
+            aria-describedby="message"
+            disabled
+          />
         </div>
       </div>
     </div>
     <div class="d-flex justify-content-center">
-      <button type='button' class="btn btn-outline-secondary me-3" @click="returnToForm">
+      <button
+        type="button"
+        class="btn btn-outline-secondary me-3"
+        @click="returnToForm"
+      >
         重新填寫
       </button>
-      <button v-if='pushOrder.user.paymentMethod === "信用卡"' type='button'
-              class="btn btn-secondary me-3" @click='sendOrder'>
+      <button
+        v-if="pushOrder.user.paymentMethod === '信用卡'"
+        type="button"
+        class="btn btn-secondary me-3"
+        @click="sendOrder"
+      >
         前往付款
       </button>
-      <button v-else type='button' class="btn btn-secondary me-3"
-              @click='sendOrder'>
+      <button
+        v-else
+        type="button"
+        class="btn btn-secondary me-3"
+        @click="sendOrder"
+      >
         確認下單
       </button>
     </div>
   </div>
   <Loading :active="isLoading">
-    <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
-    <div></div><div></div><div></div>
-    </div></div>
+    <div class="loadingio-spinner-dual-ball-haac1tizt7t">
+      <div class="ldio-u3364un719">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
   </Loading>
 </template>
 
@@ -139,8 +219,6 @@
 export default {
   data() {
     return {
-      cart: '',
-      finalTotal: '',
       isLoading: false,
     };
   },
@@ -149,9 +227,9 @@ export default {
   methods: {
     sendOrder() {
       this.isLoading = true;
-      console.log(this.pushOrder);
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/order`;
-      this.$http.post(apiUrl, { data: this.pushOrder })
+      this.$http
+        .post(apiUrl, { data: this.pushOrder })
         .then((res) => {
           if (res.data.success) {
             if (this.pushOrder.user.paymentMethod === '信用卡') {
@@ -161,39 +239,53 @@ export default {
               this.$router.push('/orderCompleted');
             }
           } else {
-            console.log(res.data.message);
+            this.$swal({ text: res.data.message, icon: 'error' });
           }
         })
-        .catch((err) => {
-          console.dir(err);
+        .catch(() => {
+          this.$swal({
+            text: 'Opps ... 發生錯誤，請嘗試重新整理此頁面',
+            icon: 'error',
+          });
         });
     },
     toPaid(orderId) {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/pay/${orderId}`;
-      this.$http.post(apiUrl)
+      this.$http
+        .post(apiUrl)
         .then((res) => {
           if (res.data.success) {
             this.isLoading = false;
             this.$swal({ text: res.data.message, icon: 'success' });
-            this.$swal.fire({
-              title: res.data.message,
-              text: '感謝您的支持',
-              icon: 'success',
-              showCancelButton: false,
-              confirmButtonColor: '#ffbc1f',
-              confirmButtonText: '確定',
-            }).then((result) => {
-              if (result.isConfirmed) {
-                this.$router.push('/orderCompleted');
-              }
-            });
+            this.$swal
+              .fire({
+                title: res.data.message,
+                text: '感謝您的支持',
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonColor: '#ffbc1f',
+                confirmButtonText: '確定',
+              })
+              .then((result) => {
+                if (result.isConfirmed) {
+                  this.$router.push('/orderCompleted');
+                }
+              });
           } else {
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'error', confirmButtonColor: '#ffbc1f' });
+            this.$swal({
+              text: res.data.message,
+              icon: 'error',
+              confirmButtonColor: '#ffbc1f',
+            });
           }
         })
-        .catch((err) => {
-          console.dir(err);
+        .catch(() => {
+          this.$swal({
+            text: 'Opps ... 發生錯誤，請嘗試重新整理此頁面',
+            icon: 'error',
+            confirmButtonColor: '#ffbc1f',
+          });
         });
     },
     returnToForm() {
@@ -205,7 +297,11 @@ export default {
     this.isLoading = true;
     setTimeout(() => {
       this.isLoading = false;
-      this.$swal({ text: '請確認「購買商品」和「買家資訊」，訂單送出後無法修改呦', icon: 'warning', confirmButtonColor: '#ffbc1f' });
+      this.$swal({
+        text: '請確認「購買商品」和「買家資訊」，訂單送出後無法修改呦',
+        icon: 'warning',
+        confirmButtonColor: '#ffbc1f',
+      });
     }, 2000);
   },
 };

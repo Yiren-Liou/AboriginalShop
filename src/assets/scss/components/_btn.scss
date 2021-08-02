@@ -1,27 +1,9 @@
-.favoriteBtn{
-  border-radius: 0 0 0 .25rem;
-  &:hover{
-    color: $primary;
-    font-weight: bold;
-  }
-}
-.addCartBtn{
-  border-radius: 0 0 .25rem 0;
-  &:hover{
-    color: $secondary;
-    font-weight: bold;
-  }
+.favoriteBtn:hover{
+  color: #fff;
 }
 
-.btn-text{
-  font-size: 0.75rem;
-  &:hover{
-    color: $secondary;
-    border-bottom: 1px solid $secondary;
-  }
-  @media (min-width: 992px) {
-    font-size: 1rem;
-  }
+.addCartBtn:hover{
+  font-weight: bold;
 }
 
 .topBtn{
@@ -30,4 +12,36 @@
   bottom: 56px;
   display: none;
   transition: 1s;
+}
+
+.btn-light{
+  background-color: $light;
+  &:hover{
+    background-color: $primary;
+    color: #fff;
+  }
+}
+
+.btn-secondary{
+  color: #fff;
+}
+
+.subNavBtn{
+  border: 1px solid $secondary;
+  font-size: $font-size-base;
+  @media (min-width: 992px) {
+    padding: .75rem 1rem;
+    border-color: transparent;
+    &:hover{
+      color: $secondary;
+      border-bottom: 1px solid $secondary;
+    }
+  }
+}
+
+.subNavBtn.active{
+  @media (min-width: 992px) {
+    color: $secondary;
+    border-bottom: 1px solid $secondary;
+  }
 }

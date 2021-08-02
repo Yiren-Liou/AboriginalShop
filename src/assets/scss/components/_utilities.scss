@@ -20,35 +20,40 @@
   background-size: cover;
 }
 
+.bg-fixed{
+  background-attachment: fixed;
+}
+
 .fontSizeBase{
   font-size: $font-size-base;
 }
 
 .fontSizeS{
-  font-size: $font-size-base * 0.75;
+  font-size: $font-size-base;
 }
 
 .fontSizeM{
-  font-size: $font-size-base * 1.5;
+  font-size: $font-size-base * 1.25;
 }
 .fontSizeL{
-  font-size: $font-size-base * 1.75;
+  font-size: $font-size-base * 1.5;
 }
 
-.fontSize-lg-Base{
-  @media (min-width: 992px) {
+@media (min-width: 992px) {
+  .fontSize-md-Base{
     font-size: $font-size-base;
   }
-}
-
-.fontSize-lg-M{
-  @media (min-width: 992px){
+  .fontSize-md-S{
+    font-size: $font-size-base * 1.125;
+  }
+  .fontSize-md-M{
+    font-size: $font-size-base * 1.25;
+  }
+  .fontSize-md-L{
     font-size: $font-size-base * 1.5;
   }
-}
-.fontSize-lg-L{
-  @media (min-width: 992px){
-    font-size: $font-size-base * 3;
+  .fontSize-md-XL{
+    font-size: $font-size-base * 2;
   }
 }
 

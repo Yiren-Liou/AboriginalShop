@@ -1,63 +1,108 @@
 <template>
-  <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mb-3">
+  <nav
+    style="--bs-breadcrumb-divider: '>'"
+    aria-label="breadcrumb"
+    class="mb-3"
+  >
     <ol class="breadcrumb">
       <li class="breadcrumb-item">商品</li>
       <li class="breadcrumb-item active">全部商品</li>
     </ol>
   </nav>
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <router-link to="/admin/products/addProduct"
-                 class="btn btn-primary">
-                  新增商品
+    <router-link to="/admin/products/addProduct" class="btn btn-primary">
+      新增商品
     </router-link>
     <div class="d-flex">
       <div class="input-group me-3">
-        <input type="text" class="form-control" placeholder="請輸入商品名稱"
-              aria-label="search" aria-describedby="searchBtn"
-              v-model="search">
-        <span class="input-group-text material-icons bg-transparent">search</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="請輸入商品名稱"
+          aria-label="search"
+          aria-describedby="searchBtn"
+          v-model="search"
+        />
+        <span class="input-group-text material-icons bg-transparent"
+          >search</span
+        >
       </div>
       <div class="dropdown">
-        <button class="material-icons btn btn-outline-secondary
-                d-flex justify-content-center align-items-center me-2"
-                type="button" id="filterBtn"
-                data-bs-toggle="dropdown" aria-expanded="false">sort
+        <button
+          class="
+            material-icons
+            btn btn-outline-secondary
+            d-flex
+            justify-content-center
+            align-items-center
+            me-2
+          "
+          type="button"
+          id="filterBtn"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          sort
         </button>
         <ul class="dropdown-menu" aria-labelledby="filterBtn">
           <li class="mb-2">
-            <a class="dropdown-item" href="#"
-                data-field="sellTime_new_old" @click.prevent='filterItem'>
-                上架時間新到舊
+            <a
+              class="dropdown-item"
+              href="#"
+              data-field="sellTime_new_old"
+              @click.prevent="filterItem"
+            >
+              上架時間新到舊
             </a>
           </li>
           <li class="mb-2">
-            <a class="dropdown-item" href="#"
-                data-field="sellTime_old_new" @click.prevent='filterItem'>
-                上架時間舊到新
+            <a
+              class="dropdown-item"
+              href="#"
+              data-field="sellTime_old_new"
+              @click.prevent="filterItem"
+            >
+              上架時間舊到新
             </a>
           </li>
           <li class="mb-2">
-            <a class="dropdown-item" href="#"
-               data-field="originPrice_low_high" @click.prevent='filterItem'>
-               原價低到高
+            <a
+              class="dropdown-item"
+              href="#"
+              data-field="originPrice_low_high"
+              @click.prevent="filterItem"
+            >
+              原價低到高
             </a>
           </li>
           <li class="mb-2">
-            <a class="dropdown-item" href="#"
-               data-field="originPrice_high_low" @click.prevent='filterItem'>
-               原價高到低
+            <a
+              class="dropdown-item"
+              href="#"
+              data-field="originPrice_high_low"
+              @click.prevent="filterItem"
+            >
+              原價高到低
             </a>
           </li>
           <li class="mb-2">
-            <a class="dropdown-item" href="#"
-               data-field="price_low_high" @click.prevent='filterItem'>
-               售價低到高
+            <a
+              class="dropdown-item"
+              href="#"
+              data-field="price_low_high"
+              @click.prevent="filterItem"
+            >
+              售價低到高
             </a>
           </li>
           <li>
-            <a class="dropdown-item" href="#"
-               data-field="price_high_low" @click.prevent='filterItem'>
-               售價高到低
+            <a
+              class="dropdown-item"
+              href="#"
+              data-field="price_high_low"
+              @click.prevent="filterItem"
+            >
+              售價高到低
             </a>
           </li>
         </ul>
@@ -81,37 +126,49 @@
       </tr>
     </thead>
     <tbody v-if="!productData.length" class="text-center">
-      <tr>目前沒有任何商品呦</tr>
+      <tr>
+        目前沒有任何商品呦
+      </tr>
     </tbody>
     <tbody v-else class="text-center">
       <tr v-for="(item, i) in filterProducts" :key="item.id">
         <th scope="row">{{ i + 1 }}</th>
         <td>
-          <div class="productImg img-fluid bg-cover bg-center"
-               :style="{backgroundImage: `url(${item.imagesUrl[0].imgUrl})`}">
-          </div>
+          <div
+            class="productImg img-fluid bg-cover bg-center"
+            :style="{ backgroundImage: `url(${item.imagesUrl[0].imgUrl})` }"
+          ></div>
         </td>
         <td>{{ item.title }}</td>
         <td>{{ item.category }}</td>
         <td>{{ item.sub_category }}</td>
         <td class="text-center">NT {{ $toCurrency(item.origin_price) }}</td>
-        <td class="text-center">NT {{ $toCurrency(item.price )}}</td>
-        <td class="text-center" :class='{"text-secondary": !item.is_enabled}'>
-          {{ item.is_enabled? '上架' : '未上架' }}
+        <td class="text-center">NT {{ $toCurrency(item.price) }}</td>
+        <td class="text-center" :class="{ 'text-secondary': !item.is_enabled }">
+          {{ item.is_enabled ? '上架' : '未上架' }}
         </td>
         <td>
-          <router-link :to="`product/${item.id}`" class="material-icons btn"
-                       @click="emitReadonly(true)">remove_red_eye
+          <router-link
+            :to="`product/${item.id}`"
+            class="material-icons btn"
+            @click="emitReadonly(true)"
+            >remove_red_eye
           </router-link>
         </td>
         <td class="text-center">
-          <router-link :to="`product/${item.id}`" class="material-icons btn"
-                        @click="emitReadonly(false)">edit
+          <router-link
+            :to="`product/${item.id}`"
+            class="material-icons btn"
+            @click="emitReadonly(false)"
+            >edit
           </router-link>
         </td>
         <td class="text-center">
-          <button type="button" class="btn d-flex justify-content-center w-100"
-                  @click="delProduct(item.id)">
+          <button
+            type="button"
+            class="btn d-flex justify-content-center w-100"
+            @click="delProduct(item.id)"
+          >
             <span class="material-icons">delete</span>
           </button>
         </td>
@@ -122,9 +179,13 @@
     <Pagination :page="pagination" @emit-page="getProducts"></Pagination>
   </div>
   <Loading :active="isLoading">
-    <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
-    <div></div><div></div><div></div>
-    </div></div>
+    <div class="loadingio-spinner-dual-ball-haac1tizt7t">
+      <div class="ldio-u3364un719">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
   </Loading>
 </template>
 
@@ -161,7 +222,8 @@ export default {
   methods: {
     getProducts(page = 1) {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/products?page=${page}`;
-      this.$http.get(apiUrl)
+      this.$http
+        .get(apiUrl)
         .then((res) => {
           if (res.data.success) {
             this.productData = res.data.products;
@@ -169,12 +231,20 @@ export default {
             this.pagination = res.data.pagination;
             this.isLoading = false;
           } else {
-            this.$swal({ text: res.data.message, icon: 'error' });
+            this.$swal({
+              text: res.data.message,
+              icon: 'error',
+              confirmButtonColor: '#ffbc1f',
+            });
             this.isLoading = false;
           }
         })
-        .catch((err) => {
-          console.dir(err);
+        .catch(() => {
+          this.$swal({
+            text: 'Opps ... 發生錯誤，請嘗試重新整理此頁面',
+            icon: 'error',
+            confirmButtonColor: '#ffbc1f',
+          });
         });
     },
     getProduct(e) {
@@ -189,18 +259,32 @@ export default {
     delProduct(id) {
       this.isLoading = true;
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/product/${id}`;
-      this.$http.delete(apiUrl)
+      this.$http
+        .delete(apiUrl)
         .then((res) => {
           if (res.data.success) {
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'success' });
+            this.$swal({
+              text: res.data.message,
+              icon: 'success',
+              confirmButtonColor: '#ffbc1f',
+            });
             this.getProducts();
           } else {
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'error' });
+            this.$swal({
+              text: res.data.message,
+              icon: 'error',
+              confirmButtonColor: '#ffbc1f',
+            });
           }
-        }).catch((err) => {
-          console.dir(err);
+        })
+        .catch(() => {
+          this.$swal({
+            text: 'Opps ... 發生錯誤，請嘗試重新整理此頁面',
+            icon: 'error',
+            confirmButtonColor: '#ffbc1f',
+          });
         });
     },
     emitReadonly(status) {

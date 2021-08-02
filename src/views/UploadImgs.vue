@@ -5,9 +5,13 @@
       <div class="col-md-5">
         <h3 class="fs-4">商品首頁</h3>
         <label for="images" class="form-label">圖片檔案</label>
-        <input type="file" class="form-control mb-3" id="images">
-        <button type="button" class="btn btn-primary btn-sm mb-5"
-                @click="upload">上傳
+        <input type="file" class="form-control mb-3" id="images" />
+        <button
+          type="button"
+          class="btn btn-primary btn-sm mb-5"
+          @click="upload"
+        >
+          上傳
         </button>
       </div>
     </div>
@@ -16,9 +20,13 @@
     </p>
   </div>
   <Loading :active="isLoading">
-    <div class="loadingio-spinner-dual-ball-haac1tizt7t"><div class="ldio-u3364un719">
-    <div></div><div></div><div></div>
-    </div></div>
+    <div class="loadingio-spinner-dual-ball-haac1tizt7t">
+      <div class="ldio-u3364un719">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
   </Loading>
 </template>
 
@@ -41,7 +49,8 @@ export default {
       const formData = new FormData();
       formData.append('file-to-upload', file);
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/upload`;
-      this.$http.post(apiUrl, formData)
+      this.$http
+        .post(apiUrl, formData)
         .then((res) => {
           if (res.data.success) {
             this.imgUrl = res.data.imageUrl;
@@ -59,19 +68,25 @@ export default {
     },
   },
   mounted() {
-    const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+    const token = document.cookie.replace(
+      /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
+      '$1',
+    );
     if (token) {
       this.$http.defaults.headers.common.Authorization = token;
       const apiUrl = `${process.env.VUE_APP_URL}api/user/check`;
-      this.$http.post(apiUrl)
-        .then((res) => {
-          if (res.data.success) {
-            this.checkUser = true;
-          } else {
-            this.$swal({ text: res.data.message, icon: 'error' });
-            this.$router.push('/login');
-          }
-        });
+      this.$http.post(apiUrl).then((res) => {
+        if (res.data.success) {
+          this.checkUser = true;
+        } else {
+          this.$swal({
+            text: res.data.message,
+            icon: 'error',
+            confirmButtonColor: '#ffbc1f',
+          });
+          this.$router.push('/login');
+        }
+      });
     } else {
       this.$router.push('/login');
     }

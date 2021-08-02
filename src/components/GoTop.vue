@@ -1,6 +1,10 @@
 <template>
-  <button class="topBtn btn btn-outline-primary btn-sm" type="button"
-      :class='{"d-block" : top}' @click="goTop">
+  <button
+    class="topBtn btn btn-outline-primary btn-sm"
+    type="button"
+    :class="{ 'd-block': top }"
+    @click="goTop"
+  >
     <span class="material-icons">expand_less</span>
   </button>
 </template>
@@ -27,7 +31,9 @@ export default {
     },
   },
   mounted() {
-    window.addEventListener('scroll', () => { this.pageY = window.pageYOffset; });
+    window.addEventListener('scroll', () => {
+      this.pageY = window.pageYOffset;
+    });
   },
 };
 </script>

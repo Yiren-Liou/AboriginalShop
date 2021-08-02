@@ -1,21 +1,30 @@
 <template>
   <div class="col-md-6 mb-3">
     <label for="mainCategory" class="form-label">分類<sup>*</sup></label>
-      <select id="mainCategory" class="form-select"
-              v-model="tempMain" @change="resetSubIndex" :disabled="readonly">
-        <option value="" disabled>請選擇一個分類</option>
-        <option v-for="(item) in mainCategory"
-        :key=item :value=item> {{ item }} </option>
-      </select>
+    <select
+      id="mainCategory"
+      class="form-select"
+      v-model="tempMain"
+      @change="resetSubIndex"
+      :disabled="readonly"
+    >
+      <option value="" disabled>請選擇一個分類</option>
+      <option v-for="item in mainCategory" :key="item" :value="item">
+        {{ item }}
+      </option>
+    </select>
   </div>
   <div class="col-md-6 mb-3">
     <label for="subCategory" class="form-label">次分類<sup>*</sup></label>
-    <select id="subCategory" class="form-select"
-            v-model="tempSub" @change="emitCategory()" :disabled="readonly">
+    <select
+      id="subCategory"
+      class="form-select"
+      v-model="tempSub"
+      @change="emitCategory()"
+      :disabled="readonly"
+    >
       <option value="" disabled>請選擇一個次分類</option>
-      <option v-for="(item) in sub" :key=item
-              :value=item>{{ item }}
-      </option>
+      <option v-for="item in sub" :key="item" :value="item">{{ item }}</option>
     </select>
   </div>
 </template>
@@ -61,8 +70,6 @@ export default {
       const subCategoryValue = document.querySelector('#subCategory').value;
       this.$emit('emit-category', mainCategoryValue, subCategoryValue);
     },
-  },
-  created() {
   },
 };
 </script>

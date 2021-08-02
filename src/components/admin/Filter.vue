@@ -1,8 +1,18 @@
 <template>
   <div class="dropdown">
-    <button class="btn btn-outline-secondary dropdown-toggle
-                   d-flex justify-content-center align-items-center"
-                   type="button" id="filterBtn" data-bs-toggle="dropdown" aria-expanded="false">
+    <button
+      class="
+        btn btn-outline-secondary
+        dropdown-toggle
+        d-flex
+        justify-content-center
+        align-items-center
+      "
+      type="button"
+      id="filterBtn"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
       <span class="material-icons me-2">filter_alt</span>
     </button>
     <ul class="dropdown-menu" aria-labelledby="filterBtn">
@@ -18,8 +28,3 @@
     </ul>
   </div>
 </template>
-
-<script>
-export default {
-};
-</script>
