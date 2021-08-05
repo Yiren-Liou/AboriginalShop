@@ -180,67 +180,7 @@
       </h3>
       <p class="fontSize-md-S text-primary ms-2 mb-0">每年產量不定，錯過要再等一年以上呦!</p>
     </div>
-    <Swiper
-      :slidesPerView="windowSize"
-      :spaceBetween="30"
-      :freeMode="true"
-      :loop="true"
-      :autoplay="{
-        delay: 2500,
-        disableOnInteraction: false,
-      }"
-      :pagination="{
-        clickable: true,
-      }"
-      class="mySwiper mb-4 mb-md-6 pb-5"
-      data-aos="fade-up"
-    >
-      <template v-for="item in products" :key="item.id">
-        <Swiper-slide v-if="item.is_season">
-          <router-link :to="`/product/${item.id}`" class="productCard px-3">
-            <div class="card-img-top mb-2">
-              <img
-                :src="item.imagesUrl[0].imgUrl"
-                :alt="item.title"
-                class="img-fluid"
-              />
-            </div>
-            <div class="card-body px-0">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="fontSizeM">{{ item.title }}</h2>
-                <p class="fontSize-md-S fw-bold mb-0"
-                  :class="{'text-primary': item.is_sell}">
-                  NT {{ item.is_sell? item.price : item.origin_price }}
-                  <span v-if="item.is_sell"
-                      class="fontSizeBase text-decoration-line-through text-dark ms-1">
-                    NT {{ item.origin_price }}
-                  </span>
-                </p>
-              </div>
-              <div class="d-flex justify-content-between">
-                <button
-                  type="button"
-                  class="favoriteBtn d-center btn btn-outline-secondary me-3"
-                  @click.stop="addToFavorite(item)"
-                >
-                  <span class="material-icons">favorite_border</span>
-                </button>
-                <button
-                    type="button"
-                    class="addCartBtn btn btn-secondary d-center w-100"
-                    @click.stop="addToCart(item.id)"
-                  >
-                    <p class="d-center mb-0 w-100">
-                      <span class="material-icons me-2">add_shopping_cart</span>
-                      加入購物車
-                    </p>
-                  </button>
-              </div>
-            </div>
-          </router-link>
-        </Swiper-slide>
-      </template>
-    </Swiper>
+    <ProductSwiper :products="seasonProduct" :windowSize="windowSize"></ProductSwiper>
     <div class="d-md-flex align-items-md-center" data-aos="fade-up">
       <h3 class="d-flex align-items-center fontSize-md-XL fw-bold"
           data-aos="fade-up">
@@ -253,67 +193,7 @@
       </h3>
       <p class="fontSize-md-S text-primary ms-2 mb-0">明天立即恢復原價，不要錯過囉!</p>
     </div>
-    <Swiper
-      :slidesPerView="windowSize"
-      :spaceBetween="30"
-      :freeMode="true"
-      :loop="true"
-      :autoplay="{
-        delay: 2500,
-        disableOnInteraction: false,
-      }"
-      :pagination="{
-        clickable: true,
-      }"
-      class="mySwiper mb-4 mb-md-6 pb-5"
-      data-aos="fade-up"
-    >
-      <template v-for="item in products" :key="item.id">
-        <Swiper-slide v-if="item.is_sell">
-          <router-link :to="`/product/${item.id}`" class="productCard px-3">
-            <div class="card-img-top mb-2">
-              <img
-                :src="item.imagesUrl[0].imgUrl"
-                :alt="item.title"
-                class="img-fluid"
-              />
-            </div>
-            <div class="card-body px-0">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="fontSizeM">{{ item.title }}</h2>
-                <p class="fontSize-md-S fw-bold mb-0"
-                  :class="{'text-primary': item.is_sell}">
-                  NT {{ item.is_sell? item.price : item.origin_price }}
-                  <span v-if="item.is_sell"
-                      class="fontSizeBase text-decoration-line-through text-dark ms-1">
-                    NT {{ item.origin_price }}
-                  </span>
-                </p>
-              </div>
-              <div class="d-flex justify-content-between">
-                <button
-                  type="button"
-                  class="favoriteBtn d-center btn btn-outline-secondary me-3"
-                  @click.stop="addToFavorite(item)"
-                >
-                  <span class="material-icons">favorite_border</span>
-                </button>
-                <button
-                    type="button"
-                    class="addCartBtn btn btn-secondary d-center w-100"
-                    @click.stop="addToCart(item.id)"
-                  >
-                    <p class="d-center mb-0 w-100">
-                      <span class="material-icons me-2">add_shopping_cart</span>
-                      加入購物車
-                    </p>
-                  </button>
-              </div>
-            </div>
-          </router-link>
-        </Swiper-slide>
-      </template>
-    </Swiper>
+    <ProductSwiper :products="sellProduct" :windowSize="windowSize"></ProductSwiper>
   </div>
   <div class="container mb-4 mb-md-7">
     <div class="row justify-content-between mb-4 mb-md-7">
@@ -371,67 +251,7 @@
         </h3>
         <p class="fontSize-md-S text-primary ms-2 mb-0">當天現採現寄，產地保鮮直送</p>
     </div>
-    <Swiper
-      :slidesPerView="windowSize"
-      :spaceBetween="30"
-      :freeMode="true"
-      :loop="true"
-      :autoplay="{
-        delay: 2500,
-        disableOnInteraction: false,
-      }"
-      :pagination="{
-        clickable: true,
-      }"
-      class="mySwiper mb-4 mb-md-6 pb-5"
-      data-aos="fade-up"
-    >
-      <template v-for="item in products" :key="item.id">
-        <Swiper-slide v-if="item.category ==='新鮮蔬果'">
-          <router-link :to="`/product/${item.id}`" class="productCard px-3">
-            <div class="card-img-top mb-2">
-              <img
-                :src="item.imagesUrl[0].imgUrl"
-                :alt="item.title"
-                class="img-fluid"
-              />
-            </div>
-            <div class="card-body px-0">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="fontSizeM">{{ item.title }}</h2>
-                <p class="fontSize-md-S fw-bold mb-0"
-                  :class="{'text-primary': item.is_sell}">
-                  NT {{ item.is_sell? item.price : item.origin_price }}
-                  <span v-if="item.is_sell"
-                      class="fontSizeBase text-decoration-line-through text-dark ms-1">
-                    NT {{ item.origin_price }}
-                  </span>
-                </p>
-              </div>
-              <div class="d-flex justify-content-between">
-                <button
-                  type="button"
-                  class="favoriteBtn d-center btn btn-outline-secondary me-3"
-                  @click.stop="addToFavorite(item)"
-                >
-                  <span class="material-icons">favorite_border</span>
-                </button>
-                <button
-                    type="button"
-                    class="addCartBtn btn btn-secondary d-center w-100"
-                    @click.stop="addToCart(item.id)"
-                  >
-                    <p class="d-center mb-0 w-100">
-                      <span class="material-icons me-2">add_shopping_cart</span>
-                      加入購物車
-                    </p>
-                  </button>
-              </div>
-            </div>
-          </router-link>
-        </Swiper-slide>
-      </template>
-    </Swiper>
+    <ProductSwiper :products="fruits" :windowSize="windowSize"></ProductSwiper>
     <div class="row justify-content-between mb-4 mb-md-7">
       <div class="col-md-7 order-1 order-md-0 mb-3 mb-md-0">
         <div class="sectionBg bg-center bg-lg-fixed py-7"
@@ -486,67 +306,7 @@
       </h3>
       <p class="fontSize-md-S text-primary ms-2 mb-0">質感豐厚、香醇滑順</p>
     </div>
-    <Swiper
-      :slidesPerView="windowSize"
-      :spaceBetween="30"
-      :freeMode="true"
-      :loop="false"
-      :autoplay="{
-        delay: 2500,
-        disableOnInteraction: false,
-      }"
-      :pagination="{
-        clickable: true,
-      }"
-      class="mySwiper mb-4 mb-md-6 pb-5"
-      data-aos="fade-up"
-    >
-      <template v-for="item in products" :key="item.id">
-        <Swiper-slide v-if="item.category ==='沖泡飲品'">
-          <router-link :to="`/product/${item.id}`" class="productCard px-3">
-            <div class="card-img-top mb-2">
-              <img
-                :src="item.imagesUrl[0].imgUrl"
-                :alt="item.title"
-                class="img-fluid"
-              />
-            </div>
-            <div class="card-body px-0">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="fontSizeM">{{ item.title }}</h2>
-                <p class="fontSize-md-S fw-bold mb-0"
-                  :class="{'text-primary': item.is_sell}">
-                  NT {{ item.is_sell? item.price : item.origin_price }}
-                  <span v-if="item.is_sell"
-                      class="fontSizeBase text-decoration-line-through text-dark ms-1">
-                    NT {{ item.origin_price }}
-                  </span>
-                </p>
-              </div>
-              <div class="d-flex justify-content-between">
-                <button
-                  type="button"
-                  class="favoriteBtn d-center btn btn-outline-secondary me-3"
-                  @click.stop="addToFavorite(item)"
-                >
-                  <span class="material-icons">favorite_border</span>
-                </button>
-                <button
-                    type="button"
-                    class="addCartBtn btn btn-secondary d-center w-100"
-                    @click.stop="addToCart(item.id)"
-                  >
-                    <p class="d-center mb-0 w-100">
-                      <span class="material-icons me-2">add_shopping_cart</span>
-                      加入購物車
-                    </p>
-                  </button>
-              </div>
-            </div>
-          </router-link>
-        </Swiper-slide>
-      </template>
-    </Swiper>
+    <ProductSwiper :products="drinks" :windowSize="windowSize"></ProductSwiper>
   </div>
   <div
     class="bg-center bg-cover"
@@ -575,16 +335,23 @@
     <GoTop></GoTop>
   </div>
   <Footer :footer-dark="isFooterDark"></Footer>
+  <Loading :active="isLoading">
+    <div class="loadingio-spinner-dual-ball-haac1tizt7t">
+      <div class="ldio-u3364un719">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </Loading>
 </template>
 
 <script>
+import emitter from '@/methods/Emitter';
 import Navbar from '@/components/front/Navbar.vue';
 import Footer from '@/components/front/Footer.vue';
 import GoTop from '@/components/GoTop.vue';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import SwiperCore, { Pagination, Autoplay } from 'swiper/core';
-
-SwiperCore.use([Pagination, Autoplay]);
+import ProductSwiper from '@/components/front/ProductSwiper.vue';
 
 export default {
   data() {
@@ -592,14 +359,19 @@ export default {
       isNavLight: true,
       isFooterDark: true,
       products: '',
+      seasonProduct: '',
+      sellProduct: '',
+      fruits: '',
+      drinks: '',
+      favorite: '',
+      isLoading: false,
     };
   },
   components: {
     Navbar,
     Footer,
+    ProductSwiper,
     GoTop,
-    Swiper,
-    SwiperSlide,
   },
   computed: {
     windowSize() {
@@ -617,6 +389,10 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.products = res.data.products;
+            this.seasonProduct = this.products.filter((item) => item.is_season);
+            this.sellProduct = this.products.filter((item) => item.is_sell);
+            this.fruits = this.products.filter((item) => item.category === '新鮮蔬果');
+            this.drinks = this.products.filter((item) => item.category === '沖泡飲品');
           } else {
             this.$swal({
               text: res.data.message,
@@ -636,6 +412,76 @@ export default {
     moveToIntro() {
       const intro = document.querySelector('#intro');
       document.documentElement.scrollTop = intro.offsetTop;
+    },
+    addToCart(productId) {
+      this.isLoading = true;
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/cart`;
+      const cartData = {
+        data: {
+          product_id: productId,
+          qty: 1,
+        },
+      };
+      this.$http
+        .post(apiUrl, cartData)
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading = false;
+            emitter.emit('update-cart');
+            this.$swal({
+              text: res.data.message,
+              icon: 'success',
+              confirmButtonColor: '#ffbc1f',
+            });
+          } else {
+            this.isLoading = false;
+            this.$swal({
+              text: res.data.message,
+              icon: 'error',
+              confirmButtonColor: '#ffbc1f',
+            });
+          }
+        })
+        .catch(() => {
+          this.$swal({
+            text: 'Opps ... 發生錯誤，請嘗試重新整理此頁面',
+            icon: 'error',
+            confirmButtonColor: '#ffbc1f',
+          });
+        });
+    },
+    addToFavorite(item) {
+      const hasFavorite = localStorage.getItem('favorite');
+      if (hasFavorite) {
+        this.favorite = JSON.parse(hasFavorite);
+        const isSave = this.favorite
+          .map((favorite) => favorite.id)
+          .indexOf(item.id);
+        if (isSave < 0) {
+          this.favorite.push(item);
+          this.$swal({
+            text: '成功收藏',
+            icon: 'success',
+            confirmButtonColor: '#ffbc1f',
+          });
+        } else {
+          this.$swal({
+            text: '已經收藏過囉',
+            icon: 'warning',
+            confirmButtonColor: '#ffbc1f',
+          });
+        }
+      } else {
+        this.favorite.push(item);
+        this.$swal({
+          text: '成功收藏',
+          icon: 'success',
+          confirmButtonColor: '#ffbc1f',
+        });
+      }
+      this.favorite = JSON.stringify(this.favorite);
+      localStorage.setItem('favorite', this.favorite);
+      emitter.emit('update-favorite');
     },
   },
   created() {

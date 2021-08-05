@@ -28,7 +28,7 @@ configure({
 setLocale('zh_TW');
 
 AOS.init({
-  duration: 2000,
+  duration: 1500,
   once: true,
 });
 

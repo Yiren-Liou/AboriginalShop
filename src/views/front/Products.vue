@@ -116,7 +116,7 @@
       <Pagination :page="pagination" @emit-page="getProducts"></Pagination>
     </div>
   </div>
-  <div class="position-relative">
+  <div class="position-relative d-none d-md-block">
     <GoTop></GoTop>
   </div>
   <Loading :active="isLoading">
@@ -163,9 +163,7 @@ export default {
             this.products = res.data.products.sort((a, b) => b.num - a.num);
             this.pagination = res.data.pagination;
             if (this.$route.query.category) {
-              this.filterProducts = this.products.filter(
-                (item) => item.category === this.$route.query.category,
-              );
+              this.filterCategory(this.$route.query.category);
               this.isActive = this.$route.query.category;
             } else {
               this.filterProducts = this.products;
@@ -271,22 +269,25 @@ export default {
       const target = e.target.getAttribute('data-category');
       this.isActive = target;
       setTimeout(() => {
-        switch (target) {
-          case '全部商品':
-            this.filterProducts = this.products;
-            break;
-          case '季節限定':
-            this.filterProducts = this.products.filter((item) => item.is_season);
-            break;
-          default:
-            this.filterProducts = this.products.filter(
-              (item) => item.category === target,
-            );
-            break;
-        }
+        this.filterCategory(target);
         this.isLoading = false;
         this.$router.push({ path: '/products', query: { category: target } });
       }, 500);
+    },
+    filterCategory(category) {
+      switch (category) {
+        case '全部商品':
+          this.filterProducts = this.products;
+          break;
+        case '季節限定':
+          this.filterProducts = this.products.filter((item) => item.is_season);
+          break;
+        default:
+          this.filterProducts = this.products.filter(
+            (item) => item.category === category,
+          );
+          break;
+      }
     },
     getCategoryList() {
       const temp = new Set();
@@ -304,14 +305,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="scss">
-.subNav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  @media (min-width: 992px) {
-    justify-content: center;
-  }
-}
-</style>

@@ -19,3 +19,12 @@
   margin-top: 90px;
   text-align: center;
 }
+
+.subNav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  @media (min-width: 992px) {
+    justify-content: center;
+  }
+}

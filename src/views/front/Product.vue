@@ -1,5 +1,41 @@
 <template>
   <div class="container mt-7">
+    <ul class="d-none d-md-flex subNav list-unstyled mb-4">
+      <li class="mb-2">
+        <router-link
+          class="subNavBtn btn d-center"
+          data-category="全部商品"
+          :to="{ path: '/products', query: { category: '全部商品' } }"
+        >
+          <img src="@/assets/images/全部商品.png" class="iconImg me-2" />
+          全部商品
+        </router-link>
+      </li>
+      <li class="mb-2">
+        <router-link
+          class="subNavBtn btn d-center"
+          data-category="季節限定"
+          :to="{ path: '/products', query: { category: '季節限定' } }"
+        >
+          <img src="@/assets/images/季節限定.png" class="iconImg me-2" />
+          季節限定
+        </router-link>
+      </li>
+      <li v-for="item in categoryList" :key="item" class="mb-2">
+        <router-link
+          :to="{ path: '/products', query: { category: item } }"
+          class="subNavBtn btn d-center"
+          :class="{'active': $route.query.category === item}"
+        >
+          <img
+            :src="require(`@/assets/images/${item}.png`)"
+            :alt="item"
+            class="iconImg me-2"
+          />
+          {{ item }}
+        </router-link>
+      </li>
+    </ul>
     <nav
       style="--bs-breadcrumb-divider: '>'"
       aria-label="breadcrumb"
@@ -10,7 +46,9 @@
           <router-link to="/products">全部商品</router-link>
         </li>
         <li class="breadcrumb-item">
-          <router-link :to="{ path: '/products', query: { category: product.category}}">
+          <router-link
+            :to="{ path: '/products', query: { category: product.category } }"
+          >
             {{ product.category }}
           </router-link>
         </li>
@@ -19,10 +57,14 @@
     </nav>
     <template v-if="product && products">
       <div
-        class="row justify-content-between align-items-center border-bottom pb-4 mb-4"
+        class="
+          row
+          align-items-center
+          mb-4
+        "
         data-aos="fade-up"
       >
-        <div class="col-md-6">
+        <div class="col-md-7">
           <img
             v-if="product.imagesUrl[0].imgUrl"
             :src="product.imagesUrl[0].imgUrl"
@@ -32,37 +74,54 @@
           />
           <div class="row">
             <div class="col-3">
-              <img class="thumbnail bg-cover bg-center mb-3"
+              <img
+                class="thumbnail bg-cover bg-center mb-3"
                 @click="changeImg"
-                :src="product.imagesUrl[0].imgUrl">
+                :src="product.imagesUrl[0].imgUrl"
+              />
             </div>
             <div class="col-3">
-              <img class="thumbnail bg-cover bg-center mb-3"
+              <img
+                class="thumbnail bg-cover bg-center mb-3"
                 @click="changeImg"
-                :src="product.imagesUrl[1].imgUrl">
+                :src="product.imagesUrl[1].imgUrl"
+              />
             </div>
             <div class="col-3">
-              <img class="thumbnail bg-cover bg-center mb-3"
+              <img
+                class="thumbnail bg-cover bg-center mb-3"
                 @click="changeImg"
-                :src="product.imagesUrl[2].imgUrl">
+                :src="product.imagesUrl[2].imgUrl"
+              />
             </div>
             <div class="col-3">
-              <img class="thumbnail bg-cover bg-center mb-3"
+              <img
+                class="thumbnail bg-cover bg-center mb-3"
                 @click="changeImg"
-                :src="product.imagesUrl[3].imgUrl">
+                :src="product.imagesUrl[3].imgUrl"
+              />
             </div>
           </div>
         </div>
         <div class="col-md-5">
           <div class="ps-md-5">
-            <div v-if="product.is_season || product.is_sell" class="d-flex mb-3">
-              <span v-if="product.is_season"
-                    class="border border-primary text-primary px-2 me-2">季節限定</span>
-              <span v-if="product.is_sell"
-                    class="border border-primary text-primary px-2">限時特惠</span>
+            <div
+              v-if="product.is_season || product.is_sell"
+              class="d-flex mb-3"
+            >
+              <span
+                v-if="product.is_season"
+                class="border border-primary text-primary px-2 me-2"
+                >季節限定</span
+              >
+              <span
+                v-if="product.is_sell"
+                class="border border-primary text-primary px-2"
+                >限時特惠</span
+              >
             </div>
             <h2 class="fontSize-md-XL fw-bold mb-3">{{ product.title }}</h2>
-            <p v-html="product.description" class="fontSize-md-S w-75"></p>
+            <p v-html="product.description" class="fontSize-md-S"></p>
             <ul class="list-unstyled fontSize-md-S">
               <li class="d-flex align-items-center">
                 <img
@@ -82,9 +141,11 @@
               </li>
             </ul>
             <p class="fontSize-md-XL fw-bold text-primary">
-              NT {{ product.is_sell? product.price : product.origin_price }}
-              <span v-if="product.is_sell"
-                  class="fontSizeBase text-decoration-line-through text-dark ms-1">
+              NT {{ product.is_sell ? product.price : product.origin_price }}
+              <span
+                v-if="product.is_sell"
+                class="fontSizeBase text-decoration-line-through text-dark ms-1"
+              >
                 NT {{ product.origin_price }}
               </span>
             </p>
@@ -122,8 +183,15 @@
               </button>
               <button
                 type="button"
-                class="favoriteBtn d-center btn btn-outline-secondary w-50 py-2 ms-1"
-                @click.stop="addToFavorite(product)"
+                class="
+                  favoriteBtn
+                  d-center
+                  btn btn-outline-secondary
+                  w-50
+                  py-2
+                  ms-1
+                "
+                @click="addToFavorite(product)"
               >
                 <span class="material-icons">favorite_border</span>
                 加入收藏
@@ -152,128 +220,9 @@
           </div>
         </div>
       </div>
-      <div class="fontSize-md-S mb-4 mb-md-7" data-aos="fade-up">
-        <p v-html="product.main_content" class="mb-3"></p>
-        <div class="largeImg bg-cover bg-center py-7 mb-3"
-           :style="{ backgroundImage: 'url(' + product.imagesUrl[4].imgUrl + ')' }">
-        </div>
-        <p v-html="product.sub_content" class="mb-3"></p>
-        <div class="largeImg bg-cover bg-center py-7 mb-3"
-           :style="{ backgroundImage: 'url(' + product.imagesUrl[5].imgUrl + ')' }">
-        </div>
-        <p v-if="product.explanation" v-html="product.explanation"></p>
-        <div class="largeImg bg-cover bg-center py-7 mb-3"
-          :style="{ backgroundImage: 'url(' + product.imagesUrl[6].imgUrl + ')' }">
-        </div>
-      </div>
-      <div class="row mb-4 mb-md-7">
-        <div class="col-md-4 mb-4">
-          <h4 class="fontSize-md-S d-flex align-items-center mb-3">
-            <span class="material-icons me-2">description</span>
-            商品規格
-          </h4>
-          <p v-html="product.spec" class="fontSize-md-S"></p>
-        </div>
-        <div class="col-md-4 mb-4">
-          <h4 class="fontSize-md-S d-flex align-items-center mb-3">
-            <span class="material-icons me-2">paid</span>
-            付款方式
-          </h4>
-          <ul class="list-unstyled fontSize-md-S">
-            <li class="d-flex align-items-center mb-3">
-              信用卡 :
-              <span class="ms-2">
-                VISA、Master、JCB
-              </span>
-            </li>
-            <li class="d-flex align-items-center">
-              超商付款
-              <span class="ms-2">
-                7-11、全家、萊爾富、OK 超商
-              </span>
-            </li>
-          </ul>
-        </div>
-        <div class="col-md-4 mb-4">
-          <h4 class="fontSize-md-S d-flex align-items-center mb-3">
-            <span class="material-icons me-2">local_shipping</span>
-            配送方式
-          </h4>
-          <p class="fontSize-md-S">
-            {{ product.category === '新鮮蔬果'?
-            '冷藏: 出貨後 1 - 2 天內會送達指定地點' :
-            '常溫: 出貨後 2 - 3 天內會送達指定地點' }}
-          </p>
-        </div>
-        <div class="col-md-12">
-          <h4 class="fontSize-md-S d-flex align-items-center mb-3">
-            <span class="material-icons me-2">warning</span>
-            注意事項
-          </h4>
-          <p v-html="product.precautions" class="fontSize-md-S"></p>
-        </div>
-      </div>
-      <h3 class="fontSize-md-L text-center mb-3">
-        推薦商品
-      </h3>
-      <Swiper
-        :slidesPerView="windowSize"
-        :spaceBetween="30"
-        :freeMode="true"
-        :loop="true"
-        :autoplay="{
-          delay: 2500,
-          disableOnInteraction: false,
-        }"
-        :pagination="{
-          clickable: true,
-        }"
-        class="mySwiper mb-4 mb-md-7 pb-6"
-      >
-        <Swiper-slide v-for="item in recommends" :key="item.id">
-          <router-link :to="`/product/${item.id}`" class="productCard px-3">
-            <div class="card-img-top mb-2">
-              <img
-                :src="item.imagesUrl[0].imgUrl"
-                :alt="item.title"
-                class="img-fluid"
-              />
-            </div>
-            <div class="card-body px-0">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="fontSizeM">{{ item.title }}</h2>
-                <p class="fontSize-md-S fw-bold mb-0"
-                  :class="{'text-primary': item.is_sell}">
-                  NT {{ item.is_sell? item.price : item.origin_price }}
-                  <span v-if="item.is_sell"
-                      class="fontSizeBase text-decoration-line-through text-dark ms-1">
-                    NT {{ item.origin_price }}
-                  </span>
-                </p>
-              </div>
-              <div class="d-flex justify-content-between">
-                <button
-                  type="button"
-                  class="favoriteBtn d-center btn btn-outline-secondary me-3"
-                  @click.stop="addToFavorite(item)"
-                >
-                  <span class="material-icons">favorite_border</span>
-                </button>
-                <button
-                    type="button"
-                    class="addCartBtn btn btn-secondary d-center w-100"
-                    @click.stop="addToCart(item.id)"
-                  >
-                    <p class="d-center mb-0 w-100">
-                      <span class="material-icons me-2">add_shopping_cart</span>
-                      加入購物車
-                    </p>
-                  </button>
-              </div>
-            </div>
-          </router-link>
-        </Swiper-slide>
-      </Swiper>
+      <ProductInfo :product='product' data-aos="fade-up"></ProductInfo>
+      <h3 class="fontSize-md-L mb-3">買了此商品的人也買了...</h3>
+      <ProductSwiper :products='recommends' :windowSize='windowSize'></ProductSwiper>
     </template>
   </div>
   <div class="position-relative d-none d-md-block">
@@ -292,11 +241,9 @@
 
 <script>
 import emitter from '@/methods/Emitter';
-import SwiperCore, { Pagination, Autoplay } from 'swiper/core';
-import { Swiper, SwiperSlide } from 'swiper/vue';
 import GoTop from '@/components/GoTop.vue';
-
-SwiperCore.use([Pagination, Autoplay]);
+import ProductInfo from '@/components/front/ProductInfo.vue';
+import ProductSwiper from '@/components/front/ProductSwiper.vue';
 
 export default {
   data() {
@@ -306,14 +253,15 @@ export default {
       qty: 1,
       products: '',
       favorite: '',
+      categoryList: '',
       isLoading: false,
     };
   },
   emits: ['emit-order', 'emit-carts'],
   props: ['pushOrder', 'pushCarts'],
   components: {
-    Swiper,
-    SwiperSlide,
+    ProductInfo,
+    ProductSwiper,
     GoTop,
   },
   computed: {
@@ -324,7 +272,8 @@ export default {
       return 3;
     },
     recommends() {
-      return this.products.filter((item) => item.id !== this.product.id);
+      const total = this.products.filter((item) => item.id !== this.product.id);
+      return total;
     },
   },
   watch: {
@@ -359,13 +308,12 @@ export default {
               '<br/>',
             );
             if (this.product.spec) {
-              this.product.spec = this.product.spec.replace(
-                /\n/g,
-                '<br/>',
-              );
+              this.product.spec = this.product.spec.replace(/\n/g, '<br/>');
             }
             this.product.price = this.$toCurrency(this.product.price);
-            this.product.origin_price = this.$toCurrency(this.product.origin_price);
+            this.product.origin_price = this.$toCurrency(
+              this.product.origin_price,
+            );
             this.isLoading = false;
           } else {
             this.$swal({
@@ -389,7 +337,8 @@ export default {
         .get(apiUrl)
         .then((res) => {
           if (res.data.success) {
-            this.products = res.data.products;
+            this.products = res.data.products.sort((a, b) => b.num - a.num);
+            this.getCategoryList();
           } else {
             this.$swal({
               text: res.data.message,
@@ -494,26 +443,33 @@ export default {
       const mainImage = document.getElementById('mainImage');
       mainImage.setAttribute('src', clickImg);
     },
+    getCategoryList() {
+      const temp = new Set();
+      this.products.forEach((item) => (temp.has(item.category) ? '' : temp.add(item.category)));
+      this.categoryList = [...temp];
+    },
   },
   created() {
-    this.isLoading = true;
-    this.routeId = this.$route.params.id;
-    this.getProduct();
-    this.getProducts();
+    if (this.$route.name === 'product') {
+      this.isLoading = true;
+      this.routeId = this.$route.params.id;
+      this.getProduct();
+      this.getProducts();
+    }
   },
 };
 </script>
 
 <style scoped lang="scss">
-  .thumbnail{
-    height: 56px;
-    max-width: 100%;
-    object-fit: cover;
-    &:hover{
-      cursor: pointer;
-    }
-    @media (min-width: 992px){
-      height: 96px;
-    }
+.thumbnail {
+  height: 56px;
+  width: 100%;
+  object-fit: cover;
+  &:hover {
+    cursor: pointer;
   }
+  @media (min-width: 992px) {
+    height: 100px;
+  }
+}
 </style>
