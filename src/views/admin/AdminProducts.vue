@@ -230,6 +230,7 @@ export default {
             this.tempData.data = { imagesUrl: [] };
             this.pagination = res.data.pagination;
             this.isLoading = false;
+            console.log(this.productData);
           } else {
             this.$swal({
               text: res.data.message,

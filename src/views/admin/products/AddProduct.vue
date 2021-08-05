@@ -190,7 +190,6 @@
               <div class="col-md-6 mb-3 d-flex">
                 <div class="form-check mt-5 me-4">
                   <input class="form-check-input me-2" type="checkbox" value=""
-                          id="seasonProduct" :disabled="readonly"
                           v-model="newProduct.is_season">
                   <label class="form-check-label" for="seasonProduct">
                     季節限定
@@ -198,7 +197,6 @@
                 </div>
                 <div class="form-check mt-5">
                   <input class="form-check-input me-2" type="checkbox" value=""
-                          id="sellProduct" :disabled="readonly"
                           v-model="newProduct.is_sell">
                   <label class="form-check-label" for="sellProduct">
                     限時特惠
@@ -220,11 +218,11 @@
       aria-labelledby="profile-tab"
     >
       <Form v-slot="{ errors }" @submit="checkBasicInfo">
-        <div class="row">
+         <div class="row">
           <div class="col-md-6">
             <div class="mb-3">
               <label for="productMainContent" class="form-label">
-                主要內容<span>( 搭配說明圖片1.2 )</span><sup>*</sup>
+                主要內容<sup>*</sup>
               </label>
               <Field
                 type="text"
@@ -236,7 +234,7 @@
                 rules="required"
                 as="textarea"
                 :class="{ 'is-invalid': errors['主要內容'] }"
-                style="height: 368px"
+                style="height: 160px"
               >
               </Field>
               <error-message
@@ -244,11 +242,9 @@
                 class="invalid-feedback"
               ></error-message>
             </div>
-          </div>
-          <div class="col-md-6">
             <div class="mb-3">
               <label for="productSubContent" class="form-label">
-                說明內容<span>( 搭配說明圖片3.4.5 )</span><sup>*</sup>
+                說明內容<sup>*</sup>
               </label>
               <Field
                 type="text"
@@ -269,14 +265,60 @@
               ></error-message>
             </div>
             <div class="mb-3">
+              <label for="productExplanation " class="form-label">
+                補充內容<sup>*</sup>
+              </label>
+              <Field
+                type="text"
+                class="form-control"
+                id="productExplanation "
+                placeholder="請輸入補充內容"
+                v-model="newProduct.explanation "
+                name="補充內容"
+                rules="required"
+                as="textarea"
+                style="height: 160px"
+                :class="{ 'is-invalid': errors['補充內容'] }"
+              >
+              </Field>
+              <error-message
+                name="補充內容"
+                class="invalid-feedback"
+              ></error-message>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="productSpec" class="form-label">
+                商品規格<sup>*</sup>
+              </label>
+              <Field
+                type="text"
+                class="form-control"
+                id="productSpec"
+                placeholder="請輸入商品規格"
+                v-model="newProduct.spec"
+                name="商品規格"
+                rules="required"
+                as="textarea"
+                style="height: 160px"
+                :class="{ 'is-invalid': errors['商品規格'] }"
+              >
+              </Field>
+              <error-message
+                name="商品規格"
+                class="invalid-feedback"
+              ></error-message>
+            </div>
+            <div class="mb-3">
               <label for="productPrecautions" class="form-label"
                 >注意事項</label
               >
               <textarea
                 v-model="newProduct.precautions"
-                style="height: 160px"
                 class="form-control"
                 id="productPrecautions"
+                style="height: 160px"
                 placeholder="請輸入注意事項"
               >
               </textarea>

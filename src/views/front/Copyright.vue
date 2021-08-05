@@ -44,6 +44,10 @@
                   <li>Joseph Gonzalez</li>
                   <li>Ryan Arnst</li>
                   <li>Anthony Vela</li>
+                  <li>Mark Stebnicki</li>
+                  <li>Karolina Grabowska</li>
+                  <li>Ant</li>
+                  <li>Ira E</li>
                 </ul>
               </div>
               <div class="col-md-3">
@@ -61,6 +65,10 @@
                   <li>Ibadah Mimpi</li>
                   <li>Steven Weeks</li>
                   <li>Johnny McClung</li>
+                  <li>Katherine Hood</li>
+                  <li>Tracey Hocking</li>
+                  <li>Melanin Goddess</li>
+                  <li>Artem Beliaikin</li>
                 </ul>
               </div>
               <div class="col-md-3">
@@ -78,6 +86,10 @@
                   <li>Anaya Katlego</li>
                   <li>GreenForce Staffing</li>
                   <li>Roman Synkevych</li>
+                  <li>Livier Garcia</li>
+                  <li>Mick Victor</li>
+                  <li>NastyaSensei</li>
+                  <li>Sarah Chai</li>
                 </ul>
               </div>
               <div class="col-md-3">
@@ -93,6 +105,11 @@
                   <li>Alexandre Debiève</li>
                   <li>Yanapi Senaud</li>
                   <li>Kindel Media</li>
+                  <li>Kelly Lacy</li>
+                  <li>Quang Nguyen Vinh</li>
+                  <li>Pixabay</li>
+                  <li>Arina Krasnikova</li>
+                  <li>Cats Coming</li>
                 </ul>
               </div>
             </div>

@@ -59,7 +59,10 @@
     <div class="row mb-6">
       <div v-for="item in filterProducts" :key="item.id"
           class="col-md-6 col-lg-4 mb-4">
-        <router-link :to="`/product/${item.id}`" class="productCard px-3">
+        <router-link :to="{ path: `/product/${item.id}`,
+                            query: { category: item.category,
+                                    title : item.title}}"
+                class="productCard px-3">
           <div class="card-img-top mb-2">
             <img
               :src="item.imagesUrl[0].imgUrl"
@@ -69,7 +72,7 @@
           </div>
           <div class="card-body px-0">
             <div class="d-flex mb-3"
-            :class="{'tagCard': !item.is_season && !item.is_sell}">
+                :class="{'tagCard': !item.is_season && !item.is_sell}">
               <span v-if="item.is_season"
                     class="border border-primary text-primary px-2 me-2">季節限定</span>
               <span v-if="item.is_sell"
@@ -77,15 +80,14 @@
             </div>
             <div class="d-flex justify-content-between align-items-center mb-3">
               <h2 class="fontSizeM">{{ item.title }}</h2>
-              <div class="d-flex align-items-center">
-                <span v-if="item.is_sell" class="text-decoration-line-through me-2">
-                  NT {{ $toCurrency(item.origin_price) }}
+              <p class="fontSize-md-S fw-bold mb-0"
+                :class="{'text-primary': item.is_sell}">
+                NT {{ item.is_sell? item.price : item.origin_price }}
+                <span v-if="item.is_sell"
+                    class="fontSizeBase text-decoration-line-through text-dark ms-1">
+                  NT {{ item.origin_price }}
                 </span>
-                <p class="fontSize-md-S fw-bold mb-0"
-                  :class="{'text-primary': item.is_sell}">
-                  NT {{ $toCurrency(item.price) }}
-                </p>
-              </div>
+              </p>
             </div>
             <div class="d-flex justify-content-between">
               <button
@@ -151,6 +153,12 @@ export default {
   },
   emits: ['emit-order', 'emit-carts'],
   props: ['pushOrder', 'pushCarts'],
+  watch: {
+    $route() {
+      // const { category } = this.$route.query.category;
+      console.log(this.$route.query.category);
+    },
+  },
   methods: {
     getProducts(page = 1) {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/products?page=${page}`;
@@ -160,10 +168,15 @@ export default {
           if (res.data.success) {
             this.products = res.data.products.sort((a, b) => b.num - a.num);
             this.pagination = res.data.pagination;
-            this.filterProducts = this.products;
+            if (this.$route.query.category) {
+              this.filterProducts = this.products.filter(
+                (item) => item.category === this.$route.query.category,
+              );
+            } else {
+              this.filterProducts = this.products;
+            }
             this.getCategoryList();
             this.isLoading = false;
-            console.log(this.products);
           } else {
             this.$swal({
               text: res.data.message,
@@ -187,9 +200,6 @@ export default {
           result.add(item.category);
         }
       });
-    },
-    getProduct(id) {
-      this.$router.push(`/product/${id}`);
     },
     addToCart(productId) {
       this.isLoading = true;

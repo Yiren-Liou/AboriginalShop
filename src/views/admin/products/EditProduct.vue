@@ -261,7 +261,7 @@
           <div class="col-md-6">
             <div class="mb-3">
               <label for="productMainContent" class="form-label">
-                主要內容<span>( 搭配說明圖片1.2 )</span><sup>*</sup>
+                主要內容<sup>*</sup>
               </label>
               <Field
                 type="text"
@@ -273,7 +273,7 @@
                 rules="required"
                 as="textarea"
                 :class="{ 'is-invalid': errors['主要內容'] }"
-                style="height: 368px"
+                style="height: 160px"
                 :disabled="readonly"
               >
               </Field>
@@ -282,11 +282,9 @@
                 class="invalid-feedback"
               ></error-message>
             </div>
-          </div>
-          <div class="col-md-6">
             <div class="mb-3">
               <label for="productSubContent" class="form-label">
-                說明內容<span>( 搭配說明圖片3.4.5 )</span><sup>*</sup>
+                說明內容<sup>*</sup>
               </label>
               <Field
                 type="text"
@@ -308,6 +306,54 @@
               ></error-message>
             </div>
             <div class="mb-3">
+              <label for="productExplanation " class="form-label">
+                補充內容<sup>*</sup>
+              </label>
+              <Field
+                type="text"
+                class="form-control"
+                id="productExplanation "
+                placeholder="請輸入補充內容"
+                v-model="productInfo.explanation "
+                name="補充內容"
+                rules="required"
+                as="textarea"
+                style="height: 160px"
+                :class="{ 'is-invalid': errors['補充內容'] }"
+                :disabled="readonly"
+              >
+              </Field>
+              <error-message
+                name="補充內容"
+                class="invalid-feedback"
+              ></error-message>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="productSpec" class="form-label">
+                商品規格<sup>*</sup>
+              </label>
+              <Field
+                type="text"
+                class="form-control"
+                id="productSpec"
+                placeholder="請輸入商品規格"
+                v-model="productInfo.spec"
+                name="商品規格"
+                rules="required"
+                as="textarea"
+                style="height: 160px"
+                :class="{ 'is-invalid': errors['商品規格'] }"
+                :disabled="readonly"
+              >
+              </Field>
+              <error-message
+                name="商品規格"
+                class="invalid-feedback"
+              ></error-message>
+            </div>
+            <div class="mb-3">
               <label for="productPrecautions" class="form-label"
                 >注意事項</label
               >
@@ -322,12 +368,6 @@
               </textarea>
             </div>
           </div>
-        </div>
-        <div
-          v-if="!readonly"
-          class="col-md-4 mx-auto d-flex justify-content-center mt-3"
-        >
-          <button type="submit" class="btn btn-primary">儲存</button>
         </div>
       </Form>
     </div>
@@ -368,7 +408,6 @@ export default {
     return {
       routeId: this.$route.params.id,
       productInfo: {},
-      updateProduct: {},
       isLoading: false,
     };
   },
@@ -435,6 +474,7 @@ export default {
           }
         })
         .catch(() => {
+          this.isLoading = false;
           this.$swal({
             text: 'Opps ... 發生錯誤，請嘗試重新整理此頁面',
             icon: 'error',

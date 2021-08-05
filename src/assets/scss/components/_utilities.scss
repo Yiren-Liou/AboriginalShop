@@ -20,8 +20,10 @@
   background-size: cover;
 }
 
-.bg-fixed{
-  background-attachment: fixed;
+.bg-lg-fixed{
+  @media (min-width: 992px){
+    background-attachment: fixed;
+  }
 }
 
 .fontSizeBase{

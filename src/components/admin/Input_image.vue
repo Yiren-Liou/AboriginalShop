@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-4">
+  <div class="col-md-6">
     <div class="mb-3">
       <label for="productMainImg" class="form-label"
         >商品首圖<sup>*</sup></label
@@ -28,7 +28,7 @@
       </template>
     </div>
   </div>
-  <div class="col-md-4" v-for="num in 5" :key="num">
+  <div class="col-md-6" v-for="num in 6" :key="num">
     <div class="mb-3">
       <label :for="`productImg${num}`" class="form-label"
         >說明圖片{{ num }}<sup>*</sup></label
@@ -59,7 +59,7 @@
   </div>
   <div
     v-if="!readonly"
-    class="col-md-4 mx-auto d-flex justify-content-center mt-3"
+    class="col-md-12 mx-auto d-flex justify-content-center mt-3"
   >
     <button type="button" class="btn btn-primary" @click="emitImages">
       上傳

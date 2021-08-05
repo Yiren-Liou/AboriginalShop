@@ -157,7 +157,7 @@
     </div>
   </div>
   <div
-    class="sectionBg d-center bg-bottom bg-fixed mb-4 mb-md-7"
+    class="sectionBg d-center bg-bottom bg-lg-fixed mb-4 mb-md-7"
     style="
       backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1626619325929.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=VpKkTAEF0OqsCm%2FPtxXGuybFNxfTBdb4fI3x13Qg9DXamsPac2vfp39I9GbADRyhT6MAdDZq0ANYr0Q3dwgWIzk%2FJu6TzRqeHonKgrabYbFKuSp49N%2FxEff%2FqkvV1MQxRQ1LQ4Ji6gHS868iAYEhzVmYv%2Fv6kHkRLL4q60%2B1myaDkhcgRaWBE83QvglYK%2Br2JGO3JVkgT5L7HEdy3UlxUtHzmy2frAe%2BgvhA9qlH441l%2FYjco%2BxAPCIEKf9IkR01fh2KNr5nctO6%2FzNZ9xWyZvpGvVbDBbgp1y1rScyAa8TRC2NDfm75elXf0uCuComdLA%2Fo5hTHgrf8IfXov5cZmA%3D%3D);
     "
@@ -208,15 +208,14 @@
             <div class="card-body px-0">
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="fontSizeM">{{ item.title }}</h2>
-                <div class="d-flex align-items-center">
-                  <span v-if="item.is_sell" class="text-decoration-line-through me-2">
-                    NT {{ $toCurrency(item.origin_price) }}
+                <p class="fontSize-md-S fw-bold mb-0"
+                  :class="{'text-primary': item.is_sell}">
+                  NT {{ item.is_sell? item.price : item.origin_price }}
+                  <span v-if="item.is_sell"
+                      class="fontSizeBase text-decoration-line-through text-dark ms-1">
+                    NT {{ item.origin_price }}
                   </span>
-                  <p class="fontSize-md-S fw-bold mb-0"
-                    :class="{'text-primary': item.is_sell}">
-                    NT {{ $toCurrency(item.price) }}
-                  </p>
-                </div>
+                </p>
               </div>
               <div class="d-flex justify-content-between">
                 <button
@@ -282,15 +281,14 @@
             <div class="card-body px-0">
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="fontSizeM">{{ item.title }}</h2>
-                <div class="d-flex align-items-center">
-                  <span v-if="item.is_sell" class="text-decoration-line-through me-2">
-                    NT {{ $toCurrency(item.origin_price) }}
+                <p class="fontSize-md-S fw-bold mb-0"
+                  :class="{'text-primary': item.is_sell}">
+                  NT {{ item.is_sell? item.price : item.origin_price }}
+                  <span v-if="item.is_sell"
+                      class="fontSizeBase text-decoration-line-through text-dark ms-1">
+                    NT {{ item.origin_price }}
                   </span>
-                  <p class="fontSize-md-S fw-bold mb-0"
-                    :class="{'text-primary': item.is_sell}">
-                    NT {{ $toCurrency(item.price) }}
-                  </p>
-                </div>
+                </p>
               </div>
               <div class="d-flex justify-content-between">
                 <button
@@ -320,7 +318,7 @@
   <div class="container mb-4 mb-md-7">
     <div class="row justify-content-between mb-4 mb-md-7">
       <div class="col-md-7 order-1 order-md-0 mb-3 mb-md-0">
-        <div class="sectionBg bg-cover bg-center bg-fixed py-7"
+        <div class="sectionBg bg-cover bg-center bg-lg-fixed py-7"
             style="
               backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1627899237424.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=DRzHG3wVg%2B5f84TxVT1wQEkkS4zrwXvrjZE8DhBv9fAm2ySAXRcb2t8Ta%2BwzM1x4015%2F6xDWTFncdk2yZC4M2KaoLcYZOLKOigrwLiVWQBmLwVRsm6HMWYpahBMkJelSVchSso7ZABnLwNthB5YEK133vNKmuUt3V8AnsDxHzWKcMaoSgB84YdeKAfb9Ur%2FsJ51XCgRWQ4ATe6VUoEeus26ZFRFZowGuNj5K4eOhe2B5ymBBIKEhGNx5r62t8Nt76wppTrABHlxmiPUCwOL5Td4S9HbcWRiKRmJTErrpAPrLeym3NqfKrn6XeET5O5o7Cbba8oPzfNIN1rRNoMKnsw%3D%3D);
         ">
@@ -355,7 +353,7 @@
         </p>
       </div>
       <div class="col-md-7 mb-3 mb-md-0">
-        <div class="sectionBg bg-fixed py-7 bg-bottom "
+        <div class="sectionBg bg-lg-fixed py-7 bg-bottom "
             style="
               backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1627910790875.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=j2YMyQZgeHBY6LHiD1ZIFf5%2FKzmah1ez4uF5XAuOAEG%2FhSkkruWASDhYnsIFY7HczDbe%2FDRJHEBdP1dTZ74Hf4IL5pYqKzxFPtOXZIoJ9EwKmt%2FPL9Ygf6TUKcayzBQGmZv5xjRXv%2FNZNAKY1a%2FzaeFV%2BKtrS%2FemY31KUCRwPVne%2FnWdGRS%2BRm6gAztiRlCRKLRxiK5t%2BYNH8M5EQfbyYCiyWkacAfmizF%2BbGuea0bRApXHLjKdw9cp7ydeJ9YqSdT3J0xBQJRdiy5loInTrfzzDq%2FINS8D5fyt90xcjMdi5TnzxOSm6xPa9r6eY57nW0qrC8IqwfQtByCULwS3cYA%3D%3D);
         ">
@@ -401,15 +399,14 @@
             <div class="card-body px-0">
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="fontSizeM">{{ item.title }}</h2>
-                <div class="d-flex align-items-center">
-                  <span v-if="item.is_sell" class="text-decoration-line-through me-2">
-                    NT {{ $toCurrency(item.origin_price) }}
+                <p class="fontSize-md-S fw-bold mb-0"
+                  :class="{'text-primary': item.is_sell}">
+                  NT {{ item.is_sell? item.price : item.origin_price }}
+                  <span v-if="item.is_sell"
+                      class="fontSizeBase text-decoration-line-through text-dark ms-1">
+                    NT {{ item.origin_price }}
                   </span>
-                  <p class="fontSize-md-S fw-bold mb-0"
-                    :class="{'text-primary': item.is_sell}">
-                    NT {{ $toCurrency(item.price) }}
-                  </p>
-                </div>
+                </p>
               </div>
               <div class="d-flex justify-content-between">
                 <button
@@ -437,7 +434,7 @@
     </Swiper>
     <div class="row justify-content-between mb-4 mb-md-7">
       <div class="col-md-7 order-1 order-md-0 mb-3 mb-md-0">
-        <div class="sectionBg bg-center bg-fixed py-7"
+        <div class="sectionBg bg-center bg-lg-fixed py-7"
             style="
               backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1627918568186.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=DayuJQm0CQ5lMEaQsYBbr%2Bk5FLZSy574%2FS%2FUifkaEi38V86YdrrwRHYEefv9g9p%2F0g4vfBB6c89WTDleP%2BbMGmBurOqwUyI6OCuRhRgk2c%2F%2BdnbonDtn1j%2BXTOAWAgemOhEDCl4Es6u7WGHWpyaRYthOs0JU09r1IGwDGI67oVUICqUYTFJL6Sty4kyEImvbn21SNx2A4u3tcMkDKmpP4DHlBwbef9Q4RXvlbiaSTpXOsU7VZAEJOwpDvz%2FRALvFrdrvjPfnpv7jRTipW25TQ9CqHjHcREaRGcXjoS46nXqhHaJMGctZ9P54WVlRj09ywRDs4NpqNUxJTb%2BhwCed4A%3D%3D);
         ">
@@ -471,7 +468,7 @@
         </p>
       </div>
       <div class="col-md-7 mb-3 mb-md-0">
-        <div class="sectionBg bg-bottom bg-fixed py-7"
+        <div class="sectionBg bg-bottom bg-lg-fixed py-7"
             style="
               backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1627917007156.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=TfL%2BP4pPqXv4k6728RgMHjOwok9fLdwv0Hs4OczDqGMBHJhwHjFmd8ADO9FJtx9F%2FduIwoatvW8YUG8hBKgzvMk5MNoEGgvplOiT5lyGJXZxSwR19wZVIv9%2F4GMEGvKBibpE8aVTu2YC5vAkXrj7EO4uUiUgUPUDmUZtwfJZ1xK%2F8rUacBIUN6F83Hr0itpy7PbMr7Fka9lkVCMDS0VfHe4PlXCRluoE9T%2FpVD0Fcox1RVNbJKzr1fpJd4paGXz3FMndFEOpghWgoOKttXDgu8EgPsunIaV%2FLCcGc1wVJq4VhqTFCZ3i3NY6E4Ifod32o9EMN4eBXdvsTEkQxIRZfg%3D%3D);
         ">
@@ -517,15 +514,14 @@
             <div class="card-body px-0">
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="fontSizeM">{{ item.title }}</h2>
-                <div class="d-flex align-items-center">
-                  <span v-if="item.is_sell" class="text-decoration-line-through me-2">
-                    NT {{ $toCurrency(item.origin_price) }}
+                <p class="fontSize-md-S fw-bold mb-0"
+                  :class="{'text-primary': item.is_sell}">
+                  NT {{ item.is_sell? item.price : item.origin_price }}
+                  <span v-if="item.is_sell"
+                      class="fontSizeBase text-decoration-line-through text-dark ms-1">
+                    NT {{ item.origin_price }}
                   </span>
-                  <p class="fontSize-md-S fw-bold mb-0"
-                    :class="{'text-primary': item.is_sell}">
-                    NT {{ $toCurrency(item.price) }}
-                  </p>
-                </div>
+                </p>
               </div>
               <div class="d-flex justify-content-between">
                 <button

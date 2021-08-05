@@ -110,6 +110,12 @@
                 <span class="ms-3">{{ user.address }}</span>
               </p>
             </li>
+            <li>
+              <p>
+                買家備註
+                <span class="ms-3">{{ order.message? order.message : '無' }}</span>
+              </p>
+            </li>
           </ul>
         </div>
       </div>
