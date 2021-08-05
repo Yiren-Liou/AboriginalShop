@@ -166,6 +166,7 @@ export default {
               this.filterProducts = this.products.filter(
                 (item) => item.category === this.$route.query.category,
               );
+              this.isActive = this.$route.query.category;
             } else {
               this.filterProducts = this.products;
             }
@@ -284,6 +285,7 @@ export default {
             break;
         }
         this.isLoading = false;
+        this.$router.push({ path: '/products', query: { category: target } });
       }, 500);
     },
     getCategoryList() {
