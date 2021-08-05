@@ -93,14 +93,14 @@
               <button
                 type="button"
                 class="favoriteBtn d-center btn btn-outline-secondary me-3"
-                @click.stop="addToFavorite(item)"
+                @click.prevent="addToFavorite(item)"
               >
                 <span class="material-icons">favorite_border</span>
               </button>
               <button
                   type="button"
                   class="addCartBtn btn btn-secondary d-center w-100"
-                  @click.stop="addToCart(item.id)"
+                  @click.prevent="addToCart(item.id)"
                 >
                   <p class="d-center mb-0 w-100">
                     <span class="material-icons me-2">add_shopping_cart</span>
@@ -153,12 +153,6 @@ export default {
   },
   emits: ['emit-order', 'emit-carts'],
   props: ['pushOrder', 'pushCarts'],
-  watch: {
-    $route() {
-      // const { category } = this.$route.query.category;
-      console.log(this.$route.query.category);
-    },
-  },
   methods: {
     getProducts(page = 1) {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/products?page=${page}`;

@@ -123,7 +123,7 @@
               <button
                 type="button"
                 class="favoriteBtn d-center btn btn-outline-secondary w-50 py-2 ms-1"
-                @click.stop="addToFavorite(item)"
+                @click.stop="addToFavorite(product)"
               >
                 <span class="material-icons">favorite_border</span>
                 加入收藏
@@ -305,6 +305,7 @@ export default {
       product: '',
       qty: 1,
       products: '',
+      favorite: '',
       isLoading: false,
     };
   },
@@ -417,6 +418,39 @@ export default {
       } else if (action === 'minus') {
         this.qty -= 1;
       }
+    },
+    addToFavorite(product) {
+      const hasFavorite = localStorage.getItem('favorite');
+      if (hasFavorite) {
+        this.favorite = JSON.parse(hasFavorite);
+        const isSave = this.favorite
+          .map((favorite) => favorite.id)
+          .indexOf(product.id);
+        if (isSave < 0) {
+          this.favorite.push(product);
+          this.$swal({
+            text: '成功收藏',
+            icon: 'success',
+            confirmButtonColor: '#ffbc1f',
+          });
+        } else {
+          this.$swal({
+            text: '已經收藏過囉',
+            icon: 'warning',
+            confirmButtonColor: '#ffbc1f',
+          });
+        }
+      } else {
+        this.favorite.push(product);
+        this.$swal({
+          text: '成功收藏',
+          icon: 'success',
+          confirmButtonColor: '#ffbc1f',
+        });
+      }
+      this.favorite = JSON.stringify(this.favorite);
+      localStorage.setItem('favorite', this.favorite);
+      emitter.emit('update-favorite');
     },
     addToCart(productId, qty) {
       this.isLoading = true;
