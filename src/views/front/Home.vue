@@ -30,12 +30,14 @@
         flex-column
         align-items-center
         text-white
+        mb-2
+        mb-md-5
       "
       type="button"
       @click="moveToIntro"
     >
       我想知道
-      <span class="material-icons">keyboard_arrow_down</span>
+      <span class="arrowImg material-icons position-absolute">keyboard_arrow_down</span>
     </button>
   </div>
   <div class="container mb-4 mb-md-7" id="intro">
@@ -168,8 +170,8 @@
       給予時間自然成長
     </span>
   </div>
-  <div class="container mb-4 mb-md-7">
-    <div class="d-md-flex align-items-md-center" data-aos="fade-up">
+  <div class="container mb-4 mb-md-7" data-aos="fade-up">
+    <div class="d-md-flex align-items-md-center">
       <h3 class="d-flex align-items-center fontSize-M fontSize-md-XL fw-bold">
         <img
           src="@/assets/images/季節限定.png"
@@ -181,9 +183,8 @@
       <p class="fontSize-md-S text-primary ms-2 mb-0">每年產量不定，錯過要再等一年以上呦!</p>
     </div>
     <ProductSwiper :products="seasonProduct" :windowSize="windowSize"></ProductSwiper>
-    <div class="d-md-flex align-items-md-center" data-aos="fade-up">
-      <h3 class="d-flex align-items-center fontSize-md-XL fw-bold"
-          data-aos="fade-up">
+    <div class="d-md-flex align-items-md-center">
+      <h3 class="d-flex align-items-center fontSize-md-XL fw-bold">
         <img
           src="@/assets/images/限時特惠.png"
           alt="item"
@@ -195,7 +196,7 @@
     </div>
     <ProductSwiper :products="sellProduct" :windowSize="windowSize"></ProductSwiper>
   </div>
-  <div class="container mb-4 mb-md-7">
+  <div class="container mb-4 mb-md-7" data-aos="fade-up">
     <div class="row justify-content-between mb-4 mb-md-7">
       <div class="col-md-7 order-1 order-md-0 mb-3 mb-md-0">
         <div class="sectionBg bg-cover bg-center bg-lg-fixed py-7"
@@ -240,7 +241,7 @@
         </div>
       </div>
     </div>
-    <div class="d-md-flex align-items-md-center" data-aos="fade-up">
+    <div class="d-md-flex align-items-md-center">
         <h3 class="d-flex align-items-center fontSize-M fontSize-md-XL fw-bold">
           <img
             src="@/assets/images/新鮮蔬果.png"
@@ -295,7 +296,7 @@
         </div>
       </div>
     </div>
-    <div class="d-md-flex align-items-md-center" data-aos="fade-up">
+    <div class="d-md-flex align-items-md-center">
       <h3 class="d-flex align-items-center fontSize-M fontSize-md-XL fw-bold">
         <img
           src="@/assets/images/沖泡飲品.png"
@@ -318,7 +319,7 @@
       <div class="row justify-content-center py-md-4">
         <div class="col-md-6">
           <h3 class="fontSize-M fontSize-md-XL mb-3">
-            不想錯過任何優惠訊息嗎? <br class="d-md-none">歡迎訂閱電子報
+            歡迎訂閱電子報 <br>獲得最新優惠訊息
           </h3>
           <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="example@mail.com" id="subscribe"

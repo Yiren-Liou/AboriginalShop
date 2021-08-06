@@ -61,6 +61,7 @@
           row
           align-items-center
           mb-4
+          mb-md-6
         "
         data-aos="fade-up"
       >
@@ -421,6 +422,7 @@ export default {
               icon: 'success',
               confirmButtonColor: '#ffbc1f',
             });
+            this.qty = 1;
           } else {
             this.isLoading = false;
             this.$swal({

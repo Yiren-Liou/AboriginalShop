@@ -72,3 +72,25 @@ img{
     height: 600px;
   }
 }
+
+.tagImg{
+  width: 120px;
+  position: absolute;
+  right: -128px;
+  bottom: 0;
+  transform: rotate(20deg);
+  animation-name: 'shake';
+  animation-duration: 1s;
+  animation-iteration-count:infinite;
+}
+
+.arrowImg{
+  bottom: -15px;
+  animation-duration: 1.5s;
+  animation-iteration-count:infinite;
+  animation-name: 'moveDown';
+  @media (min-width: 992px) {
+    bottom: -20px;
+    animation-name: 'moveDown-md';
+  }
+}

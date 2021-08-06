@@ -182,7 +182,7 @@ export default {
   props: ['readStatus', 'pushOrder'],
   computed: {
     filterOrder() {
-      return this.orderList.filter((item) => item.id.match(this.search));
+      return this.orderList.filter((item) => (item.create_at).toString().match(this.search));
     },
   },
   methods: {

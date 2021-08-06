@@ -28,3 +28,13 @@
     justify-content: center;
   }
 }
+
+.nabTab .nav-link{
+  border: none;
+  border-bottom: 1px solid $gray-400;
+  background-color: $light;
+  &.active{
+    border-width: 3px;
+    border-color: $primary;
+  }
+}

@@ -1,6 +1,10 @@
 <template>
   <nav class="mb-4">
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <div
+      class="nabTab nav nav-fill justify-content-around"
+      id="nav-tab"
+      role="tablist"
+    >
       <button
         class="nav-link fontSize-md-S active"
         id="nav-describe-tab"

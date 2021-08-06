@@ -305,21 +305,32 @@ export default {
     delCoupon() {
       this.isLoading = true;
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/coupon/${this.routeId}}`;
-      console.log(apiUrl);
       this.$http
         .delete(apiUrl)
         .then((res) => {
           if (res.data.success) {
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'success' });
+            this.$swal({
+              text: res.data.message,
+              icon: 'success',
+              confirmButtonColor: '#ffbc1f',
+            });
             this.$router.push('/admin/coupons');
           } else {
             this.isLoading = false;
-            this.$swal({ text: res.data.message, icon: 'error' });
+            this.$swal({
+              text: res.data.message,
+              icon: 'error',
+              confirmButtonColor: '#ffbc1f',
+            });
           }
         })
-        .catch((err) => {
-          console.dir(err);
+        .catch(() => {
+          this.$swal({
+            text: 'Opps ... 發生錯誤，請嘗試重新整理此頁面',
+            icon: 'error',
+            confirmButtonColor: '#ffbc1f',
+          });
         });
     },
     emitReadonly(status) {

@@ -40,11 +40,9 @@ export default {
   methods: {
     getOrder(order) {
       this.order = order;
-      console.log(this.order);
     },
     getCarts(carts) {
       this.carts = carts;
-      console.log(this.carts);
     },
   },
   mounted() {

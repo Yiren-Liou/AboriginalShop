@@ -219,6 +219,7 @@
 export default {
   data() {
     return {
+      orderList: [],
       isLoading: false,
     };
   },
@@ -238,6 +239,7 @@ export default {
               this.isLoading = false;
               this.$router.push('/orderCompleted');
             }
+            this.recordList(res.data.create_at);
           } else {
             this.$swal({ text: res.data.message, icon: 'error' });
           }
@@ -291,6 +293,17 @@ export default {
     returnToForm() {
       this.$emit('emit-order', this.pushOrder);
       this.$router.push('/buyerForm');
+    },
+    recordList(createAt) {
+      const hasRecords = localStorage.getItem('orderList');
+      if (hasRecords) {
+        this.orderList = JSON.parse(hasRecords);
+        this.orderList.push(createAt);
+      } else {
+        this.orderList.push(createAt);
+      }
+      this.orderList = JSON.stringify(this.orderList);
+      localStorage.setItem('orderList', this.orderList);
     },
   },
   created() {

@@ -1,7 +1,7 @@
 <template>
   <div class="main container">
     <h2 class="fontSizeM fontSize-md-L text-center mb-5">─ 全部訂單 ─</h2>
-    <template v-if="!orders.length">
+    <template v-if="!localOrder.length">
       <div class="d-flex flex-column align-items-center">
         <p class="fontSizeM text-center mb-5">
           你還沒有買任何東西?<br />快點去逛逛吧
@@ -12,6 +12,21 @@
       </div>
     </template>
     <template v-else>
+      <div class="row justify-content-end mb-4">
+        <div class="col-md-3">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="請輸入訂單編號"
+              aria-label="search"
+              aria-describedby="searchBtn"
+              v-model.trim="search"
+            />
+            <span class="input-group-text material-icons bg-transparent me-3">search</span>
+          </div>
+        </div>
+      </div>
       <table class="table align-middle d-none d-md-table mb-7">
         <thead>
           <tr class="text-center">
@@ -26,7 +41,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(order, i) in orders" :key="order.id" class="text-center">
+          <tr v-for="(order, i) in filterOrder" :key="order.id" class="text-center">
             <th scope="row">{{ i + 1 }}</th>
             <td>{{ order.create_at }}</td>
             <td>{{ $date.toDate(order.create_at) }}</td>
@@ -50,7 +65,7 @@
         </tbody>
       </table>
       <ul class="d-md-none list-unstyled mb-6">
-        <li v-for="order in orders" :key="order.id" class="card mb-3">
+        <li v-for="order in filterOrder" :key="order.id" class="card mb-3">
           <div class="row align-items-center">
             <div class="col-8">
               <div class="card-body">
@@ -98,7 +113,7 @@
           </div>
         </li>
       </ul>
-      <div class="d-center">
+      <div v-if="pagination.total_pages > 1" class="d-center">
         <Pagination :page="pagination" @emit-page="getOrders"></Pagination>
       </div>
     </template>
@@ -121,7 +136,9 @@ export default {
   data() {
     return {
       orders: '',
+      localOrder: '',
       pagination: '',
+      search: '',
       isLoading: false,
     };
   },
@@ -130,6 +147,14 @@ export default {
   },
   emits: ['emit-order', 'emit-carts'],
   props: ['pushOrder', 'pushCarts'],
+  computed: {
+    filterOrder() {
+      if (this.localOrder) {
+        return this.localOrder.filter((item) => (item.create_at).toString().match(this.search));
+      }
+      return [];
+    },
+  },
   methods: {
     getOrders(page = 1) {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/orders?page=${page}`;
@@ -139,8 +164,10 @@ export default {
           if (res.data.success) {
             this.orders = res.data.orders;
             this.pagination = res.data.pagination;
+            this.renderOrder(this.orders);
             this.isLoading = false;
           } else {
+            this.isLoading = false;
             this.$swal({
               text: res.data.message,
               icon: 'error',
@@ -149,12 +176,25 @@ export default {
           }
         })
         .catch(() => {
+          this.isLoading = false;
           this.$swal({
             text: 'Opps ... 發生錯誤，請嘗試重新整理此頁面',
             icon: 'error',
             confirmButtonColor: '#ffbc1f',
           });
         });
+    },
+    renderOrder(orders) {
+      this.localOrder = JSON.parse(localStorage.getItem('orderList'));
+      if (this.localOrder) {
+        const compared = this.localOrder;
+        this.localOrder = orders.filter((item) => this.localOrder.indexOf(item.create_at) !== -1);
+        if (this.localOrder.length !== compared.length) {
+          const newLocalOrder = [];
+          this.localOrder.forEach((item) => newLocalOrder.push(item.create_at));
+          localStorage.setItem('orderList', JSON.stringify(newLocalOrder));
+        }
+      }
     },
   },
   created() {
