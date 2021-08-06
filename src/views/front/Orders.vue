@@ -1,7 +1,7 @@
 <template>
   <div class="main container">
     <h2 class="fontSizeM fontSize-md-L text-center mb-5">─ 全部訂單 ─</h2>
-    <template v-if="!localOrder.length">
+    <template v-if="!localOrder || localOrder.length < 1">
       <div class="d-flex flex-column align-items-center">
         <p class="fontSizeM text-center mb-5">
           你還沒有買任何東西?<br />快點去逛逛吧
