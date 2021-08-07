@@ -1,6 +1,6 @@
 <template>
   <div
-    class="border-bottom border-secondary bg-light fixed-top zindexTop w-100"
+    class="mainNav border-bottom border-secondary bg-light fixed-top zindexTop w-100"
     :class="{ 'shadow-sm': scroll }"
   >
     <Navbar></Navbar>

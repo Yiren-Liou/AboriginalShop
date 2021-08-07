@@ -13,52 +13,53 @@
       </p>
     </div>
   </div>
-  <div class="main container mt-4 px-md-7" data-aos="fade-up">
-    <ul class="subNav list-unstyled mb-4">
-      <li class="mb-2">
-        <button
-          class="subNavBtn btn d-center"
-          :class="{'active': isActive === '全部商品'}"
-          type="button"
-          data-category="全部商品"
-          @click="filterProduct"
-        >
-          <img src="@/assets/images/全部商品.png" class="iconImg me-2" />
-          全部商品
-        </button>
-      </li>
-      <li class="mb-2">
-        <button
-          class="subNavBtn btn d-center"
-          :class="{'active': isActive === '季節限定'}"
-          type="button"
-          data-category="季節限定"
-          @click="filterProduct"
-        >
-          <img src="@/assets/images/季節限定.png" class="iconImg me-2" />
-          季節限定
-        </button>
-      </li>
-      <li v-for="item in categoryList" :key="item" class="mb-2">
-        <button
-          class="subNavBtn btn d-center"
-          :class="{'active': isActive === item}"
-          type="button"
-          :data-category="item"
-          @click="filterProduct"
-        >
-          <img
-            :src="require(`@/assets/images/${item}.png`)"
-            :alt="item"
-            class="iconImg me-2"
-          />
-          {{ item }}
-        </button>
-      </li>
-    </ul>
+  <ul class="subNav list-unstyled mb-0 py-2"
+    :class="{ 'shadow-sm': scroll }">
+    <li>
+      <button
+        class="subNavBtn btn d-center"
+        :class="{'active': isActive === '全部商品'}"
+        type="button"
+        data-category="全部商品"
+        @click="filterProduct"
+      >
+        <img src="@/assets/images/全部商品.png" class="iconImg me-2" />
+        全部商品
+      </button>
+    </li>
+    <li>
+      <button
+        class="subNavBtn btn d-center"
+        :class="{'active': isActive === '季節限定'}"
+        type="button"
+        data-category="季節限定"
+        @click="filterProduct"
+      >
+        <img src="@/assets/images/季節限定.png" class="iconImg me-2" />
+        <span class="d-none d-md-block">季節</span>限定
+      </button>
+    </li>
+    <li v-for="item in categoryList" :key="item">
+      <button
+        class="subNavBtn btn d-center"
+        :class="{'active': isActive === item}"
+        type="button"
+        :data-category="item"
+        @click="filterProduct"
+      >
+        <img
+          :src="require(`@/assets/images/${item}.png`)"
+          :alt="item"
+          class="iconImg me-2"
+        />
+        {{ windowSmallWidth? item.substr(-2) : item }}
+      </button>
+    </li>
+  </ul>
+  <div class="main container mt-0 mt-md-2 px-md-7">
     <div class="row mb-6">
       <div v-for="item in filterProducts" :key="item.id"
-          class="col-md-6 col-lg-4 mb-4">
+          class="col-md-6 col-lg-4 mb-md-4">
         <router-link :to="{ path: `/product/${item.id}`,
                             query: { category: item.category,
                                     title : item.title}}"
@@ -141,6 +142,7 @@ export default {
       products: '',
       categoryList: '',
       isActive: '全部商品',
+      scroll: '',
       favorite: [],
       filterProducts: '',
       pagination: '',
@@ -153,6 +155,14 @@ export default {
   },
   emits: ['emit-order', 'emit-carts'],
   props: ['pushOrder', 'pushCarts'],
+  computed: {
+    windowSmallWidth() {
+      if (window.screen.width < 576) {
+        return true;
+      }
+      return false;
+    },
+  },
   methods: {
     getProducts(page = 1) {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/products?page=${page}`;
@@ -302,6 +312,9 @@ export default {
     if (topNav.classList.contains('show')) {
       topNav.classList.remove('show');
     }
+    window.addEventListener('scroll', () => {
+      this.scroll = document.documentElement.scrollTop > 0;
+    });
   },
 };
 </script>

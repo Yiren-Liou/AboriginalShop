@@ -1,45 +1,47 @@
 <template>
+  <ul class="subNav list-unstyled position-sticky mb-4"
+      :class="{ 'shadow-sm': scroll }">
+    <li class="mb-2">
+      <router-link
+        class="subNavBtn btn d-center"
+        data-category="全部商品"
+        :to="{ path: '/products', query: { category: '全部商品' } }"
+      >
+        <img src="@/assets/images/全部商品.png" class="iconImg me-2" />
+        全部商品
+      </router-link>
+    </li>
+    <li class="mb-2">
+      <router-link
+        class="subNavBtn btn d-center"
+        data-category="季節限定"
+        :to="{ path: '/products', query: { category: '季節限定' } }"
+      >
+        <img src="@/assets/images/季節限定.png" class="iconImg me-2" />
+        <span class="d-none d-md-block">季節</span>限定
+      </router-link>
+    </li>
+    <li v-for="item in categoryList" :key="item" class="mb-2">
+      <router-link
+        :to="{ path: '/products', query: { category: item } }"
+        class="subNavBtn btn d-center"
+        :class="{'active': $route.query.category === item}"
+      >
+        <img
+          :src="require(`@/assets/images/${item}.png`)"
+          :alt="item"
+          class="iconImg me-2"
+        />
+        <span class="d-md-none">{{ item.substr(-2) }}</span>
+        <span class="d-none d-md-block">{{ item }}</span>
+      </router-link>
+    </li>
+  </ul>
   <div class="container mt-7">
-    <ul class="d-none d-md-flex subNav list-unstyled mb-4">
-      <li class="mb-2">
-        <router-link
-          class="subNavBtn btn d-center"
-          data-category="全部商品"
-          :to="{ path: '/products', query: { category: '全部商品' } }"
-        >
-          <img src="@/assets/images/全部商品.png" class="iconImg me-2" />
-          全部商品
-        </router-link>
-      </li>
-      <li class="mb-2">
-        <router-link
-          class="subNavBtn btn d-center"
-          data-category="季節限定"
-          :to="{ path: '/products', query: { category: '季節限定' } }"
-        >
-          <img src="@/assets/images/季節限定.png" class="iconImg me-2" />
-          季節限定
-        </router-link>
-      </li>
-      <li v-for="item in categoryList" :key="item" class="mb-2">
-        <router-link
-          :to="{ path: '/products', query: { category: item } }"
-          class="subNavBtn btn d-center"
-          :class="{'active': $route.query.category === item}"
-        >
-          <img
-            :src="require(`@/assets/images/${item}.png`)"
-            :alt="item"
-            class="iconImg me-2"
-          />
-          {{ item }}
-        </router-link>
-      </li>
-    </ul>
     <nav
       style="--bs-breadcrumb-divider: '>'"
       aria-label="breadcrumb"
-      class="mb-4"
+      class="mb-3"
     >
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
@@ -221,7 +223,7 @@
           </div>
         </div>
       </div>
-      <ProductInfo :product='product' data-aos="fade-up"></ProductInfo>
+      <ProductInfo :product='product'></ProductInfo>
       <h3 class="fontSize-md-L mb-3">買了此商品的人也買了...</h3>
       <ProductSwiper :products='recommends' :windowSize='windowSize'></ProductSwiper>
     </template>
@@ -255,6 +257,7 @@ export default {
       products: '',
       favorite: '',
       categoryList: '',
+      scroll: '',
       isLoading: false,
     };
   },
@@ -458,6 +461,9 @@ export default {
       this.getProduct();
       this.getProducts();
     }
+    window.addEventListener('scroll', () => {
+      this.scroll = document.documentElement.scrollTop > 0;
+    });
   },
 };
 </script>

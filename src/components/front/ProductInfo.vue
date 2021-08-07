@@ -55,7 +55,7 @@
       </button>
     </div>
   </nav>
-  <div class="tab-content mb-4 mb-md-7" id="nav-tabContent">
+  <div class="tab-content mb-7" id="nav-tabContent">
     <div
       class="tab-pane fade show active"
       id="nav-describe"
@@ -120,11 +120,11 @@
       </h4>
       <ul class="list-unstyled fontSizeBase fontSize-md-S mb-3 mb-md-5">
         <li class="d-flex align-items-center mb-3">
-          信用卡 :
+          信用卡:
           <span class="ms-2"> VISA、Master、JCB </span>
         </li>
         <li class="d-flex align-items-center">
-          超商付款
+          超商付款:
           <span class="ms-2"> 7-11、全家、萊爾富、OK 超商 </span>
         </li>
       </ul>

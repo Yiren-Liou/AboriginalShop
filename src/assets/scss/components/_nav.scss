@@ -1,0 +1,28 @@
+.mainNav{
+  transition-duration: 1s;
+}
+
+.subNav {
+  position: sticky;
+  z-index: $zindex-sticky;
+  top: 59px;
+  background-color: $light;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  @media (min-width: 992px) {
+    justify-content: center;
+  }
+  .iconImg{
+    display: none;
+    @media (min-width: 992px) {
+      display: block;
+    }
+  }
+  li:first-child{
+    display: none;
+    @media (min-width: 992px) {
+      display: list-item;
+    }
+  }
+}

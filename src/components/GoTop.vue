@@ -1,11 +1,10 @@
 <template>
   <button
-    class="topBtn btn btn-outline-primary btn-sm"
-    type="button"
+    class="topBtn btn material-icons rounded p-0 px-md-1"
     :class="{ 'd-block': top }"
     @click="goTop"
   >
-    <span class="material-icons">expand_less</span>
+    expand_less
   </button>
 </template>
 

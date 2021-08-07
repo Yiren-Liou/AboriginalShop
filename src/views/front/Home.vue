@@ -1,7 +1,12 @@
 <template>
+  <div
+    class="mainNav fixed-top zindexTop w-100"
+    :class="{ 'shadow-sm': scroll, 'bg-secondary': scroll }"
+  >
+    <Navbar :nav-light="isNavLight"></Navbar>
+  </div>
   <div class="bgImg banner justify-content-between align-items-center mb-6">
     <div class="bgCover"></div>
-    <Navbar :nav-light="isNavLight"></Navbar>
     <div class="bannerSlogan d-flex flex-column align-items-center">
       <h2 class="fontSizeL fontSize-md-XL fw-bold mb-3">
         你知道友善環境的美食嗎?
@@ -332,7 +337,7 @@
       </div>
     </div>
   </div>
-  <div class="position-relative d-none d-md-block">
+  <div class="position-relative">
     <GoTop></GoTop>
   </div>
   <Footer :footer-dark="isFooterDark"></Footer>
@@ -365,6 +370,7 @@ export default {
       fruits: '',
       drinks: '',
       favorite: '',
+      scroll: '',
       isLoading: false,
     };
   },
@@ -487,6 +493,9 @@ export default {
   },
   created() {
     this.getProducts();
+    window.addEventListener('scroll', () => {
+      this.scroll = document.documentElement.scrollTop > 0;
+    });
   },
 };
 </script>
