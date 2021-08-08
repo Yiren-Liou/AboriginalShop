@@ -2,8 +2,13 @@
   color: #fff;
 }
 
-.addCartBtn:hover{
-  font-weight: bold;
+.addCartBtn{
+  @media (min-width: 992px) {
+    width: 100%;
+  }
+  &:hover{
+    font-weight: bold;
+  }
 }
 
 .topBtn{
@@ -35,6 +40,11 @@
 
 .btn-secondary, .btn-primary{
   color: #fff;
+}
+
+.btn-outline-dark:hover{
+  background-color: $light;
+  color: $dark;
 }
 
 .subNavBtn{

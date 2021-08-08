@@ -121,18 +121,12 @@
               ></div>
             </div>
             <div class="col-7">
-              <div class="card-body">
+              <div class="card-body pe-1">
                 <ul class="list-unstyled">
                   <li class="mb-2">
                     <p class="card-text fontSizeS">
                       名稱:
                       <span class="ms-1">{{ item.product.title }}</span>
-                    </p>
-                  </li>
-                  <li class="mb-2">
-                    <p class="card-text fontSizeS">
-                      規格:
-                      <span class="ms-1">{{ item.product.unit }}</span>
                     </p>
                   </li>
                   <li class="mb-2">
@@ -145,9 +139,9 @@
                   </li>
                   <li class="d-flex align-items-center mb-2">
                     <p class="card-text fontSizeS mb-0">數量:</p>
-                    <div class="input-group mx-auto w-75">
+                    <div class="input-group mx-auto w-65 w-md-75">
                       <button
-                        class="btn btn-sm btn-outline-dark material-icons"
+                        class="btn btn-sm btn-outline-dark material-icons px-1 px-md-2"
                         @click="updateProductNum('minus', item)"
                         type="button"
                       >
@@ -161,7 +155,7 @@
                         disabled
                       />
                       <button
-                        class="btn btn-sm btn-outline-dark material-icons"
+                        class="btn btn-sm btn-outline-dark material-icons p-1"
                         type="button"
                         @click="updateProductNum('add', item)"
                       >
@@ -192,7 +186,7 @@
           </div>
         </li>
       </ul>
-      <div class="d-flex mb-4 mb-md-7">
+      <div class="d-flex mb-6 mb-md-7">
         <button
           v-if="delCart.length > 0"
           type="button"
@@ -209,10 +203,10 @@
           刪除全部商品
         </button>
       </div>
-      <h3 class="fontSizeM fontSize-md-L mb-3">
+      <h3 class="fontSizeBase fontSize-md-L mb-3">
         其他人也將這些商品一起帶走囉 ...
       </h3>
-      <div class="row mb-4">
+      <div class="row mb-4 mb-md-6">
         <div class="col-6 col-md-3" v-for="item in saleProducts" :key="item.id">
           <div class="mb-3">
             <img :src="item.imagesUrl[0].imgUrl" class="cardImg" :alt="item" />
@@ -220,7 +214,7 @@
               <div
                 class="mb-3"
               >
-                <h2 class="fontSizeM">{{ item.title }}</h2>
+                <h2 class="fontSizeBase fontSize-md-M">{{ item.title }}</h2>
                 <p
                   class="fontSize-md-S fw-bold mb-0"
                   :class="{ 'text-primary': item.is_sell }"
@@ -249,7 +243,7 @@
           </div>
         </div>
       </div>
-      <div class="row justify-content-end mb-5 mb-md-7">
+      <div class="row justify-content-end mb-6 mb-md-7">
         <div class="col-md-5">
           <div class="d-flex justify-content-between mb-2">
             <p class="mb-0">折扣前總金額:</p>

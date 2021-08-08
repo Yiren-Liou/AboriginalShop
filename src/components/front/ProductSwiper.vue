@@ -23,8 +23,8 @@
           />
         </div>
         <div class="card-body px-0">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="fontSizeM">{{ item.title }}</h2>
+          <div class="d-md-flex justify-content-between align-items-center mb-3">
+            <h2 class="fontSizeBase fontSize-md-M">{{ item.title }}</h2>
             <p
               class="fontSize-md-S fw-bold mb-0"
               :class="{ 'text-primary': item.is_sell }"
@@ -59,7 +59,7 @@ export default {
   computed: {
     windowSize() {
       if (window.screen.width <= 576) {
-        return 1;
+        return 2;
       }
       return 3;
     },

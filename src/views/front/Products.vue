@@ -59,11 +59,11 @@
   <div class="main container mt-0 mt-md-2 px-md-7">
     <div class="row mb-6">
       <div v-for="item in filterProducts" :key="item.id"
-          class="col-md-6 col-lg-4 mb-md-4">
+          class="col-6 col-lg-4 mb-3 mb-md-4">
         <router-link :to="{ path: `/product/${item.id}`,
                             query: { category: item.category,
                                     title : item.title}}"
-                class="productCard px-3">
+                class="productCard">
           <div class="card-img-top mb-2">
             <img
               :src="item.imagesUrl[0].imgUrl"
@@ -75,12 +75,16 @@
             <div class="d-flex mb-3"
                 :class="{'tagCard': !item.is_season && !item.is_sell}">
               <span v-if="item.is_season"
-                    class="border border-primary text-primary px-2 me-2">季節限定</span>
+                    class="border border-primary text-primary px-2 me-2">
+                    {{ windowSmallWidth? '限定' : '季節限定' }}
+              </span>
               <span v-if="item.is_sell"
-                    class="border border-primary text-primary px-2">限時特惠</span>
+                    class="border border-primary text-primary px-2">
+                    {{ windowSmallWidth? '特惠' : '限時特惠' }}
+              </span>
             </div>
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <h2 class="fontSizeM">{{ item.title }}</h2>
+            <div class="d-md-flex justify-content-between align-items-center mb-3">
+              <h2 class="fontSizeBase fontSoze-md-M">{{ item.title }}</h2>
               <p class="fontSize-md-S fw-bold mb-0"
                 :class="{'text-primary': item.is_sell}">
                 NT {{ item.is_sell? item.price : item.origin_price }}
@@ -100,12 +104,12 @@
               </button>
               <button
                   type="button"
-                  class="addCartBtn btn btn-secondary d-center w-100"
+                  class="addCartBtn btn btn-secondary d-center material-icons"
                   @click.prevent="addToCart(item.id)"
                 >
-                  <p class="d-center mb-0 w-100">
-                    <span class="material-icons me-2">add_shopping_cart</span>
-                    加入購物車
+                  <p class="fontSize-md-S d-center material-icons mb-0">
+                    add_shopping_cart
+                    <span class="d-none d-lg-block ms-2">加入購物車</span>
                   </p>
                 </button>
             </div>

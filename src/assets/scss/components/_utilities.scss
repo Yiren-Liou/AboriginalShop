@@ -8,6 +8,16 @@
   height: 100vh;
 }
 
+.w-65{
+  width: 65%;
+}
+
+.w-md-75{
+  @media (min-width: 992px) {
+    width: 75%;
+  }
+}
+
 .bg-bottom{
   background-position: bottom;
 }
