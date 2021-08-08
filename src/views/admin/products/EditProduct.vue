@@ -220,22 +220,34 @@
                   class="invalid-feedback"
                 ></error-message>
               </div>
-              <div class="col-md-6 mb-3 d-flex">
-                <div class="form-check mt-5 me-4">
-                  <input class="form-check-input me-2" type="checkbox" value=""
-                          id="seasonProduct" :disabled="readonly"
-                          v-model="productInfo.is_season">
-                  <label class="form-check-label" for="seasonProduct">
-                    季節限定
-                  </label>
-                </div>
-                <div class="form-check mt-5">
-                  <input class="form-check-input me-2" type="checkbox" value=""
-                          id="sellProduct" :disabled="readonly"
-                          v-model="productInfo.is_sell">
-                  <label class="form-check-label" for="sellProduct">
-                    限時特惠
-                  </label>
+              <div class="col-md-6 mb-3">
+                <div class="d-flex mt-5">
+                  <div class="form-check mb-3 me-4">
+                    <input
+                      class="form-check-input me-2"
+                      type="checkbox"
+                      value=""
+                      id="seasonProduct"
+                      :disabled="readonly"
+                      v-model="productInfo.is_season"
+                    />
+                    <label class="form-check-label" for="seasonProduct">
+                      季節限定
+                    </label>
+                  </div>
+                  <div class="form-check mb-3">
+                    <input
+                      class="form-check-input me-2"
+                      type="checkbox"
+                      value=""
+                      id="sellProduct"
+                      :disabled="readonly"
+                      v-model="productInfo.is_sell"
+                    />
+                    <label class="form-check-label" for="sellProduct">
+                      限時特惠
+                    </label>
+                  </div>
                 </div>
               </div>
               <IsEnabledSelect
@@ -314,7 +326,7 @@
                 class="form-control"
                 id="productExplanation "
                 placeholder="請輸入補充內容"
-                v-model="productInfo.explanation "
+                v-model="productInfo.explanation"
                 name="補充內容"
                 rules="required"
                 as="textarea"

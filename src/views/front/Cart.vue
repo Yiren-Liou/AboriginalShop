@@ -144,10 +144,7 @@
                     </p>
                   </li>
                   <li class="d-flex align-items-center mb-2">
-                    <p class="card-text fontSizeS mb-0">
-                      數量:
-                      <!-- <span class='ms-1'>{{ item.qty }}</span> -->
-                    </p>
+                    <p class="card-text fontSizeS mb-0">數量:</p>
                     <div class="input-group mx-auto w-75">
                       <button
                         class="btn btn-sm btn-outline-dark material-icons"
@@ -174,7 +171,7 @@
                   </li>
                   <li class="mb-2">
                     <p class="card-text fontSizeS">
-                      售價:
+                      小計:
                       <span class="ms-1"
                         >NT {{ $toCurrency(item.final_total) }}</span
                       >
@@ -195,9 +192,9 @@
           </div>
         </li>
       </ul>
-      <div class="d-flex mb-5">
+      <div class="d-flex mb-4 mb-md-7">
         <button
-        v-if="checkCart.length > 0"
+          v-if="delCart.length > 0"
           type="button"
           class="btn btn-outline-secondary d-none d-md-block me-3"
           @click="delNotice('checked')"
@@ -211,6 +208,46 @@
         >
           刪除全部商品
         </button>
+      </div>
+      <h3 class="fontSizeM fontSize-md-L mb-3">
+        其他人也將這些商品一起帶走囉 ...
+      </h3>
+      <div class="row mb-4">
+        <div class="col-6 col-md-3" v-for="item in saleProducts" :key="item.id">
+          <div class="mb-3">
+            <img :src="item.imagesUrl[0].imgUrl" class="cardImg" :alt="item" />
+            <div class="card-body px-1">
+              <div
+                class="mb-3"
+              >
+                <h2 class="fontSizeM">{{ item.title }}</h2>
+                <p
+                  class="fontSize-md-S fw-bold mb-0"
+                  :class="{ 'text-primary': item.is_sell }"
+                >
+                  NT {{ item.is_sell ? item.price : item.origin_price }}
+                  <span
+                    v-if="item.is_sell"
+                    class="
+                      fontSizeBase
+                      text-decoration-line-through text-dark
+                      ms-1
+                    "
+                  >
+                    NT {{ item.origin_price }}
+                  </span>
+                </p>
+              </div>
+              <button
+                type="button"
+                class="addCartBtn btn btn-secondary d-center w-100"
+                @click.prevent="addToCart(item.id)"
+              >
+                <p class="d-center mb-0 w-100">加入購物車</p>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="row justify-content-end mb-5 mb-md-7">
         <div class="col-md-5">
@@ -278,6 +315,7 @@
       </router-link>
     </div>
   </div>
+  <!-- 優惠券 Modal -->
   <div
     class="modal fade show"
     id="showCoupons"
@@ -355,6 +393,8 @@ export default {
   data() {
     return {
       cart: '',
+      products: '',
+      saleProducts: '',
       coupons: [
         {
           name: '抗疫優惠',
@@ -371,7 +411,7 @@ export default {
       ],
       final_total: '',
       useCoupon: '',
-      checkCart: [],
+      delCart: [],
       isLoading: false,
     };
   },
@@ -386,7 +426,78 @@ export default {
           if (res.data.success) {
             this.cart = res.data.data;
             this.isLoading = false;
+            this.getProducts();
           } else {
+            this.$swal({
+              text: res.data.message,
+              icon: 'error',
+              confirmButtonColor: '#ffbc1f',
+            });
+          }
+        })
+        .catch(() => {
+          this.$swal({
+            text: 'Opps ... 發生錯誤，請嘗試重新整理此頁面',
+            icon: 'error',
+            confirmButtonColor: '#ffbc1f',
+          });
+        });
+    },
+    getProducts(page = 1) {
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/products?page=${page}`;
+      this.$http
+        .get(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.products = res.data.products.sort((a, b) => b.num - a.num);
+            this.filterProduct(this.products);
+          } else {
+            this.$swal({
+              text: res.data.message,
+              icon: 'error',
+              confirmButtonColor: '#ffbc1f',
+            });
+          }
+        })
+        .catch(() => {
+          this.$swal({
+            text: 'Opps ... 發生錯誤，請嘗試重新整理此頁面',
+            icon: 'error',
+            confirmButtonColor: '#ffbc1f',
+          });
+        });
+    },
+    filterProduct(products) {
+      const cartId = [];
+      this.cart.carts.forEach((item) => cartId.push(item.product.id));
+      this.saleProducts = products.filter(
+        (item) => cartId.indexOf(item.id) === -1,
+      );
+      this.saleProducts = this.saleProducts.filter((item) => item.is_season);
+    },
+    addToCart(productId) {
+      this.isLoading = true;
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/cart`;
+      const cartData = {
+        data: {
+          product_id: productId,
+          qty: 1,
+        },
+      };
+      this.$http
+        .post(apiUrl, cartData)
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading = false;
+            emitter.emit('update-cart');
+            this.$swal({
+              text: res.data.message,
+              icon: 'success',
+              confirmButtonColor: '#ffbc1f',
+            });
+            this.getCart();
+          } else {
+            this.isLoading = false;
             this.$swal({
               text: res.data.message,
               icon: 'error',
@@ -404,10 +515,10 @@ export default {
     },
     getDelId(e) {
       if (e.target.checked) {
-        this.checkCart.push(e.target.id);
+        this.delCart.push(e.target.id);
       } else {
-        const delIndex = this.checkCart.map((id) => id).indexOf(e.target.id);
-        this.checkCart.splice(delIndex, 1);
+        const delIndex = this.delCart.map((id) => id).indexOf(e.target.id);
+        this.delCart.splice(delIndex, 1);
       }
     },
     updateProductNum(action, product) {
@@ -583,7 +694,7 @@ export default {
         });
     },
     delCheck() {
-      this.checkCart.forEach((item) => this.delOneCart(item));
+      this.delCart.forEach((item) => this.delOneCart(item));
       emitter.emit('update-cart');
     },
     emitCarts() {

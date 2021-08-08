@@ -187,7 +187,7 @@
       </h3>
       <p class="fontSize-md-S text-primary ms-2 mb-0">每年產量不定，錯過要再等一年以上呦!</p>
     </div>
-    <ProductSwiper :products="seasonProduct" :windowSize="windowSize"></ProductSwiper>
+    <ProductSwiper :products="seasonProduct"></ProductSwiper>
     <div class="d-md-flex align-items-md-center">
       <h3 class="d-flex align-items-center fontSize-md-XL fw-bold">
         <img
@@ -199,7 +199,7 @@
       </h3>
       <p class="fontSize-md-S text-primary ms-2 mb-0">明天立即恢復原價，不要錯過囉!</p>
     </div>
-    <ProductSwiper :products="sellProduct" :windowSize="windowSize"></ProductSwiper>
+    <ProductSwiper :products="sellProduct"></ProductSwiper>
   </div>
   <div class="container mb-4 mb-md-7" data-aos="fade-up">
     <div class="row justify-content-between mb-4 mb-md-7">
@@ -257,7 +257,7 @@
         </h3>
         <p class="fontSize-md-S text-primary ms-2 mb-0">當天現採現寄，產地保鮮直送</p>
     </div>
-    <ProductSwiper :products="fruits" :windowSize="windowSize"></ProductSwiper>
+    <ProductSwiper :products="fruits"></ProductSwiper>
     <div class="row justify-content-between mb-4 mb-md-7">
       <div class="col-md-7 order-1 order-md-0 mb-3 mb-md-0">
         <div class="sectionBg bg-center bg-lg-fixed py-7"
@@ -312,7 +312,7 @@
       </h3>
       <p class="fontSize-md-S text-primary ms-2 mb-0">質感豐厚、香醇滑順</p>
     </div>
-    <ProductSwiper :products="drinks" :windowSize="windowSize"></ProductSwiper>
+    <ProductSwiper :products="drinks"></ProductSwiper>
   </div>
   <div
     class="bg-center bg-cover"
@@ -322,14 +322,14 @@
   >
     <div class="container py-6 py-md-7">
       <div class="row justify-content-center py-md-4">
-        <div class="col-md-6">
-          <h3 class="fontSize-M fontSize-md-XL mb-3">
+        <div class="col-md-5">
+          <h3 class="fontSize-M fontSize-md-XL text-center mb-3">
             歡迎訂閱電子報 <br>獲得最新優惠訊息
           </h3>
           <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="example@mail.com" id="subscribe"
                   aria-label="subscribe" aria-describedby="subscribeBtn">
-            <button class="btn btn-primary text-white px-md-4" type="button" id="subscribeBtn">
+            <button class="btn btn-primary text-white px-md-4" type="submit" id="subscribeBtn">
               免費訂閱
             </button>
           </div>
@@ -379,14 +379,6 @@ export default {
     Footer,
     ProductSwiper,
     GoTop,
-  },
-  computed: {
-    windowSize() {
-      if (window.screen.width <= 576) {
-        return 1;
-      }
-      return 3;
-    },
   },
   methods: {
     getProducts(page = 1) {

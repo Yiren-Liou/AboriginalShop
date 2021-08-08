@@ -51,10 +51,18 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 SwiperCore.use([Pagination, Autoplay]);
 
 export default {
-  props: ['products', 'windowSize'],
+  props: ['products'],
   components: {
     Swiper,
     SwiperSlide,
+  },
+  computed: {
+    windowSize() {
+      if (window.screen.width <= 576) {
+        return 1;
+      }
+      return 3;
+    },
   },
 };
 </script>

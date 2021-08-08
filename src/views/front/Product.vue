@@ -225,7 +225,7 @@
       </div>
       <ProductInfo :product='product'></ProductInfo>
       <h3 class="fontSize-md-L mb-3">買了此商品的人也買了...</h3>
-      <ProductSwiper :products='recommends' :windowSize='windowSize'></ProductSwiper>
+      <ProductSwiper :products='recommends'></ProductSwiper>
     </template>
   </div>
   <div class="position-relative d-none d-md-block">
@@ -269,12 +269,6 @@ export default {
     GoTop,
   },
   computed: {
-    windowSize() {
-      if (window.screen.width <= 576) {
-        return 1;
-      }
-      return 3;
-    },
     recommends() {
       const total = this.products.filter((item) => item.id !== this.product.id);
       return total;
