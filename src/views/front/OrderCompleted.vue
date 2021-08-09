@@ -2,7 +2,7 @@
   <div
     class="bgImg align-items-center"
     style="
-      background-image: url(https://images.pexels.com/photos/235925/pexels-photo-235925.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1920);
+      background-image: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1628491082172.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=Otwsf1SiCxacsoV9qvgr%2BXkLZXpkRESzQPHPAVFjpu6DSjExOJM%2FquhTO0CqDoitaSNmL%2Bddg3unXBitp1i3Dqc1mSJbDAr8bw37f8dp1OtPASd2H9%2BtvSR%2FbQXjFMbU%2B%2Ffu30rMunKXdUpWzcju5f%2B%2BRoC4sSXfDkJ9dIPnoBQN03mVZ6lv4%2FBJtNZuoPy%2FPFM9TWwaneAooAic7RDn3Lodd%2BUryYS9Oh9u7gqy4mkUX3gTem6CTpgWG4GgXF3rSjkWTIqo%2BTomkvdELwNtk84hJAxnr8b0mVYQixLObj%2Bx8%2FdnEEQpn1HvCKtASBzemztxrqACQViD5wed82Ik1w%3D%3D);
     "
   >
     <Navbar :nav-light="isNavLight"></Navbar>

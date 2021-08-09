@@ -381,8 +381,8 @@ export default {
     GoTop,
   },
   methods: {
-    getProducts(page = 1) {
-      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/products?page=${page}`;
+    getProducts() {
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/products/all`;
       this.$http
         .get(apiUrl)
         .then((res) => {

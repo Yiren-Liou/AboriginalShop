@@ -36,6 +36,10 @@
   }
 }
 
+.fontSizeXS{
+  font-size: 14px;
+}
+
 .fontSizeBase{
   font-size: $font-size-base;
 }
@@ -72,10 +76,5 @@
 .zindexTop{
   z-index: $zindex-fixed;
 }
-
-.text-strike{
-  text-decoration: line-through;
-}
-
 
 

@@ -112,6 +112,11 @@ export default {
               this.images.push(imgInfo);
               this.$emit('emit-images', this.images);
               this.isLoading = false;
+              this.$swal({
+                text: '上傳成功',
+                icon: 'success',
+                confirmButtonColor: '#ffbc1f',
+              });
             } else {
               this.$swal({
                 text: res.data.message,
@@ -128,14 +133,6 @@ export default {
             });
           });
       });
-      setTimeout(
-        5000,
-        this.$swal({
-          text: '上傳成功',
-          icon: 'success',
-          confirmButtonColor: '#ffbc1f',
-        }),
-      );
     },
     emitChangeImages(e) {
       this.isLoading = true;

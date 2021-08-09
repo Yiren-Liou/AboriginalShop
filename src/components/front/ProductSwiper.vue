@@ -3,7 +3,7 @@
     :slidesPerView="windowSize"
     :spaceBetween="30"
     :freeMode="true"
-    :loop="false"
+    :loop="true"
     :autoplay="{
       delay: 2500,
       disableOnInteraction: false,
@@ -32,7 +32,7 @@
               NT {{ item.is_sell ? item.price : item.origin_price }}
               <span
                 v-if="item.is_sell"
-                class="fontSizeBase text-decoration-line-through text-dark ms-1"
+                class="fontSizeXS text-decoration-line-through text-dark ms-1"
               >
                 NT {{ item.origin_price }}
               </span>
