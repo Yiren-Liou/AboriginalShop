@@ -112,13 +112,7 @@
         <li v-for="item in cart.carts" :key="item.product_id" class="card mb-3">
           <div class="row align-items-center g-0">
             <div class="col-5">
-              <div
-                :style="{
-                  backgroundImage:
-                    'url(' + item.product.imagesUrl[0].imgUrl + ')',
-                }"
-                class="cartImg bg-cover bg-center"
-              ></div>
+              <img :src="item.product.imagesUrl[0].imgUrl" class="img-fluid">
             </div>
             <div class="col-7">
               <div class="card-body pe-1">
@@ -127,14 +121,6 @@
                     <p class="card-text fontSizeS">
                       名稱:
                       <span class="ms-1">{{ item.product.title }}</span>
-                    </p>
-                  </li>
-                  <li class="mb-2">
-                    <p class="card-text fontSizeS">
-                      售價:
-                      <span class="ms-1"
-                        >NT {{ $toCurrency(item.product.price) }}</span
-                      >
                     </p>
                   </li>
                   <li class="d-flex align-items-center mb-2">
@@ -309,7 +295,6 @@
       </router-link>
     </div>
   </div>
-  <!-- 優惠券 Modal -->
   <div
     class="modal fade show"
     id="showCoupons"
@@ -391,12 +376,6 @@ export default {
       saleProducts: '',
       coupons: [
         {
-          name: '抗疫優惠',
-          count: '8 折',
-          percent: 0.8,
-          code: 'loveTaiwan',
-        },
-        {
           name: '新會員優惠',
           count: '9 折',
           percent: 0.9,
@@ -405,6 +384,7 @@ export default {
       ],
       final_total: '',
       useCoupon: '',
+      isOldCustomer: false,
       delCart: [],
       isLoading: false,
     };
@@ -558,6 +538,20 @@ export default {
           });
         });
     },
+    isOld() {
+      const oldOrder = JSON.parse(localStorage.getItem('orderList'));
+      if (oldOrder.length > 0) {
+        this.isOldCustomer = true;
+        this.coupons = [
+          {
+            name: '老朋友優惠',
+            count: '8 折',
+            percent: 0.8,
+            code: 'thank80',
+          },
+        ];
+      }
+    },
     useCoupons(code, coupon) {
       this.isLoading = true;
       this.useCoupon = coupon;
@@ -698,6 +692,7 @@ export default {
   mounted() {
     this.isLoading = true;
     this.getCart();
+    this.isOld();
     const topNav = document.querySelector('#topNav');
     if (topNav.classList.contains('show')) {
       topNav.classList.remove('show');

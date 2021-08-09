@@ -1,6 +1,6 @@
 <template>
   <Swiper
-    :slidesPerView="windowSize"
+    :slidesPerView="windowSmallWidth"
     :spaceBetween="30"
     :freeMode="true"
     :loop="true"
@@ -57,7 +57,7 @@ export default {
     SwiperSlide,
   },
   computed: {
-    windowSize() {
+    windowSmallWidth() {
       if (window.screen.width <= 576) {
         return 2;
       }

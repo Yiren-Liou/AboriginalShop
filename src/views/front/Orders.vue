@@ -95,7 +95,7 @@
                     <p class="card-text">
                       商品金額:
                       <span class="ms-1"
-                        >NT {{ $toCurrency(order.total) }}</span
+                        >NT {{ $toCurrency(Math.round(order.total)) }}</span
                       >
                     </p>
                   </li>

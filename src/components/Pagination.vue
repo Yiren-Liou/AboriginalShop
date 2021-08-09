@@ -5,9 +5,7 @@
         <a
           class="page-link"
           href="#"
-          @click.prevent="emitPage(page.current_page - 1)"
-          >Prev</a
-        >
+          @click.prevent="emitPage(page.current_page - 1)">Prev</a>
       </li>
       <li
         class="page-item"
@@ -15,17 +13,15 @@
         v-for="item in page.total_pages"
         :key="'page' + item"
       >
-        <a class="page-link" href="#" @click.prevent="emitPage(item)">{{
-          item
-        }}</a>
+        <a class="page-link" href="#" @click.prevent="emitPage(item)">
+          {{ item }}
+        </a>
       </li>
       <li class="page-item" :class="{ disabled: !page.has_next }">
         <a
           class="page-link"
           href="#"
-          @click.prevent="emitPage(page.current_page + 1)"
-          >Next</a
-        >
+          @click.prevent="emitPage(page.current_page + 1)">Next</a>
       </li>
     </ul>
   </nav>

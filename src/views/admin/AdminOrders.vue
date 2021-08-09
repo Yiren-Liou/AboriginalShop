@@ -116,7 +116,7 @@
         <td>{{ order.create_at }}</td>
         <td>{{ order.user.name }}</td>
         <td>{{ $date.toDate(order.create_at) }}</td>
-        <td>NT {{ $toCurrency(order.total) }}</td>
+        <td>NT {{ $toCurrency(Math.round(order.total)) }}</td>
         <td :class="{ 'text-secondary': !order.is_paid }">
           {{ order.is_paid ? '已付款' : '未付款' }}
         </td>

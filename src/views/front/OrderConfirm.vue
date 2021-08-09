@@ -45,13 +45,7 @@
           >
             <div class="row align-items-center g-0">
               <div class="col-5 h-100">
-                <div
-                  :style="{
-                    backgroundImage:
-                      'url(' + item.product.imagesUrl[0].imgUrl + ')',
-                  }"
-                  class="img-fluid cartImg bg-cover bg-center"
-                ></div>
+                <img :src="item.product.imagesUrl[0].imgUrl" class="img-fluid">
               </div>
               <div class="col-7">
                 <div class="card-body">

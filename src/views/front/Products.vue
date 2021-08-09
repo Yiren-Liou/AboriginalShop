@@ -13,53 +13,13 @@
       </p>
     </div>
   </div>
-  <ul class="subNav list-unstyled mb-0 py-2"
-    :class="{ 'shadow-sm': scroll }">
-    <li>
-      <button
-        class="subNavBtn btn d-center"
-        :class="{'active': isActive === '全部商品'}"
-        type="button"
-        data-category="全部商品"
-        @click="filterProduct"
-      >
-        <img src="@/assets/images/全部商品.png" class="iconImg me-2" />
-        全部商品
-      </button>
-    </li>
-    <li>
-      <button
-        class="subNavBtn btn d-center"
-        :class="{'active': isActive === '季節限定'}"
-        type="button"
-        data-category="季節限定"
-        @click="filterProduct"
-      >
-        <img src="@/assets/images/季節限定.png" class="iconImg me-2" />
-        <span class="d-none d-md-block">季節</span>限定
-      </button>
-    </li>
-    <li v-for="item in categoryList" :key="item">
-      <button
-        class="subNavBtn btn d-center"
-        :class="{'active': isActive === item}"
-        type="button"
-        :data-category="item"
-        @click="filterProduct"
-      >
-        <img
-          :src="require(`@/assets/images/${item}.png`)"
-          :alt="item"
-          class="iconImg me-2"
-        />
-        {{ windowSmallWidth? item.substr(-2) : item }}
-      </button>
-    </li>
-  </ul>
+  <SubNav :is-active="isActive" :category-list="categoryList"
+          @emit-category="filterProduct">
+  </SubNav>
   <div class="main container mt-0 mt-md-4 px-md-7">
     <div class="row mb-6">
       <div v-for="item in filterProducts" :key="item.id"
-          class="col-6 col-md-4 col-lg-3 mb-3 mb-md-4">
+          class="col-6 col-lg-4 mb-3 mb-md-4">
         <router-link :to="{ path: `/product/${item.id}`,
                             query: { category: item.category,
                                     title : item.title}}"
@@ -82,15 +42,17 @@
                     {{ windowSmallWidth? '特惠' : '限時特惠' }}
               </span>
             </div>
-            <h2 class="fontSizeBase fontSize-md-M mb-2">{{ item.title }}</h2>
-            <p class="fontSize-md-S fw-bold mb-2"
-              :class="{'text-primary': item.is_sell}">
-              NT {{ item.is_sell? item.price : item.origin_price }}
-              <span v-if="item.is_sell"
-                  class="fontSizeXS text-decoration-line-through text-dark ms-1">
-                NT {{ item.origin_price }}
-              </span>
-            </p>
+            <div class="d-md-flex justify-content-md-between mb-3">
+              <h2 class="fontSizeBase fontSize-md-M mb-2">{{ item.title }}</h2>
+              <p class="fontSize-md-S fw-bold mb-2"
+                :class="{'text-primary': item.is_sell}">
+                NT {{ item.is_sell? item.price : item.origin_price }}
+                <span v-if="item.is_sell"
+                    class="fontSizeXS text-decoration-line-through text-dark ms-1">
+                  NT {{ item.origin_price }}
+                </span>
+              </p>
+            </div>
             <div class="d-flex justify-content-between">
               <button
                 type="button"
@@ -100,21 +62,21 @@
                 <span class="material-icons">favorite_border</span>
               </button>
               <button
-                  type="button"
-                  class="addCartBtn btn btn-secondary d-center material-icons"
-                  @click.prevent="addToCart(item.id)"
-                >
-                  <p class="fontSize-md-S d-center material-icons mb-0">
-                    add_shopping_cart
-                    <span class="d-none d-lg-block ms-2">加入購物車</span>
-                  </p>
-                </button>
+                type="button"
+                class="addCartBtn btn btn-secondary d-center material-icons"
+                @click.prevent="addToCart(item.id)"
+              >
+                <p class="fontSize-md-S d-center material-icons mb-0">
+                  add_shopping_cart
+                  <span class="d-none d-lg-block ms-2">加入購物車</span>
+                </p>
+              </button>
             </div>
         </router-link>
       </div>
     </div>
     <div class="d-flex justify-content-center">
-      <Pagination :page="pagination" @emit-page="getProducts"></Pagination>
+      <Pagination :page="pagination" @emit-page="filterPages"></Pagination>
     </div>
   </div>
   <div class="position-relative d-none d-md-block">
@@ -133,6 +95,8 @@
 
 <script>
 import emitter from '@/methods/Emitter';
+import newPages from '@/methods/newPagination';
+import SubNav from '@/components/front/SubNav.vue';
 import Pagination from '@/components/Pagination.vue';
 import GoTop from '@/components/GoTop.vue';
 
@@ -146,10 +110,16 @@ export default {
       favorite: [],
       filterProducts: '',
       pagination: '',
+      path: {
+        category: '',
+        page: '',
+      },
+      tempProduct: '',
       isLoading: false,
     };
   },
   components: {
+    SubNav,
     Pagination,
     GoTop,
   },
@@ -164,21 +134,15 @@ export default {
     },
   },
   methods: {
-    getProducts(page = 1) {
-      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/products?page=${page}`;
+    getProducts() {
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/products/all`;
       this.$http
         .get(apiUrl)
         .then((res) => {
           if (res.data.success) {
-            this.products = res.data.products.sort((a, b) => b.num - a.num);
-            this.pagination = res.data.pagination;
-            if (this.$route.query.category) {
-              this.filterCategory(this.$route.query.category);
-              this.isActive = this.$route.query.category;
-            } else {
-              this.filterProducts = this.products;
-            }
+            this.products = res.data.products;
             this.getCategoryList();
+            this.filterPages(this.path.page, this.path.category);
             this.isLoading = false;
           } else {
             this.$swal({
@@ -195,14 +159,6 @@ export default {
             confirmButtonColor: '#ffbc1f',
           });
         });
-    },
-    sortCategory() {
-      const result = new Set();
-      this.products.forEach((item) => {
-        if (!result.has(item.category)) {
-          result.add(item.category);
-        }
-      });
     },
     addToCart(productId) {
       this.isLoading = true;
@@ -274,26 +230,33 @@ export default {
       localStorage.setItem('favorite', this.favorite);
       emitter.emit('update-favorite');
     },
-    filterProduct(e) {
+    filterProduct(category) {
       this.isLoading = true;
-      const target = e.target.getAttribute('data-category');
-      this.isActive = target;
+      this.path.category = category;
+      this.isActive = category;
+      this.filterPages();
       setTimeout(() => {
-        this.filterCategory(target);
         this.isLoading = false;
-        this.$router.push({ path: '/products', query: { category: target } });
+        this.$router.push({ path: '/products', query: { category: this.path.category, page: 1 } });
       }, 500);
+    },
+    filterPages(page = 1) {
+      this.filterCategory(this.path.category);
+      const newPage = newPages(page, this.tempProduct);
+      this.pagination = newPage.pages;
+      this.filterProducts = newPage.filterData;
+      this.$router.push({ path: '/products', query: { category: this.path.category, page } });
     },
     filterCategory(category) {
       switch (category) {
         case '全部商品':
-          this.filterProducts = this.products;
+          this.tempProduct = this.products;
           break;
         case '季節限定':
-          this.filterProducts = this.products.filter((item) => item.is_season);
+          this.tempProduct = this.products.filter((item) => item.is_season);
           break;
         default:
-          this.filterProducts = this.products.filter(
+          this.tempProduct = this.products.filter(
             (item) => item.category === category,
           );
           break;
@@ -304,9 +267,14 @@ export default {
       this.products.forEach((item) => (temp.has(item.category) ? '' : temp.add(item.category)));
       this.categoryList = [...temp];
     },
+    getPath() {
+      this.path.category = this.$route.query.category ? this.$route.query.category : '全部商品';
+      this.path.page = this.$route.query.page ? this.$route.query.page : 1;
+    },
   },
   created() {
     this.isLoading = true;
+    this.getPath();
     this.getProducts();
     const topNav = document.querySelector('#topNav');
     if (topNav.classList.contains('show')) {

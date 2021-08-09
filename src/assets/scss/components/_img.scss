@@ -94,3 +94,15 @@ img{
     animation-name: 'moveDown-md';
   }
 }
+
+.thumbnail {
+  height: 56px;
+  width: 100%;
+  object-fit: cover;
+  &:hover {
+    cursor: pointer;
+  }
+  @media (min-width: 992px) {
+    height: 100px;
+  }
+}

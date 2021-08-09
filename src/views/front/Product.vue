@@ -1,29 +1,29 @@
 <template>
-  <ul class="subNav list-unstyled position-sticky mb-4"
+  <ul class="subNav list-unstyled mb-4"
       :class="{ 'shadow-sm': scroll }">
-    <li class="mb-2">
+    <li>
       <router-link
         class="subNavBtn btn d-center"
         data-category="全部商品"
-        :to="{ path: '/products', query: { category: '全部商品' } }"
+        :to="{ path: '/products', query: { category: '全部商品', page: 1 } }"
       >
         <img src="@/assets/images/全部商品.png" class="iconImg me-2" />
         全部商品
       </router-link>
     </li>
-    <li class="mb-2">
+    <li>
       <router-link
         class="subNavBtn btn d-center"
         data-category="季節限定"
-        :to="{ path: '/products', query: { category: '季節限定' } }"
+        :to="{ path: '/products', query: { category: '季節限定', page: 1 } }"
       >
         <img src="@/assets/images/季節限定.png" class="iconImg me-2" />
-        <span class="d-none d-md-block">季節</span>限定
+        {{ windowSmallWidth? '季節' : '季節限定' }}
       </router-link>
     </li>
-    <li v-for="item in categoryList" :key="item" class="mb-2">
+    <li v-for="item in categoryList" :key="item">
       <router-link
-        :to="{ path: '/products', query: { category: item } }"
+        :to="{ path: '/products', query: { category: item, page: 1 } }"
         class="subNavBtn btn d-center"
         :class="{'active': $route.query.category === item}"
       >
@@ -32,8 +32,7 @@
           :alt="item"
           class="iconImg me-2"
         />
-        <span class="d-md-none">{{ item.substr(-2) }}</span>
-        <span class="d-none d-md-block">{{ item }}</span>
+        {{ windowSmallWidth ? item.substr(-2) : item }}
       </router-link>
     </li>
   </ul>
@@ -58,15 +57,7 @@
       </ol>
     </nav>
     <template v-if="product && products">
-      <div
-        class="
-          row
-          align-items-center
-          mb-4
-          mb-md-6
-        "
-        data-aos="fade-up"
-      >
+      <div class="row align-items-center mb-4 mb-md-6" data-aos="fade-up">
         <div class="col-md-7">
           <img
             v-if="product.imagesUrl[0].imgUrl"
@@ -269,6 +260,12 @@ export default {
     GoTop,
   },
   computed: {
+    windowSmallWidth() {
+      if (window.screen.width < 576) {
+        return true;
+      }
+      return false;
+    },
     recommends() {
       const total = this.products.filter((item) => item.id !== this.product.id);
       return total;
@@ -461,17 +458,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="scss">
-.thumbnail {
-  height: 56px;
-  width: 100%;
-  object-fit: cover;
-  &:hover {
-    cursor: pointer;
-  }
-  @media (min-width: 992px) {
-    height: 100px;
-  }
-}
-</style>
