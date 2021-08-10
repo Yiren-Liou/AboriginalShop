@@ -134,6 +134,17 @@
                 <p class="mb-0">使用優惠券省更多</p>
               </li>
             </ul>
+            <div  v-if="product.title === '編織素色圓形包' || product.title === '編織圖騰圓形包'"
+                  class="d-flex mb-3">
+              <router-link class="btn btn-outline-secondary btn-sm me-2"
+                    to="/product/-MfODcoAtcxlijlJ_XQl?category=手工編織&title=編織圖騰圓形包">
+                    圖騰款
+              </router-link>
+              <router-link class="btn btn-outline-secondary btn-sm"
+                    to="/product/-MfNxHtJWtTv0WA2tsGY?category=手工編織&title=編織素色圓形包">
+                    素色款
+              </router-link>
+            </div>
             <p class="fontSize-md-XL fw-bold text-primary">
               NT {{ product.is_sell ? product.price : product.origin_price }}
               <span

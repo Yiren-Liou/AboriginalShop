@@ -93,14 +93,6 @@
           backgroundImage: 'url(' + product.imagesUrl[6].imgUrl + ')',
         }"
       ></div>
-      <router-link v-if="product.title === '編織素色圓形包'" class="btn btn-outline-secondary mt-4"
-            to="/product/-MfODcoAtcxlijlJ_XQl?category=手工編織&title=編織圖騰圓形包">
-            點我前往編織圖騰圓形包賣場
-      </router-link>
-      <router-link v-if="product.title === '編織圖騰圓形包'" class="btn btn-outline-secondary mt-4"
-            to="/product/-MfNxHtJWtTv0WA2tsGY?category=手工編織&title=編織素色圓形包">
-            點我前往編織素色圓形包賣場
-      </router-link>
       <template class="d-block d-md-none">
         <h4 class="fontSizeM fontSize-md-S d-flex align-items-center mb-3">
           <span class="material-icons me-2">description</span>
