@@ -280,23 +280,16 @@
               <label for="productExplanation " class="form-label">
                 補充內容<sup>*</sup>
               </label>
-              <Field
+              <textarea
                 type="text"
                 class="form-control"
                 id="productExplanation "
                 placeholder="請輸入補充內容"
                 v-model="newProduct.explanation "
                 name="補充內容"
-                rules="required"
-                as="textarea"
                 style="height: 160px"
-                :class="{ 'is-invalid': errors['補充內容'] }"
               >
-              </Field>
-              <error-message
-                name="補充內容"
-                class="invalid-feedback"
-              ></error-message>
+              </textarea>
             </div>
           </div>
           <div class="col-md-6">
@@ -374,8 +367,6 @@ export default {
       isLoading: false,
     };
   },
-  emits: ['emit-readonly', 'emit-order'],
-  props: ['readStatus', 'pushOrder'],
   components: {
     CategorySelect,
     IsEnabledSelect,

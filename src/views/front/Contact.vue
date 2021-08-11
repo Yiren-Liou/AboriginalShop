@@ -112,8 +112,6 @@ export default {
       isLoading: false,
     };
   },
-  emits: ['emit-order', 'emit-carts'],
-  props: ['pushOrder', 'pushCarts'],
   methods: {
     sendEmail() {
       this.$swal({
@@ -128,10 +126,6 @@ export default {
     setTimeout(() => {
       this.isLoading = false;
     }, 1000);
-    const topNav = document.querySelector('#topNav');
-    if (topNav.classList.contains('show')) {
-      topNav.classList.remove('show');
-    }
   },
 };
 </script>

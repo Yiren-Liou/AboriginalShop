@@ -145,8 +145,6 @@ export default {
   components: {
     Pagination,
   },
-  emits: ['emit-order', 'emit-carts'],
-  props: ['pushOrder', 'pushCarts'],
   computed: {
     filterOrder() {
       if (this.localOrder) {
@@ -200,10 +198,6 @@ export default {
   created() {
     this.isLoading = true;
     this.getOrders();
-    const topNav = document.querySelector('#topNav');
-    if (topNav.classList.contains('show')) {
-      topNav.classList.remove('show');
-    }
   },
 };
 </script>

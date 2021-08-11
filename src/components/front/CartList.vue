@@ -1,0 +1,134 @@
+<template v-if="recommends.length > 0">
+  <router-link
+    v-for="item in recommends"
+    :key="item.id"
+    :to="{
+      path: `/product/${item.id}`,
+      query: { category: item.category, title: item.title },
+    }"
+    class="col-6 col-md-2 mb-3"
+  >
+    <img :src="item.imagesUrl[0].imgUrl" class="cardImg" :alt="item" />
+    <div class="card-body px-1">
+      <div class="mb-3">
+        <h2 class="fontSizeBase fontSize-md-M">{{ item.title }}</h2>
+        <p
+          class="fontSize-md-S fw-bold mb-0"
+          :class="{ 'text-primary': item.is_sell }"
+        >
+          NT {{ item.is_sell ? item.price : item.origin_price }}
+          <span
+            v-if="item.is_sell"
+            class="fontSizeBase text-decoration-line-through text-dark ms-1"
+          >
+            NT {{ item.origin_price }}
+          </span>
+        </p>
+      </div>
+      <button
+        type="button"
+        class="addCartBtn btn btn-secondary d-center w-100"
+        @click.prevent="addToCart(item.id)"
+      >
+        <p class="d-center mb-0 w-100">加入購物車</p>
+      </button>
+    </div>
+  </router-link>
+</template>
+
+<script>
+import emitter from '@/methods/Emitter';
+
+export default {
+  data() {
+    return {
+      recommends: '',
+      cartList: '',
+      products: '',
+    };
+  },
+  emits: ['update-cart-list'],
+  props: ['cart'],
+  watch: {
+    cart() {
+      this.filterProduct(this.products);
+    },
+  },
+  methods: {
+    getProducts() {
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/products/all`;
+      this.$http
+        .get(apiUrl)
+        .then((res) => {
+          if (res.data.success) {
+            this.products = res.data.products.sort((a, b) => b.num - a.num);
+            this.filterProduct(this.products);
+          } else {
+            this.$swal({
+              text: res.data.message,
+              icon: 'error',
+              confirmButtonColor: '#ffbc1f',
+            });
+          }
+        })
+        .catch(() => {
+          this.$swal({
+            text: 'Opps ... 發生錯誤，請嘗試重新整理此頁面',
+            icon: 'error',
+            confirmButtonColor: '#ffbc1f',
+          });
+        });
+    },
+    filterProduct(products) {
+      const cartId = [];
+      this.cart.carts.forEach((item) => cartId.push(item.product.id));
+      this.recommends = products.filter(
+        (item) => cartId.indexOf(item.id) === -1,
+      );
+      this.recommends = this.recommends.filter((item) => item.is_season);
+    },
+    addToCart(productId) {
+      this.isLoading = true;
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/cart`;
+      const cartData = {
+        data: {
+          product_id: productId,
+          qty: 1,
+        },
+      };
+      this.$http
+        .post(apiUrl, cartData)
+        .then((res) => {
+          if (res.data.success) {
+            this.$emit('update-cart-list');
+            this.filterProduct(this.products);
+            emitter.emit('update-cart');
+            this.isLoading = false;
+            this.$swal({
+              text: res.data.message,
+              icon: 'success',
+              confirmButtonColor: '#ffbc1f',
+            });
+          } else {
+            this.isLoading = false;
+            this.$swal({
+              text: res.data.message,
+              icon: 'error',
+              confirmButtonColor: '#ffbc1f',
+            });
+          }
+        })
+        .catch(() => {
+          this.$swal({
+            text: 'Opps ... 發生錯誤，請嘗試重新整理此頁面',
+            icon: 'error',
+            confirmButtonColor: '#ffbc1f',
+          });
+        });
+    },
+  },
+  created() {
+    this.getProducts();
+  },
+};
+</script>

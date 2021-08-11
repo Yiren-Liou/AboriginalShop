@@ -14,6 +14,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import toCurrency from './methods/toCurrency';
 import { toDate, toUnix } from './methods/toDate';
+import collapseNav from './methods/collapseNav';
 import App from './App.vue';
 import router from './router';
 
@@ -38,6 +39,7 @@ app.config.globalProperties.$date = {
   toDate,
   toUnix,
 };
+app.config.globalProperties.$collapseNav = collapseNav;
 app.use(router);
 app.use(VueAxios, axios);
 app.use(VueSweetalert2);

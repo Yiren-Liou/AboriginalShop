@@ -1,22 +1,18 @@
 <template>
   <div
-    class="d-center bg-center bg-cover py-7 my-4 my-md-6"
+    class="d-center bg-center bg-cover py-3 py-md-7 mt-4 my-md-6"
     style="
       backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1627055318168.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=eMeQzKPqc2FG11%2FBVg0kFFcMAUKU4QkN0OUOUJoH6AcqE1KE1ZiVdpsR%2BUKZvmNiJVSEZlVayFv4APRQYKHRn09luSwjpMJvbWEz3QwFuvLSeMpMx0645kqbahDycy3FPyxGz17PniwcohBQpi6EWI7OEeX9N1NYVHF4j%2Fydin0xEeWcZEYIfpAEbbcjZqrBr6mMf8bPNrgX9UkW0tdF%2FCGmP9r%2F17453uJZhmdbg0cZfUXDS35XLzD2LyiG8IBoSjj8YyniwLcBdFFLxbKpErOIAqnQ0eEf9dqvBg0fUwpqNZaSW4ir7O5b1P8ck42DenqC4Iwc4vVj6Tj47NfmcQ%3D%3D);
     "
     data-aos="fade-up"
-    data-aos-duration="2000"
   >
-    <span class="fontSizeM fontSize-md-L fw-bold text-white mt-6">
+    <span class="fontSize-md-M fontSize-md-L fw-bold text-white mt-6">
       大自然、部落、消費者互利共存
     </span>
   </div>
-  <div class="container">
+  <div class="container" data-aos="fade-up">
     <div
-      class="row justify-content-around align-items-center mb-3 mb-md-7"
-      data-aos="fade-up"
-      data-aos-duration="2000"
-    >
+      class="row justify-content-around align-items-center mb-3 mb-md-7">
       <div class="col-md-6 mb-3 mb-md-0">
         <img
           src="https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1627229465497.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=EA5zdw7vNsGvLvrP9S5Nn7mTVDM8T5KK6YmH5%2BLERPOo4M9USgaNEKmJLH8HFf2Sy10FOwW3g%2F5FCfgH3hTYv2lB5MSFNrQlIp%2FyLQ94PLn5cthVv2aJHEWeynTkTPPQ5E15fkbmwPqZCJc50ngcWx7O5kl3b8pDk0aH1mr7ZIcNaoFbfeFhlx6SDM53a0EYmOPBH78yo0i%2Bk40qr6kb7CX0WuhTEybYtfLwmaxulak8Z1T%2BejZNq9aJ3HDEhmP7E8%2BxQBXZhERCg0bZAMJiRydzSraasfXZ7k%2FWu%2FD7Cj4UD05kHjMG901%2F%2BTf161uHwLTOyxUfDyAi8rryfe%2BHqw%3D%3D"
@@ -25,7 +21,7 @@
         />
       </div>
       <div class="col-md-5">
-        <h2 class="fontSizeM fontSize-md-L text-center mb-3">
+        <h2 class="fontSize-md-M fontSize-md-L text-center mb-3">
           合作共生、珍惜人與土地的聯繫
         </h2>
         <p class="fontSize-md-S">
@@ -38,10 +34,7 @@
       </div>
     </div>
     <div
-      class="row justify-content-around align-items-center mb-3 mb-md-7"
-      data-aos="fade-up"
-      data-aos-duration="2000"
-    >
+      class="row justify-content-around align-items-center mb-3 mb-md-7">
       <div class="col-md-6 order-md-1 mb-3 mb-md-0">
         <img
           src="https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1627229512451.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=UDkB9e46RZ6Xxe%2Fr%2BYDD%2BvAL2oK2u0%2BKbh8ilOEhZUGnPng5a3wWgazKQYulAqoqM5g2na%2BJZcI9KIkhoQxkrTgwBwZvjebGrq7oNFh6vg2%2FpXRruSnDJc%2Ff7Bi4vUcbTzG82jNR96oK18YRXTRzT3XUD74BrCUtdih0MeBm8Dk%2F31DwWN5NmLdfMd2anj9K8i95EFn3FGaXp%2BKmfU2p%2F4EG%2FOf1BKkeHbf0RpxQKSWWsCDTMEtmZBIuuJquSvGCeIlStZtGeTRZJx%2BucamI6OGcJHH%2FAgpN1KCSyTOCaknF9UlNvLw2BU0C1tTF%2FQiAGPK3BKHXWcbTncQgFYEmfQ%3D%3D"
@@ -50,7 +43,7 @@
         />
       </div>
       <div class="col-md-5">
-        <h2 class="fontSizeM fontSize-md-L text-center mb-3">公平貿易、避免剝削</h2>
+        <h2 class="fontSize-md-M fontSize-md-L text-center mb-3">公平貿易、避免剝削</h2>
         <p class="fontSize-md-S">
           Original
           高山部落蔬果網路平台，主要是提供高山原住民部落的族人直接販售農產品和手工藝品，
@@ -60,10 +53,7 @@
       </div>
     </div>
     <div
-      class="row justify-content-around align-items-center mb-6 mb-md-7"
-      data-aos="fade-up"
-      data-aos-duration="2000"
-    >
+      class="row justify-content-around align-items-center mb-6 mb-md-7">
       <div class="col-md-6 mb-3 mb-md-0">
         <img
           src="https://storage.googleapis.com/vue-course-api.appspot.com/yiren/1627229542509.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=BQCxUtCE%2B1n27y%2Bd3Jf4Sb3LlDdI9IoDhGQVCOrDEM7%2FePx%2BoqOmk2eXRPLtzvjLWrDpl7v05b4%2BM%2FOM7EW2doJN4mip46houoTGiBlaGeK%2Brxu3EuIp3WSJNnvBItlzKWBTgx1EctjKy3XZFTitaEz2%2FUYgMzp17XzxXJ%2Fol018q3xHU2bvWVLzMlQhqGd7SMBNbX0dftzZtCj9%2FUGkiY1AbAP9uroKTSJdA%2FJnEh8RbzyE00plsLLwziibN4jfxUEi8YGfVM7s8pHuox3Lwfd9QKrUWEvdp4FFKEJN4w4xokJUXMwbClg5n6diKKbzZCVPqvHAoCkMF0PwcKz8GQ%3D%3D"
@@ -72,7 +62,7 @@
         />
       </div>
       <div class="col-md-5">
-        <h2 class="fontSizeM fontSize-md-L text-center mb-3">維持部落經濟、消費者享受美食</h2>
+        <h2 class="fontSize-md-M fontSize-md-L text-center mb-3">維持部落經濟、消費者享受美食</h2>
         <p class="mb-5">
           了解部落族人擔心家鄉的心情，所以建造了 Original 高山部落蔬果網路平台，
           希望能將友善環境的農產品推向給全台，藉此來維持部落經濟來源，也希望能讓後代留在故鄉發展，
@@ -81,16 +71,13 @@
         <div class="d-center">
           <router-link
             to="/products"
-            class="btn btn-light fontSizeM fw-bold px-4"
+            class="btn btn-primary fontSize-md-M px-4"
           >
             來享受美食吧
           </router-link>
         </div>
       </div>
     </div>
-  </div>
-  <div class="position-relative">
-    <GoTop></GoTop>
   </div>
   <Loading :active="isLoading">
     <div class="loadingio-spinner-dual-ball-haac1tizt7t">
@@ -104,28 +91,17 @@
 </template>
 
 <script>
-import GoTop from '@/components/GoTop.vue';
-
 export default {
   data() {
     return {
       isLoading: false,
     };
   },
-  emits: ['emit-order', 'emit-carts'],
-  props: ['pushOrder', 'pushCarts'],
-  components: {
-    GoTop,
-  },
   created() {
     this.isLoading = true;
     setTimeout(() => {
       this.isLoading = false;
     }, 1000);
-    const topNav = document.querySelector('#topNav');
-    if (topNav.classList.contains('show')) {
-      topNav.classList.remove('show');
-    }
   },
 };
 </script>

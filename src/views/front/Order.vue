@@ -202,8 +202,6 @@ export default {
       isLoading: false,
     };
   },
-  emits: ['emit-order', 'emit-carts'],
-  props: ['pushOrder', 'pushCarts'],
   methods: {
     getOrder() {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/order/${this.routeId}`;
@@ -237,10 +235,6 @@ export default {
   created() {
     this.isLoading = true;
     this.getOrder();
-    const topNav = document.querySelector('#topNav');
-    if (topNav.classList.contains('show')) {
-      topNav.classList.remove('show');
-    }
   },
 };
 </script>

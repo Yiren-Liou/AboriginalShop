@@ -31,7 +31,7 @@
       <button
         type="button"
         class="btn btn-primary btn-sm"
-        @click="emitReadonly(false)"
+        @click="pushReadStatus(false)"
       >
         編輯
       </button>
@@ -331,25 +331,19 @@ export default {
       routeId: this.$route.params.id,
       order: '',
       products: '',
+      readonly: false,
       isLoading: false,
     };
   },
-  emits: ['emit-readonly', 'emit-order'],
-  props: ['readStatus', 'pushOrder'],
-  computed: {
-    readonly() {
-      const readonly = this.readStatus;
-      return readonly;
-    },
-  },
   methods: {
     getOrder() {
-      this.order = JSON.parse(JSON.stringify(this.pushOrder));
+      this.order = JSON.parse(sessionStorage.getItem('checkOrder'));
       this.products = Object.values(this.order.products);
+      this.isLoading = false;
     },
     cancelEdit() {
       this.isLoading = true;
-      this.emitReadonly(true);
+      this.pushReadStatus(true);
       this.getOrder();
     },
     delOrder() {
@@ -402,7 +396,7 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.isLoading = false;
-            this.emitReadonly(true);
+            this.pushReadStatus(true);
             this.$swal({
               text: res.data.message,
               icon: 'success',
@@ -425,12 +419,14 @@ export default {
           });
         });
     },
-    emitReadonly(status) {
-      this.$emit('emit-readonly', status);
+    pushReadStatus(status) {
+      this.readonly = status;
+      sessionStorage.setItem('readOnly', status);
     },
   },
   created() {
     this.getOrder();
+    this.readonly = JSON.parse(sessionStorage.getItem('readOnly'));
   },
 };
 </script>

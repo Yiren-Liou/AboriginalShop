@@ -38,7 +38,7 @@
           <tr class="text-center">
             <th></th>
             <th width="200">商品圖片</th>
-            <th width="250">商品名稱 / 編號</th>
+            <th width="250">商品名稱</th>
             <th>規格</th>
             <th width="160">購買數量</th>
             <th>售價</th>
@@ -69,10 +69,8 @@
                 class="cartImg bg-cover bg-center"
               ></div>
             </td>
-            <td>{{ item.product.title }}/ <br />{{ item.product_id }}</td>
-            <td>
-              {{ item.product.unit }}
-            </td>
+            <td>{{ item.product.title }}</td>
+            <td>{{ item.product.unit }}</td>
             <td>
               <div class="input-group">
                 <button
@@ -112,7 +110,7 @@
         <li v-for="item in cart.carts" :key="item.product_id" class="card mb-3">
           <div class="row align-items-center g-0">
             <div class="col-5">
-              <img :src="item.product.imagesUrl[0].imgUrl" class="img-fluid">
+              <img :src="item.product.imagesUrl[0].imgUrl" class="img-fluid" />
             </div>
             <div class="col-7">
               <div class="card-body pe-1">
@@ -127,7 +125,11 @@
                     <p class="card-text fontSizeS mb-0">數量:</p>
                     <div class="input-group mx-auto w-65 w-md-75">
                       <button
-                        class="btn btn-sm btn-outline-dark material-icons px-1 px-md-2"
+                        class="
+                          btn btn-sm btn-outline-dark
+                          material-icons
+                          px-1 px-md-2
+                        "
                         @click="updateProductNum('minus', item)"
                         type="button"
                       >
@@ -193,41 +195,7 @@
         其他人也將這些商品一起帶走囉 ...
       </h3>
       <div class="row mb-4 mb-md-6">
-        <div class="col-6 col-md-3" v-for="item in saleProducts" :key="item.id">
-          <div class="mb-3">
-            <img :src="item.imagesUrl[0].imgUrl" class="cardImg" :alt="item" />
-            <div class="card-body px-1">
-              <div
-                class="mb-3"
-              >
-                <h2 class="fontSizeBase fontSize-md-M">{{ item.title }}</h2>
-                <p
-                  class="fontSize-md-S fw-bold mb-0"
-                  :class="{ 'text-primary': item.is_sell }"
-                >
-                  NT {{ item.is_sell ? item.price : item.origin_price }}
-                  <span
-                    v-if="item.is_sell"
-                    class="
-                      fontSizeBase
-                      text-decoration-line-through text-dark
-                      ms-1
-                    "
-                  >
-                    NT {{ item.origin_price }}
-                  </span>
-                </p>
-              </div>
-              <button
-                type="button"
-                class="addCartBtn btn btn-secondary d-center w-100"
-                @click.prevent="addToCart(item.id)"
-              >
-                <p class="d-center mb-0 w-100">加入購物車</p>
-              </button>
-            </div>
-          </div>
-        </div>
+        <CartList :cart="cart" @update-cart-list="getCart"></CartList>
       </div>
       <div class="row justify-content-end mb-6 mb-md-7">
         <div class="col-md-5">
@@ -288,7 +256,7 @@
         to="/buyerForm"
         role="button"
         class="btn btn-secondary me-3"
-        @click="emitCarts"
+        @click="pushTempCarts"
         v-if="Array.isArray(cart.carts) && cart.carts[0]"
       >
         填寫訂購資訊
@@ -367,13 +335,14 @@
 
 <script>
 import emitter from '@/methods/Emitter';
+import CartList from '@/components/front/CartList.vue';
 
 export default {
   data() {
     return {
       cart: '',
       products: '',
-      saleProducts: '',
+      recommends: '',
       coupons: [
         {
           name: '新會員優惠',
@@ -389,8 +358,9 @@ export default {
       isLoading: false,
     };
   },
-  emits: ['emit-order', 'emit-carts'],
-  props: ['pushOrder', 'pushCarts'],
+  components: {
+    CartList,
+  },
   methods: {
     getCart() {
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/cart`;
@@ -400,78 +370,7 @@ export default {
           if (res.data.success) {
             this.cart = res.data.data;
             this.isLoading = false;
-            this.getProducts();
           } else {
-            this.$swal({
-              text: res.data.message,
-              icon: 'error',
-              confirmButtonColor: '#ffbc1f',
-            });
-          }
-        })
-        .catch(() => {
-          this.$swal({
-            text: 'Opps ... 發生錯誤，請嘗試重新整理此頁面',
-            icon: 'error',
-            confirmButtonColor: '#ffbc1f',
-          });
-        });
-    },
-    getProducts(page = 1) {
-      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/products?page=${page}`;
-      this.$http
-        .get(apiUrl)
-        .then((res) => {
-          if (res.data.success) {
-            this.products = res.data.products.sort((a, b) => b.num - a.num);
-            this.filterProduct(this.products);
-          } else {
-            this.$swal({
-              text: res.data.message,
-              icon: 'error',
-              confirmButtonColor: '#ffbc1f',
-            });
-          }
-        })
-        .catch(() => {
-          this.$swal({
-            text: 'Opps ... 發生錯誤，請嘗試重新整理此頁面',
-            icon: 'error',
-            confirmButtonColor: '#ffbc1f',
-          });
-        });
-    },
-    filterProduct(products) {
-      const cartId = [];
-      this.cart.carts.forEach((item) => cartId.push(item.product.id));
-      this.saleProducts = products.filter(
-        (item) => cartId.indexOf(item.id) === -1,
-      );
-      this.saleProducts = this.saleProducts.filter((item) => item.is_season);
-    },
-    addToCart(productId) {
-      this.isLoading = true;
-      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/cart`;
-      const cartData = {
-        data: {
-          product_id: productId,
-          qty: 1,
-        },
-      };
-      this.$http
-        .post(apiUrl, cartData)
-        .then((res) => {
-          if (res.data.success) {
-            this.isLoading = false;
-            emitter.emit('update-cart');
-            this.$swal({
-              text: res.data.message,
-              icon: 'success',
-              confirmButtonColor: '#ffbc1f',
-            });
-            this.getCart();
-          } else {
-            this.isLoading = false;
             this.$swal({
               text: res.data.message,
               icon: 'error',
@@ -586,7 +485,7 @@ export default {
       switch (status) {
         case 'one':
           title = `確定不想買${product.product.title}嗎?`;
-          delFunction = this.delOneCart;
+          delFunction = this.delCarts;
           break;
         case 'checked':
           title = '確定不想買已勾選的商品嗎?';
@@ -595,7 +494,7 @@ export default {
         default:
           title = '確定要清空購物車嗎?';
           text = '清空後無法復原呦';
-          delFunction = this.delAll;
+          delFunction = this.delCarts;
           break;
       }
       this.$swal
@@ -617,41 +516,12 @@ export default {
           }
         });
     },
-    delOneCart(delId) {
+    delCarts(delId) {
       this.isLoading = true;
-      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/cart/${delId}`;
-      this.$http
-        .delete(apiUrl)
-        .then((res) => {
-          if (res.data.success) {
-            this.isLoading = false;
-            this.getCart();
-            emitter.emit('update-cart');
-            this.$swal({
-              text: res.data.message,
-              icon: 'success',
-              confirmButtonColor: '#ffbc1f',
-            });
-          } else {
-            this.isLoading = false;
-            this.$swal({
-              text: res.data.message,
-              icon: 'error',
-              confirmButtonColor: '#ffbc1f',
-            });
-          }
-        })
-        .catch(() => {
-          this.$swal({
-            text: 'Opps ... 發生錯誤，請嘗試重新整理此頁面',
-            icon: 'error',
-            confirmButtonColor: '#ffbc1f',
-          });
-        });
-    },
-    delAll() {
-      this.isLoading = true;
-      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/carts`;
+      let apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/carts`;
+      if (delId) {
+        apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/cart/${delId}`;
+      }
       this.$http
         .delete(apiUrl)
         .then((res) => {
@@ -659,11 +529,6 @@ export default {
             this.getCart();
             emitter.emit('update-cart');
             this.isLoading = false;
-            this.$swal({
-              text: res.data.message,
-              icon: 'success',
-              confirmButtonColor: '#ffbc1f',
-            });
           } else {
             this.isLoading = false;
             this.$swal({
@@ -682,21 +547,17 @@ export default {
         });
     },
     delCheck() {
-      this.delCart.forEach((item) => this.delOneCart(item));
+      this.delCart.forEach((item) => this.delCarts(item));
       emitter.emit('update-cart');
     },
-    emitCarts() {
-      this.$emit('emit-carts', this.cart);
+    pushTempCarts() {
+      sessionStorage.setItem('tempCarts', JSON.stringify(this.cart));
     },
   },
   mounted() {
     this.isLoading = true;
     this.getCart();
     this.isOld();
-    const topNav = document.querySelector('#topNav');
-    if (topNav.classList.contains('show')) {
-      topNav.classList.remove('show');
-    }
   },
 };
 </script>

@@ -114,9 +114,6 @@
       </div>
     </div>
   </div>
-  <div class="position-relative">
-    <GoTop></GoTop>
-  </div>
   <Loading :active="isLoading">
     <div class="loadingio-spinner-dual-ball-haac1tizt7t">
       <div class="ldio-u3364un719">
@@ -130,7 +127,6 @@
 
 <script>
 import emitter from '@/methods/Emitter';
-import GoTop from '@/components/GoTop.vue';
 
 export default {
   data() {
@@ -139,11 +135,6 @@ export default {
       isLoading: false,
     };
   },
-  components: {
-    GoTop,
-  },
-  emits: ['emit-order', 'emit-carts'],
-  props: ['pushOrder', 'pushCarts'],
   methods: {
     getFavorite() {
       this.favorite = JSON.parse(localStorage.getItem('favorite'));
@@ -211,10 +202,6 @@ export default {
     setTimeout(() => {
       this.getFavorite();
     }, 1000);
-    const topNav = document.querySelector('#topNav');
-    if (topNav.classList.contains('show')) {
-      topNav.classList.remove('show');
-    }
   },
 };
 </script>

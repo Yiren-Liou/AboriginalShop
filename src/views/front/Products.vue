@@ -79,9 +79,6 @@
       <Pagination :page="pagination" @emit-page="filterPages"></Pagination>
     </div>
   </div>
-  <div class="position-relative d-none d-md-block">
-    <GoTop></GoTop>
-  </div>
   <Loading :active="isLoading">
     <div class="loadingio-spinner-dual-ball-haac1tizt7t">
       <div class="ldio-u3364un719">
@@ -98,7 +95,6 @@ import emitter from '@/methods/Emitter';
 import newPages from '@/methods/newPagination';
 import SubNav from '@/components/front/SubNav.vue';
 import Pagination from '@/components/Pagination.vue';
-import GoTop from '@/components/GoTop.vue';
 
 export default {
   data() {
@@ -121,10 +117,7 @@ export default {
   components: {
     SubNav,
     Pagination,
-    GoTop,
   },
-  emits: ['emit-order', 'emit-carts'],
-  props: ['pushOrder', 'pushCarts'],
   computed: {
     windowSmallWidth() {
       if (window.screen.width < 576) {
@@ -276,10 +269,6 @@ export default {
     this.isLoading = true;
     this.getPath();
     this.getProducts();
-    const topNav = document.querySelector('#topNav');
-    if (topNav.classList.contains('show')) {
-      topNav.classList.remove('show');
-    }
     window.addEventListener('scroll', () => {
       this.scroll = document.documentElement.scrollTop > 0;
     });

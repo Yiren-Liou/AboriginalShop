@@ -46,64 +46,70 @@
         </button>
         <ul class="dropdown-menu" aria-labelledby="filterBtn">
           <li class="mb-2">
-            <a
+            <button
+              type="button"
               class="dropdown-item"
               href="#"
               data-field="sellTime_new_old"
-              @click.prevent="filterItem"
+              @click="filterItem"
             >
               上架時間新到舊
-            </a>
+            </button>
           </li>
           <li class="mb-2">
-            <a
+            <button
+              type="button"
               class="dropdown-item"
               href="#"
               data-field="sellTime_old_new"
-              @click.prevent="filterItem"
+              @click="filterItem"
             >
               上架時間舊到新
-            </a>
+            </button>
           </li>
           <li class="mb-2">
-            <a
+            <button
+              type="button"
               class="dropdown-item"
               href="#"
               data-field="originPrice_low_high"
-              @click.prevent="filterItem"
+              @click="filterItem"
             >
               原價低到高
-            </a>
+            </button>
           </li>
           <li class="mb-2">
-            <a
+            <button
+              type="button"
               class="dropdown-item"
               href="#"
               data-field="originPrice_high_low"
-              @click.prevent="filterItem"
+              @click="filterItem"
             >
               原價高到低
-            </a>
+            </button>
           </li>
           <li class="mb-2">
-            <a
+            <button
+              type="button"
               class="dropdown-item"
               href="#"
               data-field="price_low_high"
-              @click.prevent="filterItem"
+              @click="filterItem"
             >
               售價低到高
-            </a>
+            </button>
           </li>
           <li>
-            <a
+            <button
+              type="button"
               class="dropdown-item"
               href="#"
               data-field="price_high_low"
-              @click.prevent="filterItem"
+              @click="filterItem"
             >
               售價高到低
-            </a>
+            </button>
           </li>
         </ul>
       </div>
@@ -151,7 +157,7 @@
           <router-link
             :to="`product/${item.id}`"
             class="material-icons btn"
-            @click="emitReadonly(true)"
+            @click="pushReadStatus(true)"
             >remove_red_eye
           </router-link>
         </td>
@@ -159,7 +165,7 @@
           <router-link
             :to="`product/${item.id}`"
             class="material-icons btn"
-            @click="emitReadonly(false)"
+            @click="pushReadStatus(false)"
             >edit
           </router-link>
         </td>
@@ -209,8 +215,6 @@ export default {
       isLoading: false,
     };
   },
-  emits: ['emit-readonly', 'emit-order'],
-  props: ['readStatus', 'pushOrder'],
   components: {
     Pagination,
   },
@@ -287,11 +291,10 @@ export default {
           });
         });
     },
-    emitReadonly(status) {
-      this.$emit('emit-readonly', status);
+    pushReadStatus(status) {
+      sessionStorage.setItem('readOnly', status);
     },
     filterItem(e) {
-      e.preventDefault();
       const action = e.target.getAttribute('data-field');
       switch (action) {
         case 'price_low_high':

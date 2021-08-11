@@ -230,9 +230,6 @@
       <ProductSwiper :products='recommends'></ProductSwiper>
     </template>
   </div>
-  <div class="position-relative d-none d-md-block">
-    <GoTop></GoTop>
-  </div>
   <Loading :active="isLoading">
     <div class="loadingio-spinner-dual-ball-haac1tizt7t">
       <div class="ldio-u3364un719">
@@ -246,7 +243,6 @@
 
 <script>
 import emitter from '@/methods/Emitter';
-import GoTop from '@/components/GoTop.vue';
 import ProductInfo from '@/components/front/ProductInfo.vue';
 import ProductSwiper from '@/components/front/ProductSwiper.vue';
 
@@ -263,12 +259,9 @@ export default {
       isLoading: false,
     };
   },
-  emits: ['emit-order', 'emit-carts'],
-  props: ['pushOrder', 'pushCarts'],
   components: {
     ProductInfo,
     ProductSwiper,
-    GoTop,
   },
   computed: {
     windowSmallWidth() {

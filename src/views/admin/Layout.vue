@@ -18,14 +18,7 @@
       </div>
       <div class="col">
         <div class="py-4 px-3">
-          <router-view
-            v-if="checkUser"
-            @emit-readonly="getReadonly"
-            :read-status="readStatus"
-            @emit-order="getOrder"
-            :push-order="order"
-          >
-          </router-view>
+          <router-view v-if="checkUser"/>
         </div>
       </div>
     </div>
@@ -45,14 +38,6 @@ export default {
   },
   components: {
     AdminNav,
-  },
-  methods: {
-    getReadonly(status) {
-      this.readStatus = status;
-    },
-    getOrder(order) {
-      this.order = order;
-    },
   },
   mounted() {
     const token = document.cookie.replace(

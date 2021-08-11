@@ -27,9 +27,7 @@
           aria-describedby="searchBtn"
           v-model="search"
         />
-        <span class="input-group-text material-icons bg-transparent me-3"
-          >search</span
-        >
+        <span class="input-group-text material-icons bg-transparent me-3">search</span>
         <div class="dropdown">
           <button
             class="
@@ -49,64 +47,70 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="filterBtn">
             <li class="mb-2">
-              <a
+              <button
+                type="button"
                 class="dropdown-item"
                 href="#"
                 data-field="startDate_new_old"
-                @click.prevent="filterItem"
+                @click="filterItem"
               >
                 起始時間新到舊
-              </a>
+              </button>
             </li>
             <li class="mb-2">
-              <a
+              <button
+                type="button"
                 class="dropdown-item"
                 href="#"
                 data-field="startDate_old_new"
-                @click.prevent="filterItem"
+                @click="filterItem"
               >
                 起始時間舊到新
-              </a>
+              </button>
             </li>
             <li class="mb-2">
-              <a
+              <button
+                type="button"
                 class="dropdown-item"
                 href="#"
                 data-field="dueDate_new_old"
-                @click.prevent="filterItem"
+                @click="filterItem"
               >
                 截止時間新到舊
-              </a>
+              </button>
             </li>
             <li class="mb-2">
-              <a
+              <button
+                type="button"
                 class="dropdown-item"
                 href="#"
                 data-field="dueDate_old_new"
-                @click.prevent="filterItem"
+                @click="filterItem"
               >
                 截止時間舊到新
-              </a>
+              </button>
             </li>
             <li class="mb-2">
-              <a
+              <button
+                type="button"
                 class="dropdown-item"
                 href="#"
                 data-field="discount_low_high"
-                @click.prevent="filterItem"
+                @click="filterItem"
               >
                 折扣趴數低到高
-              </a>
+              </button>
             </li>
             <li>
-              <a
+              <button
+                type="button"
                 class="dropdown-item"
                 href="#"
                 data-field="discount_high_low"
-                @click.prevent="filterItem"
+                @click="filterItem"
               >
                 折扣趴數高到低
-              </a>
+              </button>
             </li>
           </ul>
         </div>
@@ -193,8 +197,6 @@ export default {
       search: '',
     };
   },
-  emits: ['emit-readonly', 'emit-order'],
-  props: ['readStatus', 'pushOrder'],
   computed: {
     filterCoupon() {
       return this.coupons.filter((item) => item.title.match(this.search));
@@ -238,10 +240,10 @@ export default {
           coupon: JSON.stringify(this.coupon),
         },
       });
-      this.$emit('emit-readonly', status);
+      this.pushReadStatus(status);
     },
-    emitReadonly(status) {
-      this.$emit('emit-readonly', status);
+    pushReadStatus(status) {
+      sessionStorage.setItem('readOnly', status);
     },
     delCoupon(id) {
       this.isLoading = true;
@@ -275,7 +277,6 @@ export default {
         });
     },
     filterItem(e) {
-      e.preventDefault();
       const action = e.target.getAttribute('data-field');
       switch (action) {
         case 'discount_low_high':

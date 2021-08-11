@@ -1,28 +1,22 @@
 <template>
   <div
     class="mainNav border-bottom border-secondary bg-light fixed-top zindexTop w-100"
-    :class="{ 'shadow-sm': scroll }"
-  >
+    :class="{ 'shadow-sm': scroll }">
     <Navbar></Navbar>
   </div>
-  <router-view
-    @emit-order="getOrder"
-    :push-order="order"
-    @emit-carts="getCarts"
-    :push-carts="carts"
-  />
-  <!-- <router-view />
-  <router-view name='orderConfirm' :push-carts="carts" :push-order="order"></router-view>
-  <router-view name='cart' @emit-carts="getCarts"></router-view>
-  <router-view name='buyerForm' @emit-order="getOrder"></router-view> -->
+  <router-view />
   <div class="bg-secondary">
     <Footer></Footer>
+  </div>
+  <div class="position-relative">
+    <GoTop></GoTop>
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/front/Navbar.vue';
 import Footer from '@/components/front/Footer.vue';
+import GoTop from '@/components/GoTop.vue';
 
 export default {
   data() {
@@ -36,6 +30,14 @@ export default {
   components: {
     Navbar,
     Footer,
+    GoTop,
+  },
+  watch: {
+    $route() {
+      if (this.$route.name !== 'layout') {
+        this.$collapseNav();
+      }
+    },
   },
   methods: {
     getOrder(order) {

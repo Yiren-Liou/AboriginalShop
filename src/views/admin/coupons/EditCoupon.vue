@@ -31,7 +31,7 @@
       <button
         type="button"
         class="btn btn-primary btn-sm"
-        @click="emitReadonly(false)"
+        @click="pushReadStatus(false)"
       >
         編輯
       </button>
@@ -240,16 +240,9 @@ export default {
       routeId: this.$route.params.id,
       coupon: {},
       isLoading: false,
+      readonly: false,
     };
   },
-  computed: {
-    readonly() {
-      const readonly = this.readStatus;
-      return readonly;
-    },
-  },
-  emits: ['emit-readonly', 'emit-order'],
-  props: ['readStatus', 'pushOrder'],
   methods: {
     getCoupon() {
       this.coupon = JSON.parse(this.$route.query.coupon);
@@ -259,7 +252,7 @@ export default {
     },
     cancel() {
       this.isLoading = true;
-      this.emitReadonly(true);
+      this.pushReadStatus(true);
       this.getCoupon();
     },
     update() {
@@ -276,7 +269,7 @@ export default {
         .put(apiUrl, { data: this.coupon })
         .then((res) => {
           if (res.data.success) {
-            this.emitReadonly(true);
+            this.pushReadStatus(true);
             this.isLoading = false;
             this.coupon.start_date = this.$date.toDate(this.coupon.start_date);
             this.coupon.due_date = this.$date.toDate(this.coupon.due_date);
@@ -333,13 +326,15 @@ export default {
           });
         });
     },
-    emitReadonly(status) {
-      this.$emit('emit-readonly', status);
+    pushReadStatus(status) {
+      this.readonly = status;
+      sessionStorage.setItem('readOnly', status);
     },
   },
   created() {
     this.isLoading = true;
     this.getCoupon();
+    this.readonly = JSON.parse(sessionStorage.getItem('readOnly'));
   },
 };
 </script>

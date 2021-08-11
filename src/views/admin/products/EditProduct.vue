@@ -31,7 +31,7 @@
       <button
         type="button"
         class="btn btn-primary btn-sm"
-        @click="emitReadonly(false)"
+        @click="pushReadStatus(false)"
       >
         編輯
       </button>
@@ -321,24 +321,17 @@
               <label for="productExplanation " class="form-label">
                 補充內容<sup>*</sup>
               </label>
-              <Field
+              <textarea
                 type="text"
                 class="form-control"
                 id="productExplanation "
                 placeholder="請輸入補充內容"
                 v-model="productInfo.explanation"
                 name="補充內容"
-                rules="required"
-                as="textarea"
                 style="height: 160px"
-                :class="{ 'is-invalid': errors['補充內容'] }"
                 :disabled="readonly"
               >
-              </Field>
-              <error-message
-                name="補充內容"
-                class="invalid-feedback"
-              ></error-message>
+              </textarea>
             </div>
           </div>
           <div class="col-md-6">
@@ -420,17 +413,10 @@ export default {
     return {
       routeId: this.$route.params.id,
       productInfo: {},
+      readonly: false,
       isLoading: false,
     };
   },
-  computed: {
-    readonly() {
-      const readonly = this.readStatus;
-      return readonly;
-    },
-  },
-  emits: ['emit-readonly', 'emit-order'],
-  props: ['readStatus', 'pushOrder'],
   components: {
     CategorySelect,
     IsEnabledSelect,
@@ -459,11 +445,11 @@ export default {
     },
     cancelEdit() {
       this.isLoading = true;
-      this.emitReadonly(true);
+      this.pushReadStatus(true);
       this.getProduct();
     },
     update() {
-      this.emitReadonly(true);
+      this.pushReadStatus(true);
       this.isLoading = true;
       const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/admin/product/${this.routeId}`;
       this.$http
@@ -547,13 +533,15 @@ export default {
         confirmButtonColor: '#ffbc1f',
       });
     },
-    emitReadonly(status) {
-      this.$emit('emit-readonly', status);
+    pushReadStatus(status) {
+      this.readonly = status;
+      sessionStorage.setItem('readOnly', status);
     },
   },
   mounted() {
     this.isLoading = true;
     this.getProduct();
+    this.readonly = JSON.parse(sessionStorage.getItem('readOnly'));
   },
 };
 </script>

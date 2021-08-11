@@ -46,44 +46,48 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="filterBtn">
             <li class="mb-2">
-              <a
+              <button
+                type="button"
                 class="dropdown-item"
                 href="#"
                 data-field="create_new_old"
-                @click.prevent="filterItem"
+                @click="filterItem"
               >
                 訂購時間新到舊
-              </a>
+              </button>
             </li>
             <li class="mb-2">
-              <a
+              <button
+                type="button"
                 class="dropdown-item"
                 href="#"
                 data-field="create_old_new"
-                @click.prevent="filterItem"
+                @click="filterItem"
               >
                 訂購時間舊到新
-              </a>
+              </button>
             </li>
             <li class="mb-2">
-              <a
+              <button
+                type="button"
                 class="dropdown-item"
                 href="#"
                 data-field="total_low_high"
-                @click.prevent="filterItem"
+                @click="filterItem"
               >
                 總金額低到高
-              </a>
+              </button>
             </li>
             <li>
-              <a
+              <button
+                type="button"
                 class="dropdown-item"
                 href="#"
                 data-field="total_high_low"
-                @click.prevent="filterItem"
+                @click="filterItem"
               >
                 總金額高到低
-              </a>
+              </button>
             </li>
           </ul>
         </div>
@@ -126,7 +130,7 @@
         <td>
           <router-link
             :to="`order/${order.id}`"
-            @click="emitOrder(true, order)"
+            @click="pushOrderInfo(true, order)"
             class="material-icons btn"
           >
             remove_red_eye
@@ -135,7 +139,7 @@
         <td>
           <router-link
             :to="`order/${order.id}`"
-            @click="emitOrder(false, order)"
+            @click="pushOrderInfo(false, order)"
             class="material-icons btn"
           >
             edit
@@ -178,8 +182,6 @@ export default {
       search: '',
     };
   },
-  emits: ['emit-readonly', 'emit-order'],
-  props: ['readStatus', 'pushOrder'],
   computed: {
     filterOrder() {
       return this.orderList.filter((item) => (item.create_at).toString().match(this.search));
@@ -274,7 +276,6 @@ export default {
         });
     },
     filterItem(e) {
-      e.preventDefault();
       const action = e.target.getAttribute('data-field');
       switch (action) {
         case 'total_low_high':
@@ -301,9 +302,9 @@ export default {
           break;
       }
     },
-    emitOrder(status, order) {
-      this.$emit('emit-readonly', status);
-      this.$emit('emit-order', order);
+    pushOrderInfo(status, order) {
+      sessionStorage.setItem('readOnly', status);
+      sessionStorage.setItem('checkOrder', JSON.stringify(order));
     },
   },
   mounted() {

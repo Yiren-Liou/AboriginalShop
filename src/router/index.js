@@ -8,11 +8,12 @@ const routes = [
   },
   {
     path: '/',
+    name: 'layout',
     component: () => import('../views/front/FrontLayout.vue'),
     children: [
       {
         path: 'products',
-        // name: 'products',
+        name: 'products',
         component: () => import('../views/front/Products.vue'),
       },
       {
@@ -32,12 +33,12 @@ const routes = [
       },
       {
         path: 'orders',
-        // name: 'orders',
+        name: 'orders',
         component: () => import('../views/front/Orders.vue'),
       },
       {
         path: 'order/:id',
-        // name: 'order',
+        name: 'order',
         component: () => import('../views/front/Order.vue'),
       },
       {
@@ -47,27 +48,27 @@ const routes = [
       },
       {
         path: 'favorite',
-        // name: 'favorite',
+        name: 'favorite',
         component: () => import('../views/front/Favorite.vue'),
       },
       {
         path: 'about',
-        // name: 'about',
+        name: 'about',
         component: () => import('../views/front/About.vue'),
       },
       {
         path: 'contact',
-        // name: 'contact',
+        name: 'contact',
         component: () => import('../views/front/Contact.vue'),
       },
       {
         path: 'questions',
-        // name: 'questions',
+        name: 'questions',
         component: () => import('../views/front/Questions.vue'),
       },
       {
         path: 'copyright',
-        // name: 'copyright',
+        name: 'copyright',
         component: () => import('../views/front/Copyright.vue'),
       },
     ],
