@@ -511,9 +511,8 @@ export default {
           });
         });
     },
-    getCategory(mainCategoryValue, subCategoryValue) {
-      this.productInfo.category = mainCategoryValue;
-      this.productInfo.subCategory = subCategoryValue;
+    getCategory(categorySort) {
+      this.productInfo.categorySort = categorySort;
     },
     getIsEnabled(isSell, sellTime) {
       this.productInfo.is_enabled = isSell;

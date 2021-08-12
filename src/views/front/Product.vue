@@ -330,13 +330,13 @@ export default {
           });
         });
     },
-    getProducts(page = 1) {
-      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/products?page=${page}`;
+    getProducts() {
+      const apiUrl = `${process.env.VUE_APP_URL}api/${process.env.VUE_APP_PATH}/products/all`;
       this.$http
         .get(apiUrl)
         .then((res) => {
           if (res.data.success) {
-            this.products = res.data.products.sort((a, b) => b.num - a.num);
+            this.products = res.data.products;
             this.getCategoryList();
           } else {
             this.$swal({

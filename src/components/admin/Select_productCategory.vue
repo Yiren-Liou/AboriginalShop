@@ -39,8 +39,9 @@ export default {
         新鮮蔬果: ['水果', '蔬菜'],
         沖泡飲品: ['茶葉', '咖啡', '果乾水'],
         天然果醬: ['手工果醬'],
-        手工編織: ['圍巾', '置物籃', '包包', '帽子'],
+        手工編織: ['置物籃', '包包', '帽子', '圍巾'],
       },
+      categorySort: '',
     };
   },
   props: ['readonly', 'editMain', 'editSub', 'add'],
@@ -66,9 +67,42 @@ export default {
       this.tempSub = '';
     },
     emitCategory() {
-      const mainCategoryValue = document.querySelector('#mainCategory').value;
+      // const mainCategoryValue = document.querySelector('#mainCategory').value;
       const subCategoryValue = document.querySelector('#subCategory').value;
-      this.$emit('emit-category', mainCategoryValue, subCategoryValue);
+      switch (subCategoryValue) {
+        case '水果':
+          this.categorySort = 1;
+          break;
+        case '蔬菜':
+          this.categorySort = 2;
+          break;
+        case '茶葉':
+          this.categorySort = 3;
+          break;
+        case '咖啡':
+          this.categorySort = 4;
+          break;
+        case '果乾水':
+          this.categorySort = 5;
+          break;
+        case '手工果醬':
+          this.categorySort = 6;
+          break;
+        case '置物籃':
+          this.categorySort = 7;
+          break;
+        case '包包':
+          this.categorySort = 8;
+          break;
+        case '帽子':
+          this.categorySort = 9;
+          break;
+        case '圍巾':
+          this.categorySort = 10;
+          break;
+        default: break;
+      }
+      this.$emit('emit-category', this.categorySort);
     },
   },
 };

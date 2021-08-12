@@ -230,7 +230,7 @@ export default {
         .get(apiUrl)
         .then((res) => {
           if (res.data.success) {
-            this.productData = res.data.products;
+            this.productData = res.data.products.sort((a, b) => a.categorySort - b.categorySort);
             this.tempData.data = { imagesUrl: [] };
             this.pagination = res.data.pagination;
             this.isLoading = false;

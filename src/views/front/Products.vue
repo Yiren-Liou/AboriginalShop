@@ -133,7 +133,7 @@ export default {
         .get(apiUrl)
         .then((res) => {
           if (res.data.success) {
-            this.products = res.data.products;
+            this.products = res.data.products.sort((a, b) => a.categorySort - b.categorySort);
             this.getCategoryList();
             this.filterPages(this.path.page, this.path.category);
             this.isLoading = false;

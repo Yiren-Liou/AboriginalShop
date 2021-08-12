@@ -407,9 +407,10 @@ export default {
           });
         });
     },
-    getCategory(mainCategoryValue, subCategoryValue) {
-      this.newProduct.category = mainCategoryValue;
-      this.newProduct.sub_category = subCategoryValue;
+    getCategory(categorySort) {
+      this.newProduct.category = document.querySelector('#mainCategory').value;
+      this.newProduct.sub_category = document.querySelector('#subCategory').value;
+      this.newProduct.categorySort = categorySort;
     },
     getIsEnabled(isSell, sellTime) {
       this.newProduct.is_enabled = isSell;
