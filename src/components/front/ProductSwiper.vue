@@ -22,9 +22,9 @@
             class="img-fluid"
           />
         </div>
-        <div class="card-body px-0">
+        <div class="card-body p-0">
           <div class="d-md-flex justify-content-between align-items-center mb-3">
-            <h2 class="fontSizeBase fontSize-md-M">{{ item.title }}</h2>
+            <h2 class="fontSizeBase fontSize-md-M mb-0">{{ item.title }}</h2>
             <p
               class="fontSize-md-S fw-bold mb-0"
               :class="{ 'text-primary': item.is_sell }"
@@ -51,6 +51,11 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 SwiperCore.use([Pagination, Autoplay]);
 
 export default {
+  data() {
+    return {
+      docWidth: '',
+    };
+  },
   props: ['products'],
   components: {
     Swiper,
@@ -58,11 +63,17 @@ export default {
   },
   computed: {
     windowSmallWidth() {
-      if (window.screen.width <= 576) {
+      if (this.docWidth <= 576) {
         return 2;
       }
-      return 3;
+      return 4;
     },
+  },
+  created() {
+    this.docWidth = document.documentElement.scrollWidth;
+    window.addEventListener('resize', () => {
+      this.docWidth = document.documentElement.scrollWidth;
+    });
   },
 };
 </script>

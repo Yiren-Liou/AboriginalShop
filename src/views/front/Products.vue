@@ -13,10 +13,10 @@
       </p>
     </div>
   </div>
-  <SubNav :is-active="isActive" :category-list="categoryList"
+  <SubNav :category-list="categoryList" :currentPath="currentPath"
           @emit-category="filterProduct">
   </SubNav>
-  <div class="main container mt-0 mt-md-4 px-md-7">
+  <div class="main container mt-3 mt-md-4 px-md-7">
     <div class="row mb-6">
       <div v-for="item in filterProducts" :key="item.id"
           class="col-6 col-lg-4 mb-3 mb-md-4">
@@ -24,54 +24,45 @@
                             query: { category: item.category,
                                     title : item.title}}"
                 class="productCard">
-          <div class="card-img-top mb-3">
+          <div class="card-img-top position-relative mb-3">
+            <span v-if="item.is_season" class="tag">限定</span>
+            <span v-if="item.is_sell" class="tag">特價</span>
             <img
               :src="item.imagesUrl[0].imgUrl"
               :alt="item.title"
               class="img-fluid"
             />
           </div>
-          <div class="d-flex mb-2"
-                :class="{'tagCard': !item.is_season && !item.is_sell}">
-              <span v-if="item.is_season"
-                    class="border border-primary text-primary px-2 me-2">
-                    {{ windowSmallWidth? '限定' : '季節限定' }}
-              </span>
+          <div class="d-md-flex justify-content-md-between mb-3">
+            <h2 class="fontSizeBase fontSize-md-M mb-2">{{ item.title }}</h2>
+            <p class="fontSize-md-S fw-bold mb-2"
+              :class="{'text-primary': item.is_sell}">
+              NT {{ item.is_sell? item.price : item.origin_price }}
               <span v-if="item.is_sell"
-                    class="border border-primary text-primary px-2">
-                    {{ windowSmallWidth? '特惠' : '限時特惠' }}
+                  class="fontSizeXS text-decoration-line-through text-dark ms-1">
+                NT {{ item.origin_price }}
               </span>
-            </div>
-            <div class="d-md-flex justify-content-md-between mb-3">
-              <h2 class="fontSizeBase fontSize-md-M mb-2">{{ item.title }}</h2>
-              <p class="fontSize-md-S fw-bold mb-2"
-                :class="{'text-primary': item.is_sell}">
-                NT {{ item.is_sell? item.price : item.origin_price }}
-                <span v-if="item.is_sell"
-                    class="fontSizeXS text-decoration-line-through text-dark ms-1">
-                  NT {{ item.origin_price }}
-                </span>
+            </p>
+          </div>
+          <div class="d-flex justify-content-between">
+            <button
+              type="button"
+              class="favoriteBtn d-center btn btn-outline-secondary me-3"
+              @click.prevent="addToFavorite(item)"
+            >
+              <span class="material-icons">favorite_border</span>
+            </button>
+            <button
+              type="button"
+              class="addCartBtn btn btn-secondary d-center material-icons"
+              @click.prevent="addToCart(item.id)"
+            >
+              <p class="fontSize-md-S d-center material-icons mb-0">
+                add_shopping_cart
+                <span class="d-none d-lg-block ms-2">加入購物車</span>
               </p>
-            </div>
-            <div class="d-flex justify-content-between">
-              <button
-                type="button"
-                class="favoriteBtn d-center btn btn-outline-secondary me-3"
-                @click.prevent="addToFavorite(item)"
-              >
-                <span class="material-icons">favorite_border</span>
-              </button>
-              <button
-                type="button"
-                class="addCartBtn btn btn-secondary d-center material-icons"
-                @click.prevent="addToCart(item.id)"
-              >
-                <p class="fontSize-md-S d-center material-icons mb-0">
-                  add_shopping_cart
-                  <span class="d-none d-lg-block ms-2">加入購物車</span>
-                </p>
-              </button>
-            </div>
+            </button>
+          </div>
         </router-link>
       </div>
     </div>
@@ -99,6 +90,7 @@ import Pagination from '@/components/Pagination.vue';
 export default {
   data() {
     return {
+      currentPath: this.$route.name,
       products: '',
       categoryList: '',
       isActive: '全部商品',

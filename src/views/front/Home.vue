@@ -5,7 +5,7 @@
   >
     <Navbar :nav-light="isNavLight"></Navbar>
   </div>
-  <div class="bgImg banner justify-content-between align-items-center mb-6">
+  <div class="bgImg banner justify-content-between align-items-center">
     <div class="bgCover"></div>
     <div class="bannerSlogan d-flex flex-column align-items-center">
       <h2 class="fontSizeL fontSize-md-XL fw-bold mb-3">
@@ -42,10 +42,12 @@
       @click="moveToIntro"
     >
       我想知道
-      <span class="arrowImg material-icons position-absolute">keyboard_arrow_down</span>
+      <span class="arrowImg material-icons position-absolute">
+        keyboard_arrow_down
+      </span>
     </button>
   </div>
-  <div class="container mb-4 mb-md-7" id="intro">
+  <div class="container pt-7 mb-4 mb-md-7" id="intro">
     <div
       class="d-none d-md-flex row justify-content-center mb-4 mb-md-7"
       data-aos="fade-up"
@@ -180,7 +182,7 @@
       <h3 class="d-flex align-items-center fontSize-M fontSize-md-XL fw-bold">
         <img
           src="@/assets/images/季節限定.png"
-          alt="item"
+          alt="季節限定"
           class="iconImg me-2"
         />
         季節限定
@@ -192,7 +194,7 @@
       <h3 class="d-flex align-items-center fontSize-md-XL fw-bold">
         <img
           src="@/assets/images/限時特惠.png"
-          alt="item"
+          alt="限時特惠"
           class="iconImg me-2"
         />
         限時特惠
@@ -250,7 +252,7 @@
         <h3 class="d-flex align-items-center fontSize-M fontSize-md-XL fw-bold">
           <img
             src="@/assets/images/新鮮蔬果.png"
-            alt="item"
+            alt="新鮮蔬果"
             class="iconImg me-2"
           />
           新鮮蔬果
@@ -305,7 +307,7 @@
       <h3 class="d-flex align-items-center fontSize-M fontSize-md-XL fw-bold">
         <img
           src="@/assets/images/沖泡飲品.png"
-          alt="item"
+          alt="沖泡飲品"
           class="iconImg me-2"
         />
         沖泡飲品
@@ -322,17 +324,26 @@
   >
     <div class="container py-6 py-md-7">
       <div class="row justify-content-center py-md-4">
-        <div class="col-md-5">
+        <div class="col-md-4">
           <h3 class="fontSize-M fontSize-md-XL text-center mb-3">
             歡迎訂閱電子報 <br>獲得最新優惠訊息
           </h3>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="example@mail.com" id="subscribe"
-                  aria-label="subscribe" aria-describedby="subscribeBtn">
-            <button class="btn btn-primary text-white px-md-4" type="submit" id="subscribeBtn">
+          <Form v-slot="{ errors }" class="d-center flex-column">
+            <Field
+              type="email"
+              class="form-control"
+              id="userEmail"
+              placeholder="example@mail.com"
+              name="信箱"
+              rules="email|required"
+              :class="{ 'is-invalid': errors['信箱'] }"
+            >
+            </Field>
+            <error-message name="信箱" class="invalid-feedback"></error-message>
+            <button class="btn btn-primary text-white mt-3 px-md-4" type="submit" id="subscribeBtn">
               免費訂閱
             </button>
-          </div>
+          </Form>
         </div>
       </div>
     </div>

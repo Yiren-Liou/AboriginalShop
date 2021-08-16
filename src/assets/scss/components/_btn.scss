@@ -13,7 +13,11 @@
 
 .topBtn{
   position: fixed;
+  font-size: 20px;
+  padding: .25rem .5rem;
+  font-weight: bold;
   right: 8px;
+  z-index: $zindex-fixed;
   bottom: 32px;
   display: none;
   transition: 1s;

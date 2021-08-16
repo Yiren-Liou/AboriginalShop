@@ -1,6 +1,6 @@
 <template>
   <button
-    class="topBtn btn material-icons rounded p-0 px-md-1"
+    class="topBtn btn material-icons rounded-circle"
     :class="{ 'd-block': top }"
     @click="goTop"
   >

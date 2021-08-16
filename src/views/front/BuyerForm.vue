@@ -1,34 +1,6 @@
 <template>
   <div class="main container mb-6 mb-md-0">
-    <div class="row justify-content-center mb-5">
-      <div class="col-md-6">
-        <div class="d-flex justify-content-between">
-          <div class="d-flex flex-column align-items-center">
-            <div
-              class="border border-2 rounded-circle bg-primary p-2 mb-3"
-            ></div>
-            <span class="text-center">確認購物車</span>
-          </div>
-          <div class="progressLine border-primary"></div>
-          <div class="d-flex flex-column align-items-center">
-            <div
-              class="border border-2 rounded-circle bg-primary p-2 mb-3"
-            ></div>
-            <span class="text-center">填寫訂購資訊</span>
-          </div>
-          <div class="progressLine"></div>
-          <div class="d-flex flex-column align-items-center">
-            <div class="border border-2 rounded-circle p-2 mb-3"></div>
-            <span class="text-center">確認結帳</span>
-          </div>
-          <div class="progressLine"></div>
-          <div class="d-flex flex-column align-items-center">
-            <div class="border border-2 rounded-circle p-2 mb-3"></div>
-            <span class="text-center">訂購成功</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <OrderProgress :progress="progress"></OrderProgress>
     <h2 class="fontSizeM fontSize-md-L text-center mb-5">訂購資訊</h2>
     <div class="row justify-content-center">
       <div class="col-md-6 mb-4">
@@ -48,11 +20,13 @@
 </template>
 
 <script>
+import OrderProgress from '@/components/front/orderProgress.vue';
 import BuyerInfo from '@/components/front/BuyerInfo.vue';
 
 export default {
   data() {
     return {
+      progress: '訂購資訊',
       user: {},
       message: '',
       order: {},
@@ -61,6 +35,7 @@ export default {
   },
   components: {
     BuyerInfo,
+    OrderProgress,
   },
   created() {
     this.isLoading = true;

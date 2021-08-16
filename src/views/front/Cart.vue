@@ -1,37 +1,11 @@
 <template>
   <div class="main container">
-    <div class="row justify-content-center my-5">
-      <div class="col-md-6">
-        <div class="d-flex justify-content-between">
-          <div class="d-flex flex-column align-items-center">
-            <div
-              class="border border-2 rounded-circle bg-primary p-1 p-md-2 mb-3"
-            ></div>
-            <span class="text-center">確認購物車</span>
-          </div>
-          <div class="progressLine"></div>
-          <div class="d-flex flex-column align-items-center">
-            <div class="border border-2 rounded-circle p-1 p-md-2 mb-3"></div>
-            <span class="text-center">訂購資訊</span>
-          </div>
-          <div class="progressLine"></div>
-          <div class="d-flex flex-column align-items-center">
-            <div class="border border-2 rounded-circle p-1 p-md-2 mb-3"></div>
-            <span class="text-center">確認結帳</span>
-          </div>
-          <div class="progressLine"></div>
-          <div class="d-flex flex-column align-items-center">
-            <div class="border border-2 rounded-circle p-1 p-md-2 mb-3"></div>
-            <span class="text-center">訂購成功</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <OrderProgress :progress="progress"></OrderProgress>
     <h2 class="fontSizeM fontSize-md-L text-center mb-5">購物車</h2>
     <template v-if="Array.isArray(cart.carts) && cart.carts[0]">
       <p>
-        總共有件<span class="fw-bold mx-1">{{ cart.carts.length }}</span
-        >商品
+        總共有<span class="fw-bold mx-1">{{ cart.carts.length }}</span
+        >件商品
       </p>
       <table class="table align-middle d-none d-md-table mb-5">
         <thead>
@@ -61,13 +35,8 @@
               />
             </th>
             <td>
-              <div
-                :style="{
-                  backgroundImage:
-                    'url(' + item.product.imagesUrl[0].imgUrl + ')',
-                }"
-                class="cartImg bg-cover bg-center"
-              ></div>
+              <img :src="item.product.imagesUrl[0].imgUrl"
+                  class="img-fluid" :alt="item.product.title">
             </td>
             <td>{{ item.product.title }}</td>
             <td>{{ item.product.unit }}</td>
@@ -109,20 +78,25 @@
       <ul class="d-md-none list-unstyled mb-5">
         <li v-for="item in cart.carts" :key="item.product_id" class="card mb-3">
           <div class="row align-items-center g-0">
-            <div class="col-5">
-              <img :src="item.product.imagesUrl[0].imgUrl" class="img-fluid" />
+            <div class="col-6">
+              <div
+                :style="{
+                  backgroundImage:
+                    'url(' + item.product.imagesUrl[0].imgUrl + ')',
+                }"
+                class="cartImg bg-cover bg-center"
+              ></div>
             </div>
-            <div class="col-7">
-              <div class="card-body pe-1">
+            <div class="col-6">
+              <div class="card-body px-2">
                 <ul class="list-unstyled">
-                  <li class="mb-2">
-                    <p class="card-text fontSizeS">
-                      名稱:
-                      <span class="ms-1">{{ item.product.title }}</span>
+                  <li class="mb-3">
+                    <p class="card-text fontSizeS fw-bold">
+                      {{ item.product.title }}
                     </p>
                   </li>
-                  <li class="d-flex align-items-center mb-2">
-                    <p class="card-text fontSizeS mb-0">數量:</p>
+                  <li class="d-flex align-items-center mb-3">
+                    <span class="card-text fontSizeS mb-2">數量:</span>
                     <div class="input-group mx-auto w-65 w-md-75">
                       <button
                         class="
@@ -137,7 +111,7 @@
                       </button>
                       <input
                         type="number"
-                        class="form-control fontSizeS text-center bg-white"
+                        class="form-control fontSizeS text-center bg-white py-1"
                         v-model.number="item.qty"
                         min="1"
                         disabled
@@ -151,12 +125,10 @@
                       </button>
                     </div>
                   </li>
-                  <li class="mb-2">
+                  <li class="mb-3">
                     <p class="card-text fontSizeS">
                       小計:
-                      <span class="ms-1"
-                        >NT {{ $toCurrency(item.final_total) }}</span
-                      >
+                      <span class="ms-1">NT {{ $toCurrency(item.final_total) }}</span>
                     </p>
                   </li>
                   <li>
@@ -194,9 +166,7 @@
       <h3 class="fontSizeBase fontSize-md-L mb-3">
         其他人也將這些商品一起帶走囉 ...
       </h3>
-      <div class="row mb-4 mb-md-6">
-        <CartList :cart="cart" @update-cart-list="getCart"></CartList>
-      </div>
+      <RecommendSwiper :cart="cart" @update-cart-list="getCart"></RecommendSwiper>
       <div class="row justify-content-end mb-6 mb-md-7">
         <div class="col-md-5">
           <div class="d-flex justify-content-between mb-2">
@@ -335,11 +305,13 @@
 
 <script>
 import emitter from '@/methods/Emitter';
-import CartList from '@/components/front/CartList.vue';
+import OrderProgress from '@/components/front/orderProgress.vue';
+import RecommendSwiper from '@/components/front/RecommendSwiper.vue';
 
 export default {
   data() {
     return {
+      progress: '確認購物車',
       cart: '',
       products: '',
       recommends: '',
@@ -359,7 +331,8 @@ export default {
     };
   },
   components: {
-    CartList,
+    RecommendSwiper,
+    OrderProgress,
   },
   methods: {
     getCart() {

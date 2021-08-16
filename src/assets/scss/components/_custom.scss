@@ -29,3 +29,30 @@
     border-color: $primary;
   }
 }
+
+.progressInfo{
+  color: rgba($primary, .5);
+}
+
+.progressFocus{
+  background-color: $primary;
+  color: #fff;
+}
+
+.tag{
+  position: absolute;
+  top: 4px;
+  left: 0;
+  z-index: 1010;
+  font-size: 14px;
+  background-color: $primary;
+  border: 1px solid #fff;
+  border-left: none;
+  color: #fff;
+  padding: 0 .25rem;
+  @media (min-width: 992px) {
+    font-size: 24px;
+    top: 8px;
+    padding: 0 .75rem;
+  }
+}

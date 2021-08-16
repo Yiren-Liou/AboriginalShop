@@ -1,43 +1,64 @@
-<template v-if="recommends.length > 0">
-  <router-link
-    v-for="item in recommends"
-    :key="item.id"
-    :to="{
-      path: `/product/${item.id}`,
-      query: { category: item.category, title: item.title },
+<template>
+  <Swiper
+    :slidesPerView="windowSmallWidth"
+    :spaceBetween="30"
+    :freeMode="true"
+    :loop="true"
+    :autoplay="{
+      delay: 2500,
+      disableOnInteraction: false,
     }"
-    class="col-6 col-md-2 mb-3"
+    :pagination="{
+      clickable: true,
+    }"
+    class="mySwiper pb-6 mb-5"
   >
-    <img :src="item.imagesUrl[0].imgUrl" class="cardImg" :alt="item" />
-    <div class="card-body px-1">
-      <div class="mb-3">
-        <h2 class="fontSizeBase fontSize-md-M">{{ item.title }}</h2>
-        <p
-          class="fontSize-md-S fw-bold mb-0"
-          :class="{ 'text-primary': item.is_sell }"
-        >
-          NT {{ item.is_sell ? item.price : item.origin_price }}
-          <span
-            v-if="item.is_sell"
-            class="fontSizeBase text-decoration-line-through text-dark ms-1"
-          >
-            NT {{ item.origin_price }}
-          </span>
-        </p>
-      </div>
-      <button
-        type="button"
-        class="addCartBtn btn btn-secondary d-center w-100"
-        @click.prevent="addToCart(item.id)"
+    <Swiper-slide v-for="item in recommends" :key="item.id">
+      <router-link
+        :to="{
+          path: `/product/${item.id}`,
+          query: { category: item.category, title: item.title },
+        }"
+        class="col-6 col-md-2 mb-2"
       >
-        <p class="d-center mb-0 w-100">加入購物車</p>
-      </button>
-    </div>
-  </router-link>
+        <img
+          :src="item.imagesUrl[0].imgUrl"
+          class="cardImg mb-2"
+          :alt="item.title"
+        />
+        <div class="card-body p-0">
+          <h2 class="fontSizeBase fontSize-md-M mb-2">{{ item.title }}</h2>
+          <p
+            class="fontSize-md-S fw-bold mb-2"
+            :class="{ 'text-primary': item.is_sell }"
+          >
+            NT {{ item.is_sell ? item.price : item.origin_price }}
+            <span
+              v-if="item.is_sell"
+              class="fontSizeBase text-decoration-line-through text-dark ms-1"
+            >
+              NT {{ item.origin_price }}
+            </span>
+          </p>
+          <button
+            type="button"
+            class="addCartBtn btn btn-secondary d-center w-100"
+            @click.prevent="addToCart(item.id)"
+          >
+            <p class="d-center mb-0 w-100">加入購物車</p>
+          </button>
+        </div>
+      </router-link>
+    </Swiper-slide>
+  </Swiper>
 </template>
 
 <script>
+import SwiperCore, { Pagination, Autoplay } from 'swiper/core';
+import { Swiper, SwiperSlide } from 'swiper/vue';
 import emitter from '@/methods/Emitter';
+
+SwiperCore.use([Pagination, Autoplay]);
 
 export default {
   data() {
@@ -45,10 +66,23 @@ export default {
       recommends: '',
       cartList: '',
       products: '',
+      docWidth: '',
     };
+  },
+  components: {
+    Swiper,
+    SwiperSlide,
   },
   emits: ['update-cart-list'],
   props: ['cart'],
+  computed: {
+    windowSmallWidth() {
+      if (this.docWidth <= 576) {
+        return 2;
+      }
+      return 5;
+    },
+  },
   watch: {
     cart() {
       this.filterProduct(this.products);
@@ -129,6 +163,10 @@ export default {
   },
   created() {
     this.getProducts();
+    this.docWidth = document.documentElement.scrollWidth;
+    window.addEventListener('resize', () => {
+      this.docWidth = document.documentElement.scrollWidth;
+    });
   },
 };
 </script>

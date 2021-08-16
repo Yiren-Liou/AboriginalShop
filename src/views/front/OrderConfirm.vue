@@ -1,42 +1,12 @@
 <template>
   <div class="main container mb-6">
-    <div class="row justify-content-center mb-5">
-      <div class="col-md-6">
-        <div class="d-flex justify-content-between">
-          <div class="d-flex flex-column align-items-center">
-            <div
-              class="border border-2 rounded-circle bg-primary p-2 mb-3"
-            ></div>
-            <span class="text-center">確認購物車</span>
-          </div>
-          <div class="progressLine border-primary"></div>
-          <div class="d-flex flex-column align-items-center">
-            <div
-              class="border border-2 rounded-circle bg-primary p-2 mb-3"
-            ></div>
-            <span class="text-center">填寫訂購資訊</span>
-          </div>
-          <div class="progressLine border-primary"></div>
-          <div class="d-flex flex-column align-items-center">
-            <div
-              class="border border-2 rounded-circle bg-primary p-2 mb-3"
-            ></div>
-            <span class="text-center">確認結帳</span>
-          </div>
-          <div class="progressLine"></div>
-          <div class="d-flex flex-column align-items-center">
-            <div class="border border-2 rounded-circle p-2 mb-3"></div>
-            <span class="text-center">訂購成功</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <OrderProgress :progress="progress"></OrderProgress>
     <p class="text-center text-danger mb-5">
       請確認購買商品和買家資訊，確認無誤後點選頁面下方確認結帳按鈕，訂單才會成功送出呦
     </p>
     <template v-if="pushOrder && pushCarts">
       <div class="row justify-content-around mb-6">
-        <div class="col-md-6">
+        <div class="col-md-5">
           <h2 class="fontSizeM mb-4">購買的商品</h2>
           <ul class="list-unstyled mb-3">
             <li
@@ -45,36 +15,30 @@
               class="card mb-3"
             >
               <div class="row align-items-center g-0">
-                <div class="col-5 h-100">
-                  <img :src="item.product.imagesUrl[0].imgUrl" class="img-fluid">
+                <div class="col-6">
+                  <div  class="cartImg bg-cover bg-center"
+                    :style="{
+                      backgroundImage:
+                        'url(' + item.product.imagesUrl[0].imgUrl + ')',
+                    }">
+                  </div>
                 </div>
-                <div class="col-7">
-                  <div class="card-body">
+                <div class="col-5">
+                  <div class="card-body pe-2">
                     <ul class="list-unstyled">
                       <li class="mb-2">
-                        <p class="card-text">
-                          商品名稱:
-                          <span class="ms-1">{{ item.product.title }}</span>
-                        </p>
+                        <p class="card-text">{{ item.product.title }}</p>
                       </li>
                       <li class="mb-2">
                         <p class="card-text">
-                          商品規格:
-                          <span class="ms-1">{{ item.product.unit }}</span>
-                        </p>
-                      </li>
-                      <li class="mb-2">
-                        <p class="card-text">
-                          商品數量:
+                          數量:
                           <span class="ms-1">{{ item.qty }}</span>
                         </p>
                       </li>
                       <li class="mb-2">
                         <p class="card-text">
-                          商品總價:
-                          <span class="ms-1"
-                            >NT {{ $toCurrency(item.final_total) }}</span
-                          >
+                          總價:
+                          <span class="ms-1">NT {{ $toCurrency(item.final_total) }}</span>
                         </p>
                       </li>
                     </ul>
@@ -212,14 +176,20 @@
 </template>
 
 <script>
+import OrderProgress from '@/components/front/orderProgress.vue';
+
 export default {
   data() {
     return {
+      progress: '確認結帳',
       orderList: [],
       pushOrder: '',
       pushCarts: '',
       isLoading: false,
     };
+  },
+  components: {
+    OrderProgress,
   },
   methods: {
     sendOrder() {

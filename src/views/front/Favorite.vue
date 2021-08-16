@@ -12,27 +12,21 @@
       </div>
     </template>
     <div v-else class="row mb-6">
-      <div v-for="item in favorite" :key="item.id" class="col-sm-6 col-lg-4">
+      <div v-for="item in favorite" :key="item.id" class="col-6 col-lg-3">
         <router-link :to="{ path: `/product/${item.id}`,
                             query: { category: item.category,
                                     title : item.title}}"
                 class="productCard px-3">
-          <div class="card-img-top mb-2">
+          <div class="card-img-top position-relative mb-2">
+            <span v-if="item.is_season" class="tag">限定</span>
             <img
               :src="item.imagesUrl[0].imgUrl"
               :alt="item.title"
-              class="img-fluid"
+              class="img-fluid mb-2"
             />
           </div>
-          <div class="card-body px-0">
-            <div class="d-flex mb-3"
-                :class="{'tagCard': !item.is_season && !item.is_sell}">
-              <span v-if="item.is_season"
-                    class="border border-primary text-primary px-2 me-2">季節限定</span>
-              <span v-if="item.is_sell"
-                    class="border border-primary text-primary px-2">限時特惠</span>
-            </div>
-            <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="card-body p-0">
+            <div class="d-flex justify-content-between align-items-center mb-2">
               <h2 class="fontSizeM">{{ item.title }}</h2>
               <p class="fontSize-md-S fw-bold mb-0"
                 :class="{'text-primary': item.is_sell}">
@@ -65,52 +59,6 @@
             </div>
           </div>
         </router-link>
-        <!-- <button type="button" class="btn" @click="getProduct(item)">
-          <div class="productCard card h-100">
-            <div class="card-img-top mb-2">
-              <img
-                :src="item.imagesUrl[0].imgUrl"
-                :alt="item.title"
-                class="img-fluid"
-              />
-            </div>
-            <div class="card-body text-center">
-              <h2 class="fontSizeM card-title">{{ item.title }}</h2>
-              <p class="card-text">
-                NT {{ $toCurrency(item.price) }}
-                <span class="fontSizeS text-decoration-line-through me-1">
-                  NT {{ $toCurrency(item.origin_price) }}
-                </span>
-              </p>
-            </div>
-            <div class="card-footer bg-transparent p-0">
-              <div class="d-flex">
-                <button
-                  type="button"
-                  class="favoriteBtn btn px-0 w-50"
-                  @click.stop="removeFavorite(item)"
-                >
-                  <p class="d-center border-end mb-0 w-100">
-                    <span class="material-icons me-2 text-primary"
-                      >favorite</span
-                    >
-                    移除收藏
-                  </p>
-                </button>
-                <button
-                  type="button"
-                  class="addCartBtn btn d-center w-50"
-                  @click.stop="addToCart(item.id)"
-                >
-                  <p class="d-center mb-0 w-100">
-                    <span class="material-icons me-2">add_shopping_cart</span>
-                    加入購物車
-                  </p>
-                </button>
-              </div>
-            </div>
-          </div>
-        </button> -->
       </div>
     </div>
   </div>

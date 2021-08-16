@@ -522,9 +522,6 @@ export default {
       this.productInfo.imagesUrl = img;
       this.productInfo.imagesUrl.sort((a, b) => a.imgId - b.imgId);
     },
-    getRecommend(list) {
-      this.productInfo.recommendList = list;
-    },
     checkBasicInfo() {
       this.$swal({
         text: '儲存成功',
