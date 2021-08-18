@@ -1,7 +1,25 @@
 <template>
   <Swiper
-    :slidesPerView="windowSmallWidth"
-    :spaceBetween="30"
+    :slidesPerView="2"
+    :spaceBetween="10"
+    :breakpoints='{
+      "@0.00": {
+        "slidesPerView": 2,
+        "spaceBetween": 10
+      },
+      "@0.75": {
+        "slidesPerView": 3,
+        "spaceBetween": 20
+      },
+      "@1.00": {
+        "slidesPerView": 4,
+        "spaceBetween": 25
+      },
+      "@1.50": {
+        "slidesPerView": 5,
+        "spaceBetween": 25
+      }
+    }'
     :freeMode="true"
     :loop="true"
     :autoplay="{
@@ -66,7 +84,6 @@ export default {
       recommends: '',
       cartList: '',
       products: '',
-      docWidth: '',
     };
   },
   components: {
@@ -75,17 +92,6 @@ export default {
   },
   emits: ['update-cart-list'],
   props: ['cart'],
-  computed: {
-    windowSmallWidth() {
-      if (this.docWidth <= 576) {
-        return 2;
-      }
-      if (this.docWidth <= 768) {
-        return 4;
-      }
-      return 5;
-    },
-  },
   watch: {
     cart() {
       this.filterProduct(this.products);
@@ -166,15 +172,6 @@ export default {
   },
   mounted() {
     this.getProducts();
-    this.docWidth = document.documentElement.scrollWidth;
-    window.addEventListener('resize', () => {
-      this.docWidth = document.documentElement.scrollWidth;
-    });
-  },
-  unmounted() {
-    window.removeEventListener('resize', () => {
-      this.docWidth = document.documentElement.scrollWidth;
-    });
   },
 };
 </script>

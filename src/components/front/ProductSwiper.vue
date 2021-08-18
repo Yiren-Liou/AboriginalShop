@@ -1,7 +1,25 @@
 <template>
   <Swiper
-    :slidesPerView="windowSmallWidth"
-    :spaceBetween="30"
+    :slidesPerView="2"
+    :spaceBetween="10"
+    :breakpoints='{
+      "@0.00": {
+        "slidesPerView": 2,
+        "spaceBetween": 10
+      },
+      "@0.75": {
+        "slidesPerView": 3,
+        "spaceBetween": 20
+      },
+      "@1.00": {
+        "slidesPerView": 3,
+        "spaceBetween": 25
+      },
+      "@1.50": {
+        "slidesPerView": 4,
+        "spaceBetween": 25
+      }
+    }'
     :freeMode="true"
     :loop="true"
     :autoplay="{
@@ -51,37 +69,10 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 SwiperCore.use([Pagination, Autoplay]);
 
 export default {
-  data() {
-    return {
-      docWidth: '',
-    };
-  },
   props: ['products'],
   components: {
     Swiper,
     SwiperSlide,
-  },
-  computed: {
-    windowSmallWidth() {
-      if (this.docWidth <= 576) {
-        return 2;
-      }
-      if (this.docWidth <= 768) {
-        return 3;
-      }
-      return 4;
-    },
-  },
-  mounted() {
-    this.docWidth = document.documentElement.scrollWidth;
-    window.addEventListener('resize', () => {
-      this.docWidth = document.documentElement.scrollWidth;
-    });
-  },
-  unmounted() {
-    window.removeEventListener('resize', () => {
-      this.docWidth = document.documentElement.scrollWidth;
-    });
   },
 };
 </script>
