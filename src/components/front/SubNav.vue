@@ -133,5 +133,13 @@ export default {
       this.docWidth = document.documentElement.scrollWidth;
     });
   },
+  unmounted() {
+    window.removeEventListener('scroll', () => {
+      this.scroll = document.documentElement.scrollTop > 0;
+    });
+    window.removeEventListener('resize', () => {
+      this.docWidth = document.documentElement.scrollWidth;
+    });
+  },
 };
 </script>

@@ -55,15 +55,19 @@ export default {
           if (res.data.success) {
             this.imgUrl = res.data.imageUrl;
             this.isLoading = false;
-            this.$swal({ text: '上傳成功', icon: 'success' });
+            this.$swal({ text: '上傳成功', icon: 'success', confirmButtonColor: '#ffbc1f' });
           } else {
             this.isLoading = false;
-            console.log(res);
+            this.$swal({ text: res.data, icon: 'warning', confirmButtonColor: '#ffbc1f' });
           }
         })
-        .catch((err) => {
+        .catch(() => {
           this.isLoading = false;
-          console.dir(err);
+          this.$swal({
+            text: 'Opps ... 發生錯誤，請嘗試重新整理此頁面',
+            icon: 'error',
+            confirmButtonColor: '#ffbc1f',
+          });
         });
     },
   },

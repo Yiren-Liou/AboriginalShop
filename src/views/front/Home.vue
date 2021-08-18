@@ -494,9 +494,14 @@ export default {
       emitter.emit('update-favorite');
     },
   },
-  created() {
+  mounted() {
     this.getProducts();
     window.addEventListener('scroll', () => {
+      this.scroll = document.documentElement.scrollTop > 0;
+    });
+  },
+  unmounted() {
+    window.removeEventListener('scroll', () => {
       this.scroll = document.documentElement.scrollTop > 0;
     });
   },

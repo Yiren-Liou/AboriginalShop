@@ -66,12 +66,20 @@ export default {
       if (this.docWidth <= 576) {
         return 2;
       }
+      if (this.docWidth <= 768) {
+        return 3;
+      }
       return 4;
     },
   },
-  created() {
+  mounted() {
     this.docWidth = document.documentElement.scrollWidth;
     window.addEventListener('resize', () => {
+      this.docWidth = document.documentElement.scrollWidth;
+    });
+  },
+  unmounted() {
+    window.removeEventListener('resize', () => {
       this.docWidth = document.documentElement.scrollWidth;
     });
   },

@@ -232,12 +232,6 @@ export default {
     ProductSwiper,
   },
   computed: {
-    windowSmallWidth() {
-      if (window.screen.width < 576) {
-        return true;
-      }
-      return false;
-    },
     recommends() {
       const total = this.products.filter((item) => item.id !== this.product.id);
       return total;
@@ -417,7 +411,7 @@ export default {
       this.categoryList = [...temp];
     },
   },
-  created() {
+  mounted() {
     if (this.$route.name === 'product') {
       this.isLoading = true;
       this.routeId = this.$route.params.id;
@@ -425,6 +419,11 @@ export default {
       this.getProducts();
     }
     window.addEventListener('scroll', () => {
+      this.scroll = document.documentElement.scrollTop > 0;
+    });
+  },
+  unmounted() {
+    window.removeEventListener('scroll', () => {
       this.scroll = document.documentElement.scrollTop > 0;
     });
   },

@@ -1,6 +1,6 @@
 <template>
   <div class="main container">
-    <h2 class="fontSizeM fontSize-md-L text-center mb-5">─ 收藏清單 ─</h2>
+    <h2 class="fontSizeM fontSize-md-L text-center mb-3">─ 收藏清單 ─</h2>
     <template v-if="favorite == null || favorite.length == 0">
       <div class="d-flex flex-column align-items-center">
         <p class="fontSizeM text-center mb-5">
@@ -12,23 +12,24 @@
       </div>
     </template>
     <div v-else class="row mb-6">
-      <div v-for="item in favorite" :key="item.id" class="col-6 col-lg-3">
+      <div v-for="item in favorite" :key="item.id"
+          class="col-6 col-lg-3 mb-md-3">
         <router-link :to="{ path: `/product/${item.id}`,
                             query: { category: item.category,
                                     title : item.title}}"
                 class="productCard px-3">
-          <div class="card-img-top position-relative mb-2">
+          <div class="card-img-top position-relative mb-2 mb-md-3">
             <span v-if="item.is_season" class="tag">限定</span>
             <img
               :src="item.imagesUrl[0].imgUrl"
               :alt="item.title"
-              class="img-fluid mb-2"
+              class="img-fluid"
             />
           </div>
           <div class="card-body p-0">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <h2 class="fontSizeM">{{ item.title }}</h2>
-              <p class="fontSize-md-S fw-bold mb-0"
+            <div class="d-md-flex justify-content-md-between align-items-md-center mb-2 mb-md-3">
+              <h2 class="fontSizeBase fontSize-md-M mb-1 mb-md-0">{{ item.title }}</h2>
+              <p class="fontSize-md-M fw-bold mb-0"
                 :class="{'text-primary': item.is_sell}">
                 NT {{ item.is_sell? item.price : item.origin_price }}
                 <span v-if="item.is_sell"
@@ -44,16 +45,16 @@
                   class="favoriteBtn btn btn-outline-secondary d-center px-0 w-50 me-1"
                   @click.prevent="removeFavorite(item)"
                 >
-                  <span class="material-icons me-2">favorite</span>
-                    移除收藏
+                  <span class="material-icons">favorite</span>
+                  <p class="d-none d-lg-block fontSize-md-S ms-2 mb-0">移除收藏</p>
                 </button>
                 <button
                   type="button"
                   class="addCartBtn btn btn-secondary d-center w-50 ms-1"
                   @click.prevent="addToCart(item.id)"
                 >
-                   <span class="material-icons me-2">add_shopping_cart</span>
-                  加入購物車
+                  <span class="material-icons">add_shopping_cart</span>
+                  <p class="d-none d-lg-block fontSize-md-S ms-2 mb-0">加入購物車</p>
                 </button>
               </div>
             </div>

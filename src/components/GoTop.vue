@@ -34,5 +34,10 @@ export default {
       this.pageY = window.pageYOffset;
     });
   },
+  unmounted() {
+    window.removeEventListener('scroll', () => {
+      this.pageY = window.pageYOffset;
+    });
+  },
 };
 </script>

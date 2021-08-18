@@ -19,12 +19,12 @@
   <div class="main container mt-3 mt-md-4 px-md-7">
     <div class="row mb-6">
       <div v-for="item in filterProducts" :key="item.id"
-          class="col-6 col-lg-4 mb-3 mb-md-4">
+          class="col-6 col-lg-4 mb-6 mt-1 mt-md-3">
         <router-link :to="{ path: `/product/${item.id}`,
                             query: { category: item.category,
                                     title : item.title}}"
                 class="productCard">
-          <div class="card-img-top position-relative mb-3">
+          <div class="card-img-top position-relative mb-2 mb-md-3">
             <span v-if="item.is_season" class="tag">限定</span>
             <span v-if="item.is_sell" class="tag">特價</span>
             <img
@@ -33,9 +33,9 @@
               class="img-fluid"
             />
           </div>
-          <div class="d-md-flex justify-content-md-between mb-3">
-            <h2 class="fontSizeBase fontSize-md-M mb-2">{{ item.title }}</h2>
-            <p class="fontSize-md-S fw-bold mb-2"
+          <div class="d-md-flex justify-content-md-between align-items-md-center mb-2 mb-md-3">
+            <h2 class="fontSizeBase fontSize-md-M mb-1 mb-md-0">{{ item.title }}</h2>
+            <p class="fontSize-md-M fw-bold mb-0"
               :class="{'text-primary': item.is_sell}">
               NT {{ item.is_sell? item.price : item.origin_price }}
               <span v-if="item.is_sell"
@@ -57,10 +57,10 @@
               class="addCartBtn btn btn-secondary d-center material-icons"
               @click.prevent="addToCart(item.id)"
             >
-              <p class="fontSize-md-S d-center material-icons mb-0">
+              <span class="material-icons">
                 add_shopping_cart
-                <span class="d-none d-lg-block ms-2">加入購物車</span>
-              </p>
+              </span>
+              <p class="d-none d-lg-block fontSize-md-M ms-2 mb-0">加入購物車</p>
             </button>
           </div>
         </router-link>
@@ -109,14 +109,6 @@ export default {
   components: {
     SubNav,
     Pagination,
-  },
-  computed: {
-    windowSmallWidth() {
-      if (window.screen.width < 576) {
-        return true;
-      }
-      return false;
-    },
   },
   methods: {
     getProducts() {
@@ -261,9 +253,6 @@ export default {
     this.isLoading = true;
     this.getPath();
     this.getProducts();
-    window.addEventListener('scroll', () => {
-      this.scroll = document.documentElement.scrollTop > 0;
-    });
   },
 };
 </script>
