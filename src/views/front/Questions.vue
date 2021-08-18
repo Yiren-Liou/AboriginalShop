@@ -225,26 +225,6 @@
               </div>
             </div>
           </div>
-          <div class="accordion-item">
-            <h4 class="accordion-header" id="flush-qa9">
-              <button class="accordion-button collapsed" type="button" aria-expanded="false"
-                      data-bs-toggle="collapse" data-bs-target="#qa9"
-                      aria-controls="qa9">
-                <span class="bg-primary p-1 me-2">Q9.</span>發票可以打統編嗎?
-              </button>
-            </h4>
-            <div id="qa9" class="accordion-collapse collapse px-3"
-                  aria-labelledby="flush-headingOne" data-bs-parent="#questions">
-              <div class="accordion-body">
-                <p class="mb-0">
-                  如有統編需求，請您在訂單備註欄中填寫，或致電客服中心。
-                  <br>
-                  客服專線: <a href="tel:+886-2-12345678"
-                         class="text-secondary fw-bold text-decoration-underline">02-1234-5678</a>
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
