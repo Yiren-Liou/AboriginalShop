@@ -54,7 +54,7 @@
             </button>
             <button
               type="button"
-              class="addCartBtn btn btn-secondary d-center material-icons"
+              class="addCartBtn btn btn-secondary d-center"
               @click.prevent="addToCart(item.id)"
             >
               <span class="material-icons">
