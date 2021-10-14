@@ -412,7 +412,7 @@ export default {
     },
     isOld() {
       const oldOrder = JSON.parse(localStorage.getItem('orderList'));
-      if (oldOrder.length > 0) {
+      if (oldOrder && oldOrder.length > 0) {
         this.isOldCustomer = true;
         this.coupons = [
           {

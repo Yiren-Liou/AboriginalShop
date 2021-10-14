@@ -36,7 +36,7 @@
           </router-link>
         </li>
       </ul>
-      <span class="nav-link" :class="{ 'text-dark': footerDark }">Copyright ©</span>
+      <span class="nav-link" :class="{ 'text-dark': footerDark }">Copyright © YirenLiou</span>
     </nav>
   </footer>
 </template>
