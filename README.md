@@ -1,12 +1,10 @@
 # Original 高山部落蔬果 電商網站
 > Demo :  [Original 高山部落蔬果](https://yiren-liou.github.io/AboriginalShop/#/)
 
-![頁面介紹](https://i.imgur.com/k1ZQDw1.png)
-
 ## 網站動機
 住在高海拔地區的原住民，下山到市場有一段距離，為了保持蔬果的新鮮度，當天現採的蔬果必須全部售完，因次只會帶少量的蔬果去販售以賺取微薄的生活費。希望能幫助高海拔地區的原住民提升生活品質，所以有了建造高山部落蔬果網路平台的想法，不只能幫到原住民部落也能推廣友善環境的農產品， 同時能讓消費者品嚐到高山蔬果的鮮甜美味。
 ## 設計概念
-#### **色系搭配**： ![色系圖](https://i.imgur.com/eyd1aLO.png)
+#### **色系搭配**： ![色系圖](https://i.imgur.com/eyd1aLO.png =250x)
 #### **圖片來源**： [Pexels](https://www.pexels.com/zh-tw/)、 [Unsplash](https://unsplash.com/)、 [flaticon](https://www.flaticon.com/)
 
 ## 專案說明
@@ -137,3 +135,7 @@
 ![編輯優惠券使用期限](https://i.imgur.com/QzGXQTH.png)
 
 ![編輯優惠券啟用狀態](https://i.imgur.com/64jy8NA.png)
+
+---
+
+#### 其餘更多細節部分，歡迎至 **[Original 高山部落蔬果](https://yiren-liou.github.io/AboriginalShop/#/)** 觀看
