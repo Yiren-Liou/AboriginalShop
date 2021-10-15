@@ -20,7 +20,7 @@
 > * 主要使用 `  Vue.js ` 和 `  Vue Cli ` 架設而成
 > * 引入 ` Vue Router ` 和 ` Vue Axios ` 等套件
 > * 引入 ` Bootstrap 5 ` 樣式和 ` Material icons `
-> * 修改 ` Bootstrap 5 ` 變數並搭配 ` Sass ` 切版 Layout 
+> * 修改 ` Bootstrap 5 ` 變數並搭配 ` SCSS ` 切版 Layout 
 > * 使用 ` mitt ` 傳遞跨元件資料
 > * 使用 ` day.js ` 管理時間格式
 > * 開發後台管理系統
