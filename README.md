@@ -1,4 +1,5 @@
 # Original 高山部落蔬果 電商網站
+###### ` vue.js ` / ` vue-cli `
 > Demo :  [Original 高山部落蔬果](https://yiren-liou.github.io/AboriginalShop/#/)
 
 <img src="https://i.imgur.com/LgaJy70.jpg" width="80%" alt="Original 高山部落蔬果" />
